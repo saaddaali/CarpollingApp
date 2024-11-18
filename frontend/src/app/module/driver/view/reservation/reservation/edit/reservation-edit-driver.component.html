@@ -1,0 +1,96 @@
+    <p-dialog [(visible)]="editDialog" [style]="{width: '70vw'}" header="{{'reservation.tabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+        <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="{{'reservation.tabPan' | translate}}">
+                        <div class="grid">
+
+                                    <div class="field col-11 md:col-6">
+                                        <label for="1">{{'reservation.trajet' | translate}}</label>
+                                        <p-dropdown  appendTo="body"  [options]="trajets" [(ngModel)]="item.trajet" id="1" [filter]="true" filterMatchMode="contains"
+                                                     [showClear]="true" optionLabel="id" placeholder="{{'reservation.trajet' | translate}}"  >
+                                        </p-dropdown>
+                                        
+                                    </div>
+
+                                    <div class="field col-11 md:col-6">
+                                        <label for="2">{{'reservation.passenger' | translate}}</label>
+                                        <p-dropdown  appendTo="body"  [options]="passengers" [(ngModel)]="item.passenger" id="2" [filter]="true" filterMatchMode="contains"
+                                                     [showClear]="true" optionLabel="email" placeholder="{{'reservation.passenger' | translate}}"  >
+                                        </p-dropdown>
+                                        
+                                    </div>
+
+                                    <div class="field col-11 md:col-6">
+                                        <label for="3">{{'reservation.driver' | translate}}</label>
+                                        <p-dropdown  appendTo="body"  [options]="drivers" [(ngModel)]="item.driver" id="3" [filter]="true" filterMatchMode="contains"
+                                                     [showClear]="true" optionLabel="email" placeholder="{{'reservation.driver' | translate}}"  >
+                                        </p-dropdown>
+                                        
+                                    </div>
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="4">{{'reservation.dateReservation' | translate}}</label>
+                                            <p-calendar appendTo="body" id="4"  [showTime]="true" [showSeconds]="false" placeholder="{{'reservation.dateReservation' | translate}}"  [(ngModel)]="item.dateReservation"
+                                                        dateFormat="{{dateFormat}}"  >
+                                            </p-calendar>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="5">{{'reservation.montant' | translate}}</label>
+                                            <p-inputNumber class="mb-2 mr-2" id="5" placeholder="{{'reservation.montant' | translate}}" [(ngModel)]="item.montant"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="6">{{'reservation.datePaiement' | translate}}</label>
+                                            <p-calendar appendTo="body" id="6"  [showTime]="true" [showSeconds]="false" placeholder="{{'reservation.datePaiement' | translate}}"  [(ngModel)]="item.datePaiement"
+                                                        dateFormat="{{dateFormat}}"  >
+                                            </p-calendar>
+                                            
+                                        </div>
+
+                                    <div class="field col-11 md:col-6">
+                                        <label for="7">{{'reservation.carteBancaire' | translate}}</label>
+                                        <p-dropdown  appendTo="body"  [options]="carteBancaires" [(ngModel)]="item.carteBancaire" id="7" [filter]="true" filterMatchMode="contains"
+                                                     [showClear]="true" optionLabel="id" placeholder="{{'reservation.carteBancaire' | translate}}"  >
+                                        </p-dropdown>
+                                        
+                                    </div>
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="8">{{'reservation.evaluation' | translate}}</label>
+                                            <p-inputNumber class="mb-2 mr-2" id="8" placeholder="{{'reservation.evaluation' | translate}}" [(ngModel)]="item.evaluation"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                    <div class="field col-11 md:col-6">
+                                        <label for="9">{{'reservation.conversation' | translate}}</label>
+                                        <p-dropdown  appendTo="body"  [options]="conversations" [(ngModel)]="item.conversation" id="9" [filter]="true" filterMatchMode="contains"
+                                                     [showClear]="true" optionLabel="libelle" placeholder="{{'reservation.conversation' | translate}}"  >
+                                        </p-dropdown>
+                                        
+                                    </div>
+
+                        </div>
+                    </p-tabPanel>
+
+                </p-tabView>
+
+        </ng-template>
+
+        <ng-template pTemplate="footer" >
+            <div class="p-flexbox">
+
+                    <button pButton pRipple  label="{{'validate' | translate}}"  icon="pi pi-check"  (click)="edit()"></button>
+
+
+                        <button pButton pRipple  label="{{'cancel' | translate}}" icon="pi pi-times" class="p-button-outlined" (click)="hideEditDialog()"></button>
+
+
+            </div>
+        </ng-template>
+
+    </p-dialog>

@@ -1,0 +1,60 @@
+
+<p-dialog [(visible)]="viewDialog" [style]="{width: '70vw'}" header="{{'trajet.tabPan' | translate}}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'trajet.tabPan' | translate}}">
+                <div class="grid">
+                    <div class="field col-12 md:col-6">
+                        <label for="1">{{'trajet.villeDepart' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'trajet.villeDepart' | translate}}" autofocus  id="1" [ngModel]="item.villeDepart?.libelle">
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label for="2">{{'trajet.villeDestination' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'trajet.villeDestination' | translate}}" autofocus  id="2" [ngModel]="item.villeDestination?.libelle">
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label for="3">{{'trajet.horaireDepart' | translate}}</label>
+                        <p-calendar id="3" [disabled]="true"  [showTime]="true" [showSeconds]="false" placeholder="{{'trajet.horaireDepart' | translate}}"  [ngModel]="item.horaireDepart" dateFormat="{{dateFormat}}"></p-calendar>
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label for="4">{{'trajet.horaireArrive' | translate}}</label>
+                        <p-calendar id="4" [disabled]="true"  [showTime]="true" [showSeconds]="false" placeholder="{{'trajet.horaireArrive' | translate}}"  [ngModel]="item.horaireArrive" dateFormat="{{dateFormat}}"></p-calendar>
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label for="5">{{'trajet.placesDisponibles' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="5" [disabled]="true" placeholder="{{'trajet.placesDisponibles' | translate}}" [ngModel]="item.placesDisponibles"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label for="6">{{'trajet.driver' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'trajet.driver' | translate}}" autofocus  id="6" [ngModel]="item.driver?.email">
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label for="7">{{'trajet.dateCreation' | translate}}</label>
+                        <p-calendar id="7" [disabled]="true"  [showTime]="true" [showSeconds]="false" placeholder="{{'trajet.dateCreation' | translate}}"  [ngModel]="item.dateCreation" dateFormat="{{dateFormat}}"></p-calendar>
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label for="8">{{'trajet.localisationSource' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'trajet.localisationSource' | translate}}" autofocus  id="8" [ngModel]="item.localisationSource?.libelle">
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label for="9">{{'trajet.localisationDestination' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'trajet.localisationDestination' | translate}}" autofocus  id="9" [ngModel]="item.localisationDestination?.libelle">
+                    </div>
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-flexbox">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+
+
+

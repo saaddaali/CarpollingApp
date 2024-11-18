@@ -1,0 +1,63 @@
+<!-- db/changelog-1.1-container.xml -->
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+  <!-- Create Container Table -->
+    <changeSet id="1" author="your-name">
+    <createTable tableName="vehicule">
+      <column name="id" type="BIGINT">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+        <column name="marque" type="VARCHAR(500)"/>
+        <column name="modele" type="VARCHAR(500)"/>
+        <column name="annee" type="BIGINT"/>
+        <column name="couleur" type="VARCHAR(500)"/>
+        <column name="plaque_immatriculation" type="VARCHAR(500)"/>
+        <column name="capacite" type="BIGINT"/>
+        <column name="image" type="VARCHAR(500)"/>
+
+        <column name="driver_id" type="BIGINT">
+          <constraints nullable="false"/>
+        </column>
+
+    </createTable>
+  </changeSet>
+
+    <!-- Add foreign key constraint -->
+  <changeSet id="2" author="your-name">
+      <addForeignKeyConstraint
+              baseTableName="vehicule"
+              baseColumnNames="driver_id"
+              referencedTableName="driver"
+              referencedColumnNames="id"
+              constraintName="fk_vehicule_driver"/>
+
+  </changeSet>
+
+    <!-- Create Sequence for ContainerType -->
+  <changeSet id="3" author="your-name">
+    <createSequence sequenceName="vehicule_seq" startValue="1" incrementBy="1"/>
+  </changeSet>
+
+  <!-- Load Data from CSV -->
+  <changeSet id="4" author="your-name">
+    <loadData
+            file="classpath:/db/migration/data/vehicule/Vehicule.csv"
+            tableName="vehicule">
+      <column name="id" type="NUMERIC"/>
+          <column name="marque" type="STRING"/>
+          <column name="modele" type="STRING"/>
+          <column name="annee" type="NUMERIC"/>
+          <column name="couleur" type="STRING"/>
+          <column name="plaque_immatriculation" type="STRING"/>
+          <column name="capacite" type="NUMERIC"/>
+          <column name="image" type="STRING"/>
+        <column name="driver" type="BIGINT"/>
+    </loadData>
+  </changeSet>
+
+
+</databaseChangeLog>

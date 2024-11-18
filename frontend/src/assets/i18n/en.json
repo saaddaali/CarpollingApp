@@ -1,0 +1,325 @@
+{
+    "from-to": "Elements from {first} to {last} (total {totalRecords})",
+    "new" : "New",
+    "search": "Search",
+    "export": "Export",
+    "validate": "Validate",
+    "search": "Seach...",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "save": "Save",
+    "next": "Next",
+    "yes": "Yes",
+    "no": "No",
+    "actions": "Actions",
+    "confirm": "Confirm",
+    "creation": "Creation",
+    "list": "List",
+	"actionPermission":{
+        "reference": "Reference",
+        "libelle": "Libelle",
+        "actionPermission": "Action permission",
+        "tabPan": "Action permission",
+        "header": "Liste des action permissions",
+        "deleteActionPermissionConfirmationMessage": "Are you sure you want to delete action permission",
+        "deleteActionPermissionsConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+    "modelPermissionUser":{
+        "actionPermission": "Action permission",
+        "actionPermissionPlaceHolder": "Select a Action permission",
+        "actionPermissionPlaceHolderFilter": "Search by Action permission",
+        "modelPermission": "Model permission",
+        "modelPermissionPlaceHolder": "Select a Model permission",
+        "modelPermissionPlaceHolderFilter": "Search by Model permission",
+        "value": "Value",
+        "user": "User",
+        "userPlaceHolder": "Select a User",
+        "userPlaceHolderFilter": "Search by User",
+        "subAttribute": "Sub attribute",
+        "modelPermissionUser": "Model permission user",
+        "tabPan": "Model permission user",
+        "header": "Liste des model permission users",
+        "deleteModelPermissionUserConfirmationMessage": "Are you sure you want to delete model permission user",
+        "deleteModelPermissionUsersConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+    "role":{
+        "authority": "Authority",
+        "role": "Role",
+        "tabPan": "Role",
+        "header": "Liste des roles",
+        "deleteRoleConfirmationMessage": "Are you sure you want to delete role",
+        "deleteRolesConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+
+    "roleUser":{
+        "role": "Role",
+        "rolePlaceHolder": "Select a Role",
+        "rolePlaceHolderFilter": "Search by Role",
+        "user": "User",
+        "userPlaceHolder": "Select a User",
+        "userPlaceHolderFilter": "Search by User",
+        "roleUser": "Role user",
+        "tabPan": "Role user",
+        "header": "Liste des role users",
+        "deleteRoleUserConfirmationMessage": "Are you sure you want to delete role user",
+        "deleteRoleUsersConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+    "user":{
+        "credentialsNonExpired": "Credentials non expired",
+        "enabled": "Enabled",
+        "email": "Email",
+        "accountNonExpired": "Account non expired",
+        "accountNonLocked": "Account non locked",
+        "username": "Username",
+        "password": "Password",
+        "passwordChanged": "Password changed",
+        "modelPermissionUsers": "Model permission users",
+        "roleUsers": "Role users",
+        "RoleUsersPlaceHolder": "Select multiple Roles",
+        "user": "User",
+        "tabPan": "User",
+        "header": "Liste des users",
+        "deleteUserConfirmationMessage": "Are you sure you want to delete user",
+        "deleteUsersConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+    "modelPermission":{
+        "reference": "Reference",
+        "libelle": "Libelle",
+        "modelPermission": "Model permission",
+        "tabPan": "Model permission",
+        "header": "Liste des model permissions",
+        "deleteModelPermissionConfirmationMessage": "Are you sure you want to delete model permission",
+        "deleteModelPermissionsConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+
+    "conversation":{
+        "code": "Code",
+        "libelle": "Libelle",
+        "description": "Description",
+        "driver": "Driver",
+        "driverPlaceHolder": "Select a Driver",
+        "driverPlaceHolderFilter": "Search by Driver",
+        "passenger": "Passenger",
+        "passengerPlaceHolder": "Select a Passenger",
+        "passengerPlaceHolderFilter": "Search by Passenger",
+        "conversation": "Conversation",
+        "tabPan": "Conversation",
+        "header": "Liste des conversations",
+        "deleteConversationConfirmationMessage": "Are you sure you want to delete conversation",
+        "deleteConversationsConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+    "passenger":{
+        "photo": "Photo",
+        "adresse": "Adresse",
+        "dateInscription": "Date inscription",
+        "dateInscriptionMin": "Date inscription Min",
+        "dateInscriptionMax": "Date inscription Max",
+        "evaluation": "Evaluation",
+        "evaluationMin": "Evaluation Min",
+        "evaluationMax": "Evaluation Max",
+        "carteBancaire": "Carte bancaire",
+        "carteBancairePlaceHolder": "Select a Carte bancaire",
+        "carteBancairePlaceHolderFilter": "Search by Carte bancaire",
+        "password": "Password",
+        "accountNonLocked": "Account non locked",
+        "passwordChanged": "Password changed",
+        "username": "Username",
+        "accountNonExpired": "Account non expired",
+        "credentialsNonExpired": "Credentials non expired",
+        "enabled": "Enabled",
+        "email": "Email",
+        "passenger": "Passenger",
+        "tabPan": "Passenger",
+        "header": "Liste des passengers",
+        "deletePassengerConfirmationMessage": "Are you sure you want to delete passenger",
+        "deletePassengersConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+    "ville":{
+        "code": "Code",
+        "libelle": "Libelle",
+        "description": "Description",
+        "ville": "Ville",
+        "tabPan": "Ville",
+        "header": "Liste des villes",
+        "deleteVilleConfirmationMessage": "Are you sure you want to delete ville",
+        "deleteVillesConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+    "reservation":{
+        "trajet": "Trajet",
+        "trajetPlaceHolder": "Select a Trajet",
+        "trajetPlaceHolderFilter": "Search by Trajet",
+        "passenger": "Passenger",
+        "passengerPlaceHolder": "Select a Passenger",
+        "passengerPlaceHolderFilter": "Search by Passenger",
+        "driver": "Driver",
+        "driverPlaceHolder": "Select a Driver",
+        "driverPlaceHolderFilter": "Search by Driver",
+        "dateReservation": "Date reservation",
+        "dateReservationMin": "Date reservation Min",
+        "dateReservationMax": "Date reservation Max",
+        "montant": "Montant",
+        "montantMin": "Montant Min",
+        "montantMax": "Montant Max",
+        "datePaiement": "Date paiement",
+        "datePaiementMin": "Date paiement Min",
+        "datePaiementMax": "Date paiement Max",
+        "carteBancaire": "Carte bancaire",
+        "carteBancairePlaceHolder": "Select a Carte bancaire",
+        "carteBancairePlaceHolderFilter": "Search by Carte bancaire",
+        "evaluation": "Evaluation",
+        "evaluationMin": "Evaluation Min",
+        "evaluationMax": "Evaluation Max",
+        "conversation": "Conversation",
+        "conversationPlaceHolder": "Select a Conversation",
+        "conversationPlaceHolderFilter": "Search by Conversation",
+        "reservation": "Reservation",
+        "tabPan": "Reservation",
+        "header": "Liste des reservations",
+        "deleteReservationConfirmationMessage": "Are you sure you want to delete reservation",
+        "deleteReservationsConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+    "trajet":{
+        "villeDepart": "Ville depart",
+        "villeDepartPlaceHolder": "Select a Ville depart",
+        "villeDepartPlaceHolderFilter": "Search by Ville depart",
+        "villeDestination": "Ville destination",
+        "villeDestinationPlaceHolder": "Select a Ville destination",
+        "villeDestinationPlaceHolderFilter": "Search by Ville destination",
+        "horaireDepart": "Horaire depart",
+        "horaireDepartMin": "Horaire depart Min",
+        "horaireDepartMax": "Horaire depart Max",
+        "horaireArrive": "Horaire arrive",
+        "horaireArriveMin": "Horaire arrive Min",
+        "horaireArriveMax": "Horaire arrive Max",
+        "placesDisponibles": "Places disponibles",
+        "placesDisponiblesMin": "Places disponibles Min",
+        "placesDisponiblesMax": "Places disponibles Max",
+        "driver": "Driver",
+        "driverPlaceHolder": "Select a Driver",
+        "driverPlaceHolderFilter": "Search by Driver",
+        "dateCreation": "Date creation",
+        "dateCreationMin": "Date creation Min",
+        "dateCreationMax": "Date creation Max",
+        "localisationSource": "Localisation source",
+        "localisationSourcePlaceHolder": "Select a Localisation source",
+        "localisationSourcePlaceHolderFilter": "Search by Localisation source",
+        "localisationDestination": "Localisation destination",
+        "localisationDestinationPlaceHolder": "Select a Localisation destination",
+        "localisationDestinationPlaceHolderFilter": "Search by Localisation destination",
+        "trajet": "Trajet",
+        "tabPan": "Trajet",
+        "header": "Liste des trajets",
+        "deleteTrajetConfirmationMessage": "Are you sure you want to delete trajet",
+        "deleteTrajetsConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+    "driver":{
+        "photo": "Photo",
+        "adresse": "Adresse",
+        "dateInscription": "Date inscription",
+        "dateInscriptionMin": "Date inscription Min",
+        "dateInscriptionMax": "Date inscription Max",
+        "evaluation": "Evaluation",
+        "evaluationMin": "Evaluation Min",
+        "evaluationMax": "Evaluation Max",
+        "password": "Password",
+        "accountNonLocked": "Account non locked",
+        "passwordChanged": "Password changed",
+        "username": "Username",
+        "accountNonExpired": "Account non expired",
+        "credentialsNonExpired": "Credentials non expired",
+        "enabled": "Enabled",
+        "email": "Email",
+        "driver": "Driver",
+        "tabPan": "Driver",
+        "header": "Liste des drivers",
+        "deleteDriverConfirmationMessage": "Are you sure you want to delete driver",
+        "deleteDriversConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+    "message":{
+        "trajet": "Trajet",
+        "trajetPlaceHolder": "Select a Trajet",
+        "trajetPlaceHolderFilter": "Search by Trajet",
+        "driver": "Driver",
+        "driverPlaceHolder": "Select a Driver",
+        "driverPlaceHolderFilter": "Search by Driver",
+        "passenger": "Passenger",
+        "passengerPlaceHolder": "Select a Passenger",
+        "passengerPlaceHolderFilter": "Search by Passenger",
+        "contenu": "Contenu",
+        "dateEnvoi": "Date envoi",
+        "dateEnvoiMin": "Date envoi Min",
+        "dateEnvoiMax": "Date envoi Max",
+        "conversation": "Conversation",
+        "conversationPlaceHolder": "Select a Conversation",
+        "conversationPlaceHolderFilter": "Search by Conversation",
+        "message": "Message",
+        "tabPan": "Message",
+        "header": "Liste des messages",
+        "deleteMessageConfirmationMessage": "Are you sure you want to delete message",
+        "deleteMessagesConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+    "carteBancaire":{
+        "titulaire": "Titulaire",
+        "numero": "Numero",
+        "dateExpiration": "Date expiration",
+        "dateExpirationMin": "Date expiration Min",
+        "dateExpirationMax": "Date expiration Max",
+        "codeSecret": "Code secret",
+        "carteBancaire": "Carte bancaire",
+        "tabPan": "Carte bancaire",
+        "header": "Liste des carte bancaires",
+        "deleteCarteBancaireConfirmationMessage": "Are you sure you want to delete carte bancaire",
+        "deleteCarteBancairesConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+    "vehicule":{
+        "driver": "Driver",
+        "driverPlaceHolder": "Select a Driver",
+        "driverPlaceHolderFilter": "Search by Driver",
+        "marque": "Marque",
+        "modele": "Modele",
+        "annee": "Annee",
+        "anneeMin": "Annee Min",
+        "anneeMax": "Annee Max",
+        "couleur": "Couleur",
+        "plaqueImmatriculation": "Plaque immatriculation",
+        "capacite": "Capacite",
+        "capaciteMin": "Capacite Min",
+        "capaciteMax": "Capacite Max",
+        "image": "Image",
+        "vehicule": "Vehicule",
+        "tabPan": "Vehicule",
+        "header": "Liste des vehicules",
+        "deleteVehiculeConfirmationMessage": "Are you sure you want to delete vehicule",
+        "deleteVehiculesConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+"appName": "GED"
+}
+
+

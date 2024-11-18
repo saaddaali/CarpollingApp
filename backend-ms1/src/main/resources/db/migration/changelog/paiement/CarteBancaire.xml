@@ -1,0 +1,43 @@
+<!-- db/changelog-1.1-container.xml -->
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+  <!-- Create Container Table -->
+    <changeSet id="1" author="your-name">
+    <createTable tableName="carte_bancaire">
+      <column name="id" type="BIGINT">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+        <column name="titulaire" type="VARCHAR(500)"/>
+        <column name="numero" type="VARCHAR(500)"/>
+        <column name="date_expiration" type="TIMESTAMP"/>
+        <column name="code_secret" type="VARCHAR(500)"/>
+
+
+    </createTable>
+  </changeSet>
+
+
+    <!-- Create Sequence for ContainerType -->
+  <changeSet id="2" author="your-name">
+    <createSequence sequenceName="carte_bancaire_seq" startValue="1" incrementBy="1"/>
+  </changeSet>
+
+  <!-- Load Data from CSV -->
+  <changeSet id="3" author="your-name">
+    <loadData
+            file="classpath:/db/migration/data/paiement/CarteBancaire.csv"
+            tableName="carte_bancaire">
+      <column name="id" type="NUMERIC"/>
+          <column name="titulaire" type="STRING"/>
+          <column name="numero" type="STRING"/>
+          <column name="date_expiration" type="TIMESTAMP"/>
+          <column name="code_secret" type="STRING"/>
+    </loadData>
+  </changeSet>
+
+
+</databaseChangeLog>

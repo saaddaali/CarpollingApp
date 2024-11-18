@@ -1,0 +1,264 @@
+<div class="grid"  *ngIf="listActionIsValid">
+    <div class="col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                                        <button pButton pRipple label=" {{'new' | translate}}" icon="pi pi-plus" class="p-button-info mr-2 mb-2" (click)="openCreate('Trajet')" *ngIf="createActionIsValid"></button>
+                    <button [disabled]="isSelectionDisabled()" pButton pRipple label=" {{'delete' | translate}}" icon="pi pi-trash" class="p-button-danger mr-2 mb-2" (click)=deleteMultiple()  *ngIf="deleteActionIsValid"></button>
+                    <button pButton pRipple label=" {{'search' | translate}}" icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}" class="p-button-secondary mr-2 mb-2" (click)="this.showSearch()"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label=" {{'export' | translate}}" icon="pi pi-download" styleClass="p-button-secondary" [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="col-12">
+                    <div class="flex flex-wrap p-fluid col-12">
+                        <div class="lg:col-3 md:col-6 sm:col-12 mb-4">
+                            <label  class="font-bold block mb-2" for="1-2">{{'trajet.villeDepart' | translate}}</label>
+                            <p-dropdown [options]="villeDeparts" [(ngModel)]="criteria.villeDepart" id="1" [filter]="true" class="p-fluid"
+                                        [showClear]="true"  placeholder="{{'trajet.villeDepart' | translate}}" optionLabel="libelle">
+                            </p-dropdown>
+                        </div>
+                        <div class="lg:col-3 md:col-6 sm:col-12 mb-4">
+                            <label  class="font-bold block mb-2" for="2-2">{{'trajet.villeDestination' | translate}}</label>
+                            <p-dropdown [options]="villeDestinations" [(ngModel)]="criteria.villeDestination" id="2" [filter]="true" class="p-fluid"
+                                        [showClear]="true"  placeholder="{{'trajet.villeDestination' | translate}}" optionLabel="libelle">
+                            </p-dropdown>
+                        </div>
+
+                        <div class="lg:col-3 md:col-6 sm:col-12 mb-4">
+                            <label class="font-bold block mb-2" for="3-1">{{'trajet.horaireDepartMin' | translate}}</label>
+                            <p-calendar class="mr-2" [(ngModel)]="criteria.horaireDepartFrom"
+                                    id="3-1" dateFormat="dd-MM-yy"  [showIcon]="true"  class="p-fluid"></p-calendar>
+                        </div>
+
+                        <div class="lg:col-3 md:col-6 sm:col-12 mb-4">
+                            <label  class="font-bold block mb-2" for="3-2">{{'trajet.horaireDepartMax' | translate}}</label>
+                            <p-calendar class="mr-2" [(ngModel)]="criteria.horaireDepartTo"
+                                    id="3-2" dateFormat="dd-MM-yy"  [showIcon]="true" class="p-fluid"></p-calendar>
+                        </div>
+
+
+                        <div class="lg:col-3 md:col-6 sm:col-12 mb-4">
+                            <label class="font-bold block mb-2" for="4-1">{{'trajet.horaireArriveMin' | translate}}</label>
+                            <p-calendar class="mr-2" [(ngModel)]="criteria.horaireArriveFrom"
+                                    id="4-1" dateFormat="dd-MM-yy"  [showIcon]="true"  class="p-fluid"></p-calendar>
+                        </div>
+
+                        <div class="lg:col-3 md:col-6 sm:col-12 mb-4">
+                            <label  class="font-bold block mb-2" for="4-2">{{'trajet.horaireArriveMax' | translate}}</label>
+                            <p-calendar class="mr-2" [(ngModel)]="criteria.horaireArriveTo"
+                                    id="4-2" dateFormat="dd-MM-yy"  [showIcon]="true" class="p-fluid"></p-calendar>
+                        </div>
+
+                        <div class="lg:col-3 md:col-6 sm:col-12 mb-4">
+                            <label  class="font-bold block mb-2" for="5-1">{{'trajet.placesDisponiblesMin' | translate}}</label>
+                            <p-inputNumber  mode="decimal" [(ngModel)]="criteria.placesDisponiblesMin" id="5-1"></p-inputNumber>
+                        </div>
+                        <div class="lg:col-3 md:col-6 sm:col-12 mb-4">
+                            <label  class="font-bold block mb-2" for="5-2">{{'trajet.placesDisponiblesMax' | translate}}</label>
+                            <p-inputNumber  mode="decimal" [(ngModel)]="criteria.placesDisponiblesMax" id="5-2"></p-inputNumber>
+                       </div>
+                        <div class="lg:col-3 md:col-6 sm:col-12 mb-4">
+                            <label  class="font-bold block mb-2" for="6-2">{{'trajet.driver' | translate}}</label>
+                            <p-dropdown [options]="drivers" [(ngModel)]="criteria.driver" id="6" [filter]="true" class="p-fluid"
+                                        [showClear]="true"  placeholder="{{'trajet.driver' | translate}}" optionLabel="email">
+                            </p-dropdown>
+                        </div>
+
+                        <div class="lg:col-3 md:col-6 sm:col-12 mb-4">
+                            <label class="font-bold block mb-2" for="7-1">{{'trajet.dateCreationMin' | translate}}</label>
+                            <p-calendar class="mr-2" [(ngModel)]="criteria.dateCreationFrom"
+                                    id="7-1" dateFormat="dd-MM-yy"  [showIcon]="true"  class="p-fluid"></p-calendar>
+                        </div>
+
+                        <div class="lg:col-3 md:col-6 sm:col-12 mb-4">
+                            <label  class="font-bold block mb-2" for="7-2">{{'trajet.dateCreationMax' | translate}}</label>
+                            <p-calendar class="mr-2" [(ngModel)]="criteria.dateCreationTo"
+                                    id="7-2" dateFormat="dd-MM-yy"  [showIcon]="true" class="p-fluid"></p-calendar>
+                        </div>
+
+                        <div class="lg:col-3 md:col-6 sm:col-12 mb-4">
+                            <label  class="font-bold block mb-2" for="8-2">{{'trajet.localisationSource' | translate}}</label>
+                            <p-dropdown [options]="localisationSources" [(ngModel)]="criteria.localisationSource" id="8" [filter]="true" class="p-fluid"
+                                        [showClear]="true"  placeholder="{{'trajet.localisationSource' | translate}}" optionLabel="libelle">
+                            </p-dropdown>
+                        </div>
+                        <div class="lg:col-3 md:col-6 sm:col-12 mb-4">
+                            <label  class="font-bold block mb-2" for="9-2">{{'trajet.localisationDestination' | translate}}</label>
+                            <p-dropdown [options]="localisationDestinations" [(ngModel)]="criteria.localisationDestination" id="9" [filter]="true" class="p-fluid"
+                                        [showClear]="true"  placeholder="{{'trajet.localisationDestination' | translate}}" optionLabel="libelle">
+                            </p-dropdown>
+                        </div>
+                    </div>
+                    <div [style]="{ marginTop : '1rem', display: 'flex', justifyContent: 'flex-end' }">
+                        <button pButton pRipple label="{{'validate' | translate}}" icon="pi pi-sort-amount-down" class="p-button-info mr-2" (click)="findPaginatedByCriteria()"></button>
+                    </div>
+                </div>
+
+
+            </p-toolbar>
+
+
+            <p-table #dt [value]="items" [columns]="cols" [rows]="8" [paginator]="false"
+                    [globalFilterFields]="['villeDepartlibelle', 'villeDestinationlibelle', 'horaireDepart', 'horaireArrive', 'placesDisponibles', 'driveremail', 'dateCreation', 'localisationSourcelibelle', 'localisationDestinationlibelle']" [(selection)]="selections"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                    currentPageReportTemplate="{{'les éléments de {first} à {last} sur {totalRecords} ' | translate}}"
+                    [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" selectionMode="multiple">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column flex-row justify-content-between table-header">
+                        <h5 class="p-m-0">{{'trajet.header' | translate}}</h5>
+                        <span class="p-input-icon-left ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="{{'searchInput' | translate}}" (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                                
+                        <th pSortableColumn="villeDepart">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'trajet.villeDepart' | translate}}</span>
+                                <p-sortIcon field="villeDepart"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="villeDestination">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'trajet.villeDestination' | translate}}</span>
+                                <p-sortIcon field="villeDestination"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="horaireDepart">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'trajet.horaireDepart' | translate}}</span>
+                                <p-sortIcon field="horaireDepart"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="horaireArrive">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'trajet.horaireArrive' | translate}}</span>
+                                <p-sortIcon field="horaireArrive"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="placesDisponibles">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'trajet.placesDisponibles' | translate}}</span>
+                                <p-sortIcon field="placesDisponibles"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="driver">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'trajet.driver' | translate}}</span>
+                                <p-sortIcon field="driver"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="dateCreation">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'trajet.dateCreation' | translate}}</span>
+                                <p-sortIcon field="dateCreation"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="localisationSource">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'trajet.localisationSource' | translate}}</span>
+                                <p-sortIcon field="localisationSource"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="localisationDestination">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'trajet.localisationDestination' | translate}}</span>
+                                <p-sortIcon field="localisationDestination"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-element>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="element"></p-tableCheckbox>
+                        </td>
+                            
+                        <td>{{element.villeDepart?.libelle}}</td>
+                            
+                            
+                        <td>{{element.villeDestination?.libelle}}</td>
+                            
+                            
+                        <td>{{element.horaireDepart | date :'dd/MM/yyyy HH:mm' }}</td>
+                            
+                            
+                        <td>{{element.horaireArrive | date :'dd/MM/yyyy HH:mm' }}</td>
+                            
+                            
+                        <td>{{element.placesDisponibles}}</td>
+                            
+                            
+                        <td>{{element.driver?.email}}</td>
+                            
+                            
+                        <td>{{element.dateCreation | date :'dd/MM/yyyy HH:mm' }}</td>
+                            
+                            
+                        <td>{{element.localisationSource?.libelle}}</td>
+                            
+                            
+                        <td>{{element.localisationDestination?.libelle}}</td>
+                            
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-info mr-2" (click)="edit(element)"  *ngIf="editActionIsValid"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-secondary mr-2" (click)="view(element)"  *ngIf="viewActionIsValid"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2" (click)="delete(element)"  *ngIf="deleteActionIsValid"></button>
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning mr-2" (click)="duplicate(element)"  *ngIf="duplicateActionIsValid"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="summary">
+                    <p-paginator  [rows]="10" [totalRecords]="totalRecords" (onPageChange)="onPage($event)"></p-paginator>
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        En totale il {{items ? totalRecords == 1 ? 'y a' : 'y a' : 'y a' }} {{items ? totalRecords : 0 }} {{items ? totalRecords == 1 ? 'trajet' : 'trajets' : 0 }}.
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-trajet-create-admin  *ngIf="createDialog  && createActionIsValid"></app-trajet-create-admin>
+        <app-trajet-edit-admin  *ngIf="editDialog  && editActionIsValid"></app-trajet-edit-admin>
+        <app-trajet-view-admin  *ngIf="viewDialog  && viewActionIsValid"></app-trajet-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>
+
+<p-card header="Permission not allowed" *ngIf="!listActionIsValid">
+    <p class="m-0">
+        You don't have permission to access !
+    </p>
+</p-card>

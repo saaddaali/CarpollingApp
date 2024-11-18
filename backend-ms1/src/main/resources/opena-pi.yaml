@@ -1,0 +1,807 @@
+openapi: 3.0.3
+info:
+  title: Title
+  description: Title
+  version: 1.0.0
+servers:
+  - url: 'https'
+paths:
+  /conversations:
+    get:
+      summary: List all conversations
+      operationId: listConversations
+      tags:
+        - conversations
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: A paged array of conversations
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+          schema:
+            $ref: '#/definitions/Conversations'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a conversation
+      operationId: createConversations
+      tags:
+        - conversations
+      responses:
+        "201":
+          description: Null response
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /conversations/{conversationId}:
+    get:
+      summary: Info for a specific conversation
+      operationId: showConversationById
+      tags:
+        - conversations
+      parameters:
+        - name: conversationId
+          in: path
+          required: true
+          description: The id of the conversation to retrieve
+          type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          schema:
+            $ref: '#/definitions/Conversations'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /passengers:
+    get:
+      summary: List all passengers
+      operationId: listPassengers
+      tags:
+        - passengers
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: A paged array of passengers
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+          schema:
+            $ref: '#/definitions/Passengers'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a passenger
+      operationId: createPassengers
+      tags:
+        - passengers
+      responses:
+        "201":
+          description: Null response
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /passengers/{passengerId}:
+    get:
+      summary: Info for a specific passenger
+      operationId: showPassengerById
+      tags:
+        - passengers
+      parameters:
+        - name: passengerId
+          in: path
+          required: true
+          description: The id of the passenger to retrieve
+          type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          schema:
+            $ref: '#/definitions/Passengers'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /villes:
+    get:
+      summary: List all villes
+      operationId: listVilles
+      tags:
+        - villes
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: A paged array of villes
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+          schema:
+            $ref: '#/definitions/Villes'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a ville
+      operationId: createVilles
+      tags:
+        - villes
+      responses:
+        "201":
+          description: Null response
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /villes/{villeId}:
+    get:
+      summary: Info for a specific ville
+      operationId: showVilleById
+      tags:
+        - villes
+      parameters:
+        - name: villeId
+          in: path
+          required: true
+          description: The id of the ville to retrieve
+          type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          schema:
+            $ref: '#/definitions/Villes'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /reservations:
+    get:
+      summary: List all reservations
+      operationId: listReservations
+      tags:
+        - reservations
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: A paged array of reservations
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+          schema:
+            $ref: '#/definitions/Reservations'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a reservation
+      operationId: createReservations
+      tags:
+        - reservations
+      responses:
+        "201":
+          description: Null response
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /reservations/{reservationId}:
+    get:
+      summary: Info for a specific reservation
+      operationId: showReservationById
+      tags:
+        - reservations
+      parameters:
+        - name: reservationId
+          in: path
+          required: true
+          description: The id of the reservation to retrieve
+          type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          schema:
+            $ref: '#/definitions/Reservations'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /trajets:
+    get:
+      summary: List all trajets
+      operationId: listTrajets
+      tags:
+        - trajets
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: A paged array of trajets
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+          schema:
+            $ref: '#/definitions/Trajets'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a trajet
+      operationId: createTrajets
+      tags:
+        - trajets
+      responses:
+        "201":
+          description: Null response
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /trajets/{trajetId}:
+    get:
+      summary: Info for a specific trajet
+      operationId: showTrajetById
+      tags:
+        - trajets
+      parameters:
+        - name: trajetId
+          in: path
+          required: true
+          description: The id of the trajet to retrieve
+          type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          schema:
+            $ref: '#/definitions/Trajets'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /drivers:
+    get:
+      summary: List all drivers
+      operationId: listDrivers
+      tags:
+        - drivers
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: A paged array of drivers
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+          schema:
+            $ref: '#/definitions/Drivers'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a driver
+      operationId: createDrivers
+      tags:
+        - drivers
+      responses:
+        "201":
+          description: Null response
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /drivers/{driverId}:
+    get:
+      summary: Info for a specific driver
+      operationId: showDriverById
+      tags:
+        - drivers
+      parameters:
+        - name: driverId
+          in: path
+          required: true
+          description: The id of the driver to retrieve
+          type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          schema:
+            $ref: '#/definitions/Drivers'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /messages:
+    get:
+      summary: List all messages
+      operationId: listMessages
+      tags:
+        - messages
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: A paged array of messages
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+          schema:
+            $ref: '#/definitions/Messages'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a message
+      operationId: createMessages
+      tags:
+        - messages
+      responses:
+        "201":
+          description: Null response
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /messages/{messageId}:
+    get:
+      summary: Info for a specific message
+      operationId: showMessageById
+      tags:
+        - messages
+      parameters:
+        - name: messageId
+          in: path
+          required: true
+          description: The id of the message to retrieve
+          type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          schema:
+            $ref: '#/definitions/Messages'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /carteBancaires:
+    get:
+      summary: List all carteBancaires
+      operationId: listCarteBancaires
+      tags:
+        - carteBancaires
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: A paged array of carteBancaires
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+          schema:
+            $ref: '#/definitions/CarteBancaires'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a carteBancaire
+      operationId: createCarteBancaires
+      tags:
+        - carteBancaires
+      responses:
+        "201":
+          description: Null response
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /carteBancaires/{carteBancaireId}:
+    get:
+      summary: Info for a specific carteBancaire
+      operationId: showCarteBancaireById
+      tags:
+        - carteBancaires
+      parameters:
+        - name: carteBancaireId
+          in: path
+          required: true
+          description: The id of the carteBancaire to retrieve
+          type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          schema:
+            $ref: '#/definitions/CarteBancaires'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /vehicules:
+    get:
+      summary: List all vehicules
+      operationId: listVehicules
+      tags:
+        - vehicules
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: A paged array of vehicules
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+          schema:
+            $ref: '#/definitions/Vehicules'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a vehicule
+      operationId: createVehicules
+      tags:
+        - vehicules
+      responses:
+        "201":
+          description: Null response
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /vehicules/{vehiculeId}:
+    get:
+      summary: Info for a specific vehicule
+      operationId: showVehiculeById
+      tags:
+        - vehicules
+      parameters:
+        - name: vehiculeId
+          in: path
+          required: true
+          description: The id of the vehicule to retrieve
+          type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          schema:
+            $ref: '#/definitions/Vehicules'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  
+
+
+definitions:
+  Conversation:
+    type: "object"
+    required:
+      - id
+      - code
+      - libelle
+      - description
+    properties:
+      id:
+        type: int
+      code:
+        type: string
+      libelle:
+        type: string
+      description:
+        type: string
+  Conversations:
+    type: array
+    items:
+      $ref: '#/definitions/Conversation'
+  Passenger:
+    type: "object"
+    required:
+      - id
+      - photo
+      - adresse
+      - dateInscription
+      - evaluation
+      - password
+      - accountNonLocked
+      - passwordChanged
+      - username
+      - accountNonExpired
+      - credentialsNonExpired
+      - enabled
+      - email
+    properties:
+      id:
+        type: int
+      photo:
+        type: string
+      adresse:
+        type: string
+      dateInscription:
+        type: date
+      evaluation:
+        type: number
+      password:
+        type: string
+      accountNonLocked:
+        type: boolean
+      passwordChanged:
+        type: boolean
+      username:
+        type: string
+      accountNonExpired:
+        type: boolean
+      credentialsNonExpired:
+        type: boolean
+      enabled:
+        type: boolean
+      email:
+        type: string
+  Passengers:
+    type: array
+    items:
+      $ref: '#/definitions/Passenger'
+  Ville:
+    type: "object"
+    required:
+      - id
+      - code
+      - libelle
+      - description
+    properties:
+      id:
+        type: int
+      code:
+        type: string
+      libelle:
+        type: string
+      description:
+        type: string
+  Villes:
+    type: array
+    items:
+      $ref: '#/definitions/Ville'
+  Reservation:
+    type: "object"
+    required:
+      - id
+      - dateReservation
+      - montant
+      - datePaiement
+      - evaluation
+    properties:
+      id:
+        type: int
+      dateReservation:
+        type: date
+      montant:
+        type: number
+      datePaiement:
+        type: date
+      evaluation:
+        type: number
+  Reservations:
+    type: array
+    items:
+      $ref: '#/definitions/Reservation'
+  Trajet:
+    type: "object"
+    required:
+      - id
+      - horaireDepart
+      - horaireArrive
+      - placesDisponibles
+      - dateCreation
+    properties:
+      id:
+        type: int
+      horaireDepart:
+        type: date
+      horaireArrive:
+        type: date
+      placesDisponibles:
+        type: int
+      dateCreation:
+        type: date
+  Trajets:
+    type: array
+    items:
+      $ref: '#/definitions/Trajet'
+  Driver:
+    type: "object"
+    required:
+      - id
+      - photo
+      - adresse
+      - dateInscription
+      - evaluation
+      - password
+      - accountNonLocked
+      - passwordChanged
+      - username
+      - accountNonExpired
+      - credentialsNonExpired
+      - enabled
+      - email
+    properties:
+      id:
+        type: int
+      photo:
+        type: string
+      adresse:
+        type: string
+      dateInscription:
+        type: date
+      evaluation:
+        type: number
+      password:
+        type: string
+      accountNonLocked:
+        type: boolean
+      passwordChanged:
+        type: boolean
+      username:
+        type: string
+      accountNonExpired:
+        type: boolean
+      credentialsNonExpired:
+        type: boolean
+      enabled:
+        type: boolean
+      email:
+        type: string
+  Drivers:
+    type: array
+    items:
+      $ref: '#/definitions/Driver'
+  Message:
+    type: "object"
+    required:
+      - id
+      - contenu
+      - dateEnvoi
+    properties:
+      id:
+        type: int
+      contenu:
+        type: string
+      dateEnvoi:
+        type: date
+  Messages:
+    type: array
+    items:
+      $ref: '#/definitions/Message'
+  CarteBancaire:
+    type: "object"
+    required:
+      - id
+      - titulaire
+      - numero
+      - dateExpiration
+      - codeSecret
+    properties:
+      id:
+        type: int
+      titulaire:
+        type: string
+      numero:
+        type: string
+      dateExpiration:
+        type: date
+      codeSecret:
+        type: string
+  CarteBancaires:
+    type: array
+    items:
+      $ref: '#/definitions/CarteBancaire'
+  Vehicule:
+    type: "object"
+    required:
+      - id
+      - marque
+      - modele
+      - annee
+      - couleur
+      - plaqueImmatriculation
+      - capacite
+      - image
+    properties:
+      id:
+        type: int
+      marque:
+        type: string
+      modele:
+        type: string
+      annee:
+        type: int
+      couleur:
+        type: string
+      plaqueImmatriculation:
+        type: string
+      capacite:
+        type: int
+      image:
+        type: string
+  Vehicules:
+    type: array
+    items:
+      $ref: '#/definitions/Vehicule'
+
+  Error:
+    type: "object"
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string

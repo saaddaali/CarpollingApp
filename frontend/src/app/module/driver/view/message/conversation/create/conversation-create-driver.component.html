@@ -1,0 +1,65 @@
+        <p-dialog [(visible)]="createDialog" [style]="{width: '70vw'}" header="{{'conversation.tabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+            <ng-template pTemplate="content" >
+                        <p-tabView>
+                            <p-tabPanel header="{{'conversation.tabPan' | translate}}">
+                                <div class="grid">
+
+                                                <div class="field col-12 md:col-6">
+                                                    <label for="1">{{'conversation.code' | translate}}</label>
+                                                    <input class="mb-2 mr-2" type="text" pInputText  placeholder="{{'conversation.code' | translate}}" id="1" [(ngModel)]="item.code"
+                                                             />
+                                                    
+                                                </div>
+
+
+                                                <div class="field col-12 md:col-6">
+                                                    <label for="2">{{'conversation.libelle' | translate}}</label>
+                                                    <input class="mb-2 mr-2" type="text" pInputText  placeholder="{{'conversation.libelle' | translate}}" id="2" [(ngModel)]="item.libelle"
+                                                             />
+                                                    
+                                                </div>
+
+
+                                                <div class="field col-12 md:col-6">
+                                                    <label for="3">{{'conversation.description' | translate}}</label>
+                                                    <textarea id="3" pInputTextarea rows="5" cols="30" placeholder="{{'conversation.description' | translate}}"  [(ngModel)]="item.description"
+                                                             ></textarea>
+                                                    
+                                                </div>
+
+                                            <div class="field col-11 md:col-6">
+                                                <label for="4">{{'conversation.driver' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="drivers" [(ngModel)]="item.driver" id="4" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="email" placeholder="{{'conversation.driver' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+
+                                            <div class="field col-11 md:col-6">
+                                                <label for="5">{{'conversation.passenger' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="passengers" [(ngModel)]="item.passenger" id="5" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="email" placeholder="{{'conversation.passenger' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+
+                                </div>
+                            </p-tabPanel>
+
+                        </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="p-flexbox">
+
+                            <button pButton pRipple  label="{{'validate' | translate}}"  icon="pi pi-check"  (click)="save()"></button>
+
+
+                            <button pButton pRipple  label="{{'cancel' | translate}}" icon="pi pi-times" class="p-button-outlined" (click)="hideCreateDialog()"></button>
+
+
+                </div>
+            </ng-template>
+
+    </p-dialog>

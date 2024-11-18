@@ -1,0 +1,40 @@
+
+<p-dialog [(visible)]="viewDialog" [style]="{width: '70vw'}" header="{{'carteBancaire.tabPan' | translate}}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'carteBancaire.tabPan' | translate}}">
+                <div class="grid">
+                    <div class="field col-12 md:col-6">
+                        <label for="1">{{'carteBancaire.titulaire' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'carteBancaire.titulaire' | translate}}" autofocus  id="1" [ngModel]="item.titulaire">
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label for="2">{{'carteBancaire.numero' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'carteBancaire.numero' | translate}}" autofocus  id="2" [ngModel]="item.numero">
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label for="3">{{'carteBancaire.dateExpiration' | translate}}</label>
+                        <p-calendar id="3" [disabled]="true"  [showTime]="true" [showSeconds]="false" placeholder="{{'carteBancaire.dateExpiration' | translate}}"  [ngModel]="item.dateExpiration" dateFormat="{{dateFormat}}"></p-calendar>
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label for="4">{{'carteBancaire.codeSecret' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'carteBancaire.codeSecret' | translate}}" autofocus  id="4" [ngModel]="item.codeSecret">
+                    </div>
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-flexbox">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+
+
+

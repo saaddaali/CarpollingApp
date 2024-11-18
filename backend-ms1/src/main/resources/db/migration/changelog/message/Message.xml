@@ -1,0 +1,83 @@
+<!-- db/changelog-1.1-container.xml -->
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+  <!-- Create Container Table -->
+    <changeSet id="1" author="your-name">
+    <createTable tableName="message">
+      <column name="id" type="BIGINT">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+        <column name="contenu" type="VARCHAR(500)"/>
+        <column name="date_envoi" type="TIMESTAMP"/>
+
+        <column name="trajet_id" type="BIGINT">
+          <constraints nullable="false"/>
+        </column>
+        <column name="driver_id" type="BIGINT">
+          <constraints nullable="false"/>
+        </column>
+        <column name="passenger_id" type="BIGINT">
+          <constraints nullable="false"/>
+        </column>
+        <column name="conversation_id" type="BIGINT">
+          <constraints nullable="false"/>
+        </column>
+
+    </createTable>
+  </changeSet>
+
+    <!-- Add foreign key constraint -->
+  <changeSet id="2" author="your-name">
+      <addForeignKeyConstraint
+              baseTableName="message"
+              baseColumnNames="trajet_id"
+              referencedTableName="trajet"
+              referencedColumnNames="id"
+              constraintName="fk_message_trajet"/>
+      <addForeignKeyConstraint
+              baseTableName="message"
+              baseColumnNames="driver_id"
+              referencedTableName="driver"
+              referencedColumnNames="id"
+              constraintName="fk_message_driver"/>
+      <addForeignKeyConstraint
+              baseTableName="message"
+              baseColumnNames="passenger_id"
+              referencedTableName="passenger"
+              referencedColumnNames="id"
+              constraintName="fk_message_passenger"/>
+      <addForeignKeyConstraint
+              baseTableName="message"
+              baseColumnNames="conversation_id"
+              referencedTableName="conversation"
+              referencedColumnNames="id"
+              constraintName="fk_message_conversation"/>
+
+  </changeSet>
+
+    <!-- Create Sequence for ContainerType -->
+  <changeSet id="3" author="your-name">
+    <createSequence sequenceName="message_seq" startValue="1" incrementBy="1"/>
+  </changeSet>
+
+  <!-- Load Data from CSV -->
+  <changeSet id="4" author="your-name">
+    <loadData
+            file="classpath:/db/migration/data/message/Message.csv"
+            tableName="message">
+      <column name="id" type="NUMERIC"/>
+          <column name="contenu" type="STRING"/>
+          <column name="date_envoi" type="TIMESTAMP"/>
+        <column name="trajet" type="BIGINT"/>
+        <column name="driver" type="BIGINT"/>
+        <column name="passenger" type="BIGINT"/>
+        <column name="conversation" type="BIGINT"/>
+    </loadData>
+  </changeSet>
+
+
+</databaseChangeLog>

@@ -1,0 +1,157 @@
+    <p-dialog [(visible)]="editDialog" [style]="{width: '70vw'}" header="{{'passenger.tabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+        <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="{{'passenger.tabPan' | translate}}">
+                        <div class="grid">
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="1">{{'passenger.photo' | translate}}</label>
+                                            <input class="mb-2 mr-2" type="text" pInputText  placeholder="{{'passenger.photo' | translate}}" id="1" [(ngModel)]="item.photo"
+                                                    />
+                                            
+                                        </div>
+
+
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="2">{{'passenger.adresse' | translate}}</label>
+                                            <textarea id="2" pInputTextarea rows="5" cols="30" placeholder="{{'passenger.adresse' | translate}}"  [(ngModel)]="item.adresse"
+                                                       ></textarea>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="3">{{'passenger.dateInscription' | translate}}</label>
+                                            <p-calendar appendTo="body" id="3"  [showTime]="true" [showSeconds]="false" placeholder="{{'passenger.dateInscription' | translate}}"  [(ngModel)]="item.dateInscription"
+                                                        dateFormat="{{dateFormat}}"  >
+                                            </p-calendar>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="4">{{'passenger.evaluation' | translate}}</label>
+                                            <p-inputNumber class="mb-2 mr-2" id="4" placeholder="{{'passenger.evaluation' | translate}}" [(ngModel)]="item.evaluation"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                    <div class="field col-11 md:col-6">
+                                        <label for="5">{{'passenger.carteBancaire' | translate}}</label>
+                                        <p-dropdown  appendTo="body"  [options]="carteBancaires" [(ngModel)]="item.carteBancaire" id="5" [filter]="true" filterMatchMode="contains"
+                                                     [showClear]="true" optionLabel="id" placeholder="{{'passenger.carteBancaire' | translate}}"  >
+                                        </p-dropdown>
+                                        
+                                    </div>
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="6">{{'passenger.password' | translate}}</label>
+                                            <input class="mb-2 mr-2" type="text" pInputText  placeholder="{{'passenger.password' | translate}}" id="6" [(ngModel)]="item.password"
+                                                    />
+                                            
+                                        </div>
+
+
+
+                                        <div class="field align-inputswitch col-12  md:col-6">
+                                            <div  class="label-inputswitch">
+                                                <label for="7">{{'passenger.accountNonLocked' | translate}}</label>
+                                            </div>
+                                            <div class="input-switch">
+                                                <p-inputSwitch id="7"  [(ngModel)]="item.accountNonLocked"
+                                                                >
+                                                </p-inputSwitch>
+                                                
+                                            </div>
+                                        </div>
+
+
+                                        <div class="field align-inputswitch col-12  md:col-6">
+                                            <div  class="label-inputswitch">
+                                                <label for="8">{{'passenger.passwordChanged' | translate}}</label>
+                                            </div>
+                                            <div class="input-switch">
+                                                <p-inputSwitch id="8"  [(ngModel)]="item.passwordChanged"
+                                                                >
+                                                </p-inputSwitch>
+                                                
+                                            </div>
+                                        </div>
+
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="9">{{'passenger.username' | translate}}</label>
+                                            <input class="mb-2 mr-2" type="text" pInputText  placeholder="{{'passenger.username' | translate}}" id="9" [(ngModel)]="item.username"
+                                                    />
+                                            
+                                        </div>
+
+
+
+                                        <div class="field align-inputswitch col-12  md:col-6">
+                                            <div  class="label-inputswitch">
+                                                <label for="10">{{'passenger.accountNonExpired' | translate}}</label>
+                                            </div>
+                                            <div class="input-switch">
+                                                <p-inputSwitch id="10"  [(ngModel)]="item.accountNonExpired"
+                                                                >
+                                                </p-inputSwitch>
+                                                
+                                            </div>
+                                        </div>
+
+
+                                        <div class="field align-inputswitch col-12  md:col-6">
+                                            <div  class="label-inputswitch">
+                                                <label for="11">{{'passenger.credentialsNonExpired' | translate}}</label>
+                                            </div>
+                                            <div class="input-switch">
+                                                <p-inputSwitch id="11"  [(ngModel)]="item.credentialsNonExpired"
+                                                                >
+                                                </p-inputSwitch>
+                                                
+                                            </div>
+                                        </div>
+
+
+                                        <div class="field align-inputswitch col-12  md:col-6">
+                                            <div  class="label-inputswitch">
+                                                <label for="12">{{'passenger.enabled' | translate}}</label>
+                                            </div>
+                                            <div class="input-switch">
+                                                <p-inputSwitch id="12"  [(ngModel)]="item.enabled"
+                                                                >
+                                                </p-inputSwitch>
+                                                
+                                            </div>
+                                        </div>
+
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="13">{{'passenger.email' | translate}}</label>
+                                            <input class="mb-2 mr-2" type="text" pInputText  placeholder="{{'passenger.email' | translate}}" id="13" [(ngModel)]="item.email"
+                                                    />
+                                            
+                                        </div>
+
+
+
+                        </div>
+                    </p-tabPanel>
+
+                </p-tabView>
+
+        </ng-template>
+
+        <ng-template pTemplate="footer" >
+            <div class="p-flexbox">
+
+                    <button pButton pRipple  label="{{'validate' | translate}}"  icon="pi pi-check"  (click)="edit()"></button>
+
+
+                        <button pButton pRipple  label="{{'cancel' | translate}}" icon="pi pi-times" class="p-button-outlined" (click)="hideEditDialog()"></button>
+
+
+            </div>
+        </ng-template>
+
+    </p-dialog>

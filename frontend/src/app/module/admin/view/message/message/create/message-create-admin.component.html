@@ -1,0 +1,73 @@
+        <p-dialog [(visible)]="createDialog" [style]="{width: '70vw'}" header="{{'message.tabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+            <ng-template pTemplate="content" >
+                        <p-tabView>
+                            <p-tabPanel header="{{'message.tabPan' | translate}}">
+                                <div class="grid">
+
+                                            <div class="field col-11 md:col-6">
+                                                <label for="1">{{'message.trajet' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="trajets" [(ngModel)]="item.trajet" id="1" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="id" placeholder="{{'message.trajet' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+
+                                            <div class="field col-11 md:col-6">
+                                                <label for="2">{{'message.driver' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="drivers" [(ngModel)]="item.driver" id="2" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="email" placeholder="{{'message.driver' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+
+                                            <div class="field col-11 md:col-6">
+                                                <label for="3">{{'message.passenger' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="passengers" [(ngModel)]="item.passenger" id="3" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="email" placeholder="{{'message.passenger' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+
+                                                <div class="field col-12 md:col-6">
+                                                    <label for="4">{{'message.contenu' | translate}}</label>
+                                                    <textarea id="4" pInputTextarea rows="5" cols="30" placeholder="{{'message.contenu' | translate}}"  [(ngModel)]="item.contenu"
+                                                             ></textarea>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-6">
+                                                    <label for="5">{{'message.dateEnvoi' | translate}}</label>
+                                                    <p-calendar appendTo="body" id="5"  [showTime]="true" [showSeconds]="false" placeholder="{{'message.dateEnvoi' | translate}}"  [(ngModel)]="item.dateEnvoi"
+                                                            dateFormat="{{dateFormat}}"  >
+                                                    </p-calendar>
+                                                    
+                                                </div>
+
+                                            <div class="field col-11 md:col-6">
+                                                <label for="6">{{'message.conversation' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="conversations" [(ngModel)]="item.conversation" id="6" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="libelle" placeholder="{{'message.conversation' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+
+                                </div>
+                            </p-tabPanel>
+
+                        </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="p-flexbox">
+
+                            <button pButton pRipple  label="{{'validate' | translate}}"  icon="pi pi-check"  (click)="save()"></button>
+
+
+                            <button pButton pRipple  label="{{'cancel' | translate}}" icon="pi pi-times" class="p-button-outlined" (click)="hideCreateDialog()"></button>
+
+
+                </div>
+            </ng-template>
+
+    </p-dialog>

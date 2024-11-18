@@ -1,0 +1,223 @@
+<div class="grid"  *ngIf="listActionIsValid">
+    <div class="col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                                        <button pButton pRipple label=" {{'new' | translate}}" icon="pi pi-plus" class="p-button-info mr-2 mb-2" (click)="openCreate('Vehicule')" *ngIf="createActionIsValid"></button>
+                    <button [disabled]="isSelectionDisabled()" pButton pRipple label=" {{'delete' | translate}}" icon="pi pi-trash" class="p-button-danger mr-2 mb-2" (click)=deleteMultiple()  *ngIf="deleteActionIsValid"></button>
+                    <button pButton pRipple label=" {{'search' | translate}}" icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}" class="p-button-secondary mr-2 mb-2" (click)="this.showSearch()"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label=" {{'export' | translate}}" icon="pi pi-download" styleClass="p-button-secondary" [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="col-12">
+                    <div class="flex flex-wrap p-fluid col-12">
+                        <div class="lg:col-3 md:col-6 sm:col-12 mb-4">
+                            <label  class="font-bold block mb-2" for="1-2">{{'vehicule.driver' | translate}}</label>
+                            <p-dropdown [options]="drivers" [(ngModel)]="criteria.driver" id="1" [filter]="true" class="p-fluid"
+                                        [showClear]="true"  placeholder="{{'vehicule.driver' | translate}}" optionLabel="email">
+                            </p-dropdown>
+                        </div>
+                       <div class="lg:col-3 md:col-6 sm:col-12 mb-4">
+                            <label  class="font-bold block mb-2" for="2">{{'vehicule.marque' | translate}}</label>
+                            <input  class="w-full"  pInputText id="2" type="text"  [(ngModel)]="criteria.marqueLike">
+                        </div>
+                       <div class="lg:col-3 md:col-6 sm:col-12 mb-4">
+                            <label  class="font-bold block mb-2" for="3">{{'vehicule.modele' | translate}}</label>
+                            <input  class="w-full"  pInputText id="3" type="text"  [(ngModel)]="criteria.modeleLike">
+                        </div>
+                        <div class="lg:col-3 md:col-6 sm:col-12 mb-4">
+                            <label  class="font-bold block mb-2" for="4-1">{{'vehicule.anneeMin' | translate}}</label>
+                            <p-inputNumber  mode="decimal" [(ngModel)]="criteria.anneeMin" id="4-1"></p-inputNumber>
+                        </div>
+                        <div class="lg:col-3 md:col-6 sm:col-12 mb-4">
+                            <label  class="font-bold block mb-2" for="4-2">{{'vehicule.anneeMax' | translate}}</label>
+                            <p-inputNumber  mode="decimal" [(ngModel)]="criteria.anneeMax" id="4-2"></p-inputNumber>
+                       </div>
+                       <div class="lg:col-3 md:col-6 sm:col-12 mb-4">
+                            <label  class="font-bold block mb-2" for="5">{{'vehicule.couleur' | translate}}</label>
+                            <input  class="w-full"  pInputText id="5" type="text"  [(ngModel)]="criteria.couleurLike">
+                        </div>
+                       <div class="lg:col-3 md:col-6 sm:col-12 mb-4">
+                            <label  class="font-bold block mb-2" for="6">{{'vehicule.plaqueImmatriculation' | translate}}</label>
+                            <input  class="w-full"  pInputText id="6" type="text"  [(ngModel)]="criteria.plaqueImmatriculationLike">
+                        </div>
+                        <div class="lg:col-3 md:col-6 sm:col-12 mb-4">
+                            <label  class="font-bold block mb-2" for="7-1">{{'vehicule.capaciteMin' | translate}}</label>
+                            <p-inputNumber  mode="decimal" [(ngModel)]="criteria.capaciteMin" id="7-1"></p-inputNumber>
+                        </div>
+                        <div class="lg:col-3 md:col-6 sm:col-12 mb-4">
+                            <label  class="font-bold block mb-2" for="7-2">{{'vehicule.capaciteMax' | translate}}</label>
+                            <p-inputNumber  mode="decimal" [(ngModel)]="criteria.capaciteMax" id="7-2"></p-inputNumber>
+                       </div>
+                       <div class="lg:col-3 md:col-6 sm:col-12 mb-4">
+                            <label  class="font-bold block mb-2" for="8">{{'vehicule.image' | translate}}</label>
+                            <input  class="w-full"  pInputText id="8" type="text"  [(ngModel)]="criteria.imageLike">
+                        </div>
+                    </div>
+                    <div [style]="{ marginTop : '1rem', display: 'flex', justifyContent: 'flex-end' }">
+                        <button pButton pRipple label="{{'validate' | translate}}" icon="pi pi-sort-amount-down" class="p-button-info mr-2" (click)="findPaginatedByCriteria()"></button>
+                    </div>
+                </div>
+
+
+            </p-toolbar>
+
+
+            <p-table #dt [value]="items" [columns]="cols" [rows]="8" [paginator]="false"
+                    [globalFilterFields]="['driveremail', 'marque', 'modele', 'annee', 'couleur', 'plaqueImmatriculation', 'capacite', 'image']" [(selection)]="selections"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                    currentPageReportTemplate="{{'les éléments de {first} à {last} sur {totalRecords} ' | translate}}"
+                    [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" selectionMode="multiple">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column flex-row justify-content-between table-header">
+                        <h5 class="p-m-0">{{'vehicule.header' | translate}}</h5>
+                        <span class="p-input-icon-left ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="{{'searchInput' | translate}}" (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                                
+                        <th pSortableColumn="driver">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'vehicule.driver' | translate}}</span>
+                                <p-sortIcon field="driver"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="marque">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'vehicule.marque' | translate}}</span>
+                                <p-sortIcon field="marque"></p-sortIcon>
+                                <p-columnFilter type="text" field="element.marque" display="menu" class="ml-auto"></p-columnFilter>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="modele">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'vehicule.modele' | translate}}</span>
+                                <p-sortIcon field="modele"></p-sortIcon>
+                                <p-columnFilter type="text" field="element.modele" display="menu" class="ml-auto"></p-columnFilter>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="annee">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'vehicule.annee' | translate}}</span>
+                                <p-sortIcon field="annee"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="couleur">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'vehicule.couleur' | translate}}</span>
+                                <p-sortIcon field="couleur"></p-sortIcon>
+                                <p-columnFilter type="text" field="element.couleur" display="menu" class="ml-auto"></p-columnFilter>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="plaqueImmatriculation">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'vehicule.plaqueImmatriculation' | translate}}</span>
+                                <p-sortIcon field="plaqueImmatriculation"></p-sortIcon>
+                                <p-columnFilter type="text" field="element.plaqueImmatriculation" display="menu" class="ml-auto"></p-columnFilter>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="capacite">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'vehicule.capacite' | translate}}</span>
+                                <p-sortIcon field="capacite"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="image">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'vehicule.image' | translate}}</span>
+                                <p-sortIcon field="image"></p-sortIcon>
+                                <p-columnFilter type="text" field="element.image" display="menu" class="ml-auto"></p-columnFilter>
+                            </div>
+                        </th>
+                                
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-element>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="element"></p-tableCheckbox>
+                        </td>
+                            
+                        <td>{{element.driver?.email}}</td>
+                            
+                            
+                        <td>{{element.marque}}</td>
+                            
+                            
+                        <td>{{element.modele}}</td>
+                            
+                            
+                        <td>{{element.annee}}</td>
+                            
+                            
+                        <td>{{element.couleur}}</td>
+                            
+                            
+                        <td>{{element.plaqueImmatriculation}}</td>
+                            
+                            
+                        <td>{{element.capacite}}</td>
+                            
+                            
+                        <td>{{element.image}}</td>
+                            
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-info mr-2" (click)="edit(element)"  *ngIf="editActionIsValid"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-secondary mr-2" (click)="view(element)"  *ngIf="viewActionIsValid"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2" (click)="delete(element)"  *ngIf="deleteActionIsValid"></button>
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning mr-2" (click)="duplicate(element)"  *ngIf="duplicateActionIsValid"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="summary">
+                    <p-paginator  [rows]="10" [totalRecords]="totalRecords" (onPageChange)="onPage($event)"></p-paginator>
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        En totale il {{items ? totalRecords == 1 ? 'y a' : 'y a' : 'y a' }} {{items ? totalRecords : 0 }} {{items ? totalRecords == 1 ? 'vehicule' : 'vehicules' : 0 }}.
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-vehicule-create-admin  *ngIf="createDialog  && createActionIsValid"></app-vehicule-create-admin>
+        <app-vehicule-edit-admin  *ngIf="editDialog  && editActionIsValid"></app-vehicule-edit-admin>
+        <app-vehicule-view-admin  *ngIf="viewDialog  && viewActionIsValid"></app-vehicule-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>
+
+<p-card header="Permission not allowed" *ngIf="!listActionIsValid">
+    <p class="m-0">
+        You don't have permission to access !
+    </p>
+</p-card>

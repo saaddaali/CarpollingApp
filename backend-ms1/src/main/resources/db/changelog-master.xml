@@ -1,0 +1,16 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+            <include file="classpath:db/migration/changelog/message/Conversation.xml"/>
+        <include file="classpath:db/migration/changelog/passenger/Passenger.xml"/>
+        <include file="classpath:db/migration/changelog/trajet/Ville.xml"/>
+        <include file="classpath:db/migration/changelog/reservation/Reservation.xml"/>
+        <include file="classpath:db/migration/changelog/trajet/Trajet.xml"/>
+        <include file="classpath:db/migration/changelog/driver/Driver.xml"/>
+        <include file="classpath:db/migration/changelog/message/Message.xml"/>
+        <include file="classpath:db/migration/changelog/paiement/CarteBancaire.xml"/>
+        <include file="classpath:db/migration/changelog/vehicule/Vehicule.xml"/>
+
+</databaseChangeLog>

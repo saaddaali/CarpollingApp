@@ -1,0 +1,97 @@
+<!-- db/changelog-1.1-container.xml -->
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+  <!-- Create Container Table -->
+    <changeSet id="1" author="your-name">
+    <createTable tableName="trajet">
+      <column name="id" type="BIGINT">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+        <column name="horaire_depart" type="TIMESTAMP"/>
+        <column name="horaire_arrive" type="TIMESTAMP"/>
+        <column name="places_disponibles" type="BIGINT"/>
+        <column name="date_creation" type="TIMESTAMP"/>
+
+        <column name="ville_depart_id" type="BIGINT">
+          <constraints nullable="false"/>
+        </column>
+        <column name="ville_destination_id" type="BIGINT">
+          <constraints nullable="false"/>
+        </column>
+        <column name="driver_id" type="BIGINT">
+          <constraints nullable="false"/>
+        </column>
+        <column name="localisation_source_id" type="BIGINT">
+          <constraints nullable="false"/>
+        </column>
+        <column name="localisation_destination_id" type="BIGINT">
+          <constraints nullable="false"/>
+        </column>
+
+    </createTable>
+  </changeSet>
+
+    <!-- Add foreign key constraint -->
+  <changeSet id="2" author="your-name">
+      <addForeignKeyConstraint
+              baseTableName="trajet"
+              baseColumnNames="ville_depart_id"
+              referencedTableName="ville_depart"
+              referencedColumnNames="id"
+              constraintName="fk_trajet_ville_depart"/>
+      <addForeignKeyConstraint
+              baseTableName="trajet"
+              baseColumnNames="ville_destination_id"
+              referencedTableName="ville_destination"
+              referencedColumnNames="id"
+              constraintName="fk_trajet_ville_destination"/>
+      <addForeignKeyConstraint
+              baseTableName="trajet"
+              baseColumnNames="driver_id"
+              referencedTableName="driver"
+              referencedColumnNames="id"
+              constraintName="fk_trajet_driver"/>
+      <addForeignKeyConstraint
+              baseTableName="trajet"
+              baseColumnNames="localisation_source_id"
+              referencedTableName="localisation_source"
+              referencedColumnNames="id"
+              constraintName="fk_trajet_localisation_source"/>
+      <addForeignKeyConstraint
+              baseTableName="trajet"
+              baseColumnNames="localisation_destination_id"
+              referencedTableName="localisation_destination"
+              referencedColumnNames="id"
+              constraintName="fk_trajet_localisation_destination"/>
+
+  </changeSet>
+
+    <!-- Create Sequence for ContainerType -->
+  <changeSet id="3" author="your-name">
+    <createSequence sequenceName="trajet_seq" startValue="1" incrementBy="1"/>
+  </changeSet>
+
+  <!-- Load Data from CSV -->
+  <changeSet id="4" author="your-name">
+    <loadData
+            file="classpath:/db/migration/data/trajet/Trajet.csv"
+            tableName="trajet">
+      <column name="id" type="NUMERIC"/>
+          <column name="horaire_depart" type="TIMESTAMP"/>
+          <column name="horaire_arrive" type="TIMESTAMP"/>
+          <column name="places_disponibles" type="NUMERIC"/>
+          <column name="date_creation" type="TIMESTAMP"/>
+        <column name="ville_depart" type="BIGINT"/>
+        <column name="ville_destination" type="BIGINT"/>
+        <column name="driver" type="BIGINT"/>
+        <column name="localisation_source" type="BIGINT"/>
+        <column name="localisation_destination" type="BIGINT"/>
+    </loadData>
+  </changeSet>
+
+
+</databaseChangeLog>
