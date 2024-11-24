@@ -7,6 +7,8 @@ import { LoginPassengerComponent } from './login-passenger/login-passenger.compo
 import { RegisterPassengerComponent } from './register-passenger/register-passenger.component';
 import { ForgetPasswordPassengerComponent } from './forget-password-passenger/forget-password-passenger.component';
 import { ChangePasswordPassengerComponent } from './change-password-passenger/change-password-passenger.component';
+import {TrajetListPassengerComponent} from "./view/trajet/trajet/list/trajet-list-passenger.component";
+import {HomePassengerComponent} from "./view/home/home-passenger.component";
 
 @NgModule({
     imports: [
@@ -63,6 +65,25 @@ import { ChangePasswordPassengerComponent } from './change-password-passenger/ch
                                 }
                               ]
                         },
+                        {
+                            path: '',
+                            children: [
+                                {
+                                    path: '',
+                                    component: TrajetListPassengerComponent,
+                                    canActivate: [AuthGuard]
+                                }]
+                        },
+                        {
+                            path: 'home',
+                            children: [
+                                {
+                                    path: '',
+                                    component: HomePassengerComponent,
+                                    canActivate: [AuthGuard]
+                                }]
+                        },
+
                         {
                             path: 'trajet',
                             loadChildren: () => import('./view/trajet/trajet-passenger-routing.module').then(x => x.TrajetPassengerRoutingModule),

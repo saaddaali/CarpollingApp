@@ -1,23 +1,24 @@
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { LayoutService } from './service/app.layout.service';
-import {RoleService} from "../zynerator/security/shared/service/Role.service";
-import {AppComponent} from "../app.component";
-import {AuthService} from "../zynerator/security/shared/service/Auth.service";
+import {LayoutService} from "../../service/app.layout.service";
+import {AppComponent} from "../../../app.component";
+import {AdminLayoutComponent} from "../admin.layout.component";
+import {RoleService} from "../../../zynerator/security/shared/service/Role.service";
+import {AuthService} from "../../../zynerator/security/shared/service/Auth.service";
 import {Router} from "@angular/router";
-import {AppLayoutComponent} from "./app.layout.component";
+
 
 @Component({
   selector: 'app-menu',
-  templateUrl: './app.menu.component.html'
+  templateUrl: './admin.menu.component.html'
 })
-export class AppMenuComponent implements OnInit {
+export class AdminMenuComponent implements OnInit {
   model: any[];
   modelanonymous: any[];
     modelAdmin: any[];
   modelDriver: any[];
   modelPassenger: any[];
-constructor(public layoutService: LayoutService, public app: AppComponent, public appMain: AppLayoutComponent, private roleService: RoleService, private authService: AuthService, private router: Router) { }
+constructor(public layoutService: LayoutService, public app: AppComponent, public appMain: AdminLayoutComponent, private roleService: RoleService, private authService: AuthService, private router: Router) { }
   ngOnInit() {
     this.modelAdmin =
       [

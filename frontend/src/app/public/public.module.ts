@@ -34,6 +34,9 @@ import {FooterComponent} from './footer/footer.component';
 import {HomePublicComponent} from './home/home-public.component';
 import {ContactUsComponent} from './contact-us/contact-us.component';
 import {TopComponent} from './top/top.component';
+import {TrajetsPublicComponent} from "./trajets/trajets-public.component";
+import {AutoCompleteModule} from "primeng/autocomplete";
+import {PassengerLayoutModule} from "../layout/passenger/passenger.layout.module";
 
 
 @NgModule({
@@ -45,6 +48,7 @@ import {TopComponent} from './top/top.component';
         FooterComponent,
         HomePublicComponent,
         ContactUsComponent,
+        TrajetsPublicComponent,
         TopComponent
     ],
     imports: [
@@ -73,6 +77,8 @@ import {TopComponent} from './top/top.component';
         InputNumberModule,
         BadgeModule,
         MultiSelectModule,
+        AutoCompleteModule,
+        PassengerLayoutModule,
     ],
     exports: [
         PreloadpageComponent,

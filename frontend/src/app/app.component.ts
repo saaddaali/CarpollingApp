@@ -18,13 +18,6 @@ export class AppComponent implements OnInit {
     ripple = true;
     private role$: Observable<string>;
 
-    // constructor(private primengConfig: PrimeNGConfig, public translateService: TranslateService) {
-    //     translateService.addLangs(['en', 'fr']);
-    //     translateService.setDefaultLang('fr');
-    //     const browserLang = translateService.getBrowserLang();
-    //     translateService.use(browserLang.match(/en|fr/) ? browserLang : 'fr');
-    // }
-
     constructor(private primengConfig: PrimeNGConfig, private roleService: RoleService, private translateService: TranslateService) {
         translateService.addLangs(['ar','en', 'fr']);
         translateService.setDefaultLang('en');
@@ -38,11 +31,6 @@ export class AppComponent implements OnInit {
         this.primengConfig.ripple = true;
         this.role$ = this.roleService.role$;
         this.role$.subscribe(role => {
-            // if (role.toLowerCase() === 'admin') {
-            //     this.topbarColor = 'layout-topbar-green';
-            // } else {
-            //     this.topbarColor = 'layout-topbar-blue';
-            // }
 
         });
     }

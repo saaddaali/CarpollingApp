@@ -11,9 +11,7 @@ import {InputSwitchModule} from 'primeng/inputswitch';
 import {RippleModule} from 'primeng/ripple';
 
 import {RouterModule} from '@angular/router';
-
-import {AppConfigModule} from './config/config.module';
-
+import {AdminLayoutComponent} from "./admin.layout.component";
 import {PanelMenuModule} from "primeng/panelmenu";
 import {TabViewModule} from "primeng/tabview";
 import {DialogModule} from "primeng/dialog";
@@ -23,11 +21,22 @@ import {PasswordModule} from "primeng/password";
 import {MenuModule} from "primeng/menu";
 import {SplitButtonModule} from "primeng/splitbutton";
 import {DropdownModule} from "primeng/dropdown";
-import {AdminLayoutModule} from "./admin/admin.layout.module";
-import {PassengerLayoutModule} from "./passenger/passenger.layout.module";
+import {AdminSidebarComponent} from "./sideBar/admin.sidebar.component";
+import {AdminMenuComponent} from "./menu/admin.menu.component";
+import {AdminFooterComponent} from "./footer/admin.footer.component";
+import {AdminMenuitemComponent} from "./menuItem/admin.menuitem.component";
+import {AdminTopbarComponent} from "./topBar/admin.topbar.component";
+import {AppConfigModule} from "../config/config.module";
 
 @NgModule({
-    declarations: [],
+    declarations: [
+        AdminMenuitemComponent,
+        AdminTopbarComponent,
+        AdminFooterComponent,
+        AdminMenuComponent,
+        AdminSidebarComponent,
+        AdminLayoutComponent,
+    ],
     imports: [
         BrowserModule,
         FormsModule,
@@ -49,11 +58,9 @@ import {PassengerLayoutModule} from "./passenger/passenger.layout.module";
         PasswordModule,
         MenuModule,
         SplitButtonModule,
-        DropdownModule,
-        AdminLayoutModule,
-        PassengerLayoutModule,
+        DropdownModule
     ],
-    exports: []
+    exports: [AdminLayoutComponent, AdminTopbarComponent]
 })
-export class AppLayoutModule {
+export class AdminLayoutModule {
 }

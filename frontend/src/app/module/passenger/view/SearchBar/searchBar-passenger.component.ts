@@ -1,21 +1,20 @@
-import {Component, OnInit} from '@angular/core';
-import {LayoutService} from "../../layout/service/app.layout.service";
-import {AppComponent} from "../../app.component";
-import gsap from "gsap";
-import {provideRouter, Router} from "@angular/router";
-import {VillePassengerService} from "../../shared/service/passenger/trajet/VillePassenger.service";
-import {VilleDto} from "../../shared/model/trajet/Ville.model";
-import {TrajetPassengerService} from "../../shared/service/passenger/trajet/TrajetPassenger.service";
-import {TrajetDto} from "../../shared/model/trajet/Trajet.model";
-import {TrajetCriteria} from "../../shared/criteria/trajet/TrajetCriteria.model";
+import {VilleDto} from "../../../../shared/model/trajet/Ville.model";
+import {Component, OnInit} from "@angular/core";
+import {LayoutService} from "../../../../layout/service/app.layout.service";
+import {TrajetPassengerService} from "../../../../shared/service/passenger/trajet/TrajetPassenger.service";
+import {VillePassengerService} from "../../../../shared/service/passenger/trajet/VillePassenger.service";
+import {AppComponent} from "../../../../app.component";
+import {Router} from "@angular/router";
+import {TrajetDto} from "../../../../shared/model/trajet/Trajet.model";
+import {TrajetCriteria} from "../../../../shared/criteria/trajet/TrajetCriteria.model";
 
 
 @Component({
-    selector: 'app-home',
-    templateUrl: './home-public.component.html',
-    styleUrls: ['./home-public.component.scss']
+    selector: 'passenger-search-bar',
+    templateUrl: './searchBar-passenger.component.html',
+    styleUrls: ['./searchBar-passenger.component.scss']
 })
-export class HomePublicComponent implements OnInit {
+export class SearchBarPassengerComponent implements OnInit {
 
     villeDeparts: VilleDto[] = [];
     villeDestinations: VilleDto[] = [];
@@ -50,7 +49,7 @@ export class HomePublicComponent implements OnInit {
         console.log('Item before navigating:', this.item);
 
         if (this.item && this.item.villeDepart && this.item.villeDestination) {
-            this.router.navigate(['/admin/login']);
+            this.router.navigate(['/app/passenger/trajets/list']);
         } else {
             console.log('Item or required properties are null or not properly initialized');
         }

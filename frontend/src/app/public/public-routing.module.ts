@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {HomePublicComponent} from 'src/app/public/home/home-public.component';
 import {ContactUsComponent} from 'src/app/public/contact-us/contact-us.component';
+import {TrajetsPublicComponent} from "./trajets/trajets-public.component";
 
 @NgModule({
     imports: [
@@ -25,6 +26,15 @@ import {ContactUsComponent} from 'src/app/public/contact-us/contact-us.component
                                 {
                                     path: '',
                                     component: ContactUsComponent,
+                                }
+                            ]
+                        },
+                        {
+                            path: 'search',
+                            children: [
+                                {
+                                    path: '',
+                                    component: TrajetsPublicComponent,
                                 }
                             ]
                         }

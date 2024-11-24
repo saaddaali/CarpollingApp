@@ -1,29 +1,27 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { SelectItem } from 'primeng/api';
-import { LayoutService } from './service/app.layout.service';
-import {AppLayoutComponent} from './app.layout.component';
+
 import {AppComponent} from 'src/app/app.component';
 import {TranslateService} from '@ngx-translate/core';
 import {UserService} from 'src/app/zynerator/security/shared/service/User.service';
 import {UserDto} from 'src/app/zynerator/security/shared/model/User.model';
 import {AuthService} from 'src/app/zynerator/security/shared/service/Auth.service';
+import {LayoutService} from "../../../../layout/service/app.layout.service";
+import {PassengerLayoutComponent} from "../../../../layout/passenger/passenger.layout.component";
+
 
 @Component({
-    selector: 'app-topbar',
-    templateUrl: './app.topbar.component.html'
+    selector: 'topbar',
+    templateUrl: './topBar.component.html'
 })
-export class AppTopBarComponent implements OnInit{
-    roleAdmin = false;
+export class TopBarComponent implements OnInit{
+   rolePassenger = false;
     editDialog = false ;
     languageOptions: SelectItem[];
     selectedLanguage: string;
 
 
 
-
-    @ViewChild('menubutton') menuButton!: ElementRef;
-
-    @ViewChild('topbarmenubutton') topbarMenuButton!: ElementRef;
 
     @ViewChild('topbarmenu') menu!: ElementRef;
     public async edit(dto: UserDto) {
@@ -45,22 +43,14 @@ export class AppTopBarComponent implements OnInit{
 
 
 
-    constructor(public  layoutService:LayoutService ,public app: AppComponent, public appMain: AppLayoutComponent, private authService: AuthService, private translateService: TranslateService, private userService: UserService) {
-        this.languageOptions = [
-            { label: 'English', value: 'en' },
-            { label: 'Français', value: 'fr' },
-            { label: 'العربية', value: 'ar' }
-        ];
+    constructor(public  layoutService:LayoutService , public app: AppComponent, private authService: AuthService, private translateService: TranslateService, private userService: UserService) {
     }
 
     useLanguage(language: string): void {
         this.translateService.use(language);
     }
     ngOnInit(): void {
-        this.authService.loadInfos();
-        if ( this.authService.authenticatedUser.roleUsers[0].role.authority === 'ROLE_ADMIN') {
-            this.roleAdmin = true;
-        }
+
     }
 
     logout(){

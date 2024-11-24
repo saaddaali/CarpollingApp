@@ -41,7 +41,7 @@ import {UserService} from './zynerator/security/shared/service/User.service';
 import {ServiceLocator} from './zynerator/service/ServiceLocator';
 import {JwtInterceptor} from './zynerator/security/interceptors/jwt.interceptor';
 
-import {MenuService} from './layout/app.menu.service';
+
 
 import {SpinnerComponent} from './zynerator/spinner/spinner.component';
 import { HttpRequestInterceptor } from './zynerator/spinner/http.interceptor';
@@ -55,6 +55,7 @@ import {DriverModule} from './module/driver/driver.module';
 import {DriverRoutingModule} from './module/driver/driver-routing.module';
 import {PassengerModule} from './module/passenger/passenger.module';
 import {PassengerRoutingModule} from './module/passenger/passenger-routing.module';
+import {MenuService} from "./layout/admin/admin.menu.service";
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -91,10 +92,8 @@ imports: [
     ToastModule,
     FileUploadModule,
     SelectButtonModule,
-
     PublicModule,
     PublicRoutingModule,
-
     AdminModule,
     AdminRoutingModule,
     DriverModule,

@@ -1,0 +1,120 @@
+<div class="header">
+    <app-top></app-top>
+</div>
+<div class="page-container">
+    <!-- Return Button -->
+    <div class="return-button">
+        <button (click)="goBack()">← Retour</button>
+    </div>
+
+    <!-- Main Layout -->
+    <div class="main-content">
+        <!-- Left Filter Card -->
+        <!-- Left Filter Card -->
+        <div class="filter-container">
+            <h3>🔍 Recherche</h3>
+
+            <div class="filter-group">
+                <!-- Departure City Filter -->
+                <div class="filter-item">
+                    <label for="villeDepart">villeDepart</label>
+                    <p-dropdown
+                        [options]="villeDeparts"
+                        [(ngModel)]="criteria.villeDepart"
+                        id="villeDepart"
+                        [filter]="true"
+                        class="p-fluid"
+                        [showClear]="true"
+                        placeholder="villeDepart"
+                        optionLabel="libelle">
+                    </p-dropdown>
+                </div>
+
+                <!-- Arrival City Filter -->
+                <div class="filter-item">
+                    <label for="villeDestination">villeDestination</label>
+                    <p-dropdown
+                        [options]="villeDestinations"
+                        [(ngModel)]="criteria.villeDestination"
+                        id="villeDestination"
+                        [filter]="true"
+                        class="p-fluid"
+                        [showClear]="true"
+                        placeholder="villeDestination"
+                        optionLabel="libelle">
+                    </p-dropdown>
+                </div>
+
+                <!-- Departure Date Filter -->
+                <div class="filter-item">
+                    <label for="horaireDepartTo">Date</label>
+                    <p-calendar
+                        [(ngModel)]="criteria.horaireDepartTo"
+                        id="horaireDepartTo"
+                        dateFormat="dd-MM-yy"
+                        [showIcon]="true"
+                        class="p-fluid">
+                    </p-calendar>
+                </div>
+
+                <!-- Number of Seats Filter -->
+                <div class="filter-item">
+                    <label>nbrPlaces</label>
+                    <p-inputNumber [(ngModel)]="criteria.placesDisponiblesMax" [showButtons]="true"
+                                   placeholder="1"
+                                   inputId="minmax-buttons" [min]="1" [max]="4"></p-inputNumber>
+
+                </div>
+            </div>
+
+
+            <div class="filter-actions">
+                <!-- Search Button -->
+                <div [style]="{ marginTop: '1rem', display: 'flex', justifyContent: 'flex-end' }">
+                    <button
+                        pButton
+                        pRipple
+                        label="validate"
+                        icon="pi pi-search"
+                        class="p-button-info mr-2"
+                        (click)="findPaginatedByCriteria()">
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Right Trajet List -->
+        <div class="trajet-list">
+            <div *ngFor="let trajet of items" class="trajet-card">
+                <div class="trajet-header">
+                    <strong>{{ trajet.villeDepart.libelle }}</strong>
+                    <span>→</span>
+                    <strong>{{ trajet.villeDestination.libelle }}</strong>
+                </div>
+
+                <div class="trajet-info">
+                    <div class="time-info">
+                        <span>{{ trajet.horaireDepart }}</span>
+                        <span>→</span>
+                        <span>{{ trajet.horaireArrive }}</span>
+                    </div>
+
+                    <div class="price">
+                        <span>{{ trajet.placesDisponibles }}/{{ trajet.placesDisponibles }} sièges</span>
+                        <strong> DHS</strong>
+                    </div>
+
+                    <div class="driver">
+                        <img [src]="trajet.driver.photo" alt="Driver"/>
+                        <div>
+                            <span class="driver-name">{{ trajet.driver.username }}</span>
+                            <span class="rating">★ {{ trajet.driver.evaluation }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

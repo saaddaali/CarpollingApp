@@ -1,7 +1,6 @@
 import {RouterModule} from '@angular/router';
 import {NgModule} from '@angular/core';
 import {AuthGuard} from 'src/app/zynerator/security/guards/auth.guard';
-import {AppLayoutComponent} from 'src/app/layout/app.layout.component';
 
 import {HomePublicComponent} from 'src/app/public/home/home-public.component';
 
@@ -14,6 +13,8 @@ import {ChangePasswordDriverComponent} from 'src/app/module/driver/change-passwo
 import {LoginPassengerComponent} from 'src/app/module/passenger/login-passenger/login-passenger.component';
 import {RegisterPassengerComponent} from 'src/app/module/passenger/register-passenger/register-passenger.component';
 import {ChangePasswordPassengerComponent} from 'src/app/module/passenger/change-password-passenger/change-password-passenger.component';
+import {AdminLayoutComponent} from "./layout/admin/admin.layout.component";
+import {PassengerLayoutModule} from "./layout/passenger/passenger.layout.module";
 
 @NgModule({
     imports: [
@@ -31,10 +32,10 @@ import {ChangePasswordPassengerComponent} from 'src/app/module/passenger/change-
                 {path: 'passenger/changePassword', component: ChangePasswordPassengerComponent },
                 {
                     path: 'app',
-                    component: AppLayoutComponent,
                     children: [
                         {
                             path: 'admin',
+                            component: AdminLayoutComponent,
                             loadChildren: () => import( './module/admin/admin-routing.module').then(x => x.AdminRoutingModule),
                             canActivate: [AuthGuard],
                         },
@@ -45,6 +46,7 @@ import {ChangePasswordPassengerComponent} from 'src/app/module/passenger/change-
                         },
                         {
                             path: 'passenger',
+                            //component: PassengerLayoutModule,
                             loadChildren: () => import( './module/passenger/passenger-routing.module').then(x => x.PassengerRoutingModule),
                             canActivate: [AuthGuard],
                         },

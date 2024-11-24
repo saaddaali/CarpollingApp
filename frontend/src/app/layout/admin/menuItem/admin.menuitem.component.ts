@@ -3,8 +3,9 @@ import { NavigationEnd, Router } from '@angular/router';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { MenuService } from './app.menu.service';
-import { LayoutService } from './service/app.layout.service';
+import {LayoutService} from "../../service/app.layout.service";
+import {MenuService} from "../admin.menu.service";
+
 
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
@@ -30,7 +31,7 @@ import { LayoutService } from './service/app.layout.service';
 
 			<ul *ngIf="item.items && item.visible !== false" [@children]="submenuAnimation">
 				<ng-template ngFor let-child let-i="index" [ngForOf]="item.items">
-					<li app-menuitem [item]="child" [index]="i" [parentKey]="key" [class]="child.badgeClass"></li>
+					<li app-menuitem [item]="child" [index]="i" [parentKey]="key" [class]="child"></li>
 				</ng-template>
 			</ul>
 		</ng-container>
@@ -47,7 +48,7 @@ import { LayoutService } from './service/app.layout.service';
         ])
     ]
 })
-export class AppMenuitemComponent implements OnInit, OnDestroy {
+export class AdminMenuitemComponent implements OnInit, OnDestroy {
 
     @Input() item: any;
 
