@@ -119,7 +119,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       size: 30,
                     ),
                     onPressed: () =>
-                        Navigator.pushReplacementNamed(context, '/signup'),
+                        Navigator.pushReplacementNamed(context, '/'),
                   ),
                   const SizedBox(height: 20),
                   // Welcome text

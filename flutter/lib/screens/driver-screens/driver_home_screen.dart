@@ -1,25 +1,22 @@
+// driver_screen.dart
 import 'package:flutter/material.dart';
-import 'passenger-screens/departure_city_screen.dart';
-import 'chat_screen.dart';
-import 'profile_screen.dart';
-import 'driver-screens/driver_home_screen.dart';
-import 'carpool_screen.dart';
-import 'wallet_screen.dart';
+import '../chat_screen.dart';
+import '../profile_screen.dart';
+import '../home_screen.dart';
+import '../carpool_screen.dart';
+import '../wallet_screen.dart';
+import 'create_trip_screen.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class DriverScreen extends StatefulWidget {
+  const DriverScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<DriverScreen> createState() => _DriverScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
-  String? selectedDepartureCity;
-
-  // Définition des couleurs
+class _DriverScreenState extends State<DriverScreen> {
   static const Color primaryBlue = Color(0xFF4052EE);
-  static const Color searchBarColor = Color(0xFFF5F5F5);
+  final int _selectedIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +26,12 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Header with profile, help and chat buttons
+            // Header avec profil, aide et chat
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Profile Button
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -58,11 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-
-                  // Help and Chat buttons
                   Row(
                     children: [
-                      // Help Button
                       Container(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16,
@@ -91,10 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                       ),
-
                       const SizedBox(width: 12),
-
-                      // Chat Button
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -125,11 +115,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
             const SizedBox(height: 32),
 
-            // Welcome text
+            // Titre
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                'Soukaina, où souhaites-tu\nvoyager?',
+                'Soukaina, tu voyages quelque part?',
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
@@ -140,86 +130,63 @@ class _HomeScreenState extends State<HomeScreen> {
 
             const SizedBox(height: 24),
 
-            // Search bar
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: InkWell(
-                onTap: () async {
-                  final result = await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const DepartureCityScreen(),
-                    ),
-                  );
-                  if (result != null) {
-                    setState(() {
-                      selectedDepartureCity = result;
-                    });
-                  }
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: searchBarColor,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.search,
-                        color: Colors.grey[600],
-                        size: 26,
-                      ),
-                      const SizedBox(width: 12),
-                      Text(
-                        selectedDepartureCity ?? 'Chercher parmi 339 offres',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: selectedDepartureCity != null
-                              ? Colors.black
-                              : Colors.grey[600],
+            // Contenu principal
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Bouton pour créer un trajet
+                    Container(
+                      width: double.infinity,
+                      margin: const EdgeInsets.only(bottom: 20),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Ajouter la logique pour créer un trajet
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const CreateTripScreen(),
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: primaryBlue,
+                          padding: const EdgeInsets.symmetric(vertical: 15),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        child: const Text(
+                          ' + Créer un nouveau trajet',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+
+                    // Liste des trajets publiés
+                    /*const Text(
+                      'Mes trajets publiés',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),*/
+                    const SizedBox(height: 16),
+                    // Ici vous pouvez ajouter une liste de trajets
+                  ],
                 ),
               ),
             ),
 
-            const SizedBox(height: 32),
-
-            // Popular searches section
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                'Recherches populaires',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 16),
-
-            // Popular routes
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children: [
-                  _buildRouteItem('Casablanca', 'Marrakech'),
-                  _buildRouteItem('Casablanca', 'Agadir'),
-                  _buildRouteItem('Agadir', 'Casablanca'),
-                ],
-              ),
-            ),
-
-            const Spacer(),
-
-            // Bottom navigation
+            // Barre de navigation
             Column(
               children: [
-                // Indicator line
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   height: 4,
@@ -248,8 +215,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-
-                // Navigation bar
                 Container(
                   padding: const EdgeInsets.fromLTRB(0, 12, 0, 32),
                   child: Row(
@@ -270,68 +235,32 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildRouteItem(String from, String to) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-      decoration: BoxDecoration(
-        color: searchBarColor,
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: primaryBlue.withOpacity(0.1),
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(
-              Icons.location_on,
-              color: primaryBlue,
-              size: 20,
-            ),
-          ),
-          const SizedBox(width: 12),
-          Text(
-            '$from > $to',
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildNavItem(int index, IconData icon, String label) {
     bool isSelected = _selectedIndex == index;
 
     return InkWell(
       onTap: () {
-        setState(() {
-          _selectedIndex = index;
-        });
-        switch (index) {
-          case 1:
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const DriverScreen()),
-            );
-            break;
-          case 2:
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const CarpoolScreen()),
-            );
-            break;
-          case 3:
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const WalletScreen()),
-            );
-            break;
+        if (index != _selectedIndex) {
+          switch (index) {
+            case 0:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const HomeScreen()),
+              );
+              break;
+            case 2:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const CarpoolScreen()),
+              );
+              break;
+            case 3:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const WalletScreen()),
+              );
+              break;
+          }
         }
       },
       child: Column(

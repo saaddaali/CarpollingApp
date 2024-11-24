@@ -64,7 +64,7 @@ class WelcomeScreen extends StatelessWidget {
                       Text.rich(
                         TextSpan(
                           style: TextStyle(
-                            fontSize: 13,
+                            fontSize: 17,
                             fontWeight: FontWeight.w500,
                             color: slogan,
                             letterSpacing: 0.2,
@@ -132,7 +132,7 @@ class WelcomeScreen extends StatelessWidget {
                         color: Colors.transparent,
                         child: InkWell(
                           onTap: () {
-                            Navigator.pushReplacementNamed(context, '/signup');
+                            Navigator.pushReplacementNamed(context, '/signin');
                           },
                           splashColor: Colors.white.withOpacity(0.2),
                           highlightColor: Colors.white.withOpacity(0.1),
