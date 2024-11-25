@@ -73,9 +73,6 @@ export class TrajetListPassengerComponent implements OnInit {
         this.roleService = ServiceLocator.injector.get(RoleService);
         this.router = ServiceLocator.injector.get(Router);
 
-
-
-
     }
 
 
@@ -111,22 +108,61 @@ export class TrajetListPassengerComponent implements OnInit {
         this.loadVilleDestination();
         this.loadDriver();
         this.item = this.service.item;
-        //copier the item to criteria
-        this.vileeDepartSearch.libelle=this.item.villeDepart.libelle;
-        this.vileeDepartSearch.code = this.item.villeDepart.code;
-        this.vileeDepartSearch.id = this.item.villeDepart.id;
-        this.criteria.villeDepart = this.vileeDepartSearch;
-
-        console.log('Item:', this.item);
-
-
-
     }
+
+    private mapDtoToCriteria(dto: TrajetDto): TrajetCriteria {
+
+        if (!dto) {
+            console.error('TrajetDto is null or undefined');
+            return null;
+        }
+        const criteria = new TrajetCriteria();
+
+        if(!dto.villeDepart.libelle){
+            criteria.villeDepart = null;
+        }
+        criteria.id = dto.id || null;
+       //criteria. horaireDepartFrom = dto.horaireDepart || null;
+
+        criteria.villeDepart = this.mapVilleDtoToVilleCriteria(dto.villeDepart);
+        criteria.villeDestination = this.mapVilleDtoToVilleCriteria(dto.villeDestination);
+
+        return criteria;
+    }
+
+
+    private mapVilleDtoToVilleCriteria(villeDto: VilleDto): VilleCriteria {
+        if (!villeDto.libelle) {
+            return null;
+        }
+
+        const villeCriteria = new VilleCriteria();
+        villeCriteria.id = villeDto.id|| null;
+        villeCriteria.libelle = villeDto.libelle|| null ;
+
+        return villeCriteria;
+    }
+
     public findPaginatedByCriteria() {
+        if (this.item) {
+            this.criteria = this.mapDtoToCriteria(this.item);
+        }
         this.service.findPaginatedByCriteria(this.criteria).subscribe(paginatedItems => {
             this.items = paginatedItems.list;
+
             this.totalRecords = paginatedItems.dataSize;
             this.selections = new Array<TrajetDto>();
+
+        }, error => console.log(error));
+    }
+
+    public valid() {
+        this.service.findPaginatedByCriteria(this.criteria).subscribe(paginatedItems => {
+            this.items = paginatedItems.list;
+
+            this.totalRecords = paginatedItems.dataSize;
+            this.selections = new Array<TrajetDto>();
+
         }, error => console.log(error));
     }
 

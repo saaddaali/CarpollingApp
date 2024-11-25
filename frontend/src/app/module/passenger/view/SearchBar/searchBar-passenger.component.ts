@@ -47,10 +47,6 @@ export class SearchBarPassengerComponent implements OnInit {
     bool: boolean = true;
 
     toSearch() {
-        console.log('Item before navigating:', this.item);
-
-
-
         if (this.item && this.item.villeDepart && this.item.villeDestination) {
             this.router.navigate(['/app/passenger/trajet']);
         } else {
