@@ -1,230 +1,262 @@
-.body {
-    height: 100vh;
-    width: 100vw;
-    background-color: white;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center; /* Ensure vertical centering */
-    position: relative;
-}
-
-.back {
-    /*position: absolute;*/
-    /*top: 20px;*/
-    /*left: 20px;*/
-    margin-top: 20px;
-    padding: 10px 28px;
-    background-color: white;
-    color: black;
-    border: none;
-    border-radius: 5px;
-    font-family: "Fira Code", monospace;
-    font-size: 1.1rem;
-    cursor: pointer;
+.main-container {
+    min-height: 100vh;
+    background-color: #f5f5f5;
     display: flex;
     align-items: center;
-    gap: 10px;
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    width: 11rem;
-    height: 3rem;
-}
-
-.back i {
-    font-size: 1.2rem; /* Adjust icon size */
-}
-
-.back:hover {
-    /* background-color: #FF752E; */
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 20rem;
-    margin-right: 12rem; /* Adjust as needed */
-    margin-left: 5rem; /* Adjust as needed */
-}
-
-form h1 {
-    font-size: 4rem;
-    font-family: "Fira Code", monospace;
-    padding-bottom: 2rem;
-}
-
-.username, .password {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    margin-bottom: 2rem;
-}
-
-.username input, .password input {
-    width: 20rem;
-    height: 3rem;
-    border-radius: 10px;
-    border: none;
-    outline: none;
-    background-color: #dddddd;
-    padding: 0 10px;
-    font-family: "Fira Code", monospace;
-}
-
-.username label, .password label {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 2;
-    transition: transform 0.2s ease;
-    font-family: "Fira Code", monospace;
-}
-
-.username input:focus + label, .username input:valid + label,
-.password input:focus + label, .password input:valid + label {
-    transform: translate(-10px, -30px) scale(0.8);
-    color: #333;
-}
-
-.forget {
-    display: flex;
-    align-items: flex-end;
-    text-decoration: none;
-    font-family: "Fira Code", monospace;
-    color: rgb(7, 15, 30);
-}
-
-.forget:hover {
-    color: #FF752E;
-}
-
-.login {
-    margin-right: 2rem;
-    display: flex;
-    flex-direction: row;
     justify-content: center;
+    padding: 20px;
+}
+
+.card-container {
     width: 100%;
-    margin-top: 1rem;
-}
-
-.login .submit {
-    margin-left:23px;
-    /*display: flex;*/
-    justify-content: center;
-    align-items: center;
-    width: 16rem;
-    height: 3rem;
-    border-radius: 10px;
-    border: none;
-    background: rgb(7, 15, 30);
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    font-family: "Fira Code", monospace;
-    font-size: 1.1rem;
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.login .submit:hover {
+    max-width: 1200px;
+    min-height: 600px;
     background: white;
-    color: rgb(7, 15, 30);
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.login .icon {
-    background: transparent;
-    border: none;
-}
-
-img {
-    width: 3rem;
-    height: 3rem;
-}
-
-.signUp {
+    border-radius: 24px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Partie formulaire */
+.form-side {
+    width: 50%;
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 50%;
-    height: 100vh;
-    background: url("../../../../assets/layout/Design sans titre.png");
-    background-size: cover; /* Ensure the background image covers the entire section */
-    overflow: hidden;
-    position: relative;
-    animation: animate 30s linear infinite;
+    padding: 48px;
+}
+
+.form-wrapper {
+    width: 100%;
+    max-width: 360px;
     text-align: center;
 }
 
-@keyframes animate {
-    from {
-        background-position-y: 0;
-    }
-    to {
-        background-position-y: 100vh;
-    }
+.form-wrapper h2 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 32px;
+    font-weight: 600;
 }
 
-/* .signUp h1{
-    margin-top: 6rem;
-    font-size: 4rem;
-    font-weight: bold;
-    color: white;
-    font-family: "Fira Code", monospace;
-} */
-
-
-/* .signUp p {
-    font-size: 1.5rem;
-    color: white;
-    font-family: "Fira Code", monospace;
-} */
-
-.signUp img {
-    margin-top: 2rem;
-    height: 35rem;
-    width: 30rem;
-    z-index: 9;
+.form-box {
+    background: white;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transition: all 0.3s ease;
 }
 
-.signUpBtn {
-    padding: 10px 18px;
+.form-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+}
+
+.form-group {
+    margin-bottom: 16px;
+    position: relative;
+}
+
+input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: #4052ee;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(64, 82, 238, 0.1);
+}
+
+input::placeholder {
+    color: #666;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+}
+
+.toggle-password:hover {
+    opacity: 0.8;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    background: #4052ee;
     color: white;
     border: none;
-    border-radius: 5px;
-    font-family: "Fira Code", monospace;
-    font-size: 1.1rem;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 16px 0;
+}
+
+.btn-submit:hover {
+    background: #2c3ccc;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(64, 82, 238, 0.2);
+}
+
+.register-link {
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+    margin: 0;
+}
+
+.register-link a {
+    color: #4052ee;
+    text-decoration: none;
+    cursor: pointer;
+    margin-left: 4px;
+    transition: color 0.2s ease;
+}
+
+.register-link a:hover {
+    color: #2c3ccc;
+    text-decoration: underline;
+}
+
+/* Partie bleue */
+.blue-side {
+    width: 50%;
+    padding: 48px;
+    background: #4052ee;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-radius: 24px;
+}
+
+.logo {
+    height: 32px;
+    margin-bottom: 64px;
+}
+
+.hero-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: -20px;
+}
+
+.hero-content h1 {
+    font-size: 42px;
+    line-height: 1.2;
+    margin-bottom: 24px;
+    font-weight: 800;
+    color: white;
+    letter-spacing: -0.5px;
+}
+
+.hero-content p {
+    font-size: 18px;
+    line-height: 1.5;
+    opacity: 1;
+    color: white;
+    font-weight: 600;
+}
+
+.testimonial {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 24px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 480px;
+    margin-top: auto;
+    backdrop-filter: blur(8px);
+}
+
+.quote {
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 24px;
+    text-align: center;
+    color: white;
+    font-weight: 500;
+    opacity: 1;
+}
+
+.author {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    width: 12rem;
-    height: 3rem;
-    margin-top: 1.5rem;
+    gap: 12px;
 }
 
-.signUpBtn:hover {
-    transform: scale(1.2);
+.author-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
 }
 
-.signUp h1 {
-    margin-top: 3rem;
-    font-size: 5rem;
-    font-weight: bold;
+.author-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+}
+
+.name {
+    font-weight: 700;
+    font-size: 14px;
     color: white;
-    font-family: "Fira Code", monospace;
+    opacity: 1;
 }
 
-.signUp p {
-    font-size: 1.5rem;
+.role {
+    font-size: 12px;
     color: white;
-    font-family: "Fira Code", monospace;
-    margin-top: 1rem;
+    font-weight: 600;
+    opacity: 0.9;
 }
 
+@media (max-width: 768px) {
+    .card-container {
+        flex-direction: column;
+        min-height: auto;
+    }
 
+    .form-side,
+    .blue-side {
+        width: 100%;
+        padding: 32px 24px;
+    }
+
+    .blue-side {
+        border-radius: 24px 24px 0 0;
+    }
+
+    .form-box {
+        padding: 24px;
+    }
+
+    .hero-content {
+        margin: 32px 0;
+    }
+
+    .testimonial {
+        margin-top: 32px;
+    }
+}

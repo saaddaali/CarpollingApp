@@ -1,49 +1,59 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
-import {  MessageService} from 'primeng/api';
-import {AuthService} from 'src/app/zynerator/security/shared/service/Auth.service';
-import {LayoutService} from 'src/app/layout/service/app.layout.service';
-import {UserDto} from "src/app/zynerator/security/shared/model/User.model";
-import {environment} from "src/environments/environment";
+import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/zynerator/security/shared/service/Auth.service';
+import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { UserDto } from 'src/app/zynerator/security/shared/model/User.model';
+import { environment } from 'src/environments/environment';
 import { LoginDto } from 'src/app/zynerator/security/shared/model/Login.model';
 
 
-
 @Component({
-  selector: 'app-login-passenger',
-  templateUrl: './login-passenger.component.html',
-  styleUrls: ['./login-passenger.component.css']
+    selector: 'app-login-passenger',
+    templateUrl: './login-passenger.component.html',
+    styleUrls: ['./login-passenger.component.css'],
 })
 export class LoginPassengerComponent implements OnInit {
     readonly API = environment.loginUrl;
     googleLoginOptions = {
-      scope: 'profile email',
-      plugin_name: 'sample_login'
+        scope: 'profile email',
+        plugin_name: 'sample_login',
     };
 
-    private _authenticatedUser = new UserDto();
+    private authenticatedUser = new UserDto();
     loginDto: LoginDto = new LoginDto();
+    showPassword: boolean = false;
 
+    constructor(
+        private authService: AuthService,
+        public layoutService: LayoutService,
+        private router: Router,
+        private messageService: MessageService
+    ) {}
 
-    constructor(private authService: AuthService, public layoutService: LayoutService, private router: Router, private messageService: MessageService) { }
+    ngOnInit(): void {}
 
-    ngOnInit(): void {
+    togglePassword() {
+        this.showPassword = !this.showPassword;
     }
 
     submit() {
-      if (this.loginDto.username && this.loginDto.password) {
-        this.authService.login(this.loginDto.username, this.loginDto.password);
-      } else {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Fill in all fields'
-        });
-      }
+        if (this.loginDto.username && this.loginDto.password) {
+            this.authService.login(
+                this.loginDto.username,
+                this.loginDto.password
+            );
+        } else {
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Fill in all fields',
+            });
+        }
     }
 
     public signInWithGoogle(): void {
-      /*
+        /*
        this.oauthService.signIn(GoogleLoginProvider.PROVIDER_ID,this.googleLoginOptions).then(
           data => {
             this.socialUser = data;
@@ -75,19 +85,18 @@ export class LoginPassengerComponent implements OnInit {
     }
 
     register() {
-      this.router.navigate(['/passenger/register']);
+        this.router.navigate(['/passenger/register']);
     }
 
     forget() {
         this.router.navigate(['/passenger/forget-password']);
     }
 
-
     get user(): UserDto {
-      return this.authService.user;
+        return this.authService.user;
     }
 
     set user(value: UserDto) {
-      this.authService.user = value;
+        this.authService.user = value;
     }
-  }
+}

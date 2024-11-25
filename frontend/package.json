@@ -42,6 +42,7 @@
         "json2yaml": "^1.1.0",
         "jspdf": "^2.3.1",
         "jspdf-autotable": "^3.5.2",
+        "lucide-angular": "^0.460.0",
         "moment": "^2.29.1",
         "primeflex": "^3.3.1",
         "primeicons": "6.0.1",

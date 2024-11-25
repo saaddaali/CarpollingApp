@@ -17,11 +17,15 @@ export class RegisterPassengerComponent implements OnInit {
 
     clicked = false;
     registerDto: RegisterDto = new RegisterDto();
+    showPassword: boolean = false;
 
     constructor(private authService: AuthService, private messageService: MessageService, private router: Router) {
     }
-
     ngOnInit(): void {
+    }
+
+    togglePassword() {
+        this.showPassword = !this.showPassword;
     }
 
     login() {

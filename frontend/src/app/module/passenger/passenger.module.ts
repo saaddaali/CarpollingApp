@@ -1,38 +1,37 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import {ToastModule} from 'primeng/toast';
-import {ToolbarModule} from 'primeng/toolbar';
-import {TableModule} from 'primeng/table';
-import {DropdownModule} from 'primeng/dropdown';
-import {InputSwitchModule} from 'primeng/inputswitch';
-import {InputTextareaModule} from 'primeng/inputtextarea';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
+import { TableModule } from 'primeng/table';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {CalendarModule} from 'primeng/calendar';
-import {PanelModule} from 'primeng/panel';
-import {InputNumberModule} from 'primeng/inputnumber';
-import {BadgeModule} from 'primeng/badge';
+import { CalendarModule } from 'primeng/calendar';
+import { PanelModule } from 'primeng/panel';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { BadgeModule } from 'primeng/badge';
 import { MultiSelectModule } from 'primeng/multiselect';
 
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
-import {ButtonModule} from 'primeng/button';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {RouterModule} from '@angular/router';
-import {TabViewModule} from 'primeng/tabview';
+import { ButtonModule } from 'primeng/button';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { TabViewModule } from 'primeng/tabview';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { MessageModule } from 'primeng/message';
-import {MessagesModule} from 'primeng/messages';
+import { MessagesModule } from 'primeng/messages';
 
 import { LoginPassengerComponent } from './login-passenger/login-passenger.component';
 import { RegisterPassengerComponent } from './register-passenger/register-passenger.component';
 import { ChangePasswordPassengerComponent } from './change-password-passenger/change-password-passenger.component';
 import { ActivationPassengerComponent } from './activation-passenger/activation-passenger.component';
 import { ForgetPasswordPassengerComponent } from './forget-password-passenger/forget-password-passenger.component';
-
 
 import { TrajetPassengerModule } from './view/trajet/trajet-passenger.module';
 import { TrajetPassengerRoutingModule } from './view/trajet/trajet-passenger-routing.module';
@@ -49,25 +48,24 @@ import { MessagePassengerRoutingModule } from './view/message/message-passenger-
 import { ReservationPassengerModule } from './view/reservation/reservation-passenger.module';
 import { ReservationPassengerRoutingModule } from './view/reservation/reservation-passenger-routing.module';
 
-import {SecurityModule} from 'src/app/module/security/security.module';
-import {SecurityRoutingModule} from 'src/app/module/security/security-routing.module';
-import {HomePassengerComponent} from "./view/home/home-passenger.component";
-import {AutoCompleteModule} from "primeng/autocomplete";
-import {PassengerLayoutModule} from "../../layout/passenger/passenger.layout.module";
-import {AdminLayoutModule} from "../../layout/admin/admin.layout.module";
-import {SearchBarPassengerComponent} from "./view/SearchBar/searchBar-passenger.component";
-
+import { SecurityModule } from 'src/app/module/security/security.module';
+import { SecurityRoutingModule } from 'src/app/module/security/security-routing.module';
+import { HomePassengerComponent } from './view/home/home-passenger.component';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { PassengerLayoutModule } from '../../layout/passenger/passenger.layout.module';
+import { AdminLayoutModule } from '../../layout/admin/admin.layout.module';
+import { SearchBarPassengerComponent } from './view/SearchBar/searchBar-passenger.component';
 
 @NgModule({
-  declarations: [
-   LoginPassengerComponent,
-   RegisterPassengerComponent,
-   ChangePasswordPassengerComponent,
-   ActivationPassengerComponent,
-   HomePassengerComponent,
-   ForgetPasswordPassengerComponent,
-      SearchBarPassengerComponent
-  ],
+    declarations: [
+        LoginPassengerComponent,
+        RegisterPassengerComponent,
+        ChangePasswordPassengerComponent,
+        ActivationPassengerComponent,
+        HomePassengerComponent,
+        ForgetPasswordPassengerComponent,
+        SearchBarPassengerComponent,
+    ],
     imports: [
         CommonModule,
         ToastModule,
@@ -112,25 +110,24 @@ import {SearchBarPassengerComponent} from "./view/SearchBar/searchBar-passenger.
         SecurityRoutingModule,
         AutoCompleteModule,
         PassengerLayoutModule,
-        AdminLayoutModule
+        AdminLayoutModule,
     ],
-  exports: [
-    LoginPassengerComponent,
-    RegisterPassengerComponent,
-    ChangePasswordPassengerComponent,
-    ActivationPassengerComponent,
-    ForgetPasswordPassengerComponent,
+    exports: [
+        LoginPassengerComponent,
+        RegisterPassengerComponent,
+        ChangePasswordPassengerComponent,
+        ActivationPassengerComponent,
+        ForgetPasswordPassengerComponent,
 
-    TrajetPassengerModule,
-    VehiculePassengerModule,
-    PaiementPassengerModule,
-    PassengerPassengerModule,
-    DriverPassengerModule,
-    MessagePassengerModule,
-    ReservationPassengerModule,
-    HomePassengerComponent,
-    SecurityModule
-  ],
-
+        TrajetPassengerModule,
+        VehiculePassengerModule,
+        PaiementPassengerModule,
+        PassengerPassengerModule,
+        DriverPassengerModule,
+        MessagePassengerModule,
+        ReservationPassengerModule,
+        HomePassengerComponent,
+        SecurityModule,
+    ],
 })
-export class PassengerModule { }
+export class PassengerModule {}

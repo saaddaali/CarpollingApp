@@ -57,6 +57,7 @@ import {PassengerModule} from './module/passenger/passenger.module';
 import {PassengerRoutingModule} from './module/passenger/passenger-routing.module';
 import {MenuService} from "./layout/admin/admin.menu.service";
 
+
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
 }

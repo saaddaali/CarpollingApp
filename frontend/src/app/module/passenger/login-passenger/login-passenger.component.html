@@ -1,27 +1,72 @@
-<p-toast></p-toast>
-<div class="body">
-    <div class="signUp">
-        <h1>Hello👋!</h1>
-        <p>If you don't have an account,<br>
-            create it from here </p>
-        <button class="signUpBtn bg-orange-500" id="register" (click)="register()"><span><i class="pi pi-user"></i></span> Go Register</button>
-        <button class="back" [routerLink]="['/home']"><span><i class="pi pi-home"></i></span>Go Home</button>
-        <img src="assets/layout/login/undraw_login_re_4vu2.svg">
-    </div>
+<div class="main-container">
+    <p-toast></p-toast>
+    <div class="card-container">
+        <!-- Partie formulaire -->
+        <div class="form-side">
+            <div class="form-wrapper">
+                <h2>Se connecter</h2>
+                <div class="form-box">
+                    <form (ngSubmit)="submit()">
+                        <div class="form-group">
+                            <input
+                                id="username"
+                                type="text"
+                                [(ngModel)]="loginDto.username"
+                                name="username"
+                                placeholder="Adresse e-mail"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <input
+                                id="password"
+                                [type]="showPassword ? 'text' : 'password'"
+                                [(ngModel)]="loginDto.password"
+                                name="password"
+                                placeholder="Mot de passe"
+                                required
+                            />
+                            <span class="toggle-password" (click)="togglePassword()">
+        {{ showPassword ? '👁️' : '👁️' }}
+    </span>
+                        </div>
 
-    <form (ngSubmit)="submit()" class="form-login">
-        <h1>Sign In</h1>
-        <div class="username">
-            <input id="username" type="text" [(ngModel)]="loginDto.username" name="username" required>
-            <label for="username">Username (passenger by default)</label>
+                        <button type="submit" class="btn-submit">Se connecter</button>
+
+                        <p class="register-link">
+                            Pas encore membre ? <a (click)="register()">Créer un compte</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="password">
-            <input id="password" type="password" [(ngModel)]="loginDto.password" name="password" required>
-            <label for="password">Password (123 by default)</label>
+
+        <!-- Partie bleue -->
+        <div class="blue-side">
+            <img src="assets/images/logo.png" alt="Logo" class="logo" />
+            <div class="hero-content">
+                <h1>Partagez vos trajets<br />en toute simplicité</h1>
+                <p>
+                    Trouvez des covoiturages fiables et économiques<br />
+                    pour tous vos déplacements !
+                </p>
+            </div>
+
+            <div class="testimonial">
+                <p class="quote">
+                    "Cette application de covoiturage est
+                    révolutionnaire ! Simple à utiliser, fiable et
+                    économique. Les trajets sont agréables et je fais
+                    de belles rencontres. Je recommande vivement !"
+                </p>
+                <div class="author">
+                    <img src="assets/images/avatar.jpg" alt="" class="author-img" />
+                    <div class="author-info">
+                        <span class="name">Mohamed Saad</span>
+                        <span class="role">Utilisateur régulier</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <a class="forget" (click)="forget()">Forget Your Password?</a>
-        <div class="login" style="justify-content: center;">
-            <button class="submit" type="submit" style="border:1px solid#000;">Sign In</button>
-        </div>
-    </form>
+    </div>
 </div>
