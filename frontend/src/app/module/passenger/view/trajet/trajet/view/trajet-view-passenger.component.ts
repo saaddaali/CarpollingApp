@@ -40,6 +40,10 @@ export class TrajetViewPassengerComponent implements OnInit {
     protected router: Router;
     protected stringUtilService: StringUtilService;
 
+    goBack() {
+        this.router.navigate(['/app/passenger/trajet']);
+    }
+
 
     constructor(private service: TrajetPassengerService, private driverService: DriverPassengerService, private villeService: VillePassengerService) {
         this.datePipe = ServiceLocator.injector.get(DatePipe);
