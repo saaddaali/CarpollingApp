@@ -12,7 +12,8 @@ import {PassengerLayoutComponent} from "../passenger.layout.component";
 
 @Component({
     selector: 'passenger-topbar',
-    templateUrl: './passenger.topbar.component.html'
+    templateUrl: './passenger.topbar.component.html',
+    styleUrls:['./passenger.topbar.component.scss']
 })
 export class PassengerTopbarComponent implements OnInit{
    rolePassenger = false;

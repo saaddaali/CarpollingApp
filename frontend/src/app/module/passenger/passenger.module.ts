@@ -48,6 +48,7 @@ import { MessagePassengerRoutingModule } from './view/message/message-passenger-
 import { ReservationPassengerModule } from './view/reservation/reservation-passenger.module';
 import { ReservationPassengerRoutingModule } from './view/reservation/reservation-passenger-routing.module';
 
+<<<<<<< HEAD
 import { SecurityModule } from 'src/app/module/security/security.module';
 import { SecurityRoutingModule } from 'src/app/module/security/security-routing.module';
 import { HomePassengerComponent } from './view/home/home-passenger.component';
@@ -66,6 +67,29 @@ import { SearchBarPassengerComponent } from './view/SearchBar/searchBar-passenge
         ForgetPasswordPassengerComponent,
         SearchBarPassengerComponent,
     ],
+=======
+import {SecurityModule} from 'src/app/module/security/security.module';
+import {SecurityRoutingModule} from 'src/app/module/security/security-routing.module';
+import {HomePassengerComponent} from "./view/home/home-passenger.component";
+import {AutoCompleteModule} from "primeng/autocomplete";
+import {PassengerLayoutModule} from "../../layout/passenger/passenger.layout.module";
+import {AdminLayoutModule} from "../../layout/admin/admin.layout.module";
+import {SearchBarPassengerComponent} from "./view/SearchBar/searchBar-passenger.component";
+import {TopBarComponent} from "./view/topBar/topBar.component";
+
+
+@NgModule({
+  declarations: [
+   LoginPassengerComponent,
+   RegisterPassengerComponent,
+   ChangePasswordPassengerComponent,
+   ActivationPassengerComponent,
+   HomePassengerComponent,
+   ForgetPasswordPassengerComponent,
+      SearchBarPassengerComponent,
+      TopBarComponent
+  ],
+>>>>>>> bd835fd (Add home and list and view in trajet passenger and add search in compo)
     imports: [
         CommonModule,
         ToastModule,

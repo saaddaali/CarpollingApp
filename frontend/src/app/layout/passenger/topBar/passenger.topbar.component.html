@@ -1,18 +1,26 @@
-<div class="layout-topbar">
+<div class="layout-topbar elegant-topbar">
 
-    <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button" (click)="layoutService.showProfileSidebar()">
-        <i class="pi pi-ellipsis-v"></i>
-    </button>
+    <!-- Center section (optional: can include logo or title) -->
+    <div>
+        <h1 class="topbar-title">LOGO</h1>
+    </div>
 
-    <div #topbarmenu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
-        <button  class="p-link layout-topbar-button" >
+    <!-- Right section with profile and actions -->
+    <div #topbarmenu
+         class="topbar-right elegant-topbar-menu"
+         [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
+
+
+        <!-- Profile button -->
+        <button class="p-link elegant-topbar-button" (click)="edit(authenticatedUser)">
             <i class="pi pi-user"></i>
             <span>Profile</span>
         </button>
 
-        <button class="p-link layout-topbar-button" (click)="logout()">
-            <i class="pi pi-fw pi-sign-in"></i>
-            <span >signOut</span>
+        <!-- Logout button -->
+        <button class="p-link elegant-topbar-button" (click)="logout()">
+            <i class="pi pi-sign-out"></i>
+            <span>Sign Out</span>
         </button>
     </div>
 </div>

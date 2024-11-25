@@ -66,7 +66,7 @@ import {HomePassengerComponent} from "./view/home/home-passenger.component";
                               ]
                         },
                         {
-                            path: '',
+                            path: 'trajet',
                             children: [
                                 {
                                     path: '',
@@ -75,7 +75,7 @@ import {HomePassengerComponent} from "./view/home/home-passenger.component";
                                 }]
                         },
                         {
-                            path: 'home',
+                            path: '',
                             children: [
                                 {
                                     path: '',

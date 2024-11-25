@@ -1,19 +1,22 @@
 <div class="header">
     <passenger-topbar></passenger-topbar>
 </div>
-<br><br><br>
+
+
+<br><br><br>br
 <div class="page-container">
     <!-- Return Button -->
     <div class="return-button">
         <button (click)="goBack()">← Retour</button>
     </div>
 
+    <br><br><br>
+
     <!-- Main Layout -->
     <div class="main-content">
         <!-- Left Filter Card -->
         <div class="filter-container">
             <h3>🔍 Recherche</h3>
-
             <div class="filter-group">
                 <!-- Departure City Filter -->
                 <div class="filter-item">
@@ -67,7 +70,6 @@
                 </div>
             </div>
 
-
             <div class="filter-actions">
                 <!-- Search Button -->
                 <div [style]="{ marginTop: '1rem', display: 'flex', justifyContent: 'flex-end' }">
@@ -80,41 +82,67 @@
                         (click)="findPaginatedByCriteria()">
                     </button>
                 </div>
-
             </div>
-
         </div>
 
         <!-- Right Trajet List -->
         <div class="trajet-list">
-            <div *ngFor="let trajet of items" class="trajet-card">
-                <div class="trajet-header">
-                    <strong>{{ trajet.villeDepart.libelle }}</strong>
-                    <span>→</span>
-                    <strong>{{ trajet.villeDestination.libelle }}</strong>
+            <div *ngFor="let trajet of items" class="trajet-card" (click)="reserve(trajet)">
+                <!-- Trajet Details -->
+                <div class="trajet-details">
+                    <div class="location-container">
+
+                        <!-- Departure Information -->
+                        <div class="location-info">
+                            <h3 class="city">{{ trajet.villeDepart?.libelle }}</h3>
+                            <p class="district">{{ trajet.localisationSource?.libelle }}</p>
+                        </div>
+                        <span class="time">{{ trajet.horaireDepart | date: 'HH:mm' }}</span>
+                    </div>
+
+                    <!-- Route Indicator -->
+                    <div class="route-indicator">
+                        <div class="route-line">
+                            <div class="route-dot top"></div>
+                            <div class="route-dot bottom"></div>
+                        </div>
+                    </div>
+
+                    <div class="location-container">
+                        <!-- Arrival Information -->
+                        <div class="location-info">
+                            <h3 class="city">{{ trajet.villeDestination?.libelle }}</h3>
+                            <p class="district">{{ trajet.localisationDestination?.libelle }}</p>
+                        </div>
+                        <span class="time">{{ trajet.horaireArrive | date: 'HH:mm' }}</span>
+                    </div>
                 </div>
 
-                <div class="trajet-info">
-                    <div class="time-info">
-                        <span>{{ trajet.horaireDepart }}</span>
-                        <span>→</span>
-                        <span>{{ trajet.horaireArrive }}</span>
+                <!-- Footer Section: Driver & Price -->
+                <div class="footer">
+                    <div class="driver-info">
+                        <img [src]="trajet.driver.photo" [alt]="trajet.driver.username" class="driver-photo" />
+                        <div class="driver-details">
+                            <p class="driver-name">{{ trajet.driver.username }}</p>
+                            <div class="rating">
+                                <i class="pi pi-star-fill"></i>
+                                <span>{{ trajet.driver.evaluation }}/5 - {{ trajet.driver.evaluation }} avis</span>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="price">
-                        <span>{{ trajet.placesDisponibles }}/{{ trajet.placesDisponibles }} sièges</span>
-                        <strong> DHS</strong>
-                    </div>
-
-                    <div class="driver">
-                        <img [src]="trajet.driver.photo" alt="Driver"/>
-                        <div>
-                            <span class="driver-name">{{ trajet.driver.username }}</span>
-                            <span class="rating">★ {{ trajet.driver.evaluation }}</span>
+                    <div class="trip-stats">
+                        <div class="seats">
+                            <i class="pi pi-users"></i>
+                            <span>{{ trajet.placesDisponibles }}/{{ trajet.placesDisponibles }}</span>
+                        </div>
+                        <div class="price">
+                            <span class="amount">100</span>
+                            <span class="currency">DHS</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        </div>
+
     </div>
-</div>

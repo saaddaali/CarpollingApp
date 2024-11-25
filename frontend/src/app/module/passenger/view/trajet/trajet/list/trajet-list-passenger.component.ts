@@ -24,6 +24,8 @@ import {VilleDto} from 'src/app/shared/model/trajet/Ville.model';
 import {VillePassengerService} from 'src/app/shared/service/passenger/trajet/VillePassenger.service';
 import {LayoutService} from "../../../../../../layout/service/app.layout.service";
 import {AppComponent} from "../../../../../../app.component";
+import {ReservationDto} from "../../../../../../shared/model/reservation/Reservation.model";
+import {VilleCriteria} from "../../../../../../shared/criteria/trajet/VilleCriteria.model";
 
 
 @Component({
@@ -59,6 +61,10 @@ export class TrajetListPassengerComponent implements OnInit {
     localisationSources: Array<VilleDto>;
     localisationDestinations: Array<VilleDto>;
 
+    vileeDepartSearch: VilleCriteria;
+    villeDestinationSearch: VilleCriteria;
+
+
 
     constructor(public layoutService: LayoutService, public app: AppComponent, private service: TrajetPassengerService  , private driverService: DriverPassengerService, private villeService: VillePassengerService, @Inject(PLATFORM_ID) private platformId?) {
         this.datePipe = ServiceLocator.injector.get(DatePipe);
@@ -66,15 +72,38 @@ export class TrajetListPassengerComponent implements OnInit {
         this.confirmationService = ServiceLocator.injector.get(ConfirmationService);
         this.roleService = ServiceLocator.injector.get(RoleService);
         this.router = ServiceLocator.injector.get(Router);
+
+
+
+
     }
 
 
     goBack() {
-        this.router.navigate(['/app/passenger/home']);
+        this.router.navigate(['/app/passenger/']);
     }
 
+    reserve(trajet: any) {
+        const trajetDto = new TrajetDto();
+        trajetDto.id = trajet.id;
+        trajetDto.driver = trajet.driver;
+        trajetDto.villeDepart = trajet.villeDepart;
+        trajetDto.localisationSource = trajet.localisationSource;
+        trajetDto.villeDestination = trajet.villeDestination;
+        trajetDto.localisationDestination = trajet.localisationDestination;
+        trajetDto.horaireDepart = trajet.horaireDepart;
+        trajetDto.horaireArrive = trajet.horaireArrive;
+        //trajetDto.tarif = trajet.tarif;
+        trajetDto.placesDisponibles = trajet.placesDisponibles;
+        //trajetDto.placesReservees = trajet.placesReservees;
+        this.service.item = trajetDto;
+        console.log('Trajet:', trajetDto);
+        this.router.navigate(['/trajet/trajet/details']);
+        };
 
-    loading = true;
+
+
+        loading = true;
 
     ngOnInit(): void {
         this.findPaginatedByCriteria();
@@ -82,10 +111,13 @@ export class TrajetListPassengerComponent implements OnInit {
         this.loadVilleDestination();
         this.loadDriver();
         this.item = this.service.item;
+        //copier the item to criteria
+        this.vileeDepartSearch.libelle=this.item.villeDepart.libelle;
+        this.vileeDepartSearch.code = this.item.villeDepart.code;
+        this.vileeDepartSearch.id = this.item.villeDepart.id;
+        this.criteria.villeDepart = this.vileeDepartSearch;
+
         console.log('Item:', this.item);
-        this.criteria.villeDepart.libelle=this.item.villeDepart.libelle;
-        this.criteria.villeDestination.libelle=this.item.villeDestination.libelle;
-        console.log("cret"+this.criteria.villeDepart.libelle);
 
 
 

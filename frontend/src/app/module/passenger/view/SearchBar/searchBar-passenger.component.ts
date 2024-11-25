@@ -21,9 +21,10 @@ export class SearchBarPassengerComponent implements OnInit {
     filteredDepartures: VilleDto[] = [];
     filteredDestinations: VilleDto[] = [];
     today: Date;
-    passengerCount = 1;
 
     constructor(public layoutService: LayoutService,private service: TrajetPassengerService ,private villeService: VillePassengerService, public app: AppComponent ,private router: Router) {
+    this.item.placesDisponibles = 1;
+    this.item.horaireDepart= new Date();
     }
 
 
@@ -48,8 +49,10 @@ export class SearchBarPassengerComponent implements OnInit {
     toSearch() {
         console.log('Item before navigating:', this.item);
 
+
+
         if (this.item && this.item.villeDepart && this.item.villeDestination) {
-            this.router.navigate(['/app/passenger/trajets/list']);
+            this.router.navigate(['/app/passenger/trajet']);
         } else {
             console.log('Item or required properties are null or not properly initialized');
         }
@@ -59,10 +62,10 @@ export class SearchBarPassengerComponent implements OnInit {
 
     ngOnInit(): void {
 
-
         this.loadVilleDepart();
         this.loadVilleDestination();
         this.today = new Date();
+
 
 
     }

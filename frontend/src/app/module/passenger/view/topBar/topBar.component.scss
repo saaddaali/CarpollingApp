@@ -1,0 +1,38 @@
+
+//colore declaration
+$primary-color: #4052EE;
+
+/* For the topbar background */
+.layout-topbar {
+    background-color: #4052EE;
+    color: #fff; /* Optional: Adjust text color for better contrast */
+}
+
+/* For the dialog background */
+.p-dialog-content {
+    background-color: #4052EE;
+    color: #fff; /* Optional: Adjust text color for better contrast */
+}
+
+/* Optional: Adjust tab headers in the dialog */
+.p-tabview-nav {
+    background-color: #4052EE;
+    color: #fff;
+}
+
+.p-tabview-nav .p-tabview-selected {
+    background-color: #fff; /* Active tab color */
+    color: #4052EE; /* Active tab text color */
+}
+
+/* Buttons in the footer */
+.p-dialog-footer .p-button {
+    background-color: #fff;
+    color: #4052EE;
+    border: 1px solid #4052EE;
+}
+
+.p-dialog-footer .p-button:hover {
+    background-color: #4052EE;
+    color: #fff;
+}

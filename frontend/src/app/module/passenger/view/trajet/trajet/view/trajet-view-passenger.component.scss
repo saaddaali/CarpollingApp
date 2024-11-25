@@ -1,0 +1,187 @@
+//colore declaration
+$primary-color: #4052EE;
+
+/* Container to center the component */
+.page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+    margin: 0;
+}
+
+.color-circle {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+
+.rating i {
+    color: #FFB800;
+    margin-right: 0.25rem;
+}
+
+/* Ride component styling */
+.ride-component {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    width: 500px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    color: $primary-color;
+    font-size: 18px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.date {
+    color: $primary-color;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.route-details {
+    display: flex;
+    align-items: center;
+    margin: 30px 0;
+}
+
+.stop {
+    flex: 1;
+    text-align: center;
+}
+
+.location {
+    font-weight: bold;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.area {
+    color: #777;
+    font-size: 16px;
+}
+
+.time {
+    font-size: 16px;
+    color: $primary-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.circle {
+    width: 12px;
+    height: 12px;
+    background-color: #4caf50;
+    border-radius: 50%;
+}
+
+.dotted-line {
+    width: 2px;
+    height: 80px;
+    background: repeating-linear-gradient(
+            #4caf50 0px,
+            #4caf50 3px,
+            transparent 3px,
+            transparent 6px
+    );
+}
+
+.details {
+    margin-top: 20px;
+}
+
+.info {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    font-size: 16px;
+    margin-bottom: 15px;
+    gap: 10px;
+}
+
+.price {
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+.driver {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.driver-photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.driver-name {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.rating {
+    font-size: 14px;
+    color: #777;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Icon styling for PrimeIcons */
+i.pi {
+    font-size: 16px;
+    color: $primary-color;
+}
+
+.reserve-button {
+    background-color: $primary-color; /* Remplacez par votre variable SASS ou couleur */
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 50px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    bottom: 20px;
+    right: 20px; /* Positionne le bouton à droite */
+    transform: translateX(0); /* Aucun décalage horizontal */
+}
+
+
+.reserve-button:hover {
+    background-color: #45a049;
+}
+
+

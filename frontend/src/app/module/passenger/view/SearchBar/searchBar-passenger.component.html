@@ -3,7 +3,7 @@
     <div class="unified-input">
         <!-- Departure Autocomplete -->
         <p-autoComplete
-            [(ngModel)]="this.item.villeDepart.libelle"
+            [(ngModel)]="this.item.villeDepart"
             [dropdown]="true"
             [suggestions]="filteredDepartures"
             (completeMethod)="filterCountry($event, 'departure')"
@@ -15,14 +15,15 @@
 
         <!-- Destination Autocomplete -->
         <p-autoComplete
-            [(ngModel)]="this.item.villeDestination.libelle"
+            [(ngModel)]="item.villeDestination"
             [dropdown]="true"
             [suggestions]="filteredDestinations"
             (completeMethod)="filterCountry($event, 'destination')"
             field="libelle"
             [placeholder]="'Destination'"
-            class="auto-complete"
+        class="auto-complete"
         ></p-autoComplete>
+
 
         <!-- Date Picker -->
         <div class="input-group date-picker">
@@ -31,7 +32,7 @@
                 [(ngModel)]="this.item.horaireDepart"
                 inputId="icondisplay"
                 [minDate]="today"
-                [placeholder]="'Select Date'"
+                [placeholder]="'Ajourd\'hui'"
             ></p-calendar>
         </div>
 
@@ -45,6 +46,7 @@
                 inputId="horizontal"
                 spinnerMode="horizontal"
                 [step]="1"
+                placeholder="1"
                 incrementButtonIcon="pi pi-plus"
                 decrementButtonIcon="pi pi-minus"
                 [min]="1" [max]="4"

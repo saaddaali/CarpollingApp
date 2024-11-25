@@ -9,7 +9,7 @@
                                         <p-dropdown  appendTo="body"  [options]="villeDeparts" [(ngModel)]="item.villeDepart" id="1" [filter]="true" filterMatchMode="contains"
                                                      [showClear]="true" optionLabel="libelle" placeholder="{{'trajet.villeDepart' | translate}}"  >
                                         </p-dropdown>
-                                        
+
                                     </div>
 
                                     <div class="field col-11 md:col-6">
@@ -17,7 +17,7 @@
                                         <p-dropdown  appendTo="body"  [options]="villeDestinations" [(ngModel)]="item.villeDestination" id="2" [filter]="true" filterMatchMode="contains"
                                                      [showClear]="true" optionLabel="libelle" placeholder="{{'trajet.villeDestination' | translate}}"  >
                                         </p-dropdown>
-                                        
+
                                     </div>
 
                                         <div class="field col-12 md:col-6">
@@ -25,7 +25,7 @@
                                             <p-calendar appendTo="body" id="3"  [showTime]="true" [showSeconds]="false" placeholder="{{'trajet.horaireDepart' | translate}}"  [(ngModel)]="item.horaireDepart"
                                                         dateFormat="{{dateFormat}}"  >
                                             </p-calendar>
-                                            
+
                                         </div>
 
                                         <div class="field col-12 md:col-6">
@@ -33,14 +33,14 @@
                                             <p-calendar appendTo="body" id="4"  [showTime]="true" [showSeconds]="false" placeholder="{{'trajet.horaireArrive' | translate}}"  [(ngModel)]="item.horaireArrive"
                                                         dateFormat="{{dateFormat}}"  >
                                             </p-calendar>
-                                            
+
                                         </div>
 
                                         <div class="field col-12 md:col-6">
                                             <label for="5">{{'trajet.placesDisponibles' | translate}}</label>
                                             <p-inputNumber class="mb-2 mr-2" id="5" placeholder="{{'trajet.placesDisponibles' | translate}}" [(ngModel)]="item.placesDisponibles"  >
                                             </p-inputNumber>
-                                            
+
                                         </div>
 
                                     <div class="field col-11 md:col-6">
@@ -48,7 +48,7 @@
                                         <p-dropdown  appendTo="body"  [options]="drivers" [(ngModel)]="item.driver" id="6" [filter]="true" filterMatchMode="contains"
                                                      [showClear]="true" optionLabel="email" placeholder="{{'trajet.driver' | translate}}"  >
                                         </p-dropdown>
-                                        
+
                                     </div>
 
                                         <div class="field col-12 md:col-6">
@@ -56,7 +56,7 @@
                                             <p-calendar appendTo="body" id="7"  [showTime]="true" [showSeconds]="false" placeholder="{{'trajet.dateCreation' | translate}}"  [(ngModel)]="item.dateCreation"
                                                         dateFormat="{{dateFormat}}"  >
                                             </p-calendar>
-                                            
+
                                         </div>
 
                                     <div class="field col-11 md:col-6">
@@ -64,7 +64,7 @@
                                         <p-dropdown  appendTo="body"  [options]="localisationSources" [(ngModel)]="item.localisationSource" id="8" [filter]="true" filterMatchMode="contains"
                                                      [showClear]="true" optionLabel="libelle" placeholder="{{'trajet.localisationSource' | translate}}"  >
                                         </p-dropdown>
-                                        
+
                                     </div>
 
                                     <div class="field col-11 md:col-6">
@@ -72,7 +72,7 @@
                                         <p-dropdown  appendTo="body"  [options]="localisationDestinations" [(ngModel)]="item.localisationDestination" id="9" [filter]="true" filterMatchMode="contains"
                                                      [showClear]="true" optionLabel="libelle" placeholder="{{'trajet.localisationDestination' | translate}}"  >
                                         </p-dropdown>
-                                        
+
                                     </div>
 
                         </div>

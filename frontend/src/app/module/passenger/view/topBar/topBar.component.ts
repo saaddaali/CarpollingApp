@@ -12,7 +12,8 @@ import {PassengerLayoutComponent} from "../../../../layout/passenger/passenger.l
 
 @Component({
     selector: 'topbar',
-    templateUrl: './topBar.component.html'
+    templateUrl: './topBar.component.html',
+    styleUrls: ['./topBar.component.scss']
 })
 export class TopBarComponent implements OnInit{
    rolePassenger = false;
@@ -43,14 +44,17 @@ export class TopBarComponent implements OnInit{
 
 
 
-    constructor(public  layoutService:LayoutService , public app: AppComponent, private authService: AuthService, private translateService: TranslateService, private userService: UserService) {
+    constructor(public  layoutService:LayoutService , public app: AppComponent, public appMain: PassengerLayoutComponent, private authService: AuthService, private translateService: TranslateService, private userService: UserService) {
     }
 
     useLanguage(language: string): void {
         this.translateService.use(language);
     }
     ngOnInit(): void {
-
+        this.authService.loadInfos();
+        if ( this.authService.authenticatedUser.roleUsers[0].role.authority === 'ROLE_PASSENGER') {
+            this.rolePassenger = true;
+        }
     }
 
     logout(){

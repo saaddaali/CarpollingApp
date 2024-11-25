@@ -35,6 +35,8 @@ export class HomePassengerComponent implements OnInit {
         this.loadVilleDepart();
         this.loadVilleDestination();
         this.today = new Date();
+        this.item.placesDisponibles=1;
+
 
     }
 

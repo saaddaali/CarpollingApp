@@ -1,0 +1,76 @@
+$primary-color: #4052EE;
+
+/* General topbar styles */
+.elegant-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: #000000; /* Text color */
+    padding: 10px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Left section styles */
+.topbar-left {
+    display: flex;
+    align-items: center;
+}
+
+/* Center section styles (optional) */
+.topbar-center {
+    text-align: center;
+    flex-grow: 1;
+}
+
+.topbar-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #000000;
+}
+
+/* Right section styles */
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Buttons in the topbar */
+.elegant-topbar-button {
+    background: none;
+    border: none;
+    color: #000000;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.elegant-topbar-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+/* Dropdown styles */
+.language-dropdown {
+    border-radius: 4px;
+    color: #000; /* Override for dropdown items */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .topbar-center {
+        display: none; /* Hide center section for smaller screens */
+    }
+
+    .elegant-topbar-menu {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
