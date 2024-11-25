@@ -184,4 +184,115 @@ i.pi {
     background-color: #45a049;
 }
 
+// Styles for driver details card
+.profile-section {
+    text-align: center;
+    margin: 20px 0;
 
+    img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+    }
+}
+
+.verification-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #2E8B57;
+    margin: 15px 0;
+}
+
+.stars {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin: 20px 0;
+
+    i {
+        color: #FFB800;
+        font-size: 24px;
+    }
+}
+
+.comments-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+    padding: 0 10px;
+}
+
+.review {
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 15px;
+    margin: 15px 0;
+
+    .review-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 15px;
+
+        img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+        }
+
+        .review-rating {
+            color: black;
+            font-size: 14px;
+
+            i {
+                color: #FFB800;
+                font-size: 15px;
+            }
+        }
+    }
+}
+
+.green-point {
+    width: 8px;
+    height: 8px;
+    background: #4caf50;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.route-stop {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0;
+
+    .time {
+        margin-left: auto;
+        color: $primary-color;
+    }
+}
+
+.route-line.green {
+    width: 2px;
+    height: 30px;
+    margin-left: 4px;
+    background: repeating-linear-gradient(
+            #4caf50 0px,
+            #4caf50 3px,
+            transparent 3px,
+            transparent 6px
+    );
+}
+
+.no-review {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}

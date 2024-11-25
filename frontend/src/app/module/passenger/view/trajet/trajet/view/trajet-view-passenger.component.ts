@@ -29,6 +29,7 @@ import {VillePassengerService} from 'src/app/shared/service/passenger/trajet/Vil
 })
 export class TrajetViewPassengerComponent implements OnInit {
 
+    showDriverProfile = false; // Pour basculer entre la vue trajet et profil conducteur
 
     protected _submitted = false;
     protected _errorMessages = new Array<string>();
@@ -40,8 +41,13 @@ export class TrajetViewPassengerComponent implements OnInit {
     protected router: Router;
     protected stringUtilService: StringUtilService;
 
+    // Adaptation de la méthode goBack pour gérer les deux vues
     goBack() {
-        this.router.navigate(['/app/passenger/trajet']);
+        if (this.showDriverProfile) {
+            this.showDriverProfile = false; // Retour à la vue trajet
+        } else {
+            this.router.navigate(['/app/passenger/trajet']); // Retour à la liste des trajets
+        }
     }
 
 
@@ -55,6 +61,11 @@ export class TrajetViewPassengerComponent implements OnInit {
     }
 
     ngOnInit(): void {
+    }
+
+    // Nouvelle méthode pour afficher le profil du conducteur
+    showDriverDetails() {
+        this.showDriverProfile = true;
     }
 
 

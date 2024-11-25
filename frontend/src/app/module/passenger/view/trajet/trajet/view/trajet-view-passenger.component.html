@@ -1,9 +1,11 @@
 <div class="page-container">
-    <div class="ride-component">
+    <!-- Vue des détails du trajet -->
+    <div class="ride-component" *ngIf="!showDriverProfile">
         <button class="back-button" (click)="goBack()">
-            <i class="pi pi-arrow-left" ></i> Retour
+            <i class="pi pi-arrow-left"></i> Retour
         </button>
         <h2 class="date">lundi, 25 novembre</h2>
+
         <div class="route-details">
             <div class="stop">
                 <div class="location">
@@ -29,6 +31,7 @@
                 </div>
             </div>
         </div>
+
         <div class="details">
             <div class="info">
                 <span><i class="pi pi-user"></i> 1 restant</span>
@@ -40,19 +43,81 @@
             <div class="price">
                 Prix total pour 1 passager(s): <strong>127.68 DHS</strong>
             </div>
-            <div class="driver">
-                <img src="{{ item.driver.photo }}" alt="Driver photo" class="driver-photo"/>
-                <span class="driver-name">{{ item.driver.username }}</span>
+            <div class="driver" (click)="showDriverDetails()">
+                <img [src]="item.driver?.photo" alt="Driver photo" class="driver-photo"/>
+                <span class="driver-name">{{item.driver?.username}}</span>
                 <span class="rating">
                     <i class="pi pi-star-fill gold-star"></i> 0/5 - 0 avis
                 </span>
             </div>
         </div>
-        <!-- Bouton Réserver -->
+
         <div class="reserve-container">
             <button class="reserve-button">Réserver</button>
         </div>
     </div>
 
-</div>
+    <!--driver details card -->
+    <div class="ride-component" *ngIf="showDriverProfile">
+        <button class="back-button" (click)="goBack()">
+            <i class="pi pi-arrow-left"></i> Retour
+        </button>
 
+        <h2 class="profile-title">profil public</h2>
+
+        <div class="profile-section">
+            <img [src]="item.driver?.photo" alt="Photo profil" class="profile-photo"/>
+        </div>
+
+        <div class="verification-badge">
+            <i class="pi pi-check-circle"></i>
+            <span>Pièce d'identité vérifiée</span>
+        </div>
+
+        <div class="stars">
+            <i class="pi pi-star-fill" *ngFor="let star of [1,2,3,4]"></i>
+            <i class="pi pi-star"></i>
+        </div>
+
+        <div class="comments-header">
+            <span>Commentaires(17)</span>
+            <span class="view-stats">
+                Afficher toutes les statistiques
+
+            </span>
+        </div>
+
+        <div class="review">
+            <div class="review-header">
+                <img [src]="item.driver?.photo" class="review-photo" alt="Photo"/>
+                <div>
+                    <div class="review-name">{{item.driver?.username}}</div>
+                    <div class="review-rating">
+                        <i class="pi pi-star-fill gold-star"></i>
+                        4.2/5 - 6 avis
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="review-route">
+                <div class="route-stop">
+                    <span class="green-point"></span>
+                    <span>Marrakech</span>
+                    <span class="time">07:00</span>
+                </div>
+                <div class="route-line green"></div>
+                <div class="route-stop">
+                    <span class="green-point"></span>
+                    <span>Casablanca</span>
+                    <span class="time">09:28</span>
+                </div>
+            </div>
+
+            <div class="no-review">
+                <i class="pi pi-thumbs-up"></i>
+                Pas encore d'avis écrit
+            </div>
+        </div>
+    </div>
+</div>
