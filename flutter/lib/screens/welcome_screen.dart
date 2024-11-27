@@ -16,19 +16,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       'title': 'NEED A RIDE?',
       'description':
           'Share your journey with others and make travel more affordable',
-      'image': 'assets/images/need_ride.png'
+      'image': 'assets/images/3.jpg'
     },
     {
       'title': 'CHOOSE A CAR',
       'description':
           'Find the perfect ride that matches your route and schedule',
-      'image': 'assets/images/choose_car.png'
+      'image': 'assets/images/2.jpg'
     },
     {
       'title': 'TRACK YOUR TRIP',
       'description':
           'Follow your journey in real-time with our tracking features',
-      'image': 'assets/images/track_trip.png'
+      'image': 'assets/images/1.jpg'
     },
   ];
 
@@ -40,7 +40,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const Color accentBlue = Color(0xFF4A90E2);
+    const Color accentBlue = Color(0xFF3541EE);
+
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -102,7 +103,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         end: Alignment.centerRight,
                         colors: [
                           accentBlue,
-                          Color(0xFF6AA8F8),
+                          accentBlue,
                         ],
                       ),
                       boxShadow: [
@@ -122,7 +123,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           onTap: () {
                             Navigator.pushReplacementNamed(context, '/signin');
                           },
-                          splashColor: Colors.white.withOpacity(0.2),
+                          //splashColor: Colors.white.withOpacity(0.2),
                           highlightColor: Colors.white.withOpacity(0.1),
                           child: const Center(
                             child: Text(
