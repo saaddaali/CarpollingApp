@@ -122,6 +122,7 @@ export class TrajetListPassengerComponent implements OnInit {
             criteria.villeDepart = null;
         }
         criteria.id = dto.id || null;
+        criteria.placesDisponiblesMin = dto.placesDisponibles || null;
        //criteria. horaireDepartFrom = dto.horaireDepart || null;
 
         criteria.villeDepart = this.mapVilleDtoToVilleCriteria(dto.villeDepart);
