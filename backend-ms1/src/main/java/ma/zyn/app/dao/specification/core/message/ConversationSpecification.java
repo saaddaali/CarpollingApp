@@ -2,7 +2,7 @@ package  ma.zyn.app.dao.specification.core.message;
 
 import ma.zyn.app.dao.criteria.core.message.ConversationCriteria;
 import ma.zyn.app.bean.core.message.Conversation;
-import ma.zyn.app.zynerator.specification.AbstractSpecification;
+import ma.zyn.app.utils.specification.AbstractSpecification;
 
 
 public class ConversationSpecification extends  AbstractSpecification<ConversationCriteria, Conversation>  {

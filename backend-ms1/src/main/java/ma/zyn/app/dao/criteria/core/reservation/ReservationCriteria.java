@@ -7,11 +7,10 @@ import ma.zyn.app.dao.criteria.core.paiement.CarteBancaireCriteria;
 import ma.zyn.app.dao.criteria.core.message.ConversationCriteria;
 import ma.zyn.app.dao.criteria.core.trajet.TrajetCriteria;
 
-import ma.zyn.app.zynerator.criteria.BaseCriteria;
+import ma.zyn.app.utils.criteria.BaseCriteria;
 
 import java.util.List;
 import java.time.LocalDateTime;
-import java.time.LocalDate;
 
 public class ReservationCriteria extends  BaseCriteria  {
 

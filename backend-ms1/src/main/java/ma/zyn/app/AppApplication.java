@@ -9,7 +9,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.cloud.openfeign.EnableFeignClients;
 
 import java.math.BigDecimal;
@@ -24,13 +23,13 @@ import ma.zyn.app.bean.core.driver.Driver;
 import ma.zyn.app.service.facade.admin.driver.DriverAdminService;
 import ma.zyn.app.bean.core.passenger.Passenger;
 import ma.zyn.app.service.facade.admin.passenger.PassengerAdminService;
-import ma.zyn.app.zynerator.security.bean.*;
-import ma.zyn.app.zynerator.security.common.AuthoritiesConstants;
-import ma.zyn.app.zynerator.security.service.facade.*;
+import ma.zyn.app.utils.security.bean.*;
+import ma.zyn.app.utils.security.common.AuthoritiesConstants;
+import ma.zyn.app.utils.security.service.facade.*;
 
 
-import ma.zyn.app.zynerator.security.bean.User;
-import ma.zyn.app.zynerator.security.bean.Role;
+import ma.zyn.app.utils.security.bean.User;
+import ma.zyn.app.utils.security.bean.Role;
 
 @SpringBootApplication
 //@EnableFeignClients

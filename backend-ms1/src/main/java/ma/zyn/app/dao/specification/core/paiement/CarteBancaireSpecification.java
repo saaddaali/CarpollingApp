@@ -2,7 +2,7 @@ package  ma.zyn.app.dao.specification.core.paiement;
 
 import ma.zyn.app.dao.criteria.core.paiement.CarteBancaireCriteria;
 import ma.zyn.app.bean.core.paiement.CarteBancaire;
-import ma.zyn.app.zynerator.specification.AbstractSpecification;
+import ma.zyn.app.utils.specification.AbstractSpecification;
 
 
 public class CarteBancaireSpecification extends  AbstractSpecification<CarteBancaireCriteria, CarteBancaire>  {

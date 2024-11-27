@@ -3,11 +3,10 @@ package  ma.zyn.app.dao.criteria.core.passenger;
 
 import ma.zyn.app.dao.criteria.core.paiement.CarteBancaireCriteria;
 
-import ma.zyn.app.zynerator.security.dao.criteria.core.UserCriteria;
+import ma.zyn.app.utils.security.dao.criteria.core.UserCriteria;
 
 import java.util.List;
 import java.time.LocalDateTime;
-import java.time.LocalDate;
 
 public class PassengerCriteria extends UserCriteria  {
 

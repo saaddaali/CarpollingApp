@@ -2,9 +2,7 @@ package  ma.zyn.app.dao.criteria.core.trajet;
 
 
 
-import ma.zyn.app.zynerator.criteria.BaseCriteria;
-
-import java.util.List;
+import ma.zyn.app.utils.criteria.BaseCriteria;
 
 public class VilleCriteria extends  BaseCriteria  {
 

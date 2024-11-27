@@ -1,11 +1,8 @@
 package  ma.zyn.app.ws.dto.reservation;
 
-import ma.zyn.app.zynerator.dto.AuditBaseDto;
+import ma.zyn.app.utils.dto.AuditBaseDto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import java.util.Date;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.math.BigDecimal;
 

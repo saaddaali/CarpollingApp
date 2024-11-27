@@ -296,3 +296,35 @@ i.pi {
     padding-top: 15px;
     border-top: 1px solid #eee;
 }
+
+.car-info {
+     display: flex;
+     justify-content: space-between;  /* Distribue l'espace uniformément entre les éléments */
+     align-items: center;            /* Aligne verticalement les éléments */
+     font-family: Arial, sans-serif;
+     flex-wrap: wrap;                /* Permet de passer à la ligne suivante si l'espace est insuffisant */
+     gap: 20px;                      /* Espace entre les éléments */
+ }
+
+.car-detail {
+    display: flex;
+    align-items: center;
+    gap: 8px;  /* Espacement entre l'icône et le texte */
+}
+
+.car-detail i {
+    font-size: 1.5em;
+    color: #333;
+}
+
+.detail-text {
+    font-size: 1em;
+    color: #666;
+}
+
+.color-circle {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: inline-block;
+}

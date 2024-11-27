@@ -2,7 +2,7 @@ package  ma.zyn.app.dao.specification.core.vehicule;
 
 import ma.zyn.app.dao.criteria.core.vehicule.VehiculeCriteria;
 import ma.zyn.app.bean.core.vehicule.Vehicule;
-import ma.zyn.app.zynerator.specification.AbstractSpecification;
+import ma.zyn.app.utils.specification.AbstractSpecification;
 
 
 public class VehiculeSpecification extends  AbstractSpecification<VehiculeCriteria, Vehicule>  {

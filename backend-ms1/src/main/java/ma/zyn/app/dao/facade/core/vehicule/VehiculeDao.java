@@ -1,7 +1,7 @@
 package ma.zyn.app.dao.facade.core.vehicule;
 
 import org.springframework.data.jpa.repository.Query;
-import ma.zyn.app.zynerator.repository.AbstractRepository;
+import ma.zyn.app.utils.repository.AbstractRepository;
 import ma.zyn.app.bean.core.vehicule.Vehicule;
 import org.springframework.stereotype.Repository;
 import java.util.List;

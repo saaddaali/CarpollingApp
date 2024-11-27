@@ -3,8 +3,6 @@ package ma.zyn.app.service.facade.admin.driver;
 import java.util.List;
 import ma.zyn.app.bean.core.driver.Driver;
 import ma.zyn.app.dao.criteria.core.driver.DriverCriteria;
-import ma.zyn.app.zynerator.service.IService;
-
 
 
 public interface DriverAdminService {

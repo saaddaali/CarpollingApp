@@ -1,10 +1,10 @@
 package ma.zyn.app.dao.facade.core.passenger;
 
 import org.springframework.data.jpa.repository.Query;
-import ma.zyn.app.zynerator.repository.AbstractRepository;
+import ma.zyn.app.utils.repository.AbstractRepository;
 import ma.zyn.app.bean.core.passenger.Passenger;
 import org.springframework.stereotype.Repository;
-import ma.zyn.app.bean.core.passenger.Passenger;
+
 import java.util.List;
 
 

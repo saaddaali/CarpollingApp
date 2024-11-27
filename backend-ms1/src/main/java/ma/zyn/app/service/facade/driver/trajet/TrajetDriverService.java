@@ -3,8 +3,6 @@ package ma.zyn.app.service.facade.driver.trajet;
 import java.util.List;
 import ma.zyn.app.bean.core.trajet.Trajet;
 import ma.zyn.app.dao.criteria.core.trajet.TrajetCriteria;
-import ma.zyn.app.zynerator.service.IService;
-
 
 
 public interface TrajetDriverService {

@@ -1,9 +1,8 @@
 package  ma.zyn.app.ws.converter.paiement;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.BeanUtils;
-import ma.zyn.app.zynerator.converter.AbstractConverterHelper;
+import ma.zyn.app.utils.converter.AbstractConverterHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +10,8 @@ import java.util.List;
 
 
 
-import ma.zyn.app.zynerator.util.StringUtil;
-import ma.zyn.app.zynerator.converter.AbstractConverter;
-import ma.zyn.app.zynerator.util.DateUtil;
+import ma.zyn.app.utils.util.StringUtil;
+import ma.zyn.app.utils.util.DateUtil;
 import ma.zyn.app.bean.core.paiement.CarteBancaire;
 import ma.zyn.app.ws.dto.paiement.CarteBancaireDto;
 

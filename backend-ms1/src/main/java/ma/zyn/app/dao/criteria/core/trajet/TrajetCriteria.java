@@ -3,12 +3,11 @@ package  ma.zyn.app.dao.criteria.core.trajet;
 
 import ma.zyn.app.dao.criteria.core.driver.DriverCriteria;
 
-import ma.zyn.app.zynerator.criteria.BaseCriteria;
+import ma.zyn.app.utils.criteria.BaseCriteria;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.time.LocalDateTime;
-import java.time.LocalDate;
 
 public class TrajetCriteria extends  BaseCriteria  {
 

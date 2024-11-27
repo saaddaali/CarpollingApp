@@ -3,8 +3,6 @@ package ma.zyn.app.service.facade.passenger.vehicule;
 import java.util.List;
 import ma.zyn.app.bean.core.vehicule.Vehicule;
 import ma.zyn.app.dao.criteria.core.vehicule.VehiculeCriteria;
-import ma.zyn.app.zynerator.service.IService;
-
 
 
 public interface VehiculePassengerService {

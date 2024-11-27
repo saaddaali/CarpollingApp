@@ -10,7 +10,7 @@ import ma.zyn.app.bean.core.passenger.Passenger;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import ma.zyn.app.zynerator.bean.BaseEntity;
+import ma.zyn.app.utils.bean.BaseEntity;
 import jakarta.persistence.*;
 import java.util.Objects;
 

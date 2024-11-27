@@ -2,7 +2,7 @@ package  ma.zyn.app.dao.specification.core.trajet;
 
 import ma.zyn.app.dao.criteria.core.trajet.VilleCriteria;
 import ma.zyn.app.bean.core.trajet.Ville;
-import ma.zyn.app.zynerator.specification.AbstractSpecification;
+import ma.zyn.app.utils.specification.AbstractSpecification;
 
 
 public class VilleSpecification extends  AbstractSpecification<VilleCriteria, Ville>  {

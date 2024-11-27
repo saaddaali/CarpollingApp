@@ -2,7 +2,7 @@ package  ma.zyn.app.dao.specification.core.reservation;
 
 import ma.zyn.app.dao.criteria.core.reservation.ReservationCriteria;
 import ma.zyn.app.bean.core.reservation.Reservation;
-import ma.zyn.app.zynerator.specification.AbstractSpecification;
+import ma.zyn.app.utils.specification.AbstractSpecification;
 
 
 public class ReservationSpecification extends  AbstractSpecification<ReservationCriteria, Reservation>  {

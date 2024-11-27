@@ -1,14 +1,14 @@
 package ma.zyn.app.service.impl.admin.message;
 
 
-import ma.zyn.app.zynerator.exception.EntityNotFoundException;
+import ma.zyn.app.utils.exception.EntityNotFoundException;
 import ma.zyn.app.bean.core.message.Message;
 import ma.zyn.app.dao.criteria.core.message.MessageCriteria;
 import ma.zyn.app.dao.facade.core.message.MessageDao;
 import ma.zyn.app.dao.specification.core.message.MessageSpecification;
 import ma.zyn.app.service.facade.admin.message.MessageAdminService;
-import ma.zyn.app.zynerator.service.AbstractServiceImpl;
-import static ma.zyn.app.zynerator.util.ListUtil.*;
+
+import static ma.zyn.app.utils.util.ListUtil.*;
 
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -17,7 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import ma.zyn.app.zynerator.util.RefelexivityUtil;
+import ma.zyn.app.utils.util.RefelexivityUtil;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,15 +25,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import ma.zyn.app.service.facade.admin.driver.DriverAdminService ;
-import ma.zyn.app.bean.core.driver.Driver ;
 import ma.zyn.app.service.facade.admin.passenger.PassengerAdminService ;
-import ma.zyn.app.bean.core.passenger.Passenger ;
 import ma.zyn.app.service.facade.admin.message.ConversationAdminService ;
-import ma.zyn.app.bean.core.message.Conversation ;
 import ma.zyn.app.service.facade.admin.trajet.TrajetAdminService ;
-import ma.zyn.app.bean.core.trajet.Trajet ;
 
-import java.util.List;
 @Service
 public class MessageAdminServiceImpl implements MessageAdminService {
 

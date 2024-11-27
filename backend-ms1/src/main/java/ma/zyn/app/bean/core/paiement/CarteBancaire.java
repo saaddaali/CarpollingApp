@@ -4,14 +4,8 @@ package ma.zyn.app.bean.core.paiement;
 import java.time.LocalDateTime;
 
 
-import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-
-
-
 import com.fasterxml.jackson.annotation.JsonInclude;
-import ma.zyn.app.zynerator.bean.BaseEntity;
+import ma.zyn.app.utils.bean.BaseEntity;
 import jakarta.persistence.*;
 import java.util.Objects;
 

@@ -1,14 +1,14 @@
 package ma.zyn.app.service.impl.passenger.trajet;
 
 
-import ma.zyn.app.zynerator.exception.EntityNotFoundException;
+import ma.zyn.app.utils.exception.EntityNotFoundException;
 import ma.zyn.app.bean.core.trajet.Trajet;
 import ma.zyn.app.dao.criteria.core.trajet.TrajetCriteria;
 import ma.zyn.app.dao.facade.core.trajet.TrajetDao;
 import ma.zyn.app.dao.specification.core.trajet.TrajetSpecification;
 import ma.zyn.app.service.facade.passenger.trajet.TrajetPassengerService;
-import ma.zyn.app.zynerator.service.AbstractServiceImpl;
-import static ma.zyn.app.zynerator.util.ListUtil.*;
+
+import static ma.zyn.app.utils.util.ListUtil.*;
 
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -17,7 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import ma.zyn.app.zynerator.util.RefelexivityUtil;
+import ma.zyn.app.utils.util.RefelexivityUtil;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +25,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import ma.zyn.app.service.facade.passenger.driver.DriverPassengerService ;
-import ma.zyn.app.bean.core.driver.Driver ;
 import ma.zyn.app.service.facade.passenger.trajet.VillePassengerService ;
-import ma.zyn.app.bean.core.trajet.Ville ;
 
-import java.util.List;
 @Service
 public class TrajetPassengerServiceImpl implements TrajetPassengerService {
 

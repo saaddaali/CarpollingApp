@@ -1,38 +1,22 @@
 package  ma.zyn.app.ws.facade.passenger.trajet;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
-import java.util.Arrays;
-import java.util.ArrayList;
 
 import ma.zyn.app.bean.core.trajet.Ville;
 import ma.zyn.app.dao.criteria.core.trajet.VilleCriteria;
 import ma.zyn.app.service.facade.passenger.trajet.VillePassengerService;
 import ma.zyn.app.ws.converter.trajet.VilleConverter;
 import ma.zyn.app.ws.dto.trajet.VilleDto;
-import ma.zyn.app.zynerator.controller.AbstractController;
-import ma.zyn.app.zynerator.dto.AuditEntityDto;
-import ma.zyn.app.zynerator.util.PaginatedList;
+import ma.zyn.app.utils.util.PaginatedList;
 
 
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import ma.zyn.app.zynerator.process.Result;
-
-
-import org.springframework.web.multipart.MultipartFile;
-import ma.zyn.app.zynerator.dto.FileTempDto;
 
 @RestController
 @RequestMapping("/api/passenger/ville/")

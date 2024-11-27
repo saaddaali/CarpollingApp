@@ -3,7 +3,7 @@ package  ma.zyn.app.dao.criteria.core.vehicule;
 
 import ma.zyn.app.dao.criteria.core.driver.DriverCriteria;
 
-import ma.zyn.app.zynerator.criteria.BaseCriteria;
+import ma.zyn.app.utils.criteria.BaseCriteria;
 
 import java.util.List;
 

@@ -3,8 +3,6 @@ package ma.zyn.app.service.facade.passenger.reservation;
 import java.util.List;
 import ma.zyn.app.bean.core.reservation.Reservation;
 import ma.zyn.app.dao.criteria.core.reservation.ReservationCriteria;
-import ma.zyn.app.zynerator.service.IService;
-
 
 
 public interface ReservationPassengerService {

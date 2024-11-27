@@ -3,8 +3,6 @@ package ma.zyn.app.service.facade.driver.message;
 import java.util.List;
 import ma.zyn.app.bean.core.message.Conversation;
 import ma.zyn.app.dao.criteria.core.message.ConversationCriteria;
-import ma.zyn.app.zynerator.service.IService;
-
 
 
 public interface ConversationDriverService {

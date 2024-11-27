@@ -1,14 +1,10 @@
 package  ma.zyn.app.ws.dto.passenger;
 
-import ma.zyn.app.zynerator.dto.AuditBaseDto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import ma.zyn.app.zynerator.security.bean.Role;
+import ma.zyn.app.utils.security.bean.Role;
 import java.util.Collection;
-import ma.zyn.app.zynerator.security.ws.dto.UserDto;
-import java.util.Date;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import ma.zyn.app.utils.security.ws.dto.UserDto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.math.BigDecimal;
 

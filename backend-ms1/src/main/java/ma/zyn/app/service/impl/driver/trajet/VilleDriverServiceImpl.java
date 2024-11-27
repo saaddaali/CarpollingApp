@@ -1,14 +1,14 @@
 package ma.zyn.app.service.impl.driver.trajet;
 
 
-import ma.zyn.app.zynerator.exception.EntityNotFoundException;
+import ma.zyn.app.utils.exception.EntityNotFoundException;
 import ma.zyn.app.bean.core.trajet.Ville;
 import ma.zyn.app.dao.criteria.core.trajet.VilleCriteria;
 import ma.zyn.app.dao.facade.core.trajet.VilleDao;
 import ma.zyn.app.dao.specification.core.trajet.VilleSpecification;
 import ma.zyn.app.service.facade.driver.trajet.VilleDriverService;
-import ma.zyn.app.zynerator.service.AbstractServiceImpl;
-import static ma.zyn.app.zynerator.util.ListUtil.*;
+
+import static ma.zyn.app.utils.util.ListUtil.*;
 
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -17,15 +17,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import ma.zyn.app.zynerator.util.RefelexivityUtil;
+import ma.zyn.app.utils.util.RefelexivityUtil;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-
-import java.util.List;
 @Service
 public class VilleDriverServiceImpl implements VilleDriverService {
 

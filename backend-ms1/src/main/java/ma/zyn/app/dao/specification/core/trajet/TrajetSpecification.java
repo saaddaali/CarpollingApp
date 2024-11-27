@@ -2,7 +2,7 @@ package  ma.zyn.app.dao.specification.core.trajet;
 
 import ma.zyn.app.dao.criteria.core.trajet.TrajetCriteria;
 import ma.zyn.app.bean.core.trajet.Trajet;
-import ma.zyn.app.zynerator.specification.AbstractSpecification;
+import ma.zyn.app.utils.specification.AbstractSpecification;
 
 
 public class TrajetSpecification extends  AbstractSpecification<TrajetCriteria, Trajet>  {

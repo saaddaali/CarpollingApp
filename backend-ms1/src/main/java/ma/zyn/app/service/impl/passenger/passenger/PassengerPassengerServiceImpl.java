@@ -1,14 +1,14 @@
 package ma.zyn.app.service.impl.passenger.passenger;
 
 
-import ma.zyn.app.zynerator.exception.EntityNotFoundException;
+import ma.zyn.app.utils.exception.EntityNotFoundException;
 import ma.zyn.app.bean.core.passenger.Passenger;
 import ma.zyn.app.dao.criteria.core.passenger.PassengerCriteria;
 import ma.zyn.app.dao.facade.core.passenger.PassengerDao;
 import ma.zyn.app.dao.specification.core.passenger.PassengerSpecification;
 import ma.zyn.app.service.facade.passenger.passenger.PassengerPassengerService;
-import ma.zyn.app.zynerator.service.AbstractServiceImpl;
-import static ma.zyn.app.zynerator.util.ListUtil.*;
+
+import static ma.zyn.app.utils.util.ListUtil.*;
 
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -17,7 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import ma.zyn.app.zynerator.util.RefelexivityUtil;
+import ma.zyn.app.utils.util.RefelexivityUtil;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,18 +25,16 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import ma.zyn.app.service.facade.passenger.paiement.CarteBancairePassengerService ;
-import ma.zyn.app.bean.core.paiement.CarteBancaire ;
 
 import java.time.LocalDateTime;
-import ma.zyn.app.zynerator.security.service.facade.UserService;
-import ma.zyn.app.zynerator.security.service.facade.RoleService;
-import ma.zyn.app.zynerator.security.service.facade.RoleUserService;
-import ma.zyn.app.zynerator.security.bean.Role;
-import ma.zyn.app.zynerator.security.bean.RoleUser;
-import ma.zyn.app.zynerator.security.common.AuthoritiesConstants;
-import ma.zyn.app.zynerator.security.service.facade.ModelPermissionUserService;
-import java.util.Collection;
-import java.util.List;
+import ma.zyn.app.utils.security.service.facade.UserService;
+import ma.zyn.app.utils.security.service.facade.RoleService;
+import ma.zyn.app.utils.security.service.facade.RoleUserService;
+import ma.zyn.app.utils.security.bean.Role;
+import ma.zyn.app.utils.security.bean.RoleUser;
+import ma.zyn.app.utils.security.common.AuthoritiesConstants;
+import ma.zyn.app.utils.security.service.facade.ModelPermissionUserService;
+
 @Service
 public class PassengerPassengerServiceImpl implements PassengerPassengerService {
 

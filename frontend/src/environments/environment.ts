@@ -14,7 +14,7 @@ export const environment = {
 
   apiUrlRidesharingsystemms1: 'http://localhost:8036/api/',
   loginUrl: 'http://localhost:8036/',
-  registerUrl: 'http://localhost:8036/register',
+  registerUrl: 'http://localhost:8036/register/',
   apiUrl: 'http://localhost:8036/',
 
   uploadMultipleUrl: 'http://localhost:8036/api/cloud/upload-multiple/bucket/ana',

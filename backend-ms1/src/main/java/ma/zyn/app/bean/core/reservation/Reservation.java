@@ -4,10 +4,6 @@ package ma.zyn.app.bean.core.reservation;
 import java.time.LocalDateTime;
 
 
-import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-
 import ma.zyn.app.bean.core.driver.Driver;
 import ma.zyn.app.bean.core.passenger.Passenger;
 import ma.zyn.app.bean.core.paiement.CarteBancaire;
@@ -16,7 +12,7 @@ import ma.zyn.app.bean.core.trajet.Trajet;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import ma.zyn.app.zynerator.bean.BaseEntity;
+import ma.zyn.app.utils.bean.BaseEntity;
 import jakarta.persistence.*;
 import java.util.Objects;
 import java.math.BigDecimal;

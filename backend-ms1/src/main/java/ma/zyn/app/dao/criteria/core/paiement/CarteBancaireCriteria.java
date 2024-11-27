@@ -2,11 +2,9 @@ package  ma.zyn.app.dao.criteria.core.paiement;
 
 
 
-import ma.zyn.app.zynerator.criteria.BaseCriteria;
+import ma.zyn.app.utils.criteria.BaseCriteria;
 
-import java.util.List;
 import java.time.LocalDateTime;
-import java.time.LocalDate;
 
 public class CarteBancaireCriteria extends  BaseCriteria  {
 

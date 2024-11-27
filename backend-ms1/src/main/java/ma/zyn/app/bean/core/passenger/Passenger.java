@@ -4,19 +4,14 @@ package ma.zyn.app.bean.core.passenger;
 import java.time.LocalDateTime;
 
 
-import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-
 import ma.zyn.app.bean.core.paiement.CarteBancaire;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import ma.zyn.app.zynerator.bean.BaseEntity;
 import jakarta.persistence.*;
 import java.util.Objects;
 import java.math.BigDecimal;
-import ma.zyn.app.zynerator.security.bean.User;
+import ma.zyn.app.utils.security.bean.User;
 
 @Entity
 @Table(name = "passenger")

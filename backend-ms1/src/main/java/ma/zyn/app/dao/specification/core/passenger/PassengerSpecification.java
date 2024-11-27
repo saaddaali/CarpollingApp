@@ -2,7 +2,7 @@ package  ma.zyn.app.dao.specification.core.passenger;
 
 import ma.zyn.app.dao.criteria.core.passenger.PassengerCriteria;
 import ma.zyn.app.bean.core.passenger.Passenger;
-import ma.zyn.app.zynerator.specification.AbstractSpecification;
+import ma.zyn.app.utils.specification.AbstractSpecification;
 
 
 public class PassengerSpecification extends  AbstractSpecification<PassengerCriteria, Passenger>  {

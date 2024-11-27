@@ -3,7 +3,7 @@ package ma.zyn.app.ws.converter.trajet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.BeanUtils;
-import ma.zyn.app.zynerator.converter.AbstractConverterHelper;
+import ma.zyn.app.utils.converter.AbstractConverterHelper;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -11,13 +11,11 @@ import java.util.List;
 
 import ma.zyn.app.ws.converter.driver.DriverConverter;
 import ma.zyn.app.bean.core.driver.Driver;
-import ma.zyn.app.ws.converter.trajet.VilleConverter;
 import ma.zyn.app.bean.core.trajet.Ville;
 
 
-import ma.zyn.app.zynerator.util.StringUtil;
-import ma.zyn.app.zynerator.converter.AbstractConverter;
-import ma.zyn.app.zynerator.util.DateUtil;
+import ma.zyn.app.utils.util.StringUtil;
+import ma.zyn.app.utils.util.DateUtil;
 import ma.zyn.app.bean.core.trajet.Trajet;
 import ma.zyn.app.ws.dto.trajet.TrajetDto;
 

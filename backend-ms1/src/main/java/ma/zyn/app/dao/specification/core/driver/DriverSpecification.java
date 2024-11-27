@@ -2,7 +2,7 @@ package  ma.zyn.app.dao.specification.core.driver;
 
 import ma.zyn.app.dao.criteria.core.driver.DriverCriteria;
 import ma.zyn.app.bean.core.driver.Driver;
-import ma.zyn.app.zynerator.specification.AbstractSpecification;
+import ma.zyn.app.utils.specification.AbstractSpecification;
 
 
 public class DriverSpecification extends  AbstractSpecification<DriverCriteria, Driver>  {

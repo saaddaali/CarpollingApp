@@ -1,10 +1,10 @@
 package ma.zyn.app.dao.facade.core.message;
 
 import org.springframework.data.jpa.repository.Query;
-import ma.zyn.app.zynerator.repository.AbstractRepository;
+import ma.zyn.app.utils.repository.AbstractRepository;
 import ma.zyn.app.bean.core.message.Conversation;
 import org.springframework.stereotype.Repository;
-import ma.zyn.app.bean.core.message.Conversation;
+
 import java.util.List;
 
 

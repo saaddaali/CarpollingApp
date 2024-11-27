@@ -4,7 +4,7 @@ package  ma.zyn.app.dao.criteria.core.message;
 import ma.zyn.app.dao.criteria.core.driver.DriverCriteria;
 import ma.zyn.app.dao.criteria.core.passenger.PassengerCriteria;
 
-import ma.zyn.app.zynerator.criteria.BaseCriteria;
+import ma.zyn.app.utils.criteria.BaseCriteria;
 
 import java.util.List;
 

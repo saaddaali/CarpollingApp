@@ -1,14 +1,14 @@
 package ma.zyn.app.service.impl.passenger.vehicule;
 
 
-import ma.zyn.app.zynerator.exception.EntityNotFoundException;
+import ma.zyn.app.utils.exception.EntityNotFoundException;
 import ma.zyn.app.bean.core.vehicule.Vehicule;
 import ma.zyn.app.dao.criteria.core.vehicule.VehiculeCriteria;
 import ma.zyn.app.dao.facade.core.vehicule.VehiculeDao;
 import ma.zyn.app.dao.specification.core.vehicule.VehiculeSpecification;
 import ma.zyn.app.service.facade.passenger.vehicule.VehiculePassengerService;
-import ma.zyn.app.zynerator.service.AbstractServiceImpl;
-import static ma.zyn.app.zynerator.util.ListUtil.*;
+
+import static ma.zyn.app.utils.util.ListUtil.*;
 
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -17,7 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import ma.zyn.app.zynerator.util.RefelexivityUtil;
+import ma.zyn.app.utils.util.RefelexivityUtil;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +25,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import ma.zyn.app.service.facade.passenger.driver.DriverPassengerService ;
-import ma.zyn.app.bean.core.driver.Driver ;
 
-import java.util.List;
 @Service
 public class VehiculePassengerServiceImpl implements VehiculePassengerService {
 

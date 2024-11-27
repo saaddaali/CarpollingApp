@@ -1,6 +1,6 @@
 package  ma.zyn.app.ws.dto.vehicule;
 
-import ma.zyn.app.zynerator.dto.AuditBaseDto;
+import ma.zyn.app.utils.dto.AuditBaseDto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 

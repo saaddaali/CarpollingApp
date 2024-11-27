@@ -3,8 +3,6 @@ package ma.zyn.app.service.facade.admin.passenger;
 import java.util.List;
 import ma.zyn.app.bean.core.passenger.Passenger;
 import ma.zyn.app.dao.criteria.core.passenger.PassengerCriteria;
-import ma.zyn.app.zynerator.service.IService;
-
 
 
 public interface PassengerAdminService {

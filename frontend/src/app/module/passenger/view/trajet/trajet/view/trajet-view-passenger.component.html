@@ -33,14 +33,32 @@
             </div>
         </div>
 
+
         <div class="details">
-            <div class="info">
-                <span><i class="pi pi-user"></i>{{ item.placesDisponibles }}</span>
-                <span><i class="pi pi-car"></i> RENAULT</span>
-                <span><i class="color-circle" style="background-color: black;"></i> Noir</span>
-                <span><i class="pi pi-briefcase"></i> Petit</span>
-                <span><i class="pi pi-directions"></i> Covoiturage direct</span>
+            <div class="car-info">
+                <div class="car-detail">
+                    <i class="pi pi-user"></i>
+                    <span class="detail-text">{{ item.placesDisponibles }}</span>
+                </div>
+                <div class="car-detail">
+                    <i class="pi pi-car"></i>
+                    <span class="detail-text">RENAULT</span>
+                </div>
+                <div class="car-detail">
+                    <i class="color-circle" style="background-color: black;"></i>
+                    <span class="detail-text">Noir</span>
+                </div>
+                <div class="car-detail">
+                    <i class="pi pi-briefcase"></i>
+                    <span class="detail-text">Petit</span>
+                </div>
+                <div class="car-detail">
+                    <i class="pi pi-directions"></i>
+                    <span class="detail-text">Covoiturage direct</span>
+                </div>
             </div>
+
+
             <div class="price">
                 Prix total pour 1 passager(s): <strong>{{ item.prix }}DHS</strong>
             </div>

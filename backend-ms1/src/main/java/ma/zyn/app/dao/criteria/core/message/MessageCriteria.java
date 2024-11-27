@@ -5,11 +5,10 @@ import ma.zyn.app.dao.criteria.core.driver.DriverCriteria;
 import ma.zyn.app.dao.criteria.core.passenger.PassengerCriteria;
 import ma.zyn.app.dao.criteria.core.trajet.TrajetCriteria;
 
-import ma.zyn.app.zynerator.criteria.BaseCriteria;
+import ma.zyn.app.utils.criteria.BaseCriteria;
 
 import java.util.List;
 import java.time.LocalDateTime;
-import java.time.LocalDate;
 
 public class MessageCriteria extends  BaseCriteria  {
 
