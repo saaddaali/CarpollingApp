@@ -1,187 +1,283 @@
-//colore declaration
-$primary-color: #4052EE;
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    background-color: #f5f5f5;
+}
 
-/* Container to center the component */
+$primary-color: #4052EE;
+$green-color: #4caf50;
+
 .page-container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    align-items: flex-start;
     background-color: #f5f5f5;
-    margin: 0;
+    min-height: calc(100vh - 64px);
+    padding: 5px 16px 5px 16px;  // Réduit de 80px à 40px en haut
+    box-sizing: border-box;
+    overflow-y: auto;
+    margin-top: 64px;
 }
 
-.color-circle {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    margin-right: 8px;
-    vertical-align: middle;
-}
-
-
-.rating i {
-    color: #FFB800;
-    margin-right: 0.25rem;
-}
-
-/* Ride component styling */
 .ride-component {
     font-family: Arial, sans-serif;
     background-color: #ffffff;
-    padding: 40px;
-    border-radius: 20px;
-    width: 500px;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-    text-align: center;
+    padding: 24px;  // Augmenté de 16px à 24px
+    border-radius: 12px;
+    width: 100%;
+    max-width: 700px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px, rgba(0, 0, 0, 0.05) 0px 1px 3px;  // Ombre plus prononcée
+    margin: 0;
 }
 
 .back-button {
     background: none;
     border: none;
-    color: $primary-color;
-    font-size: 18px;
+    color: #333;  // Changé de primary-color à noir
+    font-size: 16px;  // Augmenté de 15px à 16px
+    font-weight: 600;  // Augmenté de 500 à 600
     cursor: pointer;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;  // Augmenté de 8px à 10px
+
+    i {
+        font-size: 20px;  // Augmenté la taille de l'icône
+        color: #333;  // Assurez-vous que l'icône est aussi en noir
+    }
 }
 
 .date {
     color: $primary-color;
-    font-size: 24px;
-    margin-bottom: 30px;
-}
-
-.route-details {
-    display: flex;
-    align-items: center;
-    margin: 30px 0;
-}
-
-.stop {
-    flex: 1;
+    font-size: 22px;  // Augmenté de 20px à 22px
+    font-weight: 600;  // Augmenté le font-weight
+    margin-bottom: 24px;  // Augmenté de 16px à 24px
     text-align: center;
 }
 
-.location {
-    font-weight: bold;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-.area {
-    color: #777;
-    font-size: 16px;
-}
-
-.time {
-    font-size: 16px;
-    color: $primary-color;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
+.route-details {
+    position: relative;
+    padding-left: 20px;
+    margin: 24px 0;  // Augmenté de 16px à 24px
 }
 
 .line {
+    position: absolute;
+    left: 0;
+    top: 35px;  // Ajusté pour le nouveau padding
+    bottom: 35px;
+    width: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .circle {
+        width: 8px;
+        height: 8px;
+        background-color: $green-color;
+        border-radius: 50%;
+        position: absolute;
+        left: -3px;
+
+        &:first-child {
+            top: -4px;
+        }
+
+        &:last-child {
+            bottom: -4px;
+        }
+    }
+
+    .dotted-line {
+        position: absolute;
+        top: 4px;
+        bottom: 4px;
+        width: 2px;
+        background: repeating-linear-gradient(
+                $green-color 0px,
+                $green-color 3px,
+                transparent 3px,
+                transparent 8px
+        );
+    }
+}
+
+.stop {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;  // Augmenté de 12px à 16px
+    margin-bottom: 12px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px, rgba(0, 0, 0, 0.05) 0px 1px 3px;  // Même ombre que la carte principale
+
+    .location {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+
+        i {
+            color: #666;
+            font-size: 18px;  // Augmenté de 16px à 18px
+        }
+    }
+
+    .area {
+        color: #666;
+        font-size: 14px;  // Augmenté de 13px à 14px
+        font-weight: 500;  // Ajouté font-weight
+        margin-left: 26px;
+    }
+
+    .time {
+        color: $primary-color;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-left: 26px;
+        margin-top: 6px;  // Augmenté de 4px à 6px
+        font-size: 14px;  // Augmenté de 13px à 14px
+        font-weight: 500;  // Ajouté font-weight
+
+        i {
+            color: $primary-color;
+            font-size: 14px;
+        }
+    }
+}
+
+.car-info {
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    justify-content: flex-start;  // Changé de space-between à flex-start
+    gap: 6px;  // Réduit de 10px à 6px
+    margin: 24px 0;
+    width: 100%;
 }
 
-.circle {
-    width: 12px;
-    height: 12px;
-    background-color: #4caf50;
-    border-radius: 50%;
-}
-
-.dotted-line {
-    width: 2px;
-    height: 80px;
-    background: repeating-linear-gradient(
-            #4caf50 0px,
-            #4caf50 3px,
-            transparent 3px,
-            transparent 6px
-    );
-}
-
-.details {
-    margin-top: 20px;
-}
-
-.info {
+.car-detail {
+    background-color: #f5f5f5;
+    padding: 8px 12px;  // Réduit de 12px 20px à 8px 12px
+    border-radius: 20px;
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    font-size: 16px;
-    margin-bottom: 15px;
-    gap: 10px;
+    align-items: center;
+    gap: 6px;
+    flex: 0 1 auto;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 4px;  // Légère ombre pour les badges
+
+    i {
+        color: #666;
+        font-size: 15px;
+    }
+
+    .detail-text {
+        color: #333;
+        font-size: 14px;
+        font-weight: 500;
+        white-space: nowrap;
+    }
 }
+
 
 .price {
-    font-size: 18px;
-    margin-bottom: 25px;
+    margin: 20px 0;  // Augmenté de 12px à 20px
+    font-size: 15px;  // Augmenté de 14px à 15px
+    font-weight: 500;  // Ajouté font-weight
+    color: #333;
+    padding-top: 20px;  // Augmenté de 12px à 20px
+    border-top: 1px solid #eee;
+
+    strong {
+        font-weight: 600;
+        color: #000;
+    }
 }
 
 .driver {
     display: flex;
     align-items: center;
-    gap: 15px;
-}
+    gap: 12px;
+    margin: 20px 0;  // Augmenté de 12px à 20px
+    padding: 20px 0;  // Augmenté de 12px à 20px
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
 
-.driver-photo {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-}
+    .driver-photo {
+        width: 48px;  // Augmenté de 40px à 48px
+        height: 48px;  // Augmenté de 40px à 48px
+        border-radius: 50%;
+        object-fit: cover;
+    }
 
-.driver-name {
-    font-weight: bold;
-    font-size: 18px;
-}
+    .driver-name {
+        font-weight: 600;
+        font-size: 15px;  // Augmenté de 14px à 15px
+        color: #333;
+    }
 
-.rating {
-    font-size: 14px;
-    color: #777;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
+    .rating {
+        color: #666;
+        font-size: 14px;  // Augmenté de 13px à 14px
+        font-weight: 500;  // Ajouté font-weight
+        display: flex;
+        align-items: center;
+        gap: 4px;
 
-/* Icon styling for PrimeIcons */
-i.pi {
-    font-size: 16px;
-    color: $primary-color;
+        .gold-star {
+            color: #FFB800;
+        }
+    }
 }
 
 .reserve-button {
-    background-color: $primary-color; /* Remplacez par votre variable SASS ou couleur */
+    background-color: $primary-color;
     color: white;
-    font-size: 18px;
-    font-weight: bold;
-    padding: 10px 50px;
+    font-size: 16px;  // Augmenté de 14px à 16px
+    font-weight: 600;
+    padding: 16px;  // Augmenté de 12px à 16px
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    bottom: 20px;
-    right: 20px; /* Positionne le bouton à droite */
-    transform: translateX(0); /* Aucun décalage horizontal */
+    width: 100%;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+        background-color: darken($primary-color, 5%);
+    }
 }
 
+@media (max-width: 768px) {
+    .page-container {
+        padding: 60px 16px 20px 16px;
+    }
 
-.reserve-button:hover {
-    background-color: #45a049;
+    .ride-component {
+        max-width: 100%;
+    }
+
+    .car-info {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 6px;
+    }
+
+    .car-detail {
+        flex: 0 1 auto;
+    }
+}
+
+@media (max-width: 576px) {
+    .page-container {
+        padding: 40px 12px 20px 12px;
+    }
+
+    .ride-component {
+        padding: 16px;
+    }
 }
 
 // Styles for driver details card

@@ -5,11 +5,12 @@ $primary-color: #4052EE;
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    color: #000000; /* Text color */
-    padding: 10px 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    color: #000000;
+    padding: 8px 20px;  // Ajusté le padding vertical seulement
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     font-family: 'Roboto', sans-serif;
+    height: 50px;  // Hauteur fixe ajustée
+    box-sizing: border-box;
 }
 
 /* Left section styles */
@@ -60,13 +61,13 @@ $primary-color: #4052EE;
 /* Dropdown styles */
 .language-dropdown {
     border-radius: 4px;
-    color: #000; /* Override for dropdown items */
+    color: #000;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .topbar-center {
-        display: none; /* Hide center section for smaller screens */
+        display: none;
     }
 
     .elegant-topbar-menu {
