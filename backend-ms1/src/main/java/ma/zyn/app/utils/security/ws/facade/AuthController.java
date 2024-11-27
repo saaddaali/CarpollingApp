@@ -113,7 +113,7 @@ public class AuthController {
 
 
         userService.create(user);
-       emailService.sendSimpleMessage(emailRequest);
+        //emailService.sendSimpleMessage(emailRequest);
 
         Map<String, String> response = new HashMap<>();
         response.put("message", "You have registered successfully");
