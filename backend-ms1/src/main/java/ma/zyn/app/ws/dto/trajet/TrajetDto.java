@@ -3,6 +3,7 @@ package  ma.zyn.app.ws.dto.trajet;
 import ma.zyn.app.zynerator.dto.AuditBaseDto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -25,6 +26,7 @@ public class TrajetDto  extends AuditBaseDto {
     private DriverDto driver ;
     private VilleDto localisationSource ;
     private VilleDto localisationDestination ;
+    private BigDecimal prix ;
 
 
 
@@ -106,9 +108,11 @@ public class TrajetDto  extends AuditBaseDto {
         this.localisationDestination = localisationDestination;
     }
 
+    public BigDecimal getPrix() {
+        return prix;
+    }
 
-
-
-
-
+    public void setPrix(BigDecimal prix) {
+        this.prix = prix;
+    }
 }

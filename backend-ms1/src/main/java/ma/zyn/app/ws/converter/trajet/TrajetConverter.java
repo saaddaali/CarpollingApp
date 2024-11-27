@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.beans.BeanUtils;
 import ma.zyn.app.zynerator.converter.AbstractConverterHelper;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,18 +56,16 @@ public class TrajetConverter {
                 item.setDateCreation(DateUtil.stringEnToDate(dto.getDateCreation()));
             if(this.villeDepart && dto.getVilleDepart()!=null)
                 item.setVilleDepart(villeConverter.toItem(dto.getVilleDepart())) ;
-
             if(this.villeDestination && dto.getVilleDestination()!=null)
                 item.setVilleDestination(villeConverter.toItem(dto.getVilleDestination())) ;
-
             if(this.driver && dto.getDriver()!=null)
                 item.setDriver(driverConverter.toItem(dto.getDriver())) ;
-
             if(this.localisationSource && dto.getLocalisationSource()!=null)
                 item.setLocalisationSource(villeConverter.toItem(dto.getLocalisationSource())) ;
-
             if(this.localisationDestination && dto.getLocalisationDestination()!=null)
                 item.setLocalisationDestination(villeConverter.toItem(dto.getLocalisationDestination())) ;
+            if (dto.getPrix() != null)
+                item.setPrix(new BigDecimal(String.valueOf(dto.getPrix())));
 
 
 
@@ -111,6 +110,9 @@ public class TrajetConverter {
                 dto.setLocalisationDestination(villeConverter.toDto(item.getLocalisationDestination())) ;
 
             }
+
+            if (item.getPrix() != null)
+                dto.setPrix(item.getPrix());
 
 
         return dto;

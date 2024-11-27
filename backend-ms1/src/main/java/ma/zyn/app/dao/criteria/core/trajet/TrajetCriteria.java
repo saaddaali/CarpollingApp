@@ -5,6 +5,7 @@ import ma.zyn.app.dao.criteria.core.driver.DriverCriteria;
 
 import ma.zyn.app.zynerator.criteria.BaseCriteria;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
@@ -34,6 +35,10 @@ public class TrajetCriteria extends  BaseCriteria  {
     private List<VilleCriteria> localisationSources ;
     private VilleCriteria localisationDestination ;
     private List<VilleCriteria> localisationDestinations ;
+
+    private BigDecimal prix;
+    private BigDecimal prixMin;
+    private BigDecimal prixMax;
 
 
     public LocalDateTime getHoraireDepart(){
@@ -179,5 +184,29 @@ public class TrajetCriteria extends  BaseCriteria  {
 
     public void setLocalisationDestinations(List<VilleCriteria> localisationDestinations){
         this.localisationDestinations = localisationDestinations;
+    }
+
+    public BigDecimal getPrix() {
+        return prix;
+    }
+
+    public void setPrix(BigDecimal prix) {
+        this.prix = prix;
+    }
+
+    public BigDecimal getPrixMin() {
+        return prixMin;
+    }
+
+    public void setPrixMin(BigDecimal prixMin) {
+        this.prixMin = prixMin;
+    }
+
+    public BigDecimal getPrixMax() {
+        return prixMax;
+    }
+
+    public void setPrixMax(BigDecimal prixMax) {
+        this.prixMax = prixMax;
     }
 }

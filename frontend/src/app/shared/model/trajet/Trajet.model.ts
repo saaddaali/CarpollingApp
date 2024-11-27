@@ -20,6 +20,8 @@ export class TrajetDto extends BaseDto{
     public localisationSource: VilleDto ;
     public localisationDestination: VilleDto ;
 
+    public prix: number;
+
 
     constructor() {
         super();
@@ -32,6 +34,7 @@ export class TrajetDto extends BaseDto{
         this.villeDestination = new VilleDto() ;
         this.localisationSource = new VilleDto() ;
         this.localisationDestination = new VilleDto() ;
+        this.prix= 0;
 
         }
 
