@@ -21,6 +21,10 @@ public class TrajetCriteria extends  BaseCriteria  {
     private String placesDisponibles;
     private String placesDisponiblesMin;
     private String placesDisponiblesMax;
+
+    private String placesMax;
+    private String placesMaxMin;
+    private String placesMaxMax;
     private LocalDateTime dateCreation;
     private LocalDateTime dateCreationFrom;
     private LocalDateTime dateCreationTo;
@@ -95,7 +99,31 @@ public class TrajetCriteria extends  BaseCriteria  {
     public void setPlacesDisponiblesMax(String placesDisponiblesMax){
         this.placesDisponiblesMax = placesDisponiblesMax;
     }
-      
+
+    public String getPlacesMax() {
+        return placesMax;
+    }
+
+    public void setPlacesMax(String placesMax) {
+        this.placesMax = placesMax;
+    }
+
+    public String getPlacesMaxMin() {
+        return placesMaxMin;
+    }
+
+    public void setPlacesMaxMin(String placesMaxMin) {
+        this.placesMaxMin = placesMaxMin;
+    }
+
+    public String getPlacesMaxMax() {
+        return placesMaxMax;
+    }
+
+    public void setPlacesMaxMax(String placesMaxMax) {
+        this.placesMaxMax = placesMaxMax;
+    }
+
     public LocalDateTime getDateCreation(){
         return this.dateCreation;
     }

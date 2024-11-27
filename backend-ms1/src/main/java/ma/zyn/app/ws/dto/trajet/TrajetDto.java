@@ -19,6 +19,8 @@ public class TrajetDto  extends AuditBaseDto {
     private String horaireDepart ;
     private String horaireArrive ;
     private Integer placesDisponibles  = 0 ;
+    private Integer placesMax = 0 ;
+
     private String dateCreation ;
 
     private VilleDto villeDepart ;
@@ -62,6 +64,13 @@ public class TrajetDto  extends AuditBaseDto {
         this.placesDisponibles = placesDisponibles;
     }
 
+    public Integer getPlacesMax() {
+        return placesMax;
+    }
+
+    public void setPlacesMax(Integer placesMax) {
+        this.placesMax = placesMax;
+    }
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
     public String getDateCreation(){

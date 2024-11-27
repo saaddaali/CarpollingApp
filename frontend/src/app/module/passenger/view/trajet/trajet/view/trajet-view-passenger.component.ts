@@ -63,7 +63,6 @@ export class TrajetViewPassengerComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    // Nouvelle méthode pour afficher le profil du conducteur
     showDriverDetails() {
         this.showDriverProfile = true;
     }

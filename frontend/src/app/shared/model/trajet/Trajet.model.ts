@@ -11,6 +11,8 @@ export class TrajetDto extends BaseDto{
    public horaireArrive: Date;
 
     public placesDisponibles: null | number;
+    public placesMax: null | number;
+
 
    public dateCreation: Date;
 
@@ -29,12 +31,13 @@ export class TrajetDto extends BaseDto{
         this.horaireDepart = null;
         this.horaireArrive = null;
         this.placesDisponibles = null;
+        this.placesMax = null;
         this.dateCreation = null;
         this.villeDepart = new VilleDto() ;
         this.villeDestination = new VilleDto() ;
         this.localisationSource = new VilleDto() ;
         this.localisationDestination = new VilleDto() ;
-        this.prix= 0;
+        this.prix= null;
 
         }
 

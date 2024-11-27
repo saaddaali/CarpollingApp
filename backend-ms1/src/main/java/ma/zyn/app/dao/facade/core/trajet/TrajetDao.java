@@ -26,4 +26,5 @@ public interface TrajetDao extends AbstractRepository<Trajet,Long>  {
     long countByLocalisationDestinationCode(String code);
 
 
+
 }

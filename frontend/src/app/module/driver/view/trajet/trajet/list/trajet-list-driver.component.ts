@@ -302,10 +302,12 @@ export class TrajetListDriverComponent implements OnInit {
             {field: 'horaireDepart', header: 'Horaire depart'},
             {field: 'horaireArrive', header: 'Horaire arrive'},
             {field: 'placesDisponibles', header: 'Places disponibles'},
+            {field: 'placesMax', header: 'Places max'},
             {field: 'driver?.email', header: 'Driver'},
             {field: 'dateCreation', header: 'Date creation'},
             {field: 'localisationSource?.libelle', header: 'Localisation source'},
             {field: 'localisationDestination?.libelle', header: 'Localisation destination'},
+            {field: 'prix', header: 'Prix'},
         ];
     }
 

@@ -31,6 +31,7 @@ public class Trajet extends BaseEntity {
     private LocalDateTime horaireArrive;
 
     private Integer placesDisponibles = 0;
+    private Integer placesMax = 0;
 
     private LocalDateTime dateCreation;
 
@@ -115,6 +116,14 @@ public class Trajet extends BaseEntity {
 
     public void setPlacesDisponibles(Integer placesDisponibles) {
         this.placesDisponibles = placesDisponibles;
+    }
+
+    public Integer getPlacesMax() {
+        return placesMax;
+    }
+
+    public void setPlacesMax(Integer placesMax) {
+        this.placesMax = placesMax;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)

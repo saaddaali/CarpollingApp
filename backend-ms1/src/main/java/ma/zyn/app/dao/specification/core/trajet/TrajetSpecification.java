@@ -13,6 +13,7 @@ public class TrajetSpecification extends  AbstractSpecification<TrajetCriteria, 
         addPredicate("horaireDepart", criteria.getHoraireDepart(), criteria.getHoraireDepartFrom(), criteria.getHoraireDepartTo());
         addPredicate("horaireArrive", criteria.getHoraireArrive(), criteria.getHoraireArriveFrom(), criteria.getHoraireArriveTo());
         addPredicateInt("placesDisponibles", criteria.getPlacesDisponibles(), criteria.getPlacesDisponiblesMin(), criteria.getPlacesDisponiblesMax());
+        addPredicateInt("placesMax", criteria.getPlacesMax(), criteria.getPlacesMaxMin(), criteria.getPlacesMaxMax());
         addPredicate("dateCreation", criteria.getDateCreation(), criteria.getDateCreationFrom(), criteria.getDateCreationTo());
         addPredicateFk("villeDepart","id", criteria.getVilleDepart()==null?null:criteria.getVilleDepart().getId());
         addPredicateFk("villeDepart","id", criteria.getVilleDeparts());

@@ -1,4 +1,4 @@
-package  ma.zyn.app.ws.converter.trajet;
+package ma.zyn.app.ws.converter.trajet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,6 @@ import ma.zyn.app.ws.converter.trajet.VilleConverter;
 import ma.zyn.app.bean.core.trajet.Ville;
 
 
-
 import ma.zyn.app.zynerator.util.StringUtil;
 import ma.zyn.app.zynerator.converter.AbstractConverter;
 import ma.zyn.app.zynerator.util.DateUtil;
@@ -26,16 +25,16 @@ import ma.zyn.app.ws.dto.trajet.TrajetDto;
 public class TrajetConverter {
 
     @Autowired
-    private DriverConverter driverConverter ;
+    private DriverConverter driverConverter;
     @Autowired
-    private VilleConverter villeConverter ;
+    private VilleConverter villeConverter;
     private boolean villeDepart;
     private boolean villeDestination;
     private boolean driver;
     private boolean localisationSource;
     private boolean localisationDestination;
 
-    public  TrajetConverter() {
+    public TrajetConverter() {
         initObject(true);
     }
 
@@ -43,34 +42,35 @@ public class TrajetConverter {
         if (dto == null) {
             return null;
         } else {
-        Trajet item = new Trajet();
-            if(StringUtil.isNotEmpty(dto.getId()))
+            Trajet item = new Trajet();
+            if (StringUtil.isNotEmpty(dto.getId()))
                 item.setId(dto.getId());
-            if(StringUtil.isNotEmpty(dto.getHoraireDepart()))
+            if (StringUtil.isNotEmpty(dto.getHoraireDepart()))
                 item.setHoraireDepart(DateUtil.stringEnToDate(dto.getHoraireDepart()));
-            if(StringUtil.isNotEmpty(dto.getHoraireArrive()))
+            if (StringUtil.isNotEmpty(dto.getHoraireArrive()))
                 item.setHoraireArrive(DateUtil.stringEnToDate(dto.getHoraireArrive()));
-            if(StringUtil.isNotEmpty(dto.getPlacesDisponibles()))
+            if (StringUtil.isNotEmpty(dto.getPlacesDisponibles()))
                 item.setPlacesDisponibles(dto.getPlacesDisponibles());
-            if(StringUtil.isNotEmpty(dto.getDateCreation()))
+            if (StringUtil.isNotEmpty(dto.getPlacesMax()))
+                item.setPlacesMax(dto.getPlacesMax());
+            
+            if (StringUtil.isNotEmpty(dto.getDateCreation()))
                 item.setDateCreation(DateUtil.stringEnToDate(dto.getDateCreation()));
-            if(this.villeDepart && dto.getVilleDepart()!=null)
-                item.setVilleDepart(villeConverter.toItem(dto.getVilleDepart())) ;
-            if(this.villeDestination && dto.getVilleDestination()!=null)
-                item.setVilleDestination(villeConverter.toItem(dto.getVilleDestination())) ;
-            if(this.driver && dto.getDriver()!=null)
-                item.setDriver(driverConverter.toItem(dto.getDriver())) ;
-            if(this.localisationSource && dto.getLocalisationSource()!=null)
-                item.setLocalisationSource(villeConverter.toItem(dto.getLocalisationSource())) ;
-            if(this.localisationDestination && dto.getLocalisationDestination()!=null)
-                item.setLocalisationDestination(villeConverter.toItem(dto.getLocalisationDestination())) ;
+            if (this.villeDepart && dto.getVilleDepart() != null)
+                item.setVilleDepart(villeConverter.toItem(dto.getVilleDepart()));
+            if (this.villeDestination && dto.getVilleDestination() != null)
+                item.setVilleDestination(villeConverter.toItem(dto.getVilleDestination()));
+            if (this.driver && dto.getDriver() != null)
+                item.setDriver(driverConverter.toItem(dto.getDriver()));
+            if (this.localisationSource && dto.getLocalisationSource() != null)
+                item.setLocalisationSource(villeConverter.toItem(dto.getLocalisationSource()));
+            if (this.localisationDestination && dto.getLocalisationDestination() != null)
+                item.setLocalisationDestination(villeConverter.toItem(dto.getLocalisationDestination()));
             if (dto.getPrix() != null)
                 item.setPrix(new BigDecimal(String.valueOf(dto.getPrix())));
 
 
-
-
-        return item;
+            return item;
         }
     }
 
@@ -80,34 +80,40 @@ public class TrajetConverter {
             return null;
         } else {
             TrajetDto dto = new TrajetDto();
-            if(StringUtil.isNotEmpty(item.getId()))
+            if (StringUtil.isNotEmpty(item.getId()))
                 dto.setId(item.getId());
-            if(item.getHoraireDepart()!=null)
+            if (item.getHoraireDepart() != null)
                 dto.setHoraireDepart(DateUtil.dateTimeToString(item.getHoraireDepart()));
-            if(item.getHoraireArrive()!=null)
+            if (item.getHoraireArrive() != null)
                 dto.setHoraireArrive(DateUtil.dateTimeToString(item.getHoraireArrive()));
-            if(StringUtil.isNotEmpty(item.getPlacesDisponibles()))
+            if (StringUtil.isNotEmpty(item.getPlacesDisponibles()))
                 dto.setPlacesDisponibles(item.getPlacesDisponibles());
-            if(item.getDateCreation()!=null)
+            if (StringUtil.isNotEmpty(item.getPlacesMax()))
+                dto.setPlacesMax(item.getPlacesMax());
+            
+            if (StringUtil.isNotEmpty(item.getPlacesMax()))
+                dto.setPlacesMax(item.getPlacesMax());
+
+            if (item.getDateCreation() != null)
                 dto.setDateCreation(DateUtil.dateTimeToString(item.getDateCreation()));
-            if(this.villeDepart && item.getVilleDepart()!=null) {
-                dto.setVilleDepart(villeConverter.toDto(item.getVilleDepart())) ;
+            if (this.villeDepart && item.getVilleDepart() != null) {
+                dto.setVilleDepart(villeConverter.toDto(item.getVilleDepart()));
 
             }
-            if(this.villeDestination && item.getVilleDestination()!=null) {
-                dto.setVilleDestination(villeConverter.toDto(item.getVilleDestination())) ;
+            if (this.villeDestination && item.getVilleDestination() != null) {
+                dto.setVilleDestination(villeConverter.toDto(item.getVilleDestination()));
 
             }
-            if(this.driver && item.getDriver()!=null) {
-                dto.setDriver(driverConverter.toDto(item.getDriver())) ;
+            if (this.driver && item.getDriver() != null) {
+                dto.setDriver(driverConverter.toDto(item.getDriver()));
 
             }
-            if(this.localisationSource && item.getLocalisationSource()!=null) {
-                dto.setLocalisationSource(villeConverter.toDto(item.getLocalisationSource())) ;
+            if (this.localisationSource && item.getLocalisationSource() != null) {
+                dto.setLocalisationSource(villeConverter.toDto(item.getLocalisationSource()));
 
             }
-            if(this.localisationDestination && item.getLocalisationDestination()!=null) {
-                dto.setLocalisationDestination(villeConverter.toDto(item.getLocalisationDestination())) ;
+            if (this.localisationDestination && item.getLocalisationDestination() != null) {
+                dto.setLocalisationDestination(villeConverter.toDto(item.getLocalisationDestination()));
 
             }
 
@@ -115,7 +121,7 @@ public class TrajetConverter {
                 dto.setPrix(item.getPrix());
 
 
-        return dto;
+            return dto;
         }
     }
 
@@ -130,7 +136,7 @@ public class TrajetConverter {
         this.localisationSource = value;
         this.localisationDestination = value;
     }
-	
+
     public List<Trajet> toItem(List<TrajetDto> dtos) {
         List<Trajet> items = new ArrayList<>();
         if (dtos != null && !dtos.isEmpty()) {
@@ -154,47 +160,47 @@ public class TrajetConverter {
 
 
     public void copy(TrajetDto dto, Trajet t) {
-		BeanUtils.copyProperties(dto, t, AbstractConverterHelper.getNullPropertyNames(dto));
-        if(t.getVilleDepart() == null  && dto.getVilleDepart() != null){
+        BeanUtils.copyProperties(dto, t, AbstractConverterHelper.getNullPropertyNames(dto));
+        if (t.getVilleDepart() == null && dto.getVilleDepart() != null) {
             t.setVilleDepart(new Ville());
-        }else if (t.getVilleDepart() != null  && dto.getVilleDepart() != null){
+        } else if (t.getVilleDepart() != null && dto.getVilleDepart() != null) {
             t.setVilleDepart(null);
             t.setVilleDepart(new Ville());
         }
-        if(t.getVilleDestination() == null  && dto.getVilleDestination() != null){
+        if (t.getVilleDestination() == null && dto.getVilleDestination() != null) {
             t.setVilleDestination(new Ville());
-        }else if (t.getVilleDestination() != null  && dto.getVilleDestination() != null){
+        } else if (t.getVilleDestination() != null && dto.getVilleDestination() != null) {
             t.setVilleDestination(null);
             t.setVilleDestination(new Ville());
         }
-        if(t.getDriver() == null  && dto.getDriver() != null){
+        if (t.getDriver() == null && dto.getDriver() != null) {
             t.setDriver(new Driver());
-        }else if (t.getDriver() != null  && dto.getDriver() != null){
+        } else if (t.getDriver() != null && dto.getDriver() != null) {
             t.setDriver(null);
             t.setDriver(new Driver());
         }
-        if(t.getLocalisationSource() == null  && dto.getLocalisationSource() != null){
+        if (t.getLocalisationSource() == null && dto.getLocalisationSource() != null) {
             t.setLocalisationSource(new Ville());
-        }else if (t.getLocalisationSource() != null  && dto.getLocalisationSource() != null){
+        } else if (t.getLocalisationSource() != null && dto.getLocalisationSource() != null) {
             t.setLocalisationSource(null);
             t.setLocalisationSource(new Ville());
         }
-        if(t.getLocalisationDestination() == null  && dto.getLocalisationDestination() != null){
+        if (t.getLocalisationDestination() == null && dto.getLocalisationDestination() != null) {
             t.setLocalisationDestination(new Ville());
-        }else if (t.getLocalisationDestination() != null  && dto.getLocalisationDestination() != null){
+        } else if (t.getLocalisationDestination() != null && dto.getLocalisationDestination() != null) {
             t.setLocalisationDestination(null);
             t.setLocalisationDestination(new Ville());
         }
         if (dto.getVilleDepart() != null)
-        villeConverter.copy(dto.getVilleDepart(), t.getVilleDepart());
+            villeConverter.copy(dto.getVilleDepart(), t.getVilleDepart());
         if (dto.getVilleDestination() != null)
-        villeConverter.copy(dto.getVilleDestination(), t.getVilleDestination());
+            villeConverter.copy(dto.getVilleDestination(), t.getVilleDestination());
         if (dto.getDriver() != null)
-        driverConverter.copy(dto.getDriver(), t.getDriver());
+            driverConverter.copy(dto.getDriver(), t.getDriver());
         if (dto.getLocalisationSource() != null)
-        villeConverter.copy(dto.getLocalisationSource(), t.getLocalisationSource());
+            villeConverter.copy(dto.getLocalisationSource(), t.getLocalisationSource());
         if (dto.getLocalisationDestination() != null)
-        villeConverter.copy(dto.getLocalisationDestination(), t.getLocalisationDestination());
+            villeConverter.copy(dto.getLocalisationDestination(), t.getLocalisationDestination());
     }
 
     public List<Trajet> copy(List<TrajetDto> dtos) {
@@ -210,46 +216,59 @@ public class TrajetConverter {
     }
 
 
-    public DriverConverter getDriverConverter(){
+    public DriverConverter getDriverConverter() {
         return this.driverConverter;
     }
-    public void setDriverConverter(DriverConverter driverConverter ){
+
+    public void setDriverConverter(DriverConverter driverConverter) {
         this.driverConverter = driverConverter;
     }
-    public VilleConverter getVilleConverter(){
+
+    public VilleConverter getVilleConverter() {
         return this.villeConverter;
     }
-    public void setVilleConverter(VilleConverter villeConverter ){
+
+    public void setVilleConverter(VilleConverter villeConverter) {
         this.villeConverter = villeConverter;
     }
-    public boolean  isVilleDepart(){
+
+    public boolean isVilleDepart() {
         return this.villeDepart;
     }
-    public void  setVilleDepart(boolean villeDepart){
+
+    public void setVilleDepart(boolean villeDepart) {
         this.villeDepart = villeDepart;
     }
-    public boolean  isVilleDestination(){
+
+    public boolean isVilleDestination() {
         return this.villeDestination;
     }
-    public void  setVilleDestination(boolean villeDestination){
+
+    public void setVilleDestination(boolean villeDestination) {
         this.villeDestination = villeDestination;
     }
-    public boolean  isDriver(){
+
+    public boolean isDriver() {
         return this.driver;
     }
-    public void  setDriver(boolean driver){
+
+    public void setDriver(boolean driver) {
         this.driver = driver;
     }
-    public boolean  isLocalisationSource(){
+
+    public boolean isLocalisationSource() {
         return this.localisationSource;
     }
-    public void  setLocalisationSource(boolean localisationSource){
+
+    public void setLocalisationSource(boolean localisationSource) {
         this.localisationSource = localisationSource;
     }
-    public boolean  isLocalisationDestination(){
+
+    public boolean isLocalisationDestination() {
         return this.localisationDestination;
     }
-    public void  setLocalisationDestination(boolean localisationDestination){
+
+    public void setLocalisationDestination(boolean localisationDestination) {
         this.localisationDestination = localisationDestination;
     }
 }

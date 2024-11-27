@@ -15,6 +15,9 @@ export class TrajetCriteria extends BaseCriteria {
     public placesDisponibles: number;
     public placesDisponiblesMin: number;
     public placesDisponiblesMax: number;
+    public placesMax: number;
+    public placesMaxMin: number;
+    public placesMaxMax: number;
     public dateCreation: Date;
     public dateCreationFrom: Date;
     public dateCreationTo: Date;

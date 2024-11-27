@@ -90,9 +90,9 @@ export class TrajetListPassengerComponent implements OnInit {
         trajetDto.localisationDestination = trajet.localisationDestination;
         trajetDto.horaireDepart = trajet.horaireDepart;
         trajetDto.horaireArrive = trajet.horaireArrive;
-        //trajetDto.tarif = trajet.tarif;
         trajetDto.placesDisponibles = trajet.placesDisponibles;
-        //trajetDto.placesReservees = trajet.placesReservees;
+        trajetDto.placesMax = trajet.placesMax;
+        trajetDto.prix = trajet.prix;
         this.service.item = trajetDto;
         console.log('Trajet:', trajetDto);
         this.router.navigate(['/trajet/trajet/details']);

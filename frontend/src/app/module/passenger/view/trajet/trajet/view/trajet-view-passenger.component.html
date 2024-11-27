@@ -7,16 +7,15 @@
         <button class="back-button" (click)="goBack()">
             <i class="pi pi-arrow-left"></i> Retour
         </button>
-        <h2 class="date">lundi, 25 novembre</h2>
+        <h2 class="date">{{ item.horaireDepart | date: 'dd MMMM yyyy' }}</h2>
 
         <div class="route-details">
             <div class="stop">
                 <div class="location">
-                    <i class="pi pi-map-marker"></i> Marrakech
+                    <i class="pi pi-map-marker"></i> {{ item.villeDepart.libelle }}
                 </div>
-                <div class="area">Gueliz</div>
                 <div class="time">
-                    <i class="pi pi-clock"></i> 08:30
+                    <i class="pi pi-clock"></i> {{ item.horaireDepart | date: 'HH:mm' }}
                 </div>
             </div>
             <div class="line">
@@ -26,25 +25,24 @@
             </div>
             <div class="stop">
                 <div class="location">
-                    <i class="pi pi-map-marker"></i> Casablanca
+                    <i class="pi pi-map-marker"></i> {{ item.villeDestination.libelle }}
                 </div>
-                <div class="area">Aïn Sebaa</div>
                 <div class="time">
-                    <i class="pi pi-clock"></i> 10:58
+                    <i class="pi pi-clock"></i> {{ item.horaireArrive | date: 'HH:mm' }}
                 </div>
             </div>
         </div>
 
         <div class="details">
             <div class="info">
-                <span><i class="pi pi-user"></i> 1 restant</span>
+                <span><i class="pi pi-user"></i>{{ item.placesDisponibles }}</span>
                 <span><i class="pi pi-car"></i> RENAULT</span>
                 <span><i class="color-circle" style="background-color: black;"></i> Noir</span>
                 <span><i class="pi pi-briefcase"></i> Petit</span>
                 <span><i class="pi pi-directions"></i> Covoiturage direct</span>
             </div>
             <div class="price">
-                Prix total pour 1 passager(s): <strong>127.68 DHS</strong>
+                Prix total pour 1 passager(s): <strong>{{ item.prix }}DHS</strong>
             </div>
             <div class="driver" (click)="showDriverDetails()">
                 <img [src]="item.driver?.photo" alt="Driver photo" class="driver-photo"/>
