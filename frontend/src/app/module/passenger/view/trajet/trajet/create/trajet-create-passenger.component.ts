@@ -13,8 +13,6 @@ import {StringUtilService} from 'src/app/zynerator/util/StringUtil.service';
 import {ServiceLocator} from 'src/app/zynerator/service/ServiceLocator';
 
 
-
-
 import {TrajetPassengerService} from 'src/app/shared/service/passenger/trajet/TrajetPassenger.service';
 import {TrajetDto} from 'src/app/shared/model/trajet/Trajet.model';
 import {TrajetCriteria} from 'src/app/shared/criteria/trajet/TrajetCriteria.model';
@@ -22,13 +20,15 @@ import {DriverDto} from 'src/app/shared/model/driver/Driver.model';
 import {DriverPassengerService} from 'src/app/shared/service/passenger/driver/DriverPassenger.service';
 import {VilleDto} from 'src/app/shared/model/trajet/Ville.model';
 import {VillePassengerService} from 'src/app/shared/service/passenger/trajet/VillePassenger.service';
-@Component({
-  selector: 'app-trajet-create-passenger',
-  templateUrl: './trajet-create-passenger.component.html'
-})
-export class TrajetCreatePassengerComponent  implements OnInit {
 
-	protected _submitted = false;
+@Component({
+    selector: 'app-trajet-create-passenger',
+    templateUrl: './trajet-create-passenger.component.html',
+    styleUrls: ['./trajet-create-passenger.component.scss'],
+})
+export class TrajetCreatePassengerComponent implements OnInit {
+
+    protected _submitted = false;
     protected _errorMessages = new Array<string>();
 
     protected datePipe: DatePipe;
@@ -40,9 +40,7 @@ export class TrajetCreatePassengerComponent  implements OnInit {
     private _activeTab = 0;
 
 
-
-
-	constructor(private service: TrajetPassengerService , private driverService: DriverPassengerService, private villeService: VillePassengerService, @Inject(PLATFORM_ID) private platformId? ) {
+    constructor(private service: TrajetPassengerService, private driverService: DriverPassengerService, private villeService: VillePassengerService, @Inject(PLATFORM_ID) private platformId?) {
         this.datePipe = ServiceLocator.injector.get(DatePipe);
         this.messageService = ServiceLocator.injector.get(MessageService);
         this.confirmationService = ServiceLocator.injector.get(ConfirmationService);
@@ -60,14 +58,17 @@ export class TrajetCreatePassengerComponent  implements OnInit {
     }
 
 
-
     public save(): void {
         this.submitted = true;
         this.validateForm();
         if (this.errorMessages.length === 0) {
             this.saveWithShowOption(false);
         } else {
-            this.messageService.add({severity: 'error',summary: 'Erreurs',detail: 'Merci de corrigé les erreurs sur le formulaire'});
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Erreurs',
+                detail: 'Merci de corrigé les erreurs sur le formulaire'
+            });
         }
     }
 
@@ -94,159 +95,182 @@ export class TrajetCreatePassengerComponent  implements OnInit {
     }
 
 
-
-
-
-    public  setValidation(value: boolean){
+    public setValidation(value: boolean) {
     }
 
 
-
-    public  validateForm(): void{
+    public validateForm(): void {
         this.errorMessages = new Array<string>();
     }
 
 
-
     public async openCreateVilleDestination(villeDestination: string) {
-    const isPermistted = await this.roleService.isPermitted('Ville', 'add');
-    if(isPermistted) {
-         this.villeDestination = new VilleDto();
-         this.createVilleDestinationDialog = true;
-    }else{
-        this.messageService.add({
-        severity: 'error', summary: 'erreur', detail: 'problème de permission'
-        });
-     }
+        const isPermistted = await this.roleService.isPermitted('Ville', 'add');
+        if (isPermistted) {
+            this.villeDestination = new VilleDto();
+            this.createVilleDestinationDialog = true;
+        } else {
+            this.messageService.add({
+                severity: 'error', summary: 'erreur', detail: 'problème de permission'
+            });
+        }
     }
+
     public async openCreateLocalisationDestination(localisationDestination: string) {
-    const isPermistted = await this.roleService.isPermitted('Ville', 'add');
-    if(isPermistted) {
-         this.localisationDestination = new VilleDto();
-         this.createLocalisationDestinationDialog = true;
-    }else{
-        this.messageService.add({
-        severity: 'error', summary: 'erreur', detail: 'problème de permission'
-        });
-     }
+        const isPermistted = await this.roleService.isPermitted('Ville', 'add');
+        if (isPermistted) {
+            this.localisationDestination = new VilleDto();
+            this.createLocalisationDestinationDialog = true;
+        } else {
+            this.messageService.add({
+                severity: 'error', summary: 'erreur', detail: 'problème de permission'
+            });
+        }
     }
+
     public async openCreateVilleDepart(villeDepart: string) {
-    const isPermistted = await this.roleService.isPermitted('Ville', 'add');
-    if(isPermistted) {
-         this.villeDepart = new VilleDto();
-         this.createVilleDepartDialog = true;
-    }else{
-        this.messageService.add({
-        severity: 'error', summary: 'erreur', detail: 'problème de permission'
-        });
-     }
+        const isPermistted = await this.roleService.isPermitted('Ville', 'add');
+        if (isPermistted) {
+            this.villeDepart = new VilleDto();
+            this.createVilleDepartDialog = true;
+        } else {
+            this.messageService.add({
+                severity: 'error', summary: 'erreur', detail: 'problème de permission'
+            });
+        }
     }
+
     public async openCreateLocalisationSource(localisationSource: string) {
-    const isPermistted = await this.roleService.isPermitted('Ville', 'add');
-    if(isPermistted) {
-         this.localisationSource = new VilleDto();
-         this.createLocalisationSourceDialog = true;
-    }else{
-        this.messageService.add({
-        severity: 'error', summary: 'erreur', detail: 'problème de permission'
-        });
-     }
+        const isPermistted = await this.roleService.isPermitted('Ville', 'add');
+        if (isPermistted) {
+            this.localisationSource = new VilleDto();
+            this.createLocalisationSourceDialog = true;
+        } else {
+            this.messageService.add({
+                severity: 'error', summary: 'erreur', detail: 'problème de permission'
+            });
+        }
     }
 
     get driver(): DriverDto {
         return this.driverService.item;
     }
+
     set driver(value: DriverDto) {
         this.driverService.item = value;
     }
+
     get drivers(): Array<DriverDto> {
         return this.driverService.items;
     }
+
     set drivers(value: Array<DriverDto>) {
         this.driverService.items = value;
     }
+
     get createDriverDialog(): boolean {
         return this.driverService.createDialog;
     }
+
     set createDriverDialog(value: boolean) {
-        this.driverService.createDialog= value;
+        this.driverService.createDialog = value;
     }
+
     get villeDestination(): VilleDto {
         return this.villeService.item;
     }
+
     set villeDestination(value: VilleDto) {
         this.villeService.item = value;
     }
+
     get villeDestinations(): Array<VilleDto> {
         return this.villeService.items;
     }
+
     set villeDestinations(value: Array<VilleDto>) {
         this.villeService.items = value;
     }
+
     get createVilleDestinationDialog(): boolean {
         return this.villeService.createDialog;
     }
+
     set createVilleDestinationDialog(value: boolean) {
-        this.villeService.createDialog= value;
+        this.villeService.createDialog = value;
     }
+
     get localisationDestination(): VilleDto {
         return this.villeService.item;
     }
+
     set localisationDestination(value: VilleDto) {
         this.villeService.item = value;
     }
+
     get localisationDestinations(): Array<VilleDto> {
         return this.villeService.items;
     }
+
     set localisationDestinations(value: Array<VilleDto>) {
         this.villeService.items = value;
     }
+
     get createLocalisationDestinationDialog(): boolean {
         return this.villeService.createDialog;
     }
+
     set createLocalisationDestinationDialog(value: boolean) {
-        this.villeService.createDialog= value;
+        this.villeService.createDialog = value;
     }
+
     get villeDepart(): VilleDto {
         return this.villeService.item;
     }
+
     set villeDepart(value: VilleDto) {
         this.villeService.item = value;
     }
+
     get villeDeparts(): Array<VilleDto> {
         return this.villeService.items;
     }
+
     set villeDeparts(value: Array<VilleDto>) {
         this.villeService.items = value;
     }
+
     get createVilleDepartDialog(): boolean {
         return this.villeService.createDialog;
     }
+
     set createVilleDepartDialog(value: boolean) {
-        this.villeService.createDialog= value;
+        this.villeService.createDialog = value;
     }
+
     get localisationSource(): VilleDto {
         return this.villeService.item;
     }
+
     set localisationSource(value: VilleDto) {
         this.villeService.item = value;
     }
+
     get localisationSources(): Array<VilleDto> {
         return this.villeService.items;
     }
+
     set localisationSources(value: Array<VilleDto>) {
         this.villeService.items = value;
     }
+
     get createLocalisationSourceDialog(): boolean {
         return this.villeService.createDialog;
     }
+
     set createLocalisationSourceDialog(value: boolean) {
-        this.villeService.createDialog= value;
+        this.villeService.createDialog = value;
     }
-
-
-
-
 
 
     get items(): Array<TrajetDto> {

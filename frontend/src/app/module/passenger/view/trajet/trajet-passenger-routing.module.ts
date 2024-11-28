@@ -20,6 +20,7 @@ import {AuthGuard} from 'src/app/zynerator/security/guards/auth.guard';
 import { VilleListPassengerComponent } from './ville/list/ville-list-passenger.component';
 import { TrajetListPassengerComponent } from './trajet/list/trajet-list-passenger.component';
 import {TrajetViewPassengerComponent} from "./trajet/view/trajet-view-passenger.component";
+import {TrajetCreatePassengerComponent} from "./trajet/create/trajet-create-passenger.component";
 @NgModule({
     imports: [
         RouterModule.forChild(
@@ -103,6 +104,11 @@ import {TrajetViewPassengerComponent} from "./trajet/view/trajet-view-passenger.
                             path: 'trajet',
                             children: [
                                 {
+                                    path: 'create',
+                                    component: TrajetCreatePassengerComponent,
+                                    canActivate: [AuthGuard]
+                                },
+                                {
                                     path: 'list',
                                     component: TrajetListPassengerComponent ,
                                     canActivate: [AuthGuard]
@@ -111,7 +117,7 @@ import {TrajetViewPassengerComponent} from "./trajet/view/trajet-view-passenger.
                                     path: 'details',
                                     component: TrajetViewPassengerComponent,
                                     canActivate: [AuthGuard]
-                                },
+                                }
 
                             ]
                         },
