@@ -55,6 +55,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { PassengerLayoutModule } from '../../layout/passenger/passenger.layout.module';
 import { AdminLayoutModule } from '../../layout/admin/admin.layout.module';
 import { SearchBarPassengerComponent } from './view/SearchBar/searchBar-passenger.component';
+import {TrajetsPassengerComponent} from "./view/trajet/trajet/trajets/trajets-passenger.component";
 
 @NgModule({
     declarations: [
@@ -65,6 +66,7 @@ import { SearchBarPassengerComponent } from './view/SearchBar/searchBar-passenge
         HomePassengerComponent,
         ForgetPasswordPassengerComponent,
         SearchBarPassengerComponent,
+        TrajetsPassengerComponent
     ],
     imports: [
         CommonModule,
