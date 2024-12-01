@@ -1,44 +1,21 @@
+<div class="chat-container">
+    <div class="chat-header">
+        <span>Chat</span>
+        <button class="close-btn" (click)="closeChat()">X</button>
+    </div>
 
-<p-dialog [(visible)]="viewDialog" [style]="{width: '70vw'}" header="{{'conversation.tabPan' | translate}}" [modal]="true" styleClass="p-fluid">
-    <ng-template pTemplate="content">
-        <p-tabView>
-            <p-tabPanel header="{{'conversation.tabPan' | translate}}">
-                <div class="grid">
-                    <div class="field col-12 md:col-6">
-                        <label for="1">{{'conversation.code' | translate}}</label>
-                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'conversation.code' | translate}}" autofocus  id="1" [ngModel]="item.code">
-                    </div>
-                    <div class="field col-12 md:col-6">
-                        <label for="2">{{'conversation.libelle' | translate}}</label>
-                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'conversation.libelle' | translate}}" autofocus  id="2" [ngModel]="item.libelle">
-                    </div>
-                    <div class="field col-12 md:col-6">
-                        <label for="3">{{'conversation.description' | translate}}</label>
-                        <textarea id="3" pInputTextarea rows="5" cols="30" [disabled]="true" placeholder="{{'conversation.description' | translate}}"  [ngModel]="item.description"></textarea>
-                    </div>
-                    <div class="field col-12 md:col-6">
-                        <label for="4">{{'conversation.driver' | translate}}</label>
-                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'conversation.driver' | translate}}" autofocus  id="4" [ngModel]="item.driver?.email">
-                    </div>
-                    <div class="field col-12 md:col-6">
-                        <label for="5">{{'conversation.passenger' | translate}}</label>
-                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'conversation.passenger' | translate}}" autofocus  id="5" [ngModel]="item.passenger?.email">
-                    </div>
-                </div>
-            </p-tabPanel>
+    <!-- Date separator -->
+    <div *ngIf="showDate" class="date-separator">{{ currentDate }}</div>
 
-        </p-tabView>
-
-    </ng-template>
-
-    <ng-template pTemplate="footer" >
-        <div class="p-flexbox">
-            <div>
-                <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideViewDialog()"></button>
-            </div>
+    <div class="chat-messages">
+        <div class="message" [ngClass]="{'from-user': message.sender === 'user', 'from-bot': message.sender === 'bot'}" *ngFor="let message of messages">
+            <div class="message-text">{{ message.text }}</div>
+            <div class="message-time">{{ message.time }}</div>
         </div>
-    </ng-template>
-</p-dialog>
+    </div>
 
-
-
+    <div class="chat-input">
+        <input type="text" placeholder="Type your message..." #messageInput />
+        <button class="send-btn" (click)="sendMessage(messageInput)">Send</button>
+    </div>
+</div>

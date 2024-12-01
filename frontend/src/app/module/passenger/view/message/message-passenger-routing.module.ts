@@ -19,6 +19,7 @@ import {AuthGuard} from 'src/app/zynerator/security/guards/auth.guard';
 
 import { ConversationListPassengerComponent } from './conversation/list/conversation-list-passenger.component';
 import { MessageListPassengerComponent } from './message/list/message-list-passenger.component';
+import {ConversationViewPassengerComponent} from "./conversation/view/conversation-view-passenger.component";
 @NgModule({
     imports: [
         RouterModule.forChild(
@@ -92,6 +93,10 @@ import { MessageListPassengerComponent } from './message/list/message-list-passe
                                 {
                                     path: 'list',
                                     component: ConversationListPassengerComponent ,
+                                    canActivate: [AuthGuard]
+                                },{
+                                    path: 'view',
+                                    component: ConversationViewPassengerComponent ,
                                     canActivate: [AuthGuard]
                                 }
                             ]
