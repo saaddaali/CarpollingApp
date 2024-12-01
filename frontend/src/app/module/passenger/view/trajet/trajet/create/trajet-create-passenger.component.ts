@@ -40,6 +40,13 @@ export class TrajetCreatePassengerComponent implements OnInit {
     private _activeTab = 0;
 
 
+    filteredDepartures: VilleDto[] = [];
+    filteredDestinations: VilleDto[] = [];
+    filteredSources: VilleDto[] = [];
+    filteredDrivers: DriverDto[] = [];
+
+
+
     constructor(private service: TrajetPassengerService, private driverService: DriverPassengerService, private villeService: VillePassengerService, @Inject(PLATFORM_ID) private platformId?) {
         this.datePipe = ServiceLocator.injector.get(DatePipe);
         this.messageService = ServiceLocator.injector.get(MessageService);
@@ -55,6 +62,19 @@ export class TrajetCreatePassengerComponent implements OnInit {
         this.driverService.findAll().subscribe((data) => this.drivers = data);
         this.villeService.findAll().subscribe((data) => this.localisationSources = data);
         this.villeService.findAll().subscribe((data) => this.localisationDestinations = data);
+    }
+
+    filterCountry(event, type) {
+        const query = event.query.toLowerCase();
+        if (type === 'departure') {
+            this.filteredDepartures = this.villeDeparts.filter(item => item.libelle.toLowerCase().includes(query));
+        } else if (type === 'destination') {
+            this.filteredDestinations = this.villeDestinations.filter(item => item.libelle.toLowerCase().includes(query));
+        } else if (type === 'source') {
+            this.filteredSources = this.localisationSources.filter(item => item.libelle.toLowerCase().includes(query));
+        } else if (type === 'driver') {
+            this.filteredDrivers = this.drivers.filter(item => item.email.toLowerCase().includes(query));
+        }
     }
 
 
@@ -80,6 +100,7 @@ export class TrajetCreatePassengerComponent implements OnInit {
                 this.createDialog = false;
                 this.submitted = false;
                 this.item = new TrajetDto();
+                this.messageService.add({severity: 'success', summary: 'Succès', detail: 'Element enregistré'});
             } else {
                 this.messageService.add({severity: 'error', summary: 'Erreurs', detail: 'Element existant'});
             }

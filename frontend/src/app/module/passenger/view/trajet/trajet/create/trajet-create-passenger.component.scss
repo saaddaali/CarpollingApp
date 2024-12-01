@@ -89,6 +89,7 @@ $border-color: #E2E8F0;
 }
 
 .form-group {
+    width: 100%; /* Full width for form elements */
     margin-bottom: 0.75rem;
 
     label {
@@ -256,3 +257,15 @@ $border-color: #E2E8F0;
         }
     }
 }
+.custom-dropdown-width {
+    width: 100%; /* Match the parent container's width */
+    max-width: 300px; /* If you want a specific maximum width */
+}
+
+
+.auto-complete, .p-calendar {
+    width: 100%; /* Full width for both input types */
+    max-width: 300px; /* Optional: Set a max-width to match the input size */
+    display: block; /* Ensure block-level display */
+}
+
