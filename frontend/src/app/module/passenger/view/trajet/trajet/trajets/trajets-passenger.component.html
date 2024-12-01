@@ -1,6 +1,71 @@
 <div class="page-wrapper">
     <passenger-topbar></passenger-topbar>
+    <div class="create-trajet">
+        <div class="create-trajet__container">
+            <h2 class="form-title">Liste des Trajets</h2>
+
+            <!-- Message si aucun trajet -->
+            <div *ngIf="!items || items.length === 0" class="empty-state">
+                <i class="pi pi-car" style="font-size: 3rem; color: #4052EE; margin-bottom: 1rem;"></i>
+                <p>Aucun trajet disponible pour le moment</p>
+            </div>
+
+            <!-- Grid des trajets -->
+            <div class="trajets-grid" *ngIf="items && items.length > 0">
+                <div class="form-section" *ngFor="let trajet of items">
+                    <!-- En-tête avec les villes -->
+                    <div class="trajet-header">
+                        <h3 class="section-title">
+                            <i class="pi pi-map-marker"></i>
+                            <span>{{trajet.villeDepart?.libelle || 'N/A'}} → {{trajet.villeDestination?.libelle || 'N/A'}}</span>
+                        </h3>
+                        <div class="places-info-header">
+                            <i class="pi pi-users"></i>
+                            <span>{{trajet.placesDisponibles || 0}} places</span>
+                        </div>
+                    </div>
+
+                    <!-- Détails du trajet -->
+                    <div class="trajet-details">
+                        <div class="form-row">
+                            <div class="detail-group">
+                                <label><i class="pi pi-map-marker"></i> Point de départ</label>
+                                <div class="detail-value">{{trajet.localisationSource?.libelle || 'Non spécifié'}}</div>
+                            </div>
+
+                            <div class="detail-group">
+                                <label><i class="pi pi-map-marker"></i> Point d'arrivée</label>
+                                <div class="detail-value">{{trajet.localisationDestination?.libelle || 'Non spécifié'}}</div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="detail-group">
+                                <label><i class="pi pi-clock"></i> Départ</label>
+                                <div class="detail-value">{{trajet.horaireDepart | date:dateFormat || 'Non spécifié'}}</div>
+                            </div>
+
+                            <div class="detail-group">
+                                <label><i class="pi pi-clock"></i> Arrivée</label>
+                                <div class="detail-value">{{trajet.horaireArrive | date:dateFormat || 'Non spécifié'}}</div>
+                            </div>
+                        </div>
+
+                        <div class="trajet-footer">
+                            <button class="btn btn-edit" >
+                                <i class="pi pi-pencil"></i>
+                                Modifier
+                            </button>
+                            <button class="btn btn-delete" >
+                                <i class="pi pi-trash"></i>
+                                Supprimer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<h1>WORKSS</h1>
-
+<p-toast position="top-right"></p-toast>

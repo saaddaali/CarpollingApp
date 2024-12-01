@@ -50,6 +50,21 @@ export class TrajetsPassengerComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        // Charger les données
+        this.service.findAll().subscribe(
+            (data) => {
+                this.items = data;
+            },
+            (error) => {
+                console.error('Erreur lors du chargement des trajets:', error);
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Erreur',
+                    detail: 'Impossible de charger les trajets'
+                });
+            }
+        );
+
         this.villeService.findAll().subscribe((data) => this.villeDeparts = data);
         this.villeService.findAll().subscribe((data) => this.villeDestinations = data);
         this.driverService.findAll().subscribe((data) => this.drivers = data);
