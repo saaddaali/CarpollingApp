@@ -59,6 +59,7 @@ export class TrajetCreatePassengerComponent implements OnInit {
 
 
     public save(): void {
+        console.log(this.item)
         this.submitted = true;
         this.validateForm();
         if (this.errorMessages.length === 0) {

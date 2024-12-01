@@ -15,7 +15,7 @@
                         <div class="form-group">
                             <label for="1">{{'trajet.villeDepart' | translate}}</label>
                             <p-dropdown [options]="villeDeparts" [(ngModel)]="item.villeDepart"
-                                        id="1" [filter]="true" filterMatchMode="contains" [showClear]="true"
+                                        id="1" name="villeDepart" [filter]="true" filterMatchMode="contains" [showClear]="true"
                                         optionLabel="libelle" placeholder="{{'trajet.villeDepart' | translate}}">
                             </p-dropdown>
                         </div>
@@ -23,7 +23,7 @@
                         <div class="form-group">
                             <label for="2">{{'trajet.villeDestination' | translate}}</label>
                             <p-dropdown [options]="villeDestinations" [(ngModel)]="item.villeDestination"
-                                        id="2" [filter]="true" filterMatchMode="contains" [showClear]="true"
+                                        id="2" name="villeDestination" [filter]="true" filterMatchMode="contains" [showClear]="true"
                                         optionLabel="libelle" placeholder="{{'trajet.villeDestination' | translate}}">
                             </p-dropdown>
                         </div>
@@ -33,7 +33,7 @@
                         <div class="form-group">
                             <label for="8">{{'trajet.localisationSource' | translate}}</label>
                             <p-dropdown [options]="localisationSources" [(ngModel)]="item.localisationSource"
-                                        id="8" [filter]="true" filterMatchMode="contains" [showClear]="true"
+                                        id="8" name="localisationSource" [filter]="true" filterMatchMode="contains" [showClear]="true"
                                         optionLabel="libelle" placeholder="{{'trajet.localisationSource' | translate}}">
                             </p-dropdown>
                         </div>
@@ -41,7 +41,7 @@
                         <div class="form-group">
                             <label for="9">{{'trajet.localisationDestination' | translate}}</label>
                             <p-dropdown [options]="localisationDestinations" [(ngModel)]="item.localisationDestination"
-                                        id="9" [filter]="true" filterMatchMode="contains" [showClear]="true"
+                                        id="9" name="localisationDestination" [filter]="true" filterMatchMode="contains" [showClear]="true"
                                         optionLabel="libelle" placeholder="{{'trajet.localisationDestination' | translate}}">
                             </p-dropdown>
                         </div>
@@ -56,14 +56,14 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="3">{{'trajet.horaireDepart' | translate}}</label>
-                            <p-calendar id="3" [showTime]="true" [showSeconds]="false"
+                            <p-calendar id="3" name="horaireDepart" [showTime]="true" [showSeconds]="false"
                                         [(ngModel)]="item.horaireDepart" dateFormat="{{dateFormat}}" [showIcon]="true">
                             </p-calendar>
                         </div>
 
                         <div class="form-group">
                             <label for="4">{{'trajet.horaireArrive' | translate}}</label>
-                            <p-calendar id="4" [showTime]="true" [showSeconds]="false"
+                            <p-calendar id="4" name="horaireArrive" [showTime]="true" [showSeconds]="false"
                                         [(ngModel)]="item.horaireArrive" dateFormat="{{dateFormat}}" [showIcon]="true">
                             </p-calendar>
                         </div>
@@ -78,7 +78,7 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="5">{{'trajet.placesDisponibles' | translate}}</label>
-                            <p-inputNumber id="5" [(ngModel)]="item.placesDisponibles"
+                            <p-inputNumber id="5" name="placesDisponibles" [(ngModel)]="item.placesDisponibles"
                                            [showButtons]="true" [min]="1" [max]="8" buttonLayout="horizontal"
                                            incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
                             </p-inputNumber>
@@ -87,7 +87,7 @@
                         <div class="form-group">
                             <label for="6">{{'trajet.driver' | translate}}</label>
                             <p-dropdown [options]="drivers" [(ngModel)]="item.driver"
-                                        id="6" [filter]="true" filterMatchMode="contains" [showClear]="true"
+                                        id="6" name="driver" [filter]="true" filterMatchMode="contains" [showClear]="true"
                                         optionLabel="email" placeholder="{{'trajet.driver' | translate}}">
                             </p-dropdown>
                         </div>
