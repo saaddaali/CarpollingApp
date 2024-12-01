@@ -4,16 +4,13 @@
         <div class="create-trajet__container">
             <h2 class="form-title">Liste des Trajets</h2>
 
-            <!-- Message si aucun trajet -->
             <div *ngIf="!items || items.length === 0" class="empty-state">
                 <i class="pi pi-car" style="font-size: 3rem; color: #4052EE; margin-bottom: 1rem;"></i>
                 <p>Aucun trajet disponible pour le moment</p>
             </div>
 
-            <!-- Grid des trajets -->
             <div class="trajets-grid" *ngIf="items && items.length > 0">
                 <div class="form-section" *ngFor="let trajet of items">
-                    <!-- En-tête avec les villes -->
                     <div class="trajet-header">
                         <h3 class="section-title">
                             <i class="pi pi-map-marker"></i>
@@ -25,7 +22,6 @@
                         </div>
                     </div>
 
-                    <!-- Détails du trajet -->
                     <div class="trajet-details">
                         <div class="form-row">
                             <div class="detail-group">
@@ -42,21 +38,27 @@
                         <div class="form-row">
                             <div class="detail-group">
                                 <label><i class="pi pi-clock"></i> Départ</label>
-                                <div class="detail-value">{{trajet.horaireDepart | date:dateFormat || 'Non spécifié'}}</div>
+                                <div class="detail-value">
+                                    <span>{{trajet.horaireDepart | date:'dd/MM/yy'}}</span>
+                                    <span class="time-value">{{trajet.horaireDepart | date:'HH:mm'}}</span>
+                                </div>
                             </div>
 
                             <div class="detail-group">
                                 <label><i class="pi pi-clock"></i> Arrivée</label>
-                                <div class="detail-value">{{trajet.horaireArrive | date:dateFormat || 'Non spécifié'}}</div>
+                                <div class="detail-value">
+                                    <span>{{trajet.horaireArrive | date:'dd/MM/yy'}}</span>
+                                    <span class="time-value">{{trajet.horaireArrive | date:'HH:mm'}}</span>
+                                </div>
                             </div>
                         </div>
 
                         <div class="trajet-footer">
-                            <button class="btn btn-edit" >
+                            <button class="btn btn-edit" (click)="editTrajet(trajet)">
                                 <i class="pi pi-pencil"></i>
                                 Modifier
                             </button>
-                            <button class="btn btn-delete" >
+                            <button class="btn btn-delete" (click)="deleteTrajet(trajet)">
                                 <i class="pi pi-trash"></i>
                                 Supprimer
                             </button>
@@ -67,5 +69,9 @@
         </div>
     </div>
 </div>
+
+<app-trajet-edit-passenger></app-trajet-edit-passenger>
+
+<p-confirmDialog></p-confirmDialog>
 
 <p-toast position="top-right"></p-toast>

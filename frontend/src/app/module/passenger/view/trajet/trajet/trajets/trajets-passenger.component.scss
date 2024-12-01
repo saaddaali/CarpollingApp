@@ -5,7 +5,7 @@ $success: #10B981;
 $text-dark: #1E293B;
 $text-gray: #64748B;
 $border-color: #E2E8F0;
-$background-color: #F8FAFF;
+$background-color: #f5f5f4 ;
 $warning: #F59E0B;
 $error: #FF4C4C;
 
@@ -19,7 +19,7 @@ $error: #FF4C4C;
 
 .page-wrapper {
     background: $background-color;
-    min-height: calc(100vh - 64px);
+    min-height: 100vh;
     padding-top: 64px;
     box-sizing: border-box;
 }
@@ -168,9 +168,15 @@ $error: #FF4C4C;
         color: $text-dark;
         min-height: 42px;
         display: flex;
+        justify-content: space-between;
         align-items: center;
         font-weight: 500;
         transition: all 0.2s ease;
+
+        .time-value {
+            font-size: 0.85rem;
+            color: $text-gray;
+        }
 
         &:hover {
             border-color: $primary;

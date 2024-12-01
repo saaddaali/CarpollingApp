@@ -72,6 +72,36 @@ export class TrajetsPassengerComponent implements OnInit {
         this.villeService.findAll().subscribe((data) => this.localisationDestinations = data);
     }
 
+    editTrajet(trajet: TrajetDto) {
+        this.service.item = {...trajet};
+        this.service.editDialog = true;
+    }
+
+    deleteTrajet(trajet: TrajetDto) {
+        this.confirmationService.confirm({
+            message: 'Êtes-vous sûr de vouloir supprimer ce trajet?',
+            accept: () => {
+                this.service.delete(trajet).subscribe(
+                    () => {
+                        this.items = this.items.filter(item => item.id !== trajet.id);
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Succès',
+                            detail: 'Trajet supprimé'
+                        });
+                    },
+                    error => {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Erreur',
+                            detail: 'Erreur lors de la suppression'
+                        });
+                    }
+                );
+            }
+        });
+    }
+
 
     public save(): void {
         this.submitted = true;
