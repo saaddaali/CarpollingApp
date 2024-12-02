@@ -1,4 +1,3 @@
-# carpooling
 # Carpooling Application
 
 A simple web application that helps connect drivers with passengers to share rides and reduce transportation costs.
