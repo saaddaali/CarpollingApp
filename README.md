@@ -1,6 +1,6 @@
 # Carpooling Application
 
-A simple web application that helps connect drivers with passengers to share rides and reduce transportation costs.
+A simple web & mobile application that helps connect drivers with passengers to share rides and reduce transportation costs.
 
 ## Description
 This carpooling platform allows users to:
