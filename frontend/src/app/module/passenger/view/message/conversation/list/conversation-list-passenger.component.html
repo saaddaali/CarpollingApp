@@ -68,7 +68,7 @@
                         <th style="width: 3rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
-                                
+
                         <th pSortableColumn="code">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'conversation.code' | translate}}</span>
@@ -76,8 +76,8 @@
                                 <p-columnFilter type="text" field="element.code" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                                
-                                
+
+
                         <th pSortableColumn="libelle">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'conversation.libelle' | translate}}</span>
@@ -85,23 +85,23 @@
                                 <p-columnFilter type="text" field="element.libelle" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                                
-                                
+
+
                         <th pSortableColumn="driver">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'conversation.driver' | translate}}</span>
                                 <p-sortIcon field="driver"></p-sortIcon>
                             </div>
                         </th>
-                                
-                                
+
+
                         <th pSortableColumn="passenger">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'conversation.passenger' | translate}}</span>
                                 <p-sortIcon field="passenger"></p-sortIcon>
                             </div>
                         </th>
-                                
+
                         <th>Actions</th>
                     </tr>
                 </ng-template>
@@ -110,18 +110,18 @@
                         <td>
                             <p-tableCheckbox [value]="element"></p-tableCheckbox>
                         </td>
-                            
+
                         <td>{{element.code}}</td>
-                            
-                            
+
+
                         <td>{{element.libelle}}</td>
-                            
-                            
+
+
                         <td>{{element.driver?.email}}</td>
-                            
-                            
+
+
                         <td>{{element.passenger?.email}}</td>
-                            
+
                         <td>
                             <button pButton pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-info mr-2" (click)="edit(element)"  *ngIf="editActionIsValid"></button>
                             <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-secondary mr-2" (click)="view(element)"  *ngIf="viewActionIsValid"></button>

@@ -45,6 +45,8 @@ export class ConversationViewPassengerComponent implements OnInit {
     protected router: Router;
     protected stringUtilService: StringUtilService;
 
+    protected _totalRecords = 0;
+
 
     constructor(private service: ConversationPassengerService, private driverService: DriverPassengerService, private passengerService: PassengerPassengerService) {
         this.datePipe = ServiceLocator.injector.get(DatePipe);
@@ -56,6 +58,7 @@ export class ConversationViewPassengerComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.findPaginatedByCriteria();
     }
 
 
@@ -79,6 +82,14 @@ export class ConversationViewPassengerComponent implements OnInit {
             // Determine if date should be displayed
             this.updateDate();
         }
+    }
+
+    public findPaginatedByCriteria() {
+        this.service.findPaginatedByCriteria(this.criteria).subscribe(paginatedItems => {
+            this.items = paginatedItems.list;
+            this.totalRecords = paginatedItems.dataSize;
+            this.selections = new Array<ConversationDto>();
+        }, error => console.log(error));
     }
 
     formatTime(date: Date): string {
@@ -181,6 +192,23 @@ export class ConversationViewPassengerComponent implements OnInit {
 
     get dateFormatColumn() {
         return environment.dateFormatList;
+    }
+
+
+    get totalRecords(): number {
+        return this._totalRecords;
+    }
+
+    set totalRecords(value: number) {
+        this._totalRecords = value;
+    }
+
+    get selections(): Array<ConversationDto> {
+        return this.service.selections;
+    }
+
+    set selections(value: Array<ConversationDto>) {
+        this.service.selections = value;
     }
 
 

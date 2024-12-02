@@ -73,7 +73,8 @@ export class ConversationListPassengerComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.findPaginatedByCriteria();
+        //this.findPaginatedByCriteria();
+        this.loadAll();
         this.initExport();
         this.initCol();
         this.loadDriver();
@@ -126,7 +127,8 @@ export class ConversationListPassengerComponent implements OnInit {
     public onPage(event: any) {
         this.criteria.page = event.page;
         this.criteria.maxResults = event.rows;
-        this.findPaginatedByCriteria();
+        this.loadAll();
+        //this.findPaginatedByCriteria();
     }
 
     public async edit(dto: ConversationDto) {
@@ -299,6 +301,9 @@ export class ConversationListPassengerComponent implements OnInit {
     }
 
 
+    public async loadAll(){
+        this.service.findAll().subscribe(items => this.items = items, error => console.log(error))
+    }
     public async loadDriver(){
         this.driverService.findAllOptimized().subscribe(drivers => this.drivers = drivers, error => console.log(error))
     }

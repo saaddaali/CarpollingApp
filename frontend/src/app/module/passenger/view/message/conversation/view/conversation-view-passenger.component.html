@@ -1,21 +1,71 @@
-<div class="chat-container">
-    <div class="chat-header">
-        <span>Chat</span>
-        <button class="close-btn" (click)="closeChat()">X</button>
-    </div>
+<div class="app-container">
 
-    <!-- Date separator -->
-    <div *ngIf="showDate" class="date-separator">{{ currentDate }}</div>
+    <!-- Left sidebar with conversations list -->
 
-    <div class="chat-messages">
-        <div class="message" [ngClass]="{'from-user': message.sender === 'user', 'from-bot': message.sender === 'bot'}" *ngFor="let message of messages">
-            <div class="message-text">{{ message.text }}</div>
-            <div class="message-time">{{ message.time }}</div>
+    <div class="conversations-sidebar">
+        <br><br><br><br>
+
+        <button class="back-button" href="javascript:history.back()">
+            <i class="pi pi-arrow-left" >Retour</i>
+        </button>
+        <div class="sidebar-header">
+            <h2>Messages</h2>
+            <div class="search-box">
+                <input type="text" placeholder="Search conversations...">
+                <i class="pi pi-search"></i>
+            </div>
+        </div>
+        <div class="conversations-list">
+            <div class="conversation-item" *ngFor="let conversation of items">
+                <img class="conversation-avatar" [src]="conversation.driver.photo" alt="Profile">
+                <div class="conversation-info">
+                    <div class="conversation-name">{{ conversation.driver.username }}</div>
+                    <div class="conversation-name">{{ conversation.libelle }}</div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="chat-input">
-        <input type="text" placeholder="Type your message..." #messageInput />
-        <button class="send-btn" (click)="sendMessage(messageInput)">Send</button>
+    <!-- Main chat area -->
+    <div class="chat-container">
+        <passenger-topbar></passenger-topbar>
+        <br><br><br>
+        <div class="chat-header">
+            <div class="header-profile">
+                <img class="header-profile-image" src="assets/demo/images/avatar/ivanmagalhaes.png" alt="Profile">
+                <div class="header-profile-info">
+                    <span class="header-profile-name">Driver</span>
+                    <span class="header-profile-status">Online</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="action-btn">
+                    <i class="pi pi-phone"></i>
+                </button>
+                <button class="action-btn">
+                    <i class="pi pi-video"></i>
+                </button>
+                <button class="action-btn">
+                    <i class="pi pi-ellipsis-v"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Date separator -->
+        <div *ngIf="showDate" class="date-separator">{{ currentDate }}</div>
+
+        <div class="chat-messages">
+            <div class="message" [ngClass]="{'from-user': message.sender === 'user', 'from-bot': message.sender === 'bot'}" *ngFor="let message of messages">
+                <div class="message-text">{{ message.text }}</div>
+                <div class="message-time">{{ message.time }}</div>
+            </div>
+        </div>
+
+        <div class="chat-input">
+            <input type="text" placeholder="Type your message..." #messageInput />
+            <button class="send-btn" (click)="sendMessage(messageInput)">
+                <i class="pi pi-send"></i>
+            </button>
+        </div>
     </div>
 </div>
