@@ -29,7 +29,7 @@ class _SignInScreenState extends State<SignInScreen> {
     if (_formKey.currentState!.validate()) {
       try {
         final response = await http.post(
-          Uri.parse('http://localhost:8036/login'),
+          Uri.parse('YOUR_BASE_URL/login'),
           headers: {'Content-Type': 'application/json'},
           body: json.encode({
             'username': _emailController.text,
@@ -198,6 +198,9 @@ class _SignInScreenState extends State<SignInScreen> {
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter your email';
+                              }
+                              if (!value.contains('@')) {
+                                return 'Please enter a valid email';
                               }
                               return null;
                             },
