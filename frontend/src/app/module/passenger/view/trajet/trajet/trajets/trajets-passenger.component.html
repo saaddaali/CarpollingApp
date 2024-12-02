@@ -25,18 +25,6 @@
                     <div class="trajet-details">
                         <div class="form-row">
                             <div class="detail-group">
-                                <label><i class="pi pi-map-marker"></i> Point de départ</label>
-                                <div class="detail-value">{{trajet.localisationSource?.libelle || 'Non spécifié'}}</div>
-                            </div>
-
-                            <div class="detail-group">
-                                <label><i class="pi pi-map-marker"></i> Point d'arrivée</label>
-                                <div class="detail-value">{{trajet.localisationDestination?.libelle || 'Non spécifié'}}</div>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="detail-group">
                                 <label><i class="pi pi-clock"></i> Départ</label>
                                 <div class="detail-value">
                                     <span>{{trajet.horaireDepart | date:'dd/MM/yy'}}</span>
@@ -51,6 +39,11 @@
                                     <span class="time-value">{{trajet.horaireArrive | date:'HH:mm'}}</span>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="detail-group">
+                            <label><i class="pi pi-money-bill"></i> Prix</label>
+                            <div class="detail-value">{{trajet.prix || 0}} MAD</div>
                         </div>
 
                         <div class="trajet-footer">
