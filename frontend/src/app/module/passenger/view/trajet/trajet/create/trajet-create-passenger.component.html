@@ -28,24 +28,6 @@
                             </p-dropdown>
                         </div>
                     </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="8">{{'trajet.localisationSource' | translate}}</label>
-                            <p-dropdown [options]="localisationSources" [(ngModel)]="item.localisationSource"
-                                        id="8" name="localisationSource" [filter]="true" filterMatchMode="contains" [showClear]="true"
-                                        optionLabel="libelle" placeholder="{{'trajet.localisationSource' | translate}}">
-                            </p-dropdown>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="9">{{'trajet.localisationDestination' | translate}}</label>
-                            <p-dropdown [options]="localisationDestinations" [(ngModel)]="item.localisationDestination"
-                                        id="9" name="localisationDestination" [filter]="true" filterMatchMode="contains" [showClear]="true"
-                                        optionLabel="libelle" placeholder="{{'trajet.localisationDestination' | translate}}">
-                            </p-dropdown>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="form-section">
@@ -92,12 +74,22 @@
                             </p-dropdown>
                         </div>
                     </div>
+                    <div class="form-group prix-field">
+                        <label for="7">Prix</label>
+                        <div class="input-with-suffix">
+                            <p-inputNumber id="7" name="prix" [(ngModel)]="item.prix"
+                                           mode="decimal" [minFractionDigits]="0" [maxFractionDigits]="2"
+                                           [min]="0" placeholder="Prix du trajet"
+                                           locale="fr-FR">
+                            </p-inputNumber>
+                            <span class="suffix">DH</span>
+                        </div>
+                    </div>
+
+
                 </div>
 
                 <div class="create-trajet__actions">
-                    <button pButton pRipple label="{{'cancel' | translate}}"
-                            icon="pi pi-times" class="p-button-outlined" (click)="hideCreateDialog()">
-                    </button>
                     <button pButton pRipple label="{{'validate' | translate}}"
                             icon="pi pi-check" (click)="save()">
                     </button>
@@ -106,6 +98,5 @@
         </div>
     </div>
 </div>
-
 
 <p-toast position="top-right"></p-toast>
