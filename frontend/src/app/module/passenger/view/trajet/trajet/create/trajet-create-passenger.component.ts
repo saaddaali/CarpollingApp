@@ -42,7 +42,6 @@ export class TrajetCreatePassengerComponent implements OnInit {
 
     filteredDepartures: VilleDto[] = [];
     filteredDestinations: VilleDto[] = [];
-    filteredSources: VilleDto[] = [];
     filteredDrivers: DriverDto[] = [];
 
 
@@ -62,6 +61,8 @@ export class TrajetCreatePassengerComponent implements OnInit {
         this.driverService.findAll().subscribe((data) => this.drivers = data);
         this.villeService.findAll().subscribe((data) => this.localisationSources = data);
         this.villeService.findAll().subscribe((data) => this.localisationDestinations = data);
+        this.item.placesMax= 1;
+
     }
 
     filterCountry(event, type) {
@@ -70,16 +71,15 @@ export class TrajetCreatePassengerComponent implements OnInit {
             this.filteredDepartures = this.villeDeparts.filter(item => item.libelle.toLowerCase().includes(query));
         } else if (type === 'destination') {
             this.filteredDestinations = this.villeDestinations.filter(item => item.libelle.toLowerCase().includes(query));
-        } else if (type === 'source') {
-            this.filteredSources = this.localisationSources.filter(item => item.libelle.toLowerCase().includes(query));
-        } else if (type === 'driver') {
+        }  else if (type === 'driver') {
             this.filteredDrivers = this.drivers.filter(item => item.email.toLowerCase().includes(query));
         }
     }
 
 
     public save(): void {
-        console.log(this.item)
+        this.item.localisationDestination = null
+        this.item.localisationSource = null
         this.submitted = true;
         this.validateForm();
         if (this.errorMessages.length === 0) {
