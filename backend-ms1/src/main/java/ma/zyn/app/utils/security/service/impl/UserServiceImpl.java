@@ -60,7 +60,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User, UserCriteria, Use
             if (t.getPassword() == null || t.getPassword().isEmpty()) {
                 t.setPassword(bCryptPasswordEncoder.encode(t.getUsername()));
             } else {
-                t.setPassword(bCryptPasswordEncoder.encode(t.getPassword()));
+              //  t.setPassword(bCryptPasswordEncoder.encode(t.getPassword()));
             }
             t.setAccountNonExpired(true);
             t.setAccountNonLocked(true);
@@ -69,6 +69,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User, UserCriteria, Use
             t.setPasswordChanged(false);
             t.setCreatedAt(LocalDateTime.now());
             User saved = new User();
+
             String roleAsString = t.getRoleUsers().get(0).getRole().getAuthority();
 			
 						

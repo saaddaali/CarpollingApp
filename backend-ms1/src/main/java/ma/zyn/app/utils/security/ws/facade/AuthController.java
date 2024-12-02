@@ -91,13 +91,13 @@ public class AuthController {
         userDto.setEnabled(false);
         userDto.setExpirationLinkDate(expirationDate);
         userDto.setLinkValidationCode(userService.generateCode(8));
-        EmailRequest emailRequest = new EmailRequest();
-        emailRequest.setFrom("votre email");
-        emailRequest.setBcc(userDto.getEmail());
-        emailRequest.setCc(userDto.getEmail());
-        emailRequest.setTo(userDto.getEmail());
-        emailRequest.setSubject("Verify your email");
-        emailRequest.setBody("Welcome to Carpool !! Your activation code is : " + userDto.getLinkValidationCode());
+//        EmailRequest emailRequest = new EmailRequest();
+//        emailRequest.setFrom("votre email");
+//        emailRequest.setBcc(userDto.getEmail());
+//        emailRequest.setCc(userDto.getEmail());
+//        emailRequest.setTo(userDto.getEmail());
+//        emailRequest.setSubject("Verify your email");
+//        emailRequest.setBody("Welcome to Carpool !! Your activation code is : " + userDto.getLinkValidationCode());
         userConverter.setRoleUsers(true);
 
         User user = userConverter.toItem(userDto);
