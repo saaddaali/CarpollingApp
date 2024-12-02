@@ -1,4 +1,5 @@
 $primary-color: #4052EE;
+$logout-color: #FF4C4C; /* Red color for logout button */
 
 /* General topbar styles */
 .elegant-topbar {
@@ -6,11 +7,36 @@ $primary-color: #4052EE;
     justify-content: space-between;
     align-items: center;
     color: #000000;
-    padding: 8px 20px;  // Ajusté le padding vertical seulement
+    padding: 8px 20px;  // Adjusted vertical padding only
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     font-family: 'Roboto', sans-serif;
-    height: 50px;  // Hauteur fixe ajustée
+    height: 50px;  // Fixed height adjusted
     box-sizing: border-box;
+    background-color:$primary-color;  // Ensure background is white
+}
+
+.logo_top {
+    width: 120px;  /* Adjust logo size */
+    height: auto;
+}
+
+.profile-image {
+    width: 40px;      /* Adjust image size */
+    height: 40px;     /* Make sure it's square */
+    border-radius: 50%; /* Circular avatar */
+    margin-right: 8px; /* Space between image and text */
+    border: 2px solid #fff; /* Optional: border around image */
+}
+
+.online-status {
+    position: absolute;
+    bottom: 6px;
+    right: 130px;
+    width: 10px;      /* Dot size */
+    height: 10px;     /* Dot size */
+    background-color: green; /* Green color for online status */
+    border-radius: 50%; /* Circular dot */
+    border: 2px solid white; /* Optional white border */
 }
 
 /* Left section styles */
@@ -25,18 +51,12 @@ $primary-color: #4052EE;
     flex-grow: 1;
 }
 
-.topbar-title {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 500;
-    color: #000000;
-}
-
 /* Right section styles */
 .topbar-right {
     display: flex;
     align-items: center;
     gap: 15px;
+    position: relative;
 }
 
 /* Buttons in the topbar */
@@ -58,6 +78,20 @@ $primary-color: #4052EE;
     border-radius: 4px;
 }
 
+/* Red color for the logout button */
+.elegant-topbar-button.logout-btn {
+    color:white;
+    background-color:  $logout-color;
+    border: 1px solid $logout-color;
+    //shadow
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.elegant-topbar-button.logout-btn:hover {
+    background-color: rgba(255, 76, 76, 0.1); /* Light red hover effect */
+    border-radius: 4px;
+}
+
 /* Dropdown styles */
 .language-dropdown {
     border-radius: 4px;
@@ -73,5 +107,14 @@ $primary-color: #4052EE;
     .elegant-topbar-menu {
         flex-direction: column;
         gap: 10px;
+    }
+
+    .topbar-right {
+        flex-direction: column;
+    }
+
+    .elegant-topbar-button {
+        font-size: 0.9rem;
+        padding: 10px 20px;
     }
 }

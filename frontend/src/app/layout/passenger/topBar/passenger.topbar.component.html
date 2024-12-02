@@ -2,7 +2,7 @@
 
     <!-- Center section (optional: can include logo or title) -->
     <div>
-        <h1 class="topbar-title">LOGO</h1>
+        <img src="assets/layout/images/whit.png" alt="LOGO" class="logo_top">
     </div>
 
     <!-- Right section with profile and actions -->
@@ -10,15 +10,14 @@
          class="topbar-right elegant-topbar-menu"
          [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
 
-
         <!-- Profile button -->
         <button class="p-link elegant-topbar-button" (click)="edit(authenticatedUser)">
-            <i class="pi pi-user"></i>
-            <span>Profile</span>
+            <img src="assets/demo/images/avatar/bernardodominic.png" alt="Profile" class="profile-image">
+            <div class="online-status"></div>
         </button>
 
         <!-- Logout button -->
-        <button class="p-link elegant-topbar-button" (click)="logout()">
+        <button class="p-link elegant-topbar-button logout-btn" (click)="logout()">
             <i class="pi pi-sign-out"></i>
             <span>Sign Out</span>
         </button>
