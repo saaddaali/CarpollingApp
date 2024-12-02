@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -9,8 +11,9 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
-  final _cinController = TextEditingController();
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
+  final _usernameController = TextEditingController();
   final _phoneController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -21,10 +24,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
   static const Color primaryBlue = Color(0xFF2C4DBF);
   static const Color secondaryBlue = Color(0xFF3D5BCE);
 
+  // Add base URL for your API
+  static const String baseUrl = 'http://localhost:8036';
+  bool _isLoading = false;
+
   @override
   void dispose() {
-    _nameController.dispose();
-    _cinController.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _usernameController.dispose();
     _phoneController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
@@ -32,9 +40,57 @@ class _SignUpScreenState extends State<SignUpScreen> {
     super.dispose();
   }
 
-  void _signUp() {
+  Future<void> _signUp() async {
     if (_formKey.currentState!.validate()) {
-      Navigator.pushReplacementNamed(context, '/home');
+      setState(() {
+        _isLoading = true;
+      });
+
+      try {
+        final response = await http.post(
+          Uri.parse('$baseUrl/register/passenger'),
+          headers: {'Content-Type': 'application/json'},
+          body: json.encode({
+            'firstName': _firstNameController.text,
+            'lastName': _lastNameController.text,
+            'username': _usernameController.text,
+            'email': _emailController.text,
+            'password': _passwordController.text,
+            'phone': _phoneController.text,
+          }),
+        );
+
+        if (response.statusCode == 200) {
+          // Registration successful
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Registration successful! Please check your email for activation.'),
+              backgroundColor: Colors.green,
+            ),
+          );
+          Navigator.pushReplacementNamed(context, '/signin');
+        } else {
+          // Handle error response
+          final errorData = json.decode(response.body);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(errorData['error'] ?? 'Registration failed'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error: ${e.toString()}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 
@@ -167,26 +223,36 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     const SizedBox(height: 50),
                     _buildTextFieldWithShadow(
-                      controller: _nameController,
-                      label: 'Full Name',
+                      controller: _firstNameController,
+                      label: 'First Name',
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter your name';
+                          return 'Please enter your first name';
                         }
                         return null;
                       },
                     ),
                     const SizedBox(height: 20),
                     _buildTextFieldWithShadow(
-                      controller: _cinController,
-                      label: 'CIN',
-                      keyboardType: TextInputType.number,
+                      controller: _lastNameController,
+                      label: 'Last Name',
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter your CIN';
+                          return 'Please enter your last name';
                         }
-                        if (value.length != 8) {
-                          return 'CIN must be 8 digits';
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    _buildTextFieldWithShadow(
+                      controller: _usernameController,
+                      label: 'Username',
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a username';
+                        }
+                        if (value.length < 3) {
+                          return 'Username must be at least 3 characters';
                         }
                         return null;
                       },
@@ -297,7 +363,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ],
                             ),
                             child: ElevatedButton(
-                              onPressed: _signUp,
+                              onPressed: _isLoading ? null : _signUp,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: primaryBlue,
                                 foregroundColor: Colors.white,
