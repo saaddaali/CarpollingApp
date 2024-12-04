@@ -24,7 +24,8 @@ import {CarteBancairePassengerService} from 'src/app/shared/service/passenger/pa
 
 @Component({
   selector: 'app-passenger-edit-passenger',
-  templateUrl: './passenger-edit-passenger.component.html'
+  templateUrl: './passenger-edit-passenger.component.html',
+    styleUrls: ['./passenger-edit-passenger.component.scss']
 })
 export class PassengerEditPassengerComponent implements OnInit {
 

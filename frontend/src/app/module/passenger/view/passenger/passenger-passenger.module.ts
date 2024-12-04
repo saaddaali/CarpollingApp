@@ -39,6 +39,7 @@ import { MessageModule } from 'primeng/message';
 import {MessagesModule} from 'primeng/messages';
 import {PaginatorModule} from 'primeng/paginator';
 import {PassengerLayoutModule} from "../../../../layout/passenger/passenger.layout.module";
+import {AuthService} from 'src/app/zynerator/security/shared/service/Auth.service';
 
 
 
@@ -86,6 +87,9 @@ import {PassengerLayoutModule} from "../../../../layout/passenger/passenger.layo
         PassengerLayoutModule,
 
 
+    ],
+    providers: [
+        AuthService
     ],
   exports: [
   PassengerCreatePassengerComponent,

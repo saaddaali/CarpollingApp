@@ -24,6 +24,7 @@ import {PassengerCriteria} from 'src/app/shared/criteria/passenger/PassengerCrit
 
 import {CarteBancaireDto} from 'src/app/shared/model/paiement/CarteBancaire.model';
 import {CarteBancairePassengerService} from 'src/app/shared/service/passenger/paiement/CarteBancairePassenger.service';
+import {AuthService} from "../../../../../../zynerator/security/shared/service/Auth.service";
 @Component({
   selector: 'app-passenger-view-passenger',
   templateUrl: './passenger-view-passenger.component.html',
@@ -47,7 +48,7 @@ export class PassengerViewPassengerComponent implements OnInit {
 
 
 
-    constructor(private service: PassengerPassengerService, private carteBancaireService: CarteBancairePassengerService){
+    constructor(private service: PassengerPassengerService, private carteBancaireService: CarteBancairePassengerService, protected authService: AuthService){
 		this.datePipe = ServiceLocator.injector.get(DatePipe);
         this.messageService = ServiceLocator.injector.get(MessageService);
         this.confirmationService = ServiceLocator.injector.get(ConfirmationService);
@@ -59,6 +60,25 @@ export class PassengerViewPassengerComponent implements OnInit {
     ngOnInit(): void {
         // Charger les données de l'utilisateur connecté
         this.loadCurrentUser();
+    }
+
+    public logout(): void {
+        try {
+            this.authService.logout();
+            this.messageService.add({
+                severity: 'success',
+                summary: 'Déconnexion',
+                detail: 'Vous avez été déconnecté avec succès'
+            });
+        } catch (error) {
+            console.error('Erreur lors de la déconnexion:', error);
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Erreur',
+                detail: 'Une erreur est survenue lors de la déconnexion'
+            });
+            this.router.navigate(['/login']);
+        }
     }
 
     loadCurrentUser() {
@@ -129,6 +149,30 @@ export class PassengerViewPassengerComponent implements OnInit {
             this.editDialog = true;
         });
 
+    }
+
+    // Ajouter juste après les autres méthodes, avant les getters/setters
+    onRatingChange(newRating: number): void {
+        if (this.editMode) {
+            this.item.evaluation = newRating;
+            this.service.edit().subscribe({
+                next: () => {
+                    this.loadCurrentUser();
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Succès',
+                        detail: 'Évaluation mise à jour'
+                    });
+                },
+                error: () => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Erreur',
+                        detail: 'Erreur lors de la mise à jour'
+                    });
+                }
+            });
+        }
     }
 
     set createActionIsValid(value: boolean) {

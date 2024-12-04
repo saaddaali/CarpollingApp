@@ -1,10 +1,9 @@
-
 <div class="page-wrapper">
     <passenger-topbar></passenger-topbar>
 
     <div class="profile-container">
         <div class="profile-card">
-            <div class="photo-section" [style.background-color]="'#4052EE'">
+            <div class="photo-section">
                 <div class="photo-holder">
                     <img [src]="item?.photo || 'assets/images/default-avatar.png'" alt="Photo de profil">
                     <input type="file" #photoInput (change)="onFileSelected($event)" accept="image/*" style="display: none">
@@ -12,9 +11,18 @@
                         <button class="edit-photo" (click)="photoInput.click()">
                             <i class="pi pi-camera"></i>
                         </button>
-                        <button pButton pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-info mr-2" (click)="editt(item)"  *ngIf="editActionIsValid"></button>
 
                     </div>
+                </div>
+                <!-- Ajout des étoiles -->
+                <div class="star-rating">
+        <span *ngFor="let star of [1,2,3,4,5]"
+              class="star"
+              [class.filled]="star <= item?.evaluation"
+              (click)="editMode && onRatingChange(star)">
+            <i class="pi pi-star-fill"></i>
+        </span>
+                    <span class="rating-value">({{item?.evaluation || 0}}/5)</span>
                 </div>
                 <h3>{{item?.username}}</h3>
             </div>
@@ -23,97 +31,86 @@
                 <div class="field-group">
                     <label>Username</label>
                     <input [(ngModel)]="item.username" [readOnly]="!editMode">
-                    <button class="edit-button" (click)="toggleEdit()">
-                        <i class="pi pi-pencil"></i>
-                    </button>
                 </div>
-
 
                 <div class="field-group">
                     <label>Email</label>
                     <input [(ngModel)]="item.email" [readOnly]="!editMode">
-                    <button class="edit-button" (click)="toggleEdit()">
-                        <i class="pi pi-pencil"></i>
-                    </button>
                 </div>
 
                 <div class="field-group">
                     <label>Adresse</label>
                     <input [(ngModel)]="item.adresse" [readOnly]="!editMode">
-                    <button class="edit-button" (click)="toggleEdit()">
-                        <i class="pi pi-pencil"></i>
-                    </button>
                 </div>
 
-                <div class="field-group">
-                    <label>Date d'inscription</label>
-                    <input [(ngModel)]="item.dateInscription" [readOnly]="!editMode">
-                    <button class="edit-button" (click)="toggleEdit()">
-                        <i class="pi pi-pencil"></i>
-                    </button>
-                </div>
-
+                <!-- Champ Évaluation commenté -->
+                <!--
                 <div class="field-group">
                     <label>Évaluation</label>
                     <input [(ngModel)]="item.evaluation" [readOnly]="!editMode">
-                    <button class="edit-button" (click)="toggleEdit()">
-                        <i class="pi pi-pencil"></i>
-                    </button>
+                </div>
+                -->
+
+                <!-- Commented out fields -->
+                <!--
+                <div class="field-group">
+                    <label>Date d'inscription</label>
+                    <input [(ngModel)]="item.dateInscription" [readOnly]="!editMode">
                 </div>
 
                 <div class="field-group">
                     <label>Mot de passe</label>
                     <input [(ngModel)]="item.password" [readOnly]="!editMode">
-                    <button class="edit-button" (click)="toggleEdit()">
-                        <i class="pi pi-pencil"></i>
-                    </button>
                 </div>
 
                 <div class="field-group">
                     <label>Compte verrouillé</label>
                     <input [(ngModel)]="item.accountNonLocked" [readOnly]="!editMode">
-                    <button class="edit-button" (click)="toggleEdit()">
-                        <i class="pi pi-pencil"></i>
-                    </button>
                 </div>
 
                 <div class="field-group">
                     <label>Mot de passe changé</label>
                     <input [(ngModel)]="item.passwordChanged" [readOnly]="!editMode">
-                    <button class="edit-button" (click)="toggleEdit()">
-                        <i class="pi pi-pencil"></i>
-                    </button>
                 </div>
 
                 <div class="field-group">
                     <label>Compte expiré</label>
                     <input [(ngModel)]="item.accountNonExpired" [readOnly]="!editMode">
-                    <button class="edit-button" (click)="toggleEdit()">
-                        <i class="pi pi-pencil"></i>
-                    </button>
                 </div>
 
                 <div class="field-group">
                     <label>Identifiants expirés</label>
                     <input [(ngModel)]="item.credentialsNonExpired" [readOnly]="!editMode">
-                    <button class="edit-button" (click)="toggleEdit()">
-                        <i class="pi pi-pencil"></i>
-                    </button>
                 </div>
 
                 <div class="field-group">
                     <label>Compte activé</label>
                     <input [(ngModel)]="item.enabled" [readOnly]="!editMode">
-                    <button class="edit-button" (click)="toggleEdit()">
-                        <i class="pi pi-pencil"></i>
-                    </button>
                 </div>
+                -->
+            </div>
 
+            <div class="button-section">
+                <button pButton
+                        pRipple
+                        type="button"
+                        label="Sign Out"
+                        icon="pi pi-sign-out"
+                        class="p-button-danger"
+                        (click)="logout()">
+                </button>
+
+                <button pButton
+                        pRipple
+                        type="button"
+                        label="Update Profile"
+                        icon="pi pi-pencil"
+                        class="p-button-success"
+                        (click)="editDialog = true">
+                </button>
             </div>
         </div>
     </div>
 </div>
 
-<app-passenger-edit-passenger  *ngIf="editDialog  && editActionIsValid"></app-passenger-edit-passenger>
-
-
+<app-passenger-edit-passenger *ngIf="editDialog && editActionIsValid"></app-passenger-edit-passenger>
