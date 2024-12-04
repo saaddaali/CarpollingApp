@@ -187,7 +187,7 @@ public class TrajetRestPassenger {
     }
 
     @Operation(summary = "Finds trajets current user")
-    @PostMapping("find-by-current-user")
+    @GetMapping("find-by-current-user")
     public ResponseEntity<List<TrajetDto>> findByCurrentUse() throws Exception {
         ResponseEntity<List<TrajetDto>> res = null;
         List<Trajet> list = service.findAllOptimizedDriver();
