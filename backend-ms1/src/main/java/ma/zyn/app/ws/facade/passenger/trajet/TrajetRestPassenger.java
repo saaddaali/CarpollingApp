@@ -2,6 +2,8 @@ package  ma.zyn.app.ws.facade.passenger.trajet;
 
 import io.swagger.v3.oas.annotations.Operation;
 
+import ma.zyn.app.bean.core.driver.Driver;
+import ma.zyn.app.service.facade.passenger.driver.DriverPassengerService;
 import org.springframework.http.HttpStatus;
 
 import ma.zyn.app.bean.core.trajet.Trajet;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+
+import static ma.zyn.app.utils.security.common.SecurityUtil.getCurrentUser;
 
 @RestController
 @RequestMapping("/api/passenger/trajet/")
@@ -182,6 +186,21 @@ public class TrajetRestPassenger {
         return res;
     }
 
+    @Operation(summary = "Finds trajets current user")
+    @PostMapping("find-by-current-user")
+    public ResponseEntity<List<TrajetDto>> findByCurrentUse() throws Exception {
+        ResponseEntity<List<TrajetDto>> res = null;
+        List<Trajet> list = service.findAllOptimizedDriver();
+        HttpStatus status = HttpStatus.NO_CONTENT;
+        converter.initObject(true);
+        List<TrajetDto> dtos  = converter.toDto(list);
+        if (dtos != null && !dtos.isEmpty())
+            status = HttpStatus.OK;
+
+        res = new ResponseEntity<>(dtos, status);
+        return res;
+    }
+
     @Operation(summary = "Finds paginated trajets by criteria")
     @PostMapping("find-paginated-by-criteria")
     public ResponseEntity<PaginatedList> findPaginatedByCriteria(@RequestBody TrajetCriteria criteria) throws Exception {
@@ -217,12 +236,16 @@ public class TrajetRestPassenger {
 
 
 
+
+
    public TrajetRestPassenger(TrajetPassengerService service, TrajetConverter converter){
         this.service = service;
         this.converter = converter;
     }
 
     private final TrajetPassengerService service;
+
+    private  DriverPassengerService driverService;
     private final TrajetConverter converter;
 
 

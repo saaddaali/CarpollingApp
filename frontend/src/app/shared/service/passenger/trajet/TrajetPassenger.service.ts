@@ -57,6 +57,10 @@ export class TrajetPassengerService {
         return this.http.get<Array<TrajetDto>>(this.API + 'optimized');
     }
 
+    public findAllOptimizedDriver() {
+            return this.http.get<Array<TrajetDto>>(this.API + 'find-by-current-user');
+        }
+
     public findPaginatedByCriteria(criteria: TrajetCriteria): Observable<PaginatedList<TrajetDto>> {
         return this.http.post<PaginatedList<TrajetDto>>(this.API + 'find-paginated-by-criteria', criteria);
     }

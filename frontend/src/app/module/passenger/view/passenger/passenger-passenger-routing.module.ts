@@ -91,12 +91,12 @@ import {PassengerViewPassengerComponent} from "./passenger/view/passenger-view-p
                             children: [
                                 {
                                     path: 'list',
-                                    component: PassengerListPassengerComponent ,
+                                    component: PassengerListPassengerComponent,
                                     canActivate: [AuthGuard]
                                 },
                                 {
                                     path: 'view',
-                                    component: PassengerViewPassengerComponent ,
+                                    component: PassengerViewPassengerComponent,
                                     canActivate: [AuthGuard]
                                 }
                             ]

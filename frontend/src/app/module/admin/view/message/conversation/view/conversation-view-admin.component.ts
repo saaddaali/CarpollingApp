@@ -3,20 +3,14 @@ import {Component, OnInit} from '@angular/core';
 
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
-import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
 
 
 import {environment} from 'src/environments/environment';
 
 import {RoleService} from 'src/app/zynerator/security/shared/service/Role.service';
-import {AbstractService} from 'src/app/zynerator/service/AbstractService';
-import {BaseDto} from 'src/app/zynerator/dto/BaseDto.model';
-import {BaseCriteria} from 'src/app/zynerator/criteria/BaseCriteria.model';
 import {StringUtilService} from 'src/app/zynerator/util/StringUtil.service';
 import {ServiceLocator} from 'src/app/zynerator/service/ServiceLocator';
-import {ConfirmationService, MessageService,MenuItem} from 'primeng/api';
-import {FileTempDto} from 'src/app/zynerator/dto/FileTempDto.model';
-
+import {ConfirmationService, MessageService} from 'primeng/api';
 
 import {ConversationAdminService} from 'src/app/shared/service/admin/message/ConversationAdmin.service';
 import {ConversationDto} from 'src/app/shared/model/message/Conversation.model';
@@ -26,14 +20,15 @@ import {DriverDto} from 'src/app/shared/model/driver/Driver.model';
 import {DriverAdminService} from 'src/app/shared/service/admin/driver/DriverAdmin.service';
 import {PassengerDto} from 'src/app/shared/model/passenger/Passenger.model';
 import {PassengerAdminService} from 'src/app/shared/service/admin/passenger/PassengerAdmin.service';
+
 @Component({
-  selector: 'app-conversation-view-admin',
-  templateUrl: './conversation-view-admin.component.html'
+    selector: 'app-conversation-view-admin',
+    templateUrl: './conversation-view-admin.component.html'
 })
 export class ConversationViewAdminComponent implements OnInit {
 
 
-	protected _submitted = false;
+    protected _submitted = false;
     protected _errorMessages = new Array<string>();
 
     protected datePipe: DatePipe;
@@ -44,15 +39,14 @@ export class ConversationViewAdminComponent implements OnInit {
     protected stringUtilService: StringUtilService;
 
 
-
-    constructor(private service: ConversationAdminService, private driverService: DriverAdminService, private passengerService: PassengerAdminService){
-		this.datePipe = ServiceLocator.injector.get(DatePipe);
+    constructor(private service: ConversationAdminService, private driverService: DriverAdminService, private passengerService: PassengerAdminService) {
+        this.datePipe = ServiceLocator.injector.get(DatePipe);
         this.messageService = ServiceLocator.injector.get(MessageService);
         this.confirmationService = ServiceLocator.injector.get(ConfirmationService);
         this.roleService = ServiceLocator.injector.get(RoleService);
         this.router = ServiceLocator.injector.get(Router);
         this.stringUtilService = ServiceLocator.injector.get(StringUtilService);
-	}
+    }
 
     ngOnInit(): void {
     }
@@ -61,24 +55,31 @@ export class ConversationViewAdminComponent implements OnInit {
     get driver(): DriverDto {
         return this.driverService.item;
     }
+
     set driver(value: DriverDto) {
         this.driverService.item = value;
     }
+
     get drivers(): Array<DriverDto> {
         return this.driverService.items;
     }
+
     set drivers(value: Array<DriverDto>) {
         this.driverService.items = value;
     }
+
     get passenger(): PassengerDto {
         return this.passengerService.item;
     }
+
     set passenger(value: PassengerDto) {
         this.passengerService.item = value;
     }
+
     get passengers(): Array<PassengerDto> {
         return this.passengerService.items;
     }
+
     set passengers(value: Array<PassengerDto>) {
         this.passengerService.items = value;
     }
@@ -119,11 +120,11 @@ export class ConversationViewAdminComponent implements OnInit {
         this.service.criteria = value;
     }
 
-    get dateFormat(){
+    get dateFormat() {
         return environment.dateFormatView;
     }
 
-    get dateFormatColumn(){
+    get dateFormatColumn() {
         return environment.dateFormatList;
     }
 

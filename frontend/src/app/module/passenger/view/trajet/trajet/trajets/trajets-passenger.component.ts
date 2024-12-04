@@ -51,7 +51,7 @@ export class TrajetsPassengerComponent implements OnInit {
 
     ngOnInit(): void {
         // Charger les données
-        this.service.findAll().subscribe(
+        this.service.findAllOptimizedDriver().subscribe(
             (data) => {
                 this.items = data;
             },

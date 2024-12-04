@@ -8,8 +8,11 @@ import ma.zyn.app.dao.facade.core.trajet.TrajetDao;
 import ma.zyn.app.dao.specification.core.trajet.TrajetSpecification;
 import ma.zyn.app.service.facade.passenger.trajet.TrajetPassengerService;
 
+import static ma.zyn.app.utils.security.common.SecurityUtil.getCurrentUser;
 import static ma.zyn.app.utils.util.ListUtil.*;
 
+import ma.zyn.app.utils.security.bean.User;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.ArrayList;
@@ -237,6 +240,24 @@ public class TrajetPassengerServiceImpl implements TrajetPassengerService {
 
     public List<Trajet> findAllOptimized() {
         return dao.findAll();
+    }
+
+    public List<Trajet> findAllOptimizedDriver() {
+        String currentUser = getCurrentUser();
+        return dao.findByDriverUsername(currentUser);
+    }
+
+    public String getCurrentUser() {
+        if (SecurityContextHolder.getContext().getAuthentication() != null) {
+            Object currentUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (currentUser != null && currentUser instanceof String) {
+                return (String) currentUser;
+            } else if (currentUser != null && currentUser instanceof User) {
+                return ((User) currentUser).getUsername();
+            } else return null;
+        }
+
+        return null;
     }
 
     @Override

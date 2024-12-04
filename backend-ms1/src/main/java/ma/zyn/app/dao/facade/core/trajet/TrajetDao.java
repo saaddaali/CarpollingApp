@@ -25,6 +25,8 @@ public interface TrajetDao extends AbstractRepository<Trajet,Long>  {
     int deleteByLocalisationDestinationId(Long id);
     long countByLocalisationDestinationCode(String code);
 
+    List<Trajet> findByDriverUsername(String username);
+
 
 
 }

@@ -43,6 +43,7 @@ public interface TrajetPassengerService {
     Trajet findWithAssociatedLists(Long id);
 
     List<Trajet> findAllOptimized();
+    List<Trajet> findAllOptimizedDriver();
 
     List<Trajet> findAll();
 
@@ -59,5 +60,7 @@ public interface TrajetPassengerService {
     List<List<Trajet>> getToBeSavedAndToBeDeleted(List<Trajet> oldList, List<Trajet> newList);
 
     public String uploadFile(String checksumOld, String tempUpladedFile,String destinationFilePath) throws Exception ;
+
+
 
 }
