@@ -26,10 +26,14 @@ import {CarteBancaireDto} from 'src/app/shared/model/paiement/CarteBancaire.mode
 import {CarteBancairePassengerService} from 'src/app/shared/service/passenger/paiement/CarteBancairePassenger.service';
 @Component({
   selector: 'app-passenger-view-passenger',
-  templateUrl: './passenger-view-passenger.component.html'
+  templateUrl: './passenger-view-passenger.component.html',
+    styleUrls: ['./passenger-view-passenger.component.scss']
 })
 export class PassengerViewPassengerComponent implements OnInit {
 
+    // Ajout au début de la classe
+    public editMode = false;
+    private originalItem: PassengerDto;
 
 	protected _submitted = false;
     protected _errorMessages = new Array<string>();
@@ -53,6 +57,121 @@ export class PassengerViewPassengerComponent implements OnInit {
 	}
 
     ngOnInit(): void {
+        // Charger les données de l'utilisateur connecté
+        this.loadCurrentUser();
+    }
+
+    loadCurrentUser() {
+        // Créer un critère ou utiliser l'ID de l'utilisateur connecté
+        const criteria = new PassengerCriteria();
+        this.service.findByCriteria(criteria).subscribe({
+            next: (data) => {
+                if (data && data.length > 0) {
+                    this.item = data[0];
+                    this.originalItem = {...data[0]};
+                }
+            },
+            error: (e) => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Erreur',
+                    detail: 'Erreur lors du chargement'
+                });
+            }
+        });
+    }
+
+    edit() {
+        this.service.edit().subscribe(
+            data => {
+                this.item = data;
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Succès',
+                    detail: 'Profile mis à jour'
+                });
+                this.editMode = false;
+            },
+            error => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Erreur',
+                    detail: 'Erreur lors de la mise à jour'
+                });
+            }
+        );
+    }
+
+
+    toggleEdit() {
+        if (this.editMode && this.hasChanges()) {
+            this.confirmationService.confirm({
+                message: 'Voulez-vous sauvegarder les modifications?',
+                accept: () => {
+                    this.edit();
+                },
+                reject: () => {
+                    this.loadCurrentUser();
+                    this.editMode = false;
+                }
+            });
+        } else {
+            this.editMode = !this.editMode;
+        }
+    }
+
+
+    onFileSelected(event: any) {
+        const file = event.target.files[0];
+        if (file) {
+            // Convertir l'image en base64
+            const reader = new FileReader();
+            reader.onload = (e: any) => {
+                this.item.photo = e.target.result;
+                this.service.edit().subscribe({
+                    next: () => {
+                        this.loadCurrentUser();
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Succès',
+                            detail: 'Photo mise à jour'
+                        });
+                    },
+                    error: () => {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Erreur',
+                            detail: 'Échec de la mise à jour'
+                        });
+                    }
+                });
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    deletePhoto() {
+        this.service.delete(this.item).subscribe({
+            next: () => {
+                this.item.photo = null;
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Succès',
+                    detail: 'Photo supprimée'
+                });
+            },
+            error: (error) => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Erreur',
+                    detail: 'Erreur lors de la suppression'
+                });
+            }
+        });
+    }
+
+    private hasChanges(): boolean {
+        return JSON.stringify(this.item) !== JSON.stringify(this.originalItem);
     }
 
 
