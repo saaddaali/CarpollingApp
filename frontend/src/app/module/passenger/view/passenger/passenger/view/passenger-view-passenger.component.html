@@ -12,9 +12,8 @@
                         <button class="edit-photo" (click)="photoInput.click()">
                             <i class="pi pi-camera"></i>
                         </button>
-                        <button class="delete-photo" *ngIf="item?.photo" (click)="deletePhoto()">
-                            <i class="pi pi-trash"></i>
-                        </button>
+                        <button pButton pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-info mr-2" (click)="editt(item)"  *ngIf="editActionIsValid"></button>
+
                     </div>
                 </div>
                 <h3>{{item?.username}}</h3>
@@ -28,6 +27,7 @@
                         <i class="pi pi-pencil"></i>
                     </button>
                 </div>
+
 
                 <div class="field-group">
                     <label>Email</label>
@@ -113,4 +113,7 @@
         </div>
     </div>
 </div>
+
+<app-passenger-edit-passenger  *ngIf="editDialog  && editActionIsValid"></app-passenger-edit-passenger>
+
 

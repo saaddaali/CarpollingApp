@@ -105,10 +105,12 @@ export class PassengerViewPassengerComponent implements OnInit {
 
     toggleEdit() {
         if (this.editMode && this.hasChanges()) {
+
             this.confirmationService.confirm({
                 message: 'Voulez-vous sauvegarder les modifications?',
                 accept: () => {
                     this.edit();
+
                 },
                 reject: () => {
                     this.loadCurrentUser();
@@ -118,6 +120,32 @@ export class PassengerViewPassengerComponent implements OnInit {
         } else {
             this.editMode = !this.editMode;
         }
+    }
+
+    editt(dto: PassengerDto) {
+        this.service.findByIdWithAssociatedList(dto).subscribe(res => {
+            this.item = res;
+            console.log(res);
+            this.editDialog = true;
+        });
+
+    }
+
+    set createActionIsValid(value: boolean) {
+        this.service.createActionIsValid = value;
+    }
+
+
+    get editActionIsValid(): boolean {
+        return this.service.editActionIsValid;
+    }
+
+    get editDialog(): boolean {
+        return this.service.editDialog;
+    }
+
+    set editDialog(value: boolean) {
+        this.service.editDialog = value;
     }
 
 

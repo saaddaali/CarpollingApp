@@ -65,7 +65,7 @@ export class TrajetsPassengerComponent implements OnInit {
             }
         );
 
-        this.service.findAllOptimizedDriver().subscribe((data) => this.items = data);
+      //  this.service.findAllOptimizedDriver().subscribe((data) => this.items = data);
 
         this.villeService.findAll().subscribe((data) => this.villeDeparts = data);
         this.villeService.findAll().subscribe((data) => this.villeDestinations = data);

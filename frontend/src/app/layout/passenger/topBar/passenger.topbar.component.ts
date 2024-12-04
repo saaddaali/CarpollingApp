@@ -8,6 +8,7 @@ import {UserDto} from 'src/app/zynerator/security/shared/model/User.model';
 import {AuthService} from 'src/app/zynerator/security/shared/service/Auth.service';
 import {LayoutService} from "../../service/app.layout.service";
 import {PassengerLayoutComponent} from "../passenger.layout.component";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -34,8 +35,11 @@ export class PassengerTopbarComponent implements OnInit{
             this.item = res;
             this.editDialog = true;
         });
+        this.router.navigate(['/app/passenger/passenger/passenger/view']);
 
     }
+
+
     public editUser(){
         this.userService.edit().subscribe(data => this.authenticatedUser = data);
         this.authService.loadInfos();
@@ -48,7 +52,7 @@ export class PassengerTopbarComponent implements OnInit{
 
 
 
-    constructor(public  layoutService:LayoutService , public app: AppComponent, private authService: AuthService, private translateService: TranslateService, private userService: UserService) {
+    constructor(public  layoutService:LayoutService , public app: AppComponent, private authService: AuthService, private translateService: TranslateService, private userService: UserService,private router: Router) {
         this.languageOptions = [
             { label: 'English', value: 'en' },
             { label: 'Français', value: 'fr' },
