@@ -8,6 +8,7 @@ import * as moment from 'moment/moment';
 
 import {MessageDto} from 'src/app/shared/model/message/Message.model';
 import {MessageCriteria} from 'src/app/shared/criteria/message/MessageCriteria.model';
+import {ConversationDto} from "../../../model/message/Conversation.model";
 
 
 @Injectable({
@@ -85,6 +86,11 @@ export class MessagePassengerService {
 
     public deleteMultiple() {
         return this.http.post<void>(this.API + 'multiple', this.selections);
+    }
+
+    //find By ConversationId
+    public findByConversationId(conversation: ConversationDto): Observable<Array<MessageDto>> {
+        return this.http.get<Array<MessageDto>>(this.API + 'conversation/id/' + conversation.id);
     }
 
 

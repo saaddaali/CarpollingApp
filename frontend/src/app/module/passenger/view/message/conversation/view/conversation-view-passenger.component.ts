@@ -3,19 +3,14 @@ import {Component, OnInit} from '@angular/core';
 
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
-import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
 
 
 import {environment} from 'src/environments/environment';
 
 import {RoleService} from 'src/app/zynerator/security/shared/service/Role.service';
-import {AbstractService} from 'src/app/zynerator/service/AbstractService';
-import {BaseDto} from 'src/app/zynerator/dto/BaseDto.model';
-import {BaseCriteria} from 'src/app/zynerator/criteria/BaseCriteria.model';
 import {StringUtilService} from 'src/app/zynerator/util/StringUtil.service';
 import {ServiceLocator} from 'src/app/zynerator/service/ServiceLocator';
-import {ConfirmationService, MessageService, MenuItem} from 'primeng/api';
-import {FileTempDto} from 'src/app/zynerator/dto/FileTempDto.model';
+import {ConfirmationService, MessageService} from 'primeng/api';
 
 
 import {ConversationPassengerService} from 'src/app/shared/service/passenger/message/ConversationPassenger.service';
@@ -26,6 +21,9 @@ import {DriverDto} from 'src/app/shared/model/driver/Driver.model';
 import {DriverPassengerService} from 'src/app/shared/service/passenger/driver/DriverPassenger.service';
 import {PassengerDto} from 'src/app/shared/model/passenger/Passenger.model';
 import {PassengerPassengerService} from 'src/app/shared/service/passenger/passenger/PassengerPassenger.service';
+import {MessagePassengerService} from "../../../../../../shared/service/passenger/message/MessagePassenger.service";
+import {MessageDto} from "../../../../../../shared/model/message/Message.model";
+
 
 @Component({
     selector: 'app-conversation-view-passenger',
@@ -45,10 +43,15 @@ export class ConversationViewPassengerComponent implements OnInit {
     protected router: Router;
     protected stringUtilService: StringUtilService;
 
+    messages: Array<MessageDto>;
+
     protected _totalRecords = 0;
 
 
-    constructor(private service: ConversationPassengerService, private driverService: DriverPassengerService, private passengerService: PassengerPassengerService) {
+    constructor(private service: ConversationPassengerService,
+                private driverService: DriverPassengerService,
+                private passengerService: PassengerPassengerService,
+                private messagePassengerService: MessagePassengerService) {
         this.datePipe = ServiceLocator.injector.get(DatePipe);
         this.messageService = ServiceLocator.injector.get(MessageService);
         this.confirmationService = ServiceLocator.injector.get(ConfirmationService);
@@ -61,8 +64,34 @@ export class ConversationViewPassengerComponent implements OnInit {
         this.findPaginatedByCriteria();
     }
 
+    view(item: ConversationDto) {
+        this.item = item;
+        console.log(item)
+        console.log(this.messagePassengerService)
+    }
+    selectConversation(conversation: ConversationDto) {
+        this.item = conversation;
+        console.log('Selected conversation:', conversation);
+        console.log('Conversation ID:', conversation.id);
 
-    messages: Array<{ text: string, sender: string, time: string }> = [];
+        // Vérifiez si l'ID existe avant d'effectuer la requête
+        if (conversation) {
+            this.messagePassengerService.findByConversationId(conversation).subscribe(
+                messages => {
+                    this.messages = messages;
+                    console.log('Messages:', this.messages);
+                },
+                error => {
+                    console.error('Error fetching messages:', error);
+                }
+            );
+        } else {
+            console.error('Conversation ID is missing');
+        }
+    }
+
+
+
     showDate = false;
     currentDate = '';
 
@@ -70,13 +99,13 @@ export class ConversationViewPassengerComponent implements OnInit {
         const userMessage = input.value.trim();
         if (userMessage) {
             const currentTime = this.formatTime(new Date());
-            this.messages.push({ text: userMessage, sender: 'user', time: currentTime });
+            this.messages.push();
             input.value = '';
 
             // Simulate bot response
             setTimeout(() => {
                 const botTime = this.formatTime(new Date());
-                this.messages.push({ text: 'This is a bot response!', sender: 'bot', time: botTime });
+                this.messages.push();
             }, 1000);
 
             // Determine if date should be displayed
@@ -100,7 +129,7 @@ export class ConversationViewPassengerComponent implements OnInit {
 
     updateDate() {
         const today = new Date().toDateString();
-        const lastMessageDate = new Date(this.messages[this.messages.length - 1]?.time).toDateString();
+        const lastMessageDate = new Date().toDateString();
 
         if (today !== lastMessageDate) {
             this.showDate = true;

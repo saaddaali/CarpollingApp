@@ -15,7 +15,7 @@
         </div>
 
         <div class="conversations-list">
-            <div class="conversation-item" *ngFor="let conversation of items">
+            <div class="conversation-item" *ngFor="let conversation of items" (click)="selectConversation(conversation)">
                 <img class="conversation-avatar"
                      [src]="conversation.driver.photo"
                      alt="Profile">
@@ -65,11 +65,10 @@
         </div>
 
         <div class="chat-messages">
-            <div class="message"
-                 [ngClass]="{'from-user': message.sender === 'user', 'from-bot': message.sender === 'bot'}"
+            <div class="message from-user"
                  *ngFor="let message of messages">
-                <div class="message-text">{{ message.text }}</div>
-                <div class="message-time">{{ message.time }}</div>
+                <div class="message-text">{{ message.contenu }}</div>
+                <div class="message-time">{{ message.dateEnvoi }}</div>
             </div>
         </div>
 
@@ -83,3 +82,5 @@
         </div>
     </div>
 </div>
+
+<app-message-view-passenger></app-message-view-passenger>
