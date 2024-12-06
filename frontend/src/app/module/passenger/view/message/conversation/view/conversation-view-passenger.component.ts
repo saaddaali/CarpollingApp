@@ -47,6 +47,7 @@ export class ConversationViewPassengerComponent implements OnInit {
     messageInput: string;
     message: MessageDto;
 
+
     protected _totalRecords = 0;
 
 
@@ -110,6 +111,28 @@ export class ConversationViewPassengerComponent implements OnInit {
         }
     }
 
+    shouldShowDate(messageDate: string): boolean {
+        const messageDateStr = new Date(messageDate).toISOString().split('T')[0]; // Extract date in YYYY-MM-DD format
+
+        if (this.currentDate !== messageDateStr) {
+            this.currentDate = messageDateStr;
+            return true;
+        }
+        return false;
+    }
+
+    updateDate() {
+        const today = new Date().toDateString();
+        const lastMessageDate = new Date().toDateString();
+
+        if (today !== lastMessageDate) {
+            this.showDate = true;
+            this.currentDate = new Date().toLocaleDateString(); // Format: "MM/DD/YYYY"
+        } else {
+            this.showDate = false;
+        }
+    }
+
     save() {
         this.message = new MessageDto();
         this.message=this.messages[0];
@@ -146,17 +169,7 @@ export class ConversationViewPassengerComponent implements OnInit {
         return `${hours}:${minutes}`;
     }
 
-    updateDate() {
-        const today = new Date().toDateString();
-        const lastMessageDate = new Date().toDateString();
 
-        if (today !== lastMessageDate) {
-            this.showDate = true;
-            this.currentDate = new Date().toLocaleDateString(); // Format: "MM/DD/YYYY"
-        } else {
-            this.showDate = false;
-        }
-    }
 
     closeChat() {
         const chatContainer = document.querySelector('.chat-container');

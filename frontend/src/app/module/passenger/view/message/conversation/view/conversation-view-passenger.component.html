@@ -61,8 +61,8 @@
         </div>
 
         <!-- Date separator -->
-        <div *ngIf="showDate" class="date-separator">
-            {{ currentDate }}
+        <div *ngIf="true" class="date-separator">
+            {{ currentDate | date: 'MMMM d, yyyy' }}
         </div>
 
         <div class="chat-messages">
