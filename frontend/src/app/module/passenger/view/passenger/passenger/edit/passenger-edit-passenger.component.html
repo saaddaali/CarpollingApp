@@ -9,6 +9,17 @@
                         <input class="mb-2 mr-2" type="text" pInputText placeholder="{{'passenger.photo' | translate}}" id="1" [(ngModel)]="item.photo" />
                     </div>
 
+                    <!-- <div class="field col-12 md:col-6">
+                      <label for="1">{{'passenger.photo' | translate}}</label>
+                      <div class="upload-container">
+                          <img [src]="previewUrl || item.photo || 'assets/default-avatar.png'" alt="Profile" class="preview-image"/>
+                          <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" style="display: none"/>
+                          <button pButton type="button" class="upload-btn" (click)="fileInput.click()">
+                              <i class="pi pi-upload"></i> Upload Photo
+                          </button>
+                      </div>
+                  </div>-->
+
                     <!-- Adresse -->
                     <div class="field col-12 md:col-6">
                         <label for="2">{{'passenger.adresse' | translate}}</label>

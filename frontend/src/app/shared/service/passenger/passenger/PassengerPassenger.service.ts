@@ -69,10 +69,35 @@ export class PassengerPassengerService {
         return this.http.delete<number>(this.API + 'id/' + dto.id);
     }
 
-
+//HEREEEEE
     public edit(): Observable<PassengerDto> {
+        /*if (this.item.photo && this.item.photo.startsWith('data:image')) {
+            const formData = new FormData();
+            const photoBlob = this.dataURItoBlob(this.item.photo);
+            formData.append('file', photoBlob, 'profile.jpg');
+
+            // Créer une copie de l'item sans la photo base64
+            const itemCopy = {...this.item};
+            delete itemCopy.photo;
+            formData.append('passenger', JSON.stringify(itemCopy));
+
+            return this.http.put<PassengerDto>(this.API, formData);
+        }*/
         return this.http.put<PassengerDto>(this.API, this.item);
     }
+
+    /*private dataURItoBlob(dataURI: string): Blob {
+        const byteString = atob(dataURI.split(',')[1]);
+        const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+
+        return new Blob([ab], { type: mimeString });
+    }*/
 
 
     public findByCriteria(criteria: PassengerCriteria): Observable<Array<PassengerDto>> {
