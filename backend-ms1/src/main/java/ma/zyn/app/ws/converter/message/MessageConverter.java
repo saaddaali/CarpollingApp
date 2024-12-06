@@ -67,6 +67,10 @@ public class MessageConverter {
                 item.setConversation(conversationConverter.toItem(dto.getConversation())) ;
 
 
+            if(dto.getIsPassenger()!=null)
+                item.setIsPassenger(dto.getIsPassenger());
+
+
 
 
         return item;
@@ -101,6 +105,9 @@ public class MessageConverter {
                 dto.setConversation(conversationConverter.toDto(item.getConversation())) ;
 
             }
+
+            if (item.getIsPassenger() != null)
+                dto.setIsPassenger(item.getIsPassenger());
 
 
         return dto;

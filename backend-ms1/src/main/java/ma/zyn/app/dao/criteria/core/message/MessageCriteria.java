@@ -14,6 +14,7 @@ public class MessageCriteria extends  BaseCriteria  {
 
     private String contenu;
     private String contenuLike;
+    private Boolean isPassenger;
     private LocalDateTime dateEnvoi;
     private LocalDateTime dateEnvoiFrom;
     private LocalDateTime dateEnvoiTo;
@@ -115,5 +116,13 @@ public class MessageCriteria extends  BaseCriteria  {
 
     public void setConversations(List<ConversationCriteria> conversations){
         this.conversations = conversations;
+    }
+
+    public Boolean getIsPassenger() {
+        return isPassenger;
+    }
+
+    public void setIsPassenger(Boolean isPassenger) {
+        this.isPassenger = isPassenger;
     }
 }

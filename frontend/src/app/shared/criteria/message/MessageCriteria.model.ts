@@ -13,13 +13,14 @@ export class MessageCriteria extends BaseCriteria {
     public dateEnvoi: Date;
     public dateEnvoiFrom: Date;
     public dateEnvoiTo: Date;
-  public trajet: TrajetCriteria ;
-  public trajets: Array<TrajetCriteria> ;
-  public driver: DriverCriteria ;
-  public drivers: Array<DriverCriteria> ;
-  public passenger: PassengerCriteria ;
-  public passengers: Array<PassengerCriteria> ;
-  public conversation: ConversationCriteria ;
-  public conversations: Array<ConversationCriteria> ;
+    public isPassenger: boolean;
+    public trajet: TrajetCriteria;
+    public trajets: Array<TrajetCriteria>;
+    public driver: DriverCriteria;
+    public drivers: Array<DriverCriteria>;
+    public passenger: PassengerCriteria;
+    public passengers: Array<PassengerCriteria>;
+    public conversation: ConversationCriteria;
+    public conversations: Array<ConversationCriteria>;
 
 }

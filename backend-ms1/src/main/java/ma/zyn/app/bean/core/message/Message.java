@@ -32,6 +32,9 @@ public class Message  extends BaseEntity     {
     private Passenger passenger ;
     private Conversation conversation ;
 
+    @Column(columnDefinition = "boolean default false")
+    private Boolean isPassenger= false;
+
 
     public Message(){
         super();
@@ -93,6 +96,15 @@ public class Message  extends BaseEntity     {
     public void setDateEnvoi(LocalDateTime dateEnvoi){
         this.dateEnvoi = dateEnvoi;
     }
+
+    public Boolean getIsPassenger(){
+        return this.isPassenger;
+    }
+    public void setIsPassenger(Boolean isPassenger){
+        this.isPassenger = isPassenger;
+    }
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "conversation")
     public Conversation getConversation(){

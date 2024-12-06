@@ -228,10 +228,25 @@
 }
 
 .from-bot {
-    background: #f0f2f5;
+    background-color: #d1f7c4; /* Background color for passenger messages */
     color: #333;
     border-bottom-left-radius: 4px;
 }
+
+.from-passenger {
+    align-self: flex-start; /* Align to the left */
+    background-color: #d1f7c4; /* Background color for passenger messages */
+    color: #333;
+    border-radius: 16px 16px 4px 16px;
+}
+
+.from-driver {
+    align-self: flex-end; /* Align to the right */
+    background-color: #d1e0f7; /* Background color for driver messages */
+    color: #333;
+    border-radius: 16px 16px 16px 4px;
+}
+
 
 .message-time {
     font-size: 12px;
@@ -333,4 +348,6 @@
     .message {
         max-width: 85%;
     }
+
 }
+

@@ -65,6 +65,9 @@ export class MessagePassengerService {
     public save(): Observable<MessageDto> {
         return this.http.post<MessageDto>(this.API, this.item);
     }
+    public create(message:MessageDto): Observable<MessageDto> {
+        return this.http.post<MessageDto>(this.API,message);
+    }
 
     public delete(dto: MessageDto) {
         return this.http.delete<number>(this.API + 'id/' + dto.id);

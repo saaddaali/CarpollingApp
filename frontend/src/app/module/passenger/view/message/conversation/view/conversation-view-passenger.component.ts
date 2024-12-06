@@ -44,6 +44,8 @@ export class ConversationViewPassengerComponent implements OnInit {
     protected stringUtilService: StringUtilService;
 
     messages: Array<MessageDto>;
+    messageInput: string;
+    message: MessageDto;
 
     protected _totalRecords = 0;
 
@@ -71,22 +73,17 @@ export class ConversationViewPassengerComponent implements OnInit {
     }
     selectConversation(conversation: ConversationDto) {
         this.item = conversation;
-        console.log('Selected conversation:', conversation);
-        console.log('Conversation ID:', conversation.id);
-
-        // Vérifiez si l'ID existe avant d'effectuer la requête
         if (conversation) {
             this.messagePassengerService.findByConversationId(conversation).subscribe(
                 messages => {
                     this.messages = messages;
-                    console.log('Messages:', this.messages);
+                    console.log(messages)
                 },
                 error => {
-                    console.error('Error fetching messages:', error);
                 }
             );
         } else {
-            console.error('Conversation ID is missing');
+            this.messages = [];
         }
     }
 
@@ -112,6 +109,28 @@ export class ConversationViewPassengerComponent implements OnInit {
             this.updateDate();
         }
     }
+
+    save() {
+        this.message = new MessageDto();
+        this.message=this.messages[0];
+        console.log(this.messageInput)
+        this.message.contenu= this.messageInput;
+        this.message.isPassenger=true;
+        this.message.id=null;
+        console.log(this.message)
+        this.messagePassengerService.create(this.message).subscribe(message => {
+            if (message != null) {
+                this.message = new MessageDto();
+            } else {
+                this.messageService.add({severity: 'error', summary: 'Erreurs', detail: 'Element existant'});
+            }
+
+        }, error => {
+            console.log(error);
+        });
+    }
+
+
 
     public findPaginatedByCriteria() {
         this.service.findPaginatedByCriteria(this.criteria).subscribe(paginatedItems => {

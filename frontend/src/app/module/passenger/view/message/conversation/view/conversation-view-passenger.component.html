@@ -15,7 +15,8 @@
         </div>
 
         <div class="conversations-list">
-            <div class="conversation-item" *ngFor="let conversation of items" (click)="selectConversation(conversation)">
+            <div class="conversation-item" *ngFor="let conversation of items"
+                 (click)="selectConversation(conversation)">
                 <img class="conversation-avatar"
                      [src]="conversation.driver.photo"
                      alt="Profile">
@@ -65,18 +66,19 @@
         </div>
 
         <div class="chat-messages">
-            <div class="message from-user"
-                 *ngFor="let message of messages">
+            <div class="message" *ngFor="let message of messages"
+                 [ngClass]="{'from-user': message.isPassenger,'from-bot': !message.isPassenger }">
                 <div class="message-text">{{ message.contenu }}</div>
-                <div class="message-time">{{ message.dateEnvoi }}</div>
+                <div class="message-time">{{ message.dateEnvoi | date:'HH:mm' }}</div>
             </div>
         </div>
 
         <div class="chat-input">
             <input type="text"
                    placeholder="Type your message..."
-                   #messageInput />
-            <button class="send-btn" (click)="sendMessage(messageInput)">
+                     [(ngModel)]="messageInput"
+            />
+            <button class="send-btn" (click)="save()">
                 <i class="pi pi-send"></i>
             </button>
         </div>

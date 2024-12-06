@@ -16,7 +16,7 @@ public class MessageDto  extends AuditBaseDto {
 
     private String contenu  ;
     private String dateEnvoi ;
-
+    private Boolean isPassenger ;
     private TrajetDto trajet ;
     private DriverDto driver ;
     private PassengerDto passenger ;
@@ -77,6 +77,14 @@ public class MessageDto  extends AuditBaseDto {
         this.conversation = conversation;
     }
 
+    public Boolean getIsPassenger() {
+
+        return isPassenger;
+    }
+
+    public void setIsPassenger(Boolean passenger) {
+        isPassenger = passenger;
+    }
 
 
 

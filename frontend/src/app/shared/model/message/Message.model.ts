@@ -16,17 +16,17 @@ export class MessageDto extends BaseDto{
     public driver: DriverDto ;
     public passenger: PassengerDto ;
     public conversation: ConversationDto ;
-
+    public isPassenger:  null | boolean;
 
     constructor() {
         super();
-
         this.contenu = '';
         this.dateEnvoi = null;
         this.trajet = new TrajetDto() ;
         this.driver = new DriverDto() ;
         this.passenger = new PassengerDto() ;
         this.conversation = new ConversationDto() ;
+        this.isPassenger = null;
 
         }
 
