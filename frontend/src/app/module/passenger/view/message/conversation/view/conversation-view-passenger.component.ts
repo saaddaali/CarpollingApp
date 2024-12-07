@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
 
 import {DatePipe} from '@angular/common';
@@ -32,7 +32,6 @@ import {MessageDto} from "../../../../../../shared/model/message/Message.model";
 })
 export class ConversationViewPassengerComponent implements OnInit {
 
-
     protected _submitted = false;
     protected _errorMessages = new Array<string>();
 
@@ -46,6 +45,10 @@ export class ConversationViewPassengerComponent implements OnInit {
     messages: Array<MessageDto>;
     messageInput: string;
     message: MessageDto;
+
+    showDate = false;
+    currentDate = new Date().toDateString();
+    groupedMessages: any[] = [];
 
 
     protected _totalRecords = 0;
@@ -78,7 +81,7 @@ export class ConversationViewPassengerComponent implements OnInit {
             this.messagePassengerService.findByConversationId(conversation).subscribe(
                 messages => {
                     this.messages = messages;
-                    console.log(messages)
+                    this.groupedMessages = this.groupMessagesByDate();
                 },
                 error => {
                 }
@@ -88,66 +91,49 @@ export class ConversationViewPassengerComponent implements OnInit {
         }
     }
 
+    groupMessagesByDate() {
+        const groupedMessages: any[] = [];
+        let currentGroup = [];
+        let currentDate = '';
 
+        // Regrouper les messages par date
+        for (let message of this.messages) {
+            const messageDate = new Date(message.dateEnvoi).toISOString().split('T')[0]; // Format YYYY-MM-DD
 
-    showDate = false;
-    currentDate = '';
-
-    sendMessage(input: HTMLInputElement) {
-        const userMessage = input.value.trim();
-        if (userMessage) {
-            const currentTime = this.formatTime(new Date());
-            this.messages.push();
-            input.value = '';
-
-            // Simulate bot response
-            setTimeout(() => {
-                const botTime = this.formatTime(new Date());
-                this.messages.push();
-            }, 1000);
-
-            // Determine if date should be displayed
-            this.updateDate();
+            if (messageDate !== currentDate) {
+                // Si la date change, ajouter le groupe précédent et commencer un nouveau groupe
+                if (currentGroup.length > 0) {
+                    groupedMessages.push({ date: currentDate, messages: currentGroup });
+                }
+                currentDate = messageDate;
+                currentGroup = [message]; // Début du nouveau groupe
+            } else {
+                currentGroup.push(message);
+            }
         }
+
+        // Ajouter le dernier groupe de messages
+        if (currentGroup.length > 0) {
+            groupedMessages.push({ date: currentDate, messages: currentGroup });
+        }
+
+        return groupedMessages;
     }
 
-    shouldShowDate(messageDate: string): boolean {
-        const messageDateStr = new Date(messageDate).toISOString().split('T')[0]; // Extract date in YYYY-MM-DD format
-
-        if (this.currentDate !== messageDateStr) {
-            this.currentDate = messageDateStr;
-            return true;
-        }
-        return false;
-    }
-
-    updateDate() {
-        const today = new Date().toDateString();
-        const lastMessageDate = new Date().toDateString();
-
-        if (today !== lastMessageDate) {
-            this.showDate = true;
-            this.currentDate = new Date().toLocaleDateString(); // Format: "MM/DD/YYYY"
-        } else {
-            this.showDate = false;
-        }
-    }
 
     save() {
         this.message = new MessageDto();
-        this.message=this.messages[0];
-        console.log(this.messageInput)
-        this.message.contenu= this.messageInput;
-        this.message.isPassenger=true;
-        this.message.id=null;
-        console.log(this.message)
+        this.message = this.messages[0];
+        this.message.contenu = this.messageInput;
+        this.message.isPassenger = true;
+        this.message.id = null
         this.messagePassengerService.create(this.message).subscribe(message => {
             if (message != null) {
-                this.message = new MessageDto();
+                this.messages.push(message);
+                this.messageInput = '';
             } else {
-                this.messageService.add({severity: 'error', summary: 'Erreurs', detail: 'Element existant'});
+                this.messageService.add({severity: 'error', summary: 'Erreur', detail: 'Élément existant'});
             }
-
         }, error => {
             console.log(error);
         });

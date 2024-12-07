@@ -39,6 +39,10 @@ export class PassengerTopbarComponent implements OnInit{
 
     }
 
+    public openConversation(){
+        this.router.navigate(['/app/passenger/message/conversation/view']);
+    }
+
 
     public editUser(){
         this.userService.edit().subscribe(data => this.authenticatedUser = data);

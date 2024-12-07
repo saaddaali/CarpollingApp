@@ -139,7 +139,15 @@
     flex-direction: column;
     position: relative;
     overflow: hidden;
+    height: 88vh;  /* Utilisez 100vh pour occuper toute la hauteur de l'écran */
 }
+
+.chat-messages {
+    flex-grow: 1; /* Permet à la section des messages de prendre tout l'espace disponible */
+    overflow-y: auto;  /* Enable vertical scrolling */
+    max-height: calc(100vh - 160px); /* Ajustez selon la hauteur de l'en-tête et de la barre d'entrée */
+}
+
 
 .chat-header {
     display: flex;

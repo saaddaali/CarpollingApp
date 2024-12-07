@@ -65,7 +65,7 @@
             {{ currentDate | date: 'MMMM d, yyyy' }}
         </div>
 
-        <div class="chat-messages">
+        <div class="chat-messages ">
             <div class="message" *ngFor="let message of messages"
                  [ngClass]="{'from-user': message.isPassenger,'from-bot': !message.isPassenger }">
                 <div class="message-text">{{ message.contenu }}</div>

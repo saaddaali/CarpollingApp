@@ -12,6 +12,13 @@
          class="topbar-right elegant-topbar-menu"
          [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
 
+
+        <!-- Conversation button -->
+        <button class="p-link elegant-topbar-button" (click)="openConversation()">
+            <i class="pi pi-comment"></i>
+            <span>Chats</span>
+        </button>
+
         <!-- Profile button -->
         <button class="p-link elegant-topbar-button" (click)="edit(authenticatedUser)">
             <img src="assets/demo/images/avatar/bernardodominic.png" alt="Profile" class="profile-image">
