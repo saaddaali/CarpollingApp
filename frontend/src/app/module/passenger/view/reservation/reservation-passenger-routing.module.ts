@@ -18,6 +18,7 @@ import {AuthGuard} from 'src/app/zynerator/security/guards/auth.guard';
 
 
 import { ReservationListPassengerComponent } from './reservation/list/reservation-list-passenger.component';
+import {ReservationViewPassengerComponent} from "./reservation/view/reservation-view-passenger.component";
 @NgModule({
     imports: [
         RouterModule.forChild(
@@ -86,13 +87,19 @@ import { ReservationListPassengerComponent } from './reservation/list/reservatio
 
                         {
 
-                            path: 'reservation',
+                            path: 'reservations',
                             children: [
                                 {
                                     path: 'list',
                                     component: ReservationListPassengerComponent ,
                                     canActivate: [AuthGuard]
+                                },
+                                {
+                                    path: 'view',
+                                    component: ReservationViewPassengerComponent,
+                                    canActivate: [AuthGuard]
                                 }
+
                             ]
                         },
 

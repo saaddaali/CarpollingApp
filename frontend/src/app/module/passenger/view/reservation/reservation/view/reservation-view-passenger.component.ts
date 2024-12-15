@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 
 
 import {DatePipe} from '@angular/common';
@@ -34,7 +34,9 @@ import {TrajetDto} from 'src/app/shared/model/trajet/Trajet.model';
 import {TrajetPassengerService} from 'src/app/shared/service/passenger/trajet/TrajetPassenger.service';
 @Component({
   selector: 'app-reservation-view-passenger',
-  templateUrl: './reservation-view-passenger.component.html'
+  templateUrl: './reservation-view-passenger.component.html',
+    styleUrls: ['./reservation-view-passenger.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class ReservationViewPassengerComponent implements OnInit {
 

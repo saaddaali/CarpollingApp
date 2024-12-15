@@ -22,6 +22,13 @@ import {FileUploadModule} from 'primeng/fileupload';
 import {FullCalendarModule} from '@fullcalendar/angular';
 import {CardModule} from "primeng/card";
 import {TagModule} from "primeng/tag";
+import { TimelineModule } from 'primeng/timeline';
+import { DividerModule } from 'primeng/divider';
+import { RatingModule } from 'primeng/rating';
+import { AvatarModule } from 'primeng/avatar';
+import { AccordionModule } from 'primeng/accordion';
+import { RippleModule } from 'primeng/ripple';
+import { TooltipModule } from 'primeng/tooltip';
 
 import { ReservationCreatePassengerComponent } from './reservation/create/reservation-create-passenger.component';
 import { ReservationEditPassengerComponent } from './reservation/edit/reservation-edit-passenger.component';
@@ -41,6 +48,7 @@ import {PaginatorModule} from 'primeng/paginator';
 
 
 
+
 @NgModule({
   declarations: [
 
@@ -50,6 +58,10 @@ import {PaginatorModule} from 'primeng/paginator';
     ReservationEditPassengerComponent,
   ],
   imports: [
+      TimelineModule,
+      DividerModule,
+      RatingModule,
+      AvatarModule,
     CommonModule,
     ToastModule,
     ToolbarModule,
@@ -82,6 +94,8 @@ import {PaginatorModule} from 'primeng/paginator';
     CardModule,
     EditorModule,
     TagModule,
+      AccordionModule,
+      RippleModule,
 
 
   ],

@@ -37,7 +37,8 @@ import {TrajetPassengerService} from 'src/app/shared/service/passenger/trajet/Tr
 
 @Component({
   selector: 'app-reservation-list-passenger',
-  templateUrl: './reservation-list-passenger.component.html'
+  templateUrl: './reservation-list-passenger.component.html',
+    styleUrls: ['./reservation-list-passenger.component.scss']
 })
 export class ReservationListPassengerComponent implements OnInit {
 
@@ -94,7 +95,26 @@ export class ReservationListPassengerComponent implements OnInit {
     }
 
 
+    public initCriteria() {
+        this.criteria = new ReservationCriteria();
+        this.findPaginatedByCriteria();
+    }
 
+    getStatusSeverity(reservation: any): string {
+        // Exemple de logique pour déterminer le statut
+        if (reservation.datePaiement) {
+            return 'success';
+        }
+        return 'warning';
+    }
+
+    getStatusLabel(reservation: any): string {
+        // Exemple de logique pour l'étiquette du statut
+        if (reservation.datePaiement) {
+            return 'Payé';
+        }
+        return 'En attente';
+    }
 
     public onExcelFileSelected(event: any): void {
         const input = event.target as HTMLInputElement;

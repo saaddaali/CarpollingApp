@@ -1,60 +1,89 @@
+<div class="reservation-view">
+    <p-card styleClass="mb-4">
+        <div class="flex align-items-center justify-content-between mb-4">
+            <h2 class="m-0">Détails de la réservation</h2>
+            <p-tag severity="success" value="Confirmée"></p-tag>
+        </div>
 
-<p-dialog [(visible)]="viewDialog" [style]="{width: '70vw'}" header="{{'reservation.tabPan' | translate}}" [modal]="true" styleClass="p-fluid">
-    <ng-template pTemplate="content">
-        <p-tabView>
-            <p-tabPanel header="{{'reservation.tabPan' | translate}}">
-                <div class="grid">
-                    <div class="field col-12 md:col-6">
-                        <label for="1">{{'reservation.trajet' | translate}}</label>
-                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'reservation.trajet' | translate}}" autofocus  id="1" [ngModel]="item.trajet?.id">
-                    </div>
-                    <div class="field col-12 md:col-6">
-                        <label for="2">{{'reservation.passenger' | translate}}</label>
-                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'reservation.passenger' | translate}}" autofocus  id="2" [ngModel]="item.passenger?.email">
-                    </div>
-                    <div class="field col-12 md:col-6">
-                        <label for="3">{{'reservation.driver' | translate}}</label>
-                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'reservation.driver' | translate}}" autofocus  id="3" [ngModel]="item.driver?.email">
-                    </div>
-                    <div class="field col-12 md:col-6">
-                        <label for="4">{{'reservation.dateReservation' | translate}}</label>
-                        <p-calendar id="4" [disabled]="true"  [showTime]="true" [showSeconds]="false" placeholder="{{'reservation.dateReservation' | translate}}"  [ngModel]="item.dateReservation" dateFormat="{{dateFormat}}"></p-calendar>
-                    </div>
-                    <div class="field col-12 md:col-6">
-                        <label for="5">{{'reservation.montant' | translate}}</label>
-                        <p-inputNumber class="mb-2 mr-2" id="5" [disabled]="true" placeholder="{{'reservation.montant' | translate}}" [ngModel]="item.montant"></p-inputNumber>
-                    </div>
-                    <div class="field col-12 md:col-6">
-                        <label for="6">{{'reservation.datePaiement' | translate}}</label>
-                        <p-calendar id="6" [disabled]="true"  [showTime]="true" [showSeconds]="false" placeholder="{{'reservation.datePaiement' | translate}}"  [ngModel]="item.datePaiement" dateFormat="{{dateFormat}}"></p-calendar>
-                    </div>
-                    <div class="field col-12 md:col-6">
-                        <label for="7">{{'reservation.carteBancaire' | translate}}</label>
-                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'reservation.carteBancaire' | translate}}" autofocus  id="7" [ngModel]="item.carteBancaire?.id">
-                    </div>
-                    <div class="field col-12 md:col-6">
-                        <label for="8">{{'reservation.evaluation' | translate}}</label>
-                        <p-inputNumber class="mb-2 mr-2" id="8" [disabled]="true" placeholder="{{'reservation.evaluation' | translate}}" [ngModel]="item.evaluation"></p-inputNumber>
-                    </div>
-                    <div class="field col-12 md:col-6">
-                        <label for="9">{{'reservation.conversation' | translate}}</label>
-                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'reservation.conversation' | translate}}" autofocus  id="9" [ngModel]="item.conversation?.libelle">
-                    </div>
-                </div>
-            </p-tabPanel>
+        <p-divider></p-divider>
 
-        </p-tabView>
+        <div class="grid">
+            <div class="col-12 md:col-6">
+                <p-panel header="Information du trajet" styleClass="info-panel">
+                    <div class="flex flex-column gap-3">
+                        <div class="detail-item">
+                            <label>Trajet ID</label>
+                            <span class="font-semibold">{{item.trajet?.id}}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Date de réservation</label>
+                            <span class="font-semibold">{{item.dateReservation | date:dateFormat}}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Montant</label>
+                            <span class="price-tag">{{item.montant}} MAD</span>
+                        </div>
+                    </div>
+                </p-panel>
+            </div>
 
-    </ng-template>
+            <div class="col-12 md:col-6">
+                <p-panel header="Information passager" styleClass="info-panel">
+                    <div class="flex flex-column gap-3">
+                        <div class="detail-item">
+                            <label>Conducteur</label>
+                            <span class="font-semibold">{{item.driver?.email}}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Passager</label>
+                            <span class="font-semibold">{{item.passenger?.email}}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Note</label>
+                            <span>
+                                <p-rating [ngModel]="item.evaluation" [readonly]="true" [stars]="5"></p-rating>
+                            </span>
+                        </div>
+                    </div>
+                </p-panel>
+            </div>
 
-    <ng-template pTemplate="footer" >
-        <div class="p-flexbox">
-            <div>
-                <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideViewDialog()"></button>
+            <div class="col-12 md:col-6">
+                <p-panel header="Paiement" styleClass="info-panel">
+                    <div class="flex flex-column gap-3">
+                        <div class="detail-item">
+                            <label>Carte bancaire</label>
+                            <span class="font-semibold">{{item.carteBancaire?.id}}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Date de paiement</label>
+                            <span class="font-semibold">{{item.datePaiement | date:dateFormat}}</span>
+                        </div>
+                        <div class="detail-item status-item">
+                            <label>Statut</label>
+                            <p-tag severity="success" value="Payé"></p-tag>
+                        </div>
+                    </div>
+                </p-panel>
+            </div>
+
+            <div class="col-12 md:col-6">
+                <p-panel header="Discussion" styleClass="info-panel">
+                    <div class="message-content">
+                        <i class="pi pi-comments text-xl mb-2"></i>
+                        <span class="font-semibold">{{item.conversation?.libelle}}</span>
+                    </div>
+                </p-panel>
             </div>
         </div>
-    </ng-template>
-</p-dialog>
 
-
-
+        <div class="flex justify-content-end mt-4">
+            <p-button
+                label="Retour"
+                icon="pi pi-times"
+                styleClass="p-button-outlined"
+                (onClick)="hideViewDialog()">
+            </p-button>
+        </div>
+    </p-card>
+</div>
