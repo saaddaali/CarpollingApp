@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailService {
 
-//    @Autowired
-//    private JavaMailSender mailSender;
+    @Autowired
+    private JavaMailSender mailSender;
 
     private String email;
 
@@ -21,13 +21,11 @@ public class EmailService {
         System.out.println(emailRequest.getBody());
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(emailRequest.getTo());
-        message.setFrom("bibliothequecontact.emsi@gmail.com");
+        message.setFrom("blackruby.clothes@gmail.com");
         message.setText(emailRequest.getBody());
-        message.setCc(emailRequest.getCc());
-        message.setBcc(emailRequest.getBcc());
         message.setSubject(emailRequest.getSubject());
 
-        //mailSender.send(message);
+        mailSender.send(message);
 
         System.out.println("mail sent!");
     }

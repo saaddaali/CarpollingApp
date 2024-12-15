@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import ma.zyn.app.utils.transverse.emailling.EmailRequest;
+import ma.zyn.app.utils.transverse.emailling.EmailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -40,12 +43,15 @@ public class AppApplication {
     //state: primary success info secondary warning danger contrast
     //_STATE(Pending=warning,Rejeted=danger,Validated=success)
     public static void main(String[] args) {
-        ctx=SpringApplication.run(AppApplication.class, args);
+        ctx = SpringApplication.run(AppApplication.class, args);
     }
+
+    @Autowired
+    EmailService emailService;
 
 
     @Bean
-    ObjectMapper objectMapper(){
+    ObjectMapper objectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
         objectMapper.registerModule(new JavaTimeModule());
@@ -57,11 +63,9 @@ public class AppApplication {
     }
 
     @Bean
-    public CommandLineRunner demo(UserService userService, RoleService roleService, ModelPermissionService modelPermissionService, ActionPermissionService actionPermissionService, ModelPermissionUserService modelPermissionUserService , DriverAdminService driverService, PassengerAdminService passengerService) {
-    return (args) -> {
-        if(true){
-
-
+    public CommandLineRunner demo(UserService userService, RoleService roleService, ModelPermissionService modelPermissionService, ActionPermissionService actionPermissionService, ModelPermissionUserService modelPermissionUserService, DriverAdminService driverService, PassengerAdminService passengerService) {
+        return (args) -> {
+            if (true) {
         /*
         List<ModelPermission> modelPermissions = new ArrayList<>();
         addPermission(modelPermissions);
@@ -71,71 +75,71 @@ public class AppApplication {
         actionPermissions.forEach(e -> actionPermissionService.create(e));
         */
 
-		// User Admin
-        User userForAdmin = new User("admin");
-		userForAdmin.setPassword("123");
-		// Role Admin
-		Role roleForAdmin = new Role();
-		roleForAdmin.setAuthority(AuthoritiesConstants.ADMIN);
-		roleForAdmin.setCreatedAt(LocalDateTime.now());
-		Role roleForAdminSaved = roleService.create(roleForAdmin);
-		RoleUser roleUserForAdmin = new RoleUser();
-		roleUserForAdmin.setRole(roleForAdminSaved);
-		if (userForAdmin.getRoleUsers() == null)
-			userForAdmin.setRoleUsers(new ArrayList<>());
-
-		userForAdmin.getRoleUsers().add(roleUserForAdmin);
 
 
-        userForAdmin.setModelPermissionUsers(modelPermissionUserService.initModelPermissionUser());
+                // User Admin
+                User userForAdmin = new User("admin");
+                userForAdmin.setPassword("123");
+                // Role Admin
+                Role roleForAdmin = new Role();
+                roleForAdmin.setAuthority(AuthoritiesConstants.ADMIN);
+                roleForAdmin.setCreatedAt(LocalDateTime.now());
+                Role roleForAdminSaved = roleService.create(roleForAdmin);
+                RoleUser roleUserForAdmin = new RoleUser();
+                roleUserForAdmin.setRole(roleForAdminSaved);
+                if (userForAdmin.getRoleUsers() == null)
+                    userForAdmin.setRoleUsers(new ArrayList<>());
 
-        userService.create(userForAdmin);
-
-		// User Driver
-        Driver userForDriver = new Driver("driver");
-		userForDriver.setPassword("123");
-		// Role Driver
-		Role roleForDriver = new Role();
-		roleForDriver.setAuthority(AuthoritiesConstants.DRIVER);
-		roleForDriver.setCreatedAt(LocalDateTime.now());
-		Role roleForDriverSaved = roleService.create(roleForDriver);
-		RoleUser roleUserForDriver = new RoleUser();
-		roleUserForDriver.setRole(roleForDriverSaved);
-		if (userForDriver.getRoleUsers() == null)
-			userForDriver.setRoleUsers(new ArrayList<>());
-
-		userForDriver.getRoleUsers().add(roleUserForDriver);
+                userForAdmin.getRoleUsers().add(roleUserForAdmin);
 
 
-        userForDriver.setModelPermissionUsers(modelPermissionUserService.initModelPermissionUser());
+                userForAdmin.setModelPermissionUsers(modelPermissionUserService.initModelPermissionUser());
 
-        driverService.create(userForDriver);
+                userService.create(userForAdmin);
 
-		// User Passenger
-        Passenger userForPassenger = new Passenger("passenger");
-		userForPassenger.setPassword("123");
-		// Role Passenger
-		Role roleForPassenger = new Role();
-		roleForPassenger.setAuthority(AuthoritiesConstants.PASSENGER);
-		roleForPassenger.setCreatedAt(LocalDateTime.now());
-		Role roleForPassengerSaved = roleService.create(roleForPassenger);
-		RoleUser roleUserForPassenger = new RoleUser();
-		roleUserForPassenger.setRole(roleForPassengerSaved);
-		if (userForPassenger.getRoleUsers() == null)
-			userForPassenger.setRoleUsers(new ArrayList<>());
+                // User Driver
+                Driver userForDriver = new Driver("driver");
+                userForDriver.setPassword("123");
+                // Role Driver
+                Role roleForDriver = new Role();
+                roleForDriver.setAuthority(AuthoritiesConstants.DRIVER);
+                roleForDriver.setCreatedAt(LocalDateTime.now());
+                Role roleForDriverSaved = roleService.create(roleForDriver);
+                RoleUser roleUserForDriver = new RoleUser();
+                roleUserForDriver.setRole(roleForDriverSaved);
+                if (userForDriver.getRoleUsers() == null)
+                    userForDriver.setRoleUsers(new ArrayList<>());
 
-		userForPassenger.getRoleUsers().add(roleUserForPassenger);
+                userForDriver.getRoleUsers().add(roleUserForDriver);
 
 
-        userForPassenger.setModelPermissionUsers(modelPermissionUserService.initModelPermissionUser());
+                userForDriver.setModelPermissionUsers(modelPermissionUserService.initModelPermissionUser());
 
-        passengerService.create(userForPassenger);
+                driverService.create(userForDriver);
+
+                // User Passenger
+                Passenger userForPassenger = new Passenger("passenger");
+                userForPassenger.setPassword("123");
+                // Role Passenger
+                Role roleForPassenger = new Role();
+                roleForPassenger.setAuthority(AuthoritiesConstants.PASSENGER);
+                roleForPassenger.setCreatedAt(LocalDateTime.now());
+                Role roleForPassengerSaved = roleService.create(roleForPassenger);
+                RoleUser roleUserForPassenger = new RoleUser();
+                roleUserForPassenger.setRole(roleForPassengerSaved);
+                if (userForPassenger.getRoleUsers() == null)
+                    userForPassenger.setRoleUsers(new ArrayList<>());
+
+                userForPassenger.getRoleUsers().add(roleUserForPassenger);
+
+
+                userForPassenger.setModelPermissionUsers(modelPermissionUserService.initModelPermissionUser());
+
+                passengerService.create(userForPassenger);
 
             }
         };
     }
-
-
 
 
     private static String fakeString(String attributeName, int i) {
@@ -143,10 +147,11 @@ public class AppApplication {
     }
 
     private static Long fakeLong(String attributeName, int i) {
-        return  10L * i;
+        return 10L * i;
     }
+
     private static Integer fakeInteger(String attributeName, int i) {
-        return  10 * i;
+        return 10 * i;
     }
 
     private static Double fakeDouble(String attributeName, int i) {
@@ -154,12 +159,13 @@ public class AppApplication {
     }
 
     private static BigDecimal fakeBigDecimal(String attributeName, int i) {
-        return  BigDecimal.valueOf(i*1L*10);
+        return BigDecimal.valueOf(i * 1L * 10);
     }
 
     private static Boolean fakeBoolean(String attributeName, int i) {
         return i % 2 == 0 ? true : false;
     }
+
     private static LocalDateTime fakeLocalDateTime(String attributeName, int i) {
         return LocalDateTime.now().plusDays(i);
     }

@@ -36,12 +36,6 @@ public class Passenger  extends User    {
 
 
 
-
-
-
-
-
-
     private CarteBancaire carteBancaire ;
 
 
