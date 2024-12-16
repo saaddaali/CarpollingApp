@@ -8,8 +8,6 @@ import {ConfirmationService, MenuItem, MessageService} from 'primeng/api';
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
 
-import {environment} from 'src/environments/environment';
-
 import {RoleService} from 'src/app/zynerator/security/shared/service/Role.service';
 import {StringUtilService} from 'src/app/zynerator/util/StringUtil.service';
 import {ServiceLocator} from 'src/app/zynerator/service/ServiceLocator';
@@ -24,7 +22,6 @@ import {VilleDto} from 'src/app/shared/model/trajet/Ville.model';
 import {VillePassengerService} from 'src/app/shared/service/passenger/trajet/VillePassenger.service';
 import {LayoutService} from "../../../../../../layout/service/app.layout.service";
 import {AppComponent} from "../../../../../../app.component";
-import {ReservationDto} from "../../../../../../shared/model/reservation/Reservation.model";
 import {VilleCriteria} from "../../../../../../shared/criteria/trajet/VilleCriteria.model";
 
 
@@ -95,7 +92,7 @@ export class TrajetListPassengerComponent implements OnInit {
         trajetDto.prix = trajet.prix;
         this.service.item = trajetDto;
         console.log('Trajet:', trajetDto);
-        this.router.navigate(['/trajet/trajet/details']);
+        this.router.navigate(['/trajet/details']);
         };
 
 

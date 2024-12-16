@@ -3,6 +3,190 @@
     margin: 0 auto;
     padding: 2rem;
 
+    $primary-color: #4052EE;
+    $green-color: #4caf50;
+
+    .route-details {
+        position: relative;
+        padding-left: 20px;
+        margin: 4px 0;  // Augmenté de 16px à 24px
+    }
+
+
+    .stop {
+        background-color: white;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 16px;  // Augmenté de 12px à 16px
+        margin-bottom: 12px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px, rgba(0, 0, 0, 0.05) 0px 1px 3px;  // Même ombre que la carte principale
+
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+
+            i {
+                color: #666;
+                font-size: 18px;  // Augmenté de 16px à 18px
+            }
+        }
+
+        .area {
+            color: #666;
+            font-size: 14px;  // Augmenté de 13px à 14px
+            font-weight: 500;  // Ajouté font-weight
+            margin-left: 26px;
+        }
+
+        .time {
+            color: $primary-color;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: 26px;
+            margin-top: 6px;  // Augmenté de 4px à 6px
+            font-size: 14px;  // Augmenté de 13px à 14px
+            font-weight: 500;  // Ajouté font-weight
+
+            i {
+                color: $primary-color;
+                font-size: 14px;
+            }
+        }
+    }
+
+
+    .green-point {
+        width: 8px;
+        height: 8px;
+        background: #4caf50;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    .route-stop {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 8px 0;
+
+        .time {
+            margin-left: auto;
+            color: $primary-color;
+        }
+    }
+
+    .route-line.green {
+        width: 2px;
+        height: 30px;
+        margin-left: 4px;
+        background: repeating-linear-gradient(
+                #4caf50 0px,
+                #4caf50 3px,
+                transparent 3px,
+                transparent 6px
+        );
+    }
+
+    .line {
+        position: absolute;
+        left: 0;
+        top: 35px;  // Ajusté pour le nouveau padding
+        bottom: 35px;
+        width: 2px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .circle {
+            width: 8px;
+            height: 8px;
+            background-color: $green-color;
+            border-radius: 50%;
+            position: absolute;
+            left: -3px;
+
+            &:first-child {
+                top: -4px;
+            }
+
+            &:last-child {
+                bottom: -4px;
+            }
+        }
+
+        .dotted-line {
+            position: absolute;
+            top: 4px;
+            bottom: 4px;
+            width: 2px;
+            background: repeating-linear-gradient(
+                    $green-color 0px,
+                    $green-color 3px,
+                    transparent 3px,
+                    transparent 8px
+            );
+        }
+    }
+
+    .profile-section {
+        text-align: center;
+        margin: 0 0;
+
+        img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+        }
+    }
+    .stars {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        margin: 0 0;
+
+        i {
+            color: #FFB800;
+            font-size: 24px;
+        }
+    }
+    .name{
+        font-size: 24px;
+        font-weight: 600;
+        color: #333;
+        margin: 0 0;
+    }
+
+
+    .reserve-button {
+        background-color: $green-color;
+        color: white;
+        font-size: 16px; /* Adjusted size */
+        font-weight: 500; /* Font weight correction */
+        padding: 12px;  /* Adjusted padding */
+        margin: -10px 0 0 0;  /* Adjusted margin */
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        width: auto; /* Avoid full width */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px; /* Space between icon and label */
+        transition: background-color 0.2s ease;
+    }
+
+    .reserve-button i {
+        font-size: 20px; /* Adjust the icon size */
+    }
+
+    .reserve-button:hover {
+        background-color: darken($green-color, 5%);
+    }
+
+
     h2 {
         color: var(--primary-color);
         font-weight: 600;
@@ -55,10 +239,44 @@
     }
 
     .price-tag {
-        font-size: 1.25rem;
+        font-size: 1rem;
         color: var(--primary-color);
         font-weight: 600;
     }
+
+
+    .car-info {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;  // Changé de space-between à flex-start
+        gap: 6px;  // Réduit de 10px à 6px
+        margin: 24px 0;
+        width: 100%;
+    }
+
+    .car-detail {
+        background-color: #f5f5f5;
+        padding: 8px 12px;  // Réduit de 12px 20px à 8px 12px
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex: 0 0 auto;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 4px;  // Légère ombre pour les badges
+
+        i {
+            color: #666;
+            font-size: 15px;
+        }
+
+        .detail-text {
+            color: #333;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+    }
+
 
     .message-content {
         display: flex;

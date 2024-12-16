@@ -53,6 +53,10 @@ export class TrajetPassengerService {
         return this.http.get<Array<TrajetDto>>(this.API);
     }
 
+    public findById(id: number) {
+        return this.http.get<TrajetDto>(this.API + 'id/' + id);
+    }
+
     public findAllOptimized() {
         return this.http.get<Array<TrajetDto>>(this.API + 'optimized');
     }

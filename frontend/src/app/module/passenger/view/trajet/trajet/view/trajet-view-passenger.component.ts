@@ -67,6 +67,10 @@ export class TrajetViewPassengerComponent implements OnInit {
         this.showDriverProfile = true;
     }
 
+    reserver(){
+        this.router.navigate(['/reservations/view/'+this.item.id]);
+    }
+
 
     get driver(): DriverDto {
         return this.driverService.item;

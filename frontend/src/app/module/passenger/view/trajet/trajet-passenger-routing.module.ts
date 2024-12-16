@@ -105,7 +105,7 @@ import {TrajetsPassengerComponent} from "./trajet/trajets/trajets-passenger.comp
 
                         {
 
-                            path: 'trajet',
+                            path: '',
                             children: [
                                 {
                                     path: 'create',

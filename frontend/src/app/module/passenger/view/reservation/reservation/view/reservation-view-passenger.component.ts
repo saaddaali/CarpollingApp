@@ -51,6 +51,8 @@ export class ReservationViewPassengerComponent implements OnInit {
     protected router: Router;
     protected stringUtilService: StringUtilService;
 
+    date: Date;
+
 
 
     constructor(private service: ReservationPassengerService, private driverService: DriverPassengerService, private passengerService: PassengerPassengerService, private carteBancaireService: CarteBancairePassengerService, private conversationService: ConversationPassengerService, private trajetService: TrajetPassengerService){
@@ -63,6 +65,13 @@ export class ReservationViewPassengerComponent implements OnInit {
 	}
 
     ngOnInit(): void {
+        this.date = new Date();
+        const id = this.router.url.split('/')[3];
+        this.trajetService.findById(Number(id)).subscribe(
+            (data: TrajetDto) => {
+                this.trajet = data;
+            }
+        );
     }
 
 

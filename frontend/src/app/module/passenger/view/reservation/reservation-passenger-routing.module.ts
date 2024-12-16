@@ -95,7 +95,7 @@ import {ReservationViewPassengerComponent} from "./reservation/view/reservation-
                                     canActivate: [AuthGuard]
                                 },
                                 {
-                                    path: 'view',
+                                    path: 'view/:id',
                                     component: ReservationViewPassengerComponent,
                                     canActivate: [AuthGuard]
                                 }

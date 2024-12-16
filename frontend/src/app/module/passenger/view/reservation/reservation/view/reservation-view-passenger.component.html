@@ -1,9 +1,25 @@
+<div class="header">
+    <passenger-topbar></passenger-topbar>
+</div>
+<br><br>
+
 <div class="reservation-view">
     <p-card styleClass="mb-4">
-        <div class="flex align-items-center justify-content-between mb-4">
+        <div class="flex align-items-center justify-content-start mb-4">
+            <!-- Retour Button on top left -->
+            <div class="flex align-items-center mr-3">
+                <p-button
+                    label="Retour"
+                    icon="pi pi-arrow-left"
+                    styleClass="p-button-outlined p-button-secondary"
+                    (onClick)="hideViewDialog()">
+                </p-button>
+            </div>
+
+            <!-- Heading -->
             <h2 class="m-0">Détails de la réservation</h2>
-            <p-tag severity="success" value="Confirmée"></p-tag>
         </div>
+
 
         <p-divider></p-divider>
 
@@ -11,79 +27,124 @@
             <div class="col-12 md:col-6">
                 <p-panel header="Information du trajet" styleClass="info-panel">
                     <div class="flex flex-column gap-3">
-                        <div class="detail-item">
-                            <label>Trajet ID</label>
-                            <span class="font-semibold">{{item.trajet?.id}}</span>
+                        <div class="route-details">
+                            <div>
+                                <h4 class="date">{{ this.trajet.horaireDepart | date: 'dd MMMM yyyy' }}</h4>
+                            </div>
+                            <div class="stop">
+                                <div class="location">
+                                    <i class="pi pi-map-marker"></i> {{ this.trajet.villeDepart.libelle }}
+                                </div>
+                                <div class="time">
+                                    <i class="pi pi-clock"></i> {{ this.trajet.horaireDepart | date: 'HH:mm' }}
+                                </div>
+                            </div>
+                            <div class="line">
+                                <span class="circle"></span>
+                                <span class="dotted-line"></span>
+                                <span class="circle"></span>
+                            </div>
+                            <div class="stop">
+                                <div class="location">
+                                    <i class="pi pi-map-marker"></i> {{ this.trajet.villeDestination.libelle }}
+                                </div>
+                                <div class="time">
+                                    <i class="pi pi-clock"></i> {{ this.trajet.horaireArrive | date: 'HH:mm' }}
+                                </div>
+                            </div>
                         </div>
-                        <div class="detail-item">
-                            <label>Date de réservation</label>
-                            <span class="font-semibold">{{item.dateReservation | date:dateFormat}}</span>
+
+                        <div class="car-info">
+                            <div class="car-detail">
+                                <i class="pi pi-user"></i>
+                                <span class="detail-text">{{ this.trajet.placesDisponibles }}</span>
+                            </div>
+                            <div class="car-detail">
+                                <i class="pi pi-car"></i>
+                                <span class="detail-text">RENAULT</span>
+                            </div>
+                            <div class="car-detail">
+                                <i class="color-circle" style="background-color: black;"></i>
+                                <span class="detail-text">Noir</span>
+                            </div>
+                            <div class="car-detail">
+                                <i class="pi pi-briefcase"></i>
+                                <span class="detail-text">Petit</span>
+                            </div>
+                            <div class="car-detail">
+                                <i class="pi pi-directions"></i>
+                                <span class="detail-text">Covoiturage direct</span>
+                            </div>
                         </div>
-                        <div class="detail-item">
-                            <label>Montant</label>
-                            <span class="price-tag">{{item.montant}} MAD</span>
-                        </div>
+
                     </div>
                 </p-panel>
             </div>
 
             <div class="col-12 md:col-6">
                 <p-panel header="Information passager" styleClass="info-panel">
-                    <div class="flex flex-column gap-3">
-                        <div class="detail-item">
-                            <label>Conducteur</label>
-                            <span class="font-semibold">{{item.driver?.email}}</span>
+                    <div class="flex flex-column gap-3 profile-section">
+                        <div class="profile-section">
+                            <img [src]="this.trajet.driver?.photo" alt="Photo profil" class="profile-photo"/>
                         </div>
-                        <div class="detail-item">
-                            <label>Passager</label>
-                            <span class="font-semibold">{{item.passenger?.email}}</span>
+                        <div>
+                            <span class="font-semibold name">{{this.trajet.driver?.username}}</span>
                         </div>
-                        <div class="detail-item">
-                            <label>Note</label>
-                            <span>
-                                <p-rating [ngModel]="item.evaluation" [readonly]="true" [stars]="5"></p-rating>
-                            </span>
+
+                        <div class="verification-badge">
+                            <i class="pi pi-check-circle"></i>
+                            <span>Pièce d'identité vérifiée</span>
+                        </div>
+
+                        <div class="stars">
+                            <i class="pi pi-star-fill" *ngFor="let star of [1,2,3,4]"></i>
+                            <i class="pi pi-star"></i>
+                        </div>
+                        <div class="message-content">
+                            <i class="pi pi-comments text-xl mb-2"></i>
+                            <span class="font-semibold"> Start a conversation</span>
+                        </div>
+
+                    </div>
+                </p-panel>
+            </div>
+            <div class="col-12 md:col-6" style="display: flex; width: 100%; flex-direction: row; justify-content: space-between;">
+                <p-panel header="Reservation" styleClass="info-panel" style="flex: 1;">
+                    <div class="flex gap-4" style="width: 100%; justify-content: space-between;">
+                        <!-- First Detail Item -->
+                        <div class="detail-item" style="display: flex; flex-direction: column; align-items: flex-start; width: 33%;">
+                            <label>Date de réservation</label>
+                            <span class="font-semibold">{{date | date: 'dd MMMM yyyy'}}</span>
+                        </div>
+
+                        <!-- Second Detail Item -->
+                        <div class="detail-item" style="display: flex; flex-direction: column; align-items: flex-start; width: 33%;">
+                            <label>Nombre de place</label>
+                            <span class="font-semibold">{{ this.trajet.placesDisponibles }}</span>
+                        </div>
+
+                        <!-- Third Detail Item -->
+                        <div class="detail-item" style="display: flex; flex-direction: column; align-items: flex-start; width: 33%;">
+                            <label>Montant</label>
+                            <span class="price-tag">{{this.trajet.prix}} MAD</span>
                         </div>
                     </div>
                 </p-panel>
             </div>
 
-            <div class="col-12 md:col-6">
-                <p-panel header="Paiement" styleClass="info-panel">
-                    <div class="flex flex-column gap-3">
-                        <div class="detail-item">
-                            <label>Carte bancaire</label>
-                            <span class="font-semibold">{{item.carteBancaire?.id}}</span>
-                        </div>
-                        <div class="detail-item">
-                            <label>Date de paiement</label>
-                            <span class="font-semibold">{{item.datePaiement | date:dateFormat}}</span>
-                        </div>
-                        <div class="detail-item status-item">
-                            <label>Statut</label>
-                            <p-tag severity="success" value="Payé"></p-tag>
-                        </div>
-                    </div>
-                </p-panel>
-            </div>
 
-            <div class="col-12 md:col-6">
-                <p-panel header="Discussion" styleClass="info-panel">
-                    <div class="message-content">
-                        <i class="pi pi-comments text-xl mb-2"></i>
-                        <span class="font-semibold">{{item.conversation?.libelle}}</span>
-                    </div>
-                </p-panel>
+        </div>
+
+        <div class="flex mt-4" style="justify-content: center;">
+            <div class="flex justify-content-center reserve-button-container">
+                <button class="reserve-button">
+                    <i class="pi pi-check"></i>
+                    <span>Confirmer</span>
+                </button>
             </div>
         </div>
 
-        <div class="flex justify-content-end mt-4">
-            <p-button
-                label="Retour"
-                icon="pi pi-times"
-                styleClass="p-button-outlined"
-                (onClick)="hideViewDialog()">
-            </p-button>
-        </div>
+
+
     </p-card>
 </div>
