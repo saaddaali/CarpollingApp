@@ -40,6 +40,18 @@ public class PassengerRestPassenger {
         return res;
     }
 
+    @Operation(summary = "Find passenger by username")
+    @GetMapping("username/{username}")
+    public ResponseEntity<PassengerDto> findByUsername(@PathVariable String username) {
+        Passenger t = service.findByUsername(username);
+        if (t != null) {
+            converter.init(true);
+            PassengerDto dto = converter.toDto(t);
+            return getDtoResponseEntity(dto);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+
     @Operation(summary = "Finds an optimized list of all passengers")
     @GetMapping("optimized")
     public ResponseEntity<List<PassengerDto>> findAllOptimized() throws Exception {

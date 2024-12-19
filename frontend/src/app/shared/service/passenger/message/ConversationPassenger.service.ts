@@ -53,6 +53,10 @@ export class ConversationPassengerService {
         return this.http.get<Array<ConversationDto>>(this.API);
     }
 
+    public findById(id: number) {
+        return this.http.get<ConversationDto>(this.API + 'id/' + id);
+    }
+
     public findAllOptimized() {
         return this.http.get<Array<ConversationDto>>(this.API + 'optimized');
     }
@@ -63,6 +67,9 @@ export class ConversationPassengerService {
 
     public save(): Observable<ConversationDto> {
         return this.http.post<ConversationDto>(this.API, this.item);
+    }
+    public create(conversation:ConversationDto): Observable<ConversationDto> {
+        return this.http.post<ConversationDto>(this.API, conversation);
     }
 
     public delete(dto: ConversationDto) {

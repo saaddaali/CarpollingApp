@@ -94,8 +94,9 @@ import {ConversationViewPassengerComponent} from "./conversation/view/conversati
                                     path: 'list',
                                     component: ConversationListPassengerComponent ,
                                     canActivate: [AuthGuard]
-                                },{
-                                    path: 'view',
+                                }
+                                ,{
+                                    path: 'view/:id',
                                     component: ConversationViewPassengerComponent ,
                                     canActivate: [AuthGuard]
                                 }

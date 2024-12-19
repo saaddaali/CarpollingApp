@@ -53,6 +53,10 @@ export class PassengerPassengerService {
         return this.http.get<Array<PassengerDto>>(this.API);
     }
 
+    public findByUsername(username: string) {
+        return this.http.get<PassengerDto>(this.API + 'username/' + username);
+    }
+
     public findAllOptimized() {
         return this.http.get<Array<PassengerDto>>(this.API + 'optimized');
     }
@@ -143,6 +147,7 @@ export class PassengerPassengerService {
     get API() {
         return environment.apiUrlRidesharingsystemms1 + 'passenger/passenger/';
     }
+
 
     public get items(): Array<PassengerDto> {
         if (this._items == null) {

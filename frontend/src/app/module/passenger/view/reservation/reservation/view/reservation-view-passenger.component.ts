@@ -3,19 +3,14 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
-import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
 
 
 import {environment} from 'src/environments/environment';
 
 import {RoleService} from 'src/app/zynerator/security/shared/service/Role.service';
-import {AbstractService} from 'src/app/zynerator/service/AbstractService';
-import {BaseDto} from 'src/app/zynerator/dto/BaseDto.model';
-import {BaseCriteria} from 'src/app/zynerator/criteria/BaseCriteria.model';
 import {StringUtilService} from 'src/app/zynerator/util/StringUtil.service';
 import {ServiceLocator} from 'src/app/zynerator/service/ServiceLocator';
-import {ConfirmationService, MessageService,MenuItem} from 'primeng/api';
-import {FileTempDto} from 'src/app/zynerator/dto/FileTempDto.model';
+import {ConfirmationService, MessageService} from 'primeng/api';
 
 
 import {ReservationPassengerService} from 'src/app/shared/service/passenger/reservation/ReservationPassenger.service';
@@ -32,6 +27,9 @@ import {ConversationDto} from 'src/app/shared/model/message/Conversation.model';
 import {ConversationPassengerService} from 'src/app/shared/service/passenger/message/ConversationPassenger.service';
 import {TrajetDto} from 'src/app/shared/model/trajet/Trajet.model';
 import {TrajetPassengerService} from 'src/app/shared/service/passenger/trajet/TrajetPassenger.service';
+import {UserDto} from "../../../../../../zynerator/security/shared/model/User.model";
+import {AuthService} from "../../../../../../zynerator/security/shared/service/Auth.service";
+
 @Component({
   selector: 'app-reservation-view-passenger',
   templateUrl: './reservation-view-passenger.component.html',
@@ -55,7 +53,7 @@ export class ReservationViewPassengerComponent implements OnInit {
 
 
 
-    constructor(private service: ReservationPassengerService, private driverService: DriverPassengerService, private passengerService: PassengerPassengerService, private carteBancaireService: CarteBancairePassengerService, private conversationService: ConversationPassengerService, private trajetService: TrajetPassengerService){
+    constructor(private service: ReservationPassengerService, private driverService: DriverPassengerService, private passengerService: PassengerPassengerService, private carteBancaireService: CarteBancairePassengerService, private conversationService: ConversationPassengerService, private trajetService: TrajetPassengerService, private authService: AuthService){
 		this.datePipe = ServiceLocator.injector.get(DatePipe);
         this.messageService = ServiceLocator.injector.get(MessageService);
         this.confirmationService = ServiceLocator.injector.get(ConfirmationService);
@@ -66,12 +64,46 @@ export class ReservationViewPassengerComponent implements OnInit {
 
     ngOnInit(): void {
         this.date = new Date();
+        this.authService.loadInfos();
+        this.findPassengerByUsername();
         const id = this.router.url.split('/')[3];
         this.trajetService.findById(Number(id)).subscribe(
             (data: TrajetDto) => {
                 this.trajet = data;
             }
         );
+    }
+
+    startConversation(){
+        this.conversation = new ConversationDto();
+        this.conversation.passenger= this.passenger
+        this.conversation.driver = this.trajet.driver;
+        console.log(this.conversation)
+        this.conversationService.create(this.conversation).subscribe(
+            (data: ConversationDto) => {
+                this.conversation = data;
+                console.log(data.id)
+            }
+        );
+        this.router.navigate(['/app/passenger/message/conversation/view/' + Number(this.conversation.id)]);
+    }
+
+    findPassengerByUsername(){
+        console.log(this.authenticatedUser.username)
+        this.passengerService.findByUsername(this.authenticatedUser.username).subscribe(
+            (data: PassengerDto) => {
+                this.passenger = data;
+                console.log(this.passenger)
+            }
+        );
+    }
+
+
+    get authenticatedUser(): UserDto{
+        return this.authService.authenticatedUser;
+    }
+    set authenticatedUser(userDto: UserDto){
+        this.authService.authenticatedUser = userDto;
     }
 
 

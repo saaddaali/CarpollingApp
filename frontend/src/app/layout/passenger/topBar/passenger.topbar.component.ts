@@ -40,7 +40,7 @@ export class PassengerTopbarComponent implements OnInit{
     }
 
     public openConversation(){
-        this.router.navigate(['/app/passenger/message/conversation/view']);
+        this.router.navigate(['/app/passenger/message/conversation/view/O']);
     }
 
 

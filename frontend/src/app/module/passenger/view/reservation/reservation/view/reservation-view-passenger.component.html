@@ -100,7 +100,7 @@
                             <i class="pi pi-star-fill" *ngFor="let star of [1,2,3,4]"></i>
                             <i class="pi pi-star"></i>
                         </div>
-                        <div class="message-content">
+                        <div class="message-content" (click)="startConversation()">
                             <i class="pi pi-comments text-xl mb-2"></i>
                             <span class="font-semibold"> Start a conversation</span>
                         </div>

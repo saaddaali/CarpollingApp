@@ -68,6 +68,13 @@ export class ConversationViewPassengerComponent implements OnInit {
 
     ngOnInit(): void {
         this.findPaginatedByCriteria();
+        const id = this.router.url.split('/')[3];
+        this.service.findById(Number(id)).subscribe(
+            (data: ConversationDto) => {
+                this.item = data;
+                this.selectConversation(data);
+            }
+        );
     }
 
     view(item: ConversationDto) {
