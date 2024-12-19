@@ -18,6 +18,7 @@ import {AuthGuard} from 'src/app/zynerator/security/guards/auth.guard';
 
 
 import { CarteBancaireListPassengerComponent } from './carte-bancaire/list/carte-bancaire-list-passenger.component';
+import {CarteBancaireViewPassengerComponent} from "./carte-bancaire/view/carte-bancaire-view-passenger.component";
 @NgModule({
     imports: [
         RouterModule.forChild(
@@ -91,6 +92,11 @@ import { CarteBancaireListPassengerComponent } from './carte-bancaire/list/carte
                                 {
                                     path: 'list',
                                     component: CarteBancaireListPassengerComponent ,
+                                    canActivate: [AuthGuard]
+                                },
+                                {
+                                    path: 'view',
+                                    component: CarteBancaireViewPassengerComponent ,
                                     canActivate: [AuthGuard]
                                 }
                             ]

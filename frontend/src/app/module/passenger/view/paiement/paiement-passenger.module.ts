@@ -41,6 +41,7 @@ import {PaginatorModule} from 'primeng/paginator';
 
 
 
+
 @NgModule({
   declarations: [
 
@@ -50,6 +51,7 @@ import {PaginatorModule} from 'primeng/paginator';
     CarteBancaireEditPassengerComponent,
   ],
   imports: [
+      ReactiveFormsModule,
     CommonModule,
     ToastModule,
     ToolbarModule,

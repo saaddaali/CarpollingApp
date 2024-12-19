@@ -16,6 +16,7 @@ import {StringUtilService} from 'src/app/zynerator/util/StringUtil.service';
 import {ServiceLocator} from 'src/app/zynerator/service/ServiceLocator';
 import {ConfirmationService, MessageService,MenuItem} from 'primeng/api';
 import {FileTempDto} from 'src/app/zynerator/dto/FileTempDto.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 import {CarteBancairePassengerService} from 'src/app/shared/service/passenger/paiement/CarteBancairePassenger.service';
@@ -41,19 +42,76 @@ export class CarteBancaireViewPassengerComponent implements OnInit {
 
 
 
-    constructor(private service: CarteBancairePassengerService){
+    constructor(private service: CarteBancairePassengerService, private fb: FormBuilder,){
 		this.datePipe = ServiceLocator.injector.get(DatePipe);
         this.messageService = ServiceLocator.injector.get(MessageService);
         this.confirmationService = ServiceLocator.injector.get(ConfirmationService);
         this.roleService = ServiceLocator.injector.get(RoleService);
         this.router = ServiceLocator.injector.get(Router);
         this.stringUtilService = ServiceLocator.injector.get(StringUtilService);
+        this.initializeForms();
 	}
 
     ngOnInit(): void {
     }
 
 
+    bookingFor: 'self' | 'other' = 'other';
+    bookingForm: FormGroup;
+    paymentForm: FormGroup;
+    savedCards = [
+        { type: 'Visa', number: '3679', expiry: '12/24' },
+        { type: 'MasterCard', number: '2193', expiry: '03/22' }
+    ];
+
+
+// Ajoutez cette méthode
+    private initializeForms() {
+        this.bookingForm = this.fb.group({
+            fullName: ['', Validators.required],
+            age: ['', [Validators.required, Validators.min(0)]],
+            phoneNumber: ['', Validators.required],
+            notes: ['']
+        });
+
+        this.paymentForm = this.fb.group({
+            paymentMethod: ['new', Validators.required],
+            cardNumber: ['', [Validators.required, Validators.pattern('^[0-9]{16}$')]],
+            cardholderName: ['', Validators.required],
+            expiryDate: ['', [Validators.required, Validators.pattern('^(0[1-9]|1[0-2])\/([0-9]{2})$')]],
+            cvc: ['', [Validators.required, Validators.pattern('^[0-9]{3,4}$')]],
+            saveCard: [false]
+        });
+    }
+
+// Modifiez votre méthode onSubmit existante
+    public onSubmit() {
+        if (this.bookingForm.valid && this.paymentForm.valid) {
+            const paymentData = {
+                ...this.paymentForm.value,
+                bookingDetails: this.bookingForm.value
+            };
+
+            // Utilisez votre service existant pour traiter le paiement
+            this.messageService.add({
+                severity: 'success',
+                summary: 'Succès',
+                detail: 'Paiement traité avec succès'
+            });
+            this.hideViewDialog();
+        } else {
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Erreur',
+                detail: 'Veuillez remplir tous les champs requis'
+            });
+        }
+    }
+
+// Ajoutez cette méthode pour la navigation
+    public goBack() {
+        this.router.navigate(['/previous-page']);
+    }
 
     public hideViewDialog() {
         this.viewDialog = false;

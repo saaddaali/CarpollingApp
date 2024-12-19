@@ -38,7 +38,8 @@ import {TrajetPassengerService} from 'src/app/shared/service/passenger/trajet/Tr
 @Component({
   selector: 'app-reservation-list-passenger',
   templateUrl: './reservation-list-passenger.component.html',
-    styleUrls: ['./reservation-list-passenger.component.scss']
+    styleUrls: ['./reservation-list-passenger.component.scss'],
+    providers: [DatePipe]
 })
 export class ReservationListPassengerComponent implements OnInit {
 
@@ -53,7 +54,7 @@ export class ReservationListPassengerComponent implements OnInit {
     private _pdfName: string;
 
 
-    protected datePipe: DatePipe;
+    //protected datePipe: DatePipe;
     protected messageService: MessageService;
     protected confirmationService: ConfirmationService;
     protected roleService: RoleService;
@@ -72,7 +73,7 @@ export class ReservationListPassengerComponent implements OnInit {
     conversations: Array<ConversationDto>;
 
 
-    constructor( private service: ReservationPassengerService  , private driverService: DriverPassengerService, private passengerService: PassengerPassengerService, private carteBancaireService: CarteBancairePassengerService, private conversationService: ConversationPassengerService, private trajetService: TrajetPassengerService, @Inject(PLATFORM_ID) private platformId?) {
+    constructor( private service: ReservationPassengerService , private datePipe: DatePipe, private driverService: DriverPassengerService, private passengerService: PassengerPassengerService, private carteBancaireService: CarteBancairePassengerService, private conversationService: ConversationPassengerService, private trajetService: TrajetPassengerService, @Inject(PLATFORM_ID) private platformId?) {
         this.datePipe = ServiceLocator.injector.get(DatePipe);
         this.messageService = ServiceLocator.injector.get(MessageService);
         this.confirmationService = ServiceLocator.injector.get(ConfirmationService);
@@ -80,6 +81,7 @@ export class ReservationListPassengerComponent implements OnInit {
         this.router = ServiceLocator.injector.get(Router);
         this.authService = ServiceLocator.injector.get(AuthService);
         this.exportService = ServiceLocator.injector.get(ExportService);
+
     }
 
     ngOnInit(): void {
@@ -91,29 +93,69 @@ export class ReservationListPassengerComponent implements OnInit {
         this.loadDriver();
         this.loadCarteBancaire();
         this.loadConversation();
+        this.findPaginatedByCriteria();
+        this.initCol();
+
+        //log pour déboguer
+        this.service.findPaginatedByCriteria(this.criteria).subscribe(paginatedItems => {
+            console.log('Données des réservations:', paginatedItems);
+            this.items = paginatedItems.list;
+        });
 
     }
+    // NOUVELLES MÉTHODES
+    getFormattedDate(date: any, format: string): string {
+        if (!date) return 'N/A';
+        return this.datePipe.transform(date, format) || 'N/A';
+    }
 
+    getVilleDepart(reservation: ReservationDto): string {
+        return reservation?.trajet?.localisationSource?.libelle || '--';
+    }
+
+    getVilleArrivee(reservation: ReservationDto): string {
+        return reservation?.trajet?.localisationDestination?.libelle || '--';
+    }
+
+    getHeureDepart(reservation: ReservationDto): string {
+        if (reservation?.trajet?.horaireDepart) {
+            return this.datePipe.transform(reservation.trajet.horaireDepart, 'HH:mm') || '--:--';
+        }
+        return '--:--';
+    }
+
+    getHeureArrivee(reservation: ReservationDto): string {
+        if (reservation?.trajet?.horaireArrive) {
+            return this.datePipe.transform(reservation.trajet.horaireArrive, 'HH:mm') || '--:--';
+        }
+        return '--:--';
+    }
+
+    getUpcomingTripsCount(): number {
+        if (!this.items) return 0;
+        const today = new Date();
+        return this.items.filter(reservation => {
+            if (!reservation.trajet?.horaireDepart) return false;
+            const departDate = new Date(reservation.trajet.horaireDepart);
+            return departDate > today;
+        }).length;
+    }
+
+    getTotalDistance(): number {
+        if (!this.items) return 0;
+        const AVERAGE_DISTANCE = 100;
+        const completedTrips = this.items.filter(reservation => {
+            if (!reservation.trajet?.horaireDepart) return false;
+            const departDate = new Date(reservation.trajet.horaireDepart);
+            return departDate < new Date();
+        });
+        return completedTrips.length * AVERAGE_DISTANCE;
+    }
+//
 
     public initCriteria() {
         this.criteria = new ReservationCriteria();
         this.findPaginatedByCriteria();
-    }
-
-    getStatusSeverity(reservation: any): string {
-        // Exemple de logique pour déterminer le statut
-        if (reservation.datePaiement) {
-            return 'success';
-        }
-        return 'warning';
-    }
-
-    getStatusLabel(reservation: any): string {
-        // Exemple de logique pour l'étiquette du statut
-        if (reservation.datePaiement) {
-            return 'Payé';
-        }
-        return 'En attente';
     }
 
     public onExcelFileSelected(event: any): void {

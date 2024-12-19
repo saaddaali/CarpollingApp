@@ -1,40 +1,109 @@
+<div class="flex-container">
+    <!-- Left Column -->
+    <div class="card left-column">
+        <div class="go-back">
+            <span class="back-arrow">←</span> Go back
+        </div>
 
-<p-dialog [(visible)]="viewDialog" [style]="{width: '70vw'}" header="{{'carteBancaire.tabPan' | translate}}" [modal]="true" styleClass="p-fluid">
-    <ng-template pTemplate="content">
-        <p-tabView>
-            <p-tabPanel header="{{'carteBancaire.tabPan' | translate}}">
-                <div class="grid">
-                    <div class="field col-12 md:col-6">
-                        <label for="1">{{'carteBancaire.titulaire' | translate}}</label>
-                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'carteBancaire.titulaire' | translate}}" autofocus  id="1" [ngModel]="item.titulaire">
-                    </div>
-                    <div class="field col-12 md:col-6">
-                        <label for="2">{{'carteBancaire.numero' | translate}}</label>
-                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'carteBancaire.numero' | translate}}" autofocus  id="2" [ngModel]="item.numero">
-                    </div>
-                    <div class="field col-12 md:col-6">
-                        <label for="3">{{'carteBancaire.dateExpiration' | translate}}</label>
-                        <p-calendar id="3" [disabled]="true"  [showTime]="true" [showSeconds]="false" placeholder="{{'carteBancaire.dateExpiration' | translate}}"  [ngModel]="item.dateExpiration" dateFormat="{{dateFormat}}"></p-calendar>
-                    </div>
-                    <div class="field col-12 md:col-6">
-                        <label for="4">{{'carteBancaire.codeSecret' | translate}}</label>
-                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'carteBancaire.codeSecret' | translate}}" autofocus  id="4" [ngModel]="item.codeSecret">
-                    </div>
+        <h1>Confirm and pay</h1>
+
+        <div class="section">
+            <h2>What's provided</h2>
+            <p class="description">
+                There are things you should have when coming to a lesson. See what's provided by your coach and be sure to bring everything else.
+                <a href="#" class="link">Learn more</a>
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>Who are you booking the lesson for?</h2>
+            <div class="radio-options">
+                <label class="radio-label">
+                    <input type="radio" name="bookingFor" [(ngModel)]="bookingFor" value="self">
+                    <span>I'm booking it for myself</span>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="bookingFor" [(ngModel)]="bookingFor" value="other">
+                    <span>I'm booking it for someone else</span>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" class="input-field" value="Jonathan Moriarty">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="text" class="input-field" value="14 years">
                 </div>
-            </p-tabPanel>
+                <div class="form-group">
+                    <label>Phone number</label>
+                    <input type="text" class="input-field" value="+1 (321) - 453 - 3325">
+                </div>
+            </div>
 
-        </p-tabView>
-
-    </ng-template>
-
-    <ng-template pTemplate="footer" >
-        <div class="p-flexbox">
-            <div>
-                <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideViewDialog()"></button>
+            <div class="form-group">
+                <label>Add notes (optional)</label>
+                <textarea class="input-field" placeholder="Greet your coach. What do you want to accomplish?"></textarea>
             </div>
         </div>
-    </ng-template>
-</p-dialog>
+    </div>
 
+    <!-- Right Column -->
+    <div class="card right-column">
+        <h2>Payment details</h2>
+        <p class="description">Payment will be charged after the lesson.</p>
 
+        <div class="radio-options payment-options">
+            <label class="radio-label">
+                <input type="radio" name="paymentMethod" value="visa">
+                <span>Visa •••• 3679 (expires 12/24)</span>
+            </label>
+            <label class="radio-label">
+                <input type="radio" name="paymentMethod" value="mastercard">
+                <span>MasterCard •••• 2193 (expires 03/22)</span>
+            </label>
+            <label class="radio-label">
+                <input type="radio" name="paymentMethod" value="new" checked>
+                <span>New payment method</span>
+            </label>
+        </div>
 
+        <div class="form-row">
+            <div class="form-group">
+                <label>Card number</label>
+                <input type="text" class="input-field" value="1234 5678 1234 7652">
+            </div>
+            <div class="form-group">
+                <label>Cardholder's name</label>
+                <input type="text" class="input-field" value="Jonathan Moriarty">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Expiration date</label>
+                <input type="text" class="input-field" value="02/23" placeholder="MM/YY">
+            </div>
+            <div class="form-group">
+                <label>CVC</label>
+                <input type="text" class="input-field" value="•••">
+            </div>
+        </div>
+
+        <label class="checkbox-label">
+            <input type="checkbox" checked>
+            <span>Save payment information to my account for future purchases</span>
+        </label>
+
+        <div class="cancellation-policy">
+            <h3>Cancellation policy</h3>
+            <p>
+                Free cancellation up to 24 hours before lesson starts. If you cancel a class less than 24 hours before the start of the lesson, the booking will not be refunded.
+                <a href="#" class="link">Learn more</a>
+            </p>
+        </div>
+    </div>
+</div>
