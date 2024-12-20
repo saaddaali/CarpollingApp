@@ -1,7 +1,13 @@
 package  ma.zyn.app.ws.facade.passenger.paiement;
 
+import com.stripe.net.StripeResponse;
 import io.swagger.v3.oas.annotations.Operation;
 
+import ma.zyn.app.bean.core.reservation.Reservation;
+import ma.zyn.app.service.facade.passenger.reservation.ReservationPassengerService;
+import ma.zyn.app.service.impl.passenger.paiement.StripeService;
+import ma.zyn.app.ws.dto.reservation.ReservationDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import ma.zyn.app.bean.core.paiement.CarteBancaire;
@@ -36,6 +42,21 @@ public class CarteBancaireRestPassenger {
             status = HttpStatus.OK;
         res = new ResponseEntity<>(dtos, status);
         return res;
+    }
+
+    @Operation(summary = "Payé")
+    @PostMapping("/checkout")
+    public ResponseEntity<String> checkoutProducts(@RequestBody Long reservationId) {
+        Reservation reservation = reservationService.findById(reservationId);
+        if (reservation == null) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Reservation not found");
+        }
+        String stripeResponse = stripeService.checkOut(reservation);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(stripeResponse.toString());
     }
 
 
@@ -176,6 +197,12 @@ public class CarteBancaireRestPassenger {
 
     private final CarteBancairePassengerService service;
     private final CarteBancaireConverter converter;
+
+    @Autowired
+    private StripeService stripeService;
+
+    @Autowired
+    private  ReservationPassengerService reservationService;
 
 
 

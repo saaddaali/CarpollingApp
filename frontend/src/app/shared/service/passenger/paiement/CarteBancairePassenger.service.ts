@@ -53,6 +53,10 @@ export class CarteBancairePassengerService {
         return this.http.get<Array<CarteBancaireDto>>(this.API);
     }
 
+    public checkOut(reservationId: number) {
+        return this.http.post<Array<CarteBancaireDto>>(this.API + 'checkout',reservationId);
+    }
+
     public findAllOptimized() {
         return this.http.get<Array<CarteBancaireDto>>(this.API + 'optimized');
     }

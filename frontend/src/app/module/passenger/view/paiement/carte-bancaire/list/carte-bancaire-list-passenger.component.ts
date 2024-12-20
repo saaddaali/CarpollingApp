@@ -1,28 +1,21 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {CarteBancairePassengerService} from 'src/app/shared/service/passenger/paiement/CarteBancairePassenger.service';
 import {CarteBancaireDto} from 'src/app/shared/model/paiement/CarteBancaire.model';
 import {CarteBancaireCriteria} from 'src/app/shared/criteria/paiement/CarteBancaireCriteria.model';
 
 
-import {ConfirmationService, MessageService,MenuItem} from 'primeng/api';
-import {FileTempDto} from 'src/app/zynerator/dto/FileTempDto.model';
+import {ConfirmationService, MenuItem, MessageService} from 'primeng/api';
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
-import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
 
 import {environment} from 'src/environments/environment';
 
 import {RoleService} from 'src/app/zynerator/security/shared/service/Role.service';
-import {AbstractService} from 'src/app/zynerator/service/AbstractService';
-import {BaseDto} from 'src/app/zynerator/dto/BaseDto.model';
-import {BaseCriteria} from 'src/app/zynerator/criteria/BaseCriteria.model';
 import {StringUtilService} from 'src/app/zynerator/util/StringUtil.service';
 import {ServiceLocator} from 'src/app/zynerator/service/ServiceLocator';
 
 import {AuthService} from 'src/app/zynerator/security/shared/service/Auth.service';
 import {ExportService} from 'src/app/zynerator/util/Export.service';
-
-
 
 
 @Component({
@@ -73,6 +66,14 @@ export class CarteBancaireListPassengerComponent implements OnInit {
 
     }
 
+
+    paye(){
+        this.service.checkOut(1).subscribe(
+            res => {
+                console.log(res);
+            }
+        );
+    }
 
 
 

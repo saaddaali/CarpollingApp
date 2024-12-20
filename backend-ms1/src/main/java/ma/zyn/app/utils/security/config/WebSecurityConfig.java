@@ -61,23 +61,24 @@ public class WebSecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                                .requestMatchers("/login").permitAll()
-                                .requestMatchers("/forgetPassword", "/register/**", "/verify", "/activateAccount", "/api/user/resend-activation-code", "/api/user/send-forget-password-code", "/api/user/reset-password").permitAll()
-                                .requestMatchers("/actuator/**").permitAll()
-                                .requestMatchers("/api/open/**").permitAll()
-                                .requestMatchers("/api/user/**").permitAll()
-                                .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll() // Permit access to Swagger UI and API docs
-                                .requestMatchers("/api/admin/login").permitAll()
-                                .requestMatchers("/api/driver/login").permitAll()
-                                .requestMatchers("/register/passenger/**").permitAll()
-                                .requestMatchers("/api/passenger/login").permitAll()
-                                .requestMatchers("/api/passenger/driver/optimized").permitAll()
-                                .requestMatchers("/api/passenger/trajet/find-paginated-by-criteria").permitAll()
-                                .requestMatchers("/api/passenger/ville/optimized").permitAll()
-                                .requestMatchers("/api/admin/**").hasAnyAuthority(AuthoritiesConstants.ADMIN)
-                                .requestMatchers("/api/driver/**").hasAnyAuthority(AuthoritiesConstants.DRIVER)
-                                .requestMatchers("/api/passenger/**").hasAnyAuthority(AuthoritiesConstants.PASSENGER)
-                               .anyRequest().authenticated()
+                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/forgetPassword", "/register/**", "/verify", "/activateAccount", "/api/user/resend-activation-code", "/api/user/send-forget-password-code", "/api/user/reset-password").permitAll()
+                        .requestMatchers("/actuator/**").permitAll()
+                        .requestMatchers("/api/open/**").permitAll()
+                        .requestMatchers("/api/user/**").permitAll()
+                        .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll() // Permit access to Swagger UI and API docs
+                        .requestMatchers("/api/admin/login").permitAll()
+                        .requestMatchers("/api/driver/login").permitAll()
+                        .requestMatchers("/register/passenger/**").permitAll()
+                        .requestMatchers("api/passenger/carteBancaire/checkout").permitAll() //to test
+                        .requestMatchers("/api/passenger/login").permitAll()
+                        .requestMatchers("/api/passenger/driver/optimized").permitAll() //test
+                        .requestMatchers("/api/passenger/trajet/find-paginated-by-criteria").permitAll() //test
+                        .requestMatchers("/api/passenger/ville/optimized").permitAll() //test
+                        .requestMatchers("/api/admin/**").hasAnyAuthority(AuthoritiesConstants.ADMIN)
+                        .requestMatchers("/api/driver/**").hasAnyAuthority(AuthoritiesConstants.DRIVER)
+                        .requestMatchers("/api/passenger/**").hasAnyAuthority(AuthoritiesConstants.PASSENGER)
+                        .anyRequest().authenticated()
 
                 );
 

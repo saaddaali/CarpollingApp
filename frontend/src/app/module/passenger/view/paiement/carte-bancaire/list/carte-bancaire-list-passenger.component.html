@@ -4,7 +4,8 @@
         <div class="card">
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
-                                        <button pButton pRipple label=" {{'new' | translate}}" icon="pi pi-plus" class="p-button-info mr-2 mb-2" (click)="openCreate('CarteBancaire')" *ngIf="createActionIsValid"></button>
+                    <button pButton pRipple label=" {{'new' | translate}}" icon="pi pi-plus" class="p-button-info mr-2 mb-2" (click)="openCreate('CarteBancaire')" *ngIf="createActionIsValid"></button>
+                    <button pButton pRipple label="Paye" icon="pi pi-eye" class="p-button-rounded p-button-raised p-button-success mr-2" (click)="paye()"></button>
                     <button [disabled]="isSelectionDisabled()" pButton pRipple label=" {{'delete' | translate}}" icon="pi pi-trash" class="p-button-danger mr-2 mb-2" (click)=deleteMultiple()  *ngIf="deleteActionIsValid"></button>
                     <button pButton pRipple label=" {{'search' | translate}}" icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}" class="p-button-secondary mr-2 mb-2" (click)="this.showSearch()"></button>
                 </ng-template>
@@ -73,7 +74,7 @@
                         <th style="width: 3rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
-                                
+
                         <th pSortableColumn="titulaire">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'carteBancaire.titulaire' | translate}}</span>
@@ -81,8 +82,8 @@
                                 <p-columnFilter type="text" field="element.titulaire" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                                
-                                
+
+
                         <th pSortableColumn="numero">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'carteBancaire.numero' | translate}}</span>
@@ -90,16 +91,16 @@
                                 <p-columnFilter type="text" field="element.numero" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                                
-                                
+
+
                         <th pSortableColumn="dateExpiration">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'carteBancaire.dateExpiration' | translate}}</span>
                                 <p-sortIcon field="dateExpiration"></p-sortIcon>
                             </div>
                         </th>
-                                
-                                
+
+
                         <th pSortableColumn="codeSecret">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'carteBancaire.codeSecret' | translate}}</span>
@@ -107,7 +108,7 @@
                                 <p-columnFilter type="text" field="element.codeSecret" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                                
+
                         <th>Actions</th>
                     </tr>
                 </ng-template>
@@ -116,18 +117,18 @@
                         <td>
                             <p-tableCheckbox [value]="element"></p-tableCheckbox>
                         </td>
-                            
+
                         <td>{{element.titulaire}}</td>
-                            
-                            
+
+
                         <td>{{element.numero}}</td>
-                            
-                            
+
+
                         <td>{{element.dateExpiration | date :'dd/MM/yyyy HH:mm' }}</td>
-                            
-                            
+
+
                         <td>{{element.codeSecret}}</td>
-                            
+
                         <td>
                             <button pButton pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-info mr-2" (click)="edit(element)"  *ngIf="editActionIsValid"></button>
                             <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-secondary mr-2" (click)="view(element)"  *ngIf="viewActionIsValid"></button>
