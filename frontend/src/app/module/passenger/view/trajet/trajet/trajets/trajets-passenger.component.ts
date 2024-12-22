@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import {ConfirmationService, MessageService} from 'primeng/api';
 
 import {DatePipe} from '@angular/common';
@@ -38,6 +38,7 @@ export class TrajetsPassengerComponent implements OnInit {
     protected router: Router;
     protected stringUtilService: StringUtilService;
     private _activeTab = 0;
+
 
 
     constructor(private service: TrajetPassengerService, private driverService: DriverPassengerService, private villeService: VillePassengerService, @Inject(PLATFORM_ID) private platformId?) {

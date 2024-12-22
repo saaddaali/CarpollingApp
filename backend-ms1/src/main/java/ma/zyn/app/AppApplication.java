@@ -65,7 +65,7 @@ public class AppApplication {
     @Bean
     public CommandLineRunner demo(UserService userService, RoleService roleService, ModelPermissionService modelPermissionService, ActionPermissionService actionPermissionService, ModelPermissionUserService modelPermissionUserService, DriverAdminService driverService, PassengerAdminService passengerService) {
         return (args) -> {
-            if (true) {
+            if (false) {
         /*
         List<ModelPermission> modelPermissions = new ArrayList<>();
         addPermission(modelPermissions);

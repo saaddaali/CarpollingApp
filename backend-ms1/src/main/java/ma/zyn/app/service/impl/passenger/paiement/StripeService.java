@@ -19,25 +19,20 @@ public class StripeService {
     private String secretKey;
 
 
-    public String checkOut(Reservation reservation) {
+    public String checkOut(Long amount) {
         Stripe.apiKey = "sk_test_51Onk9WAf41bGTPf1uDA4T1bs0C4wJUZFTwC71e1wSUIvIUwzMS6v3aW7Bz6HaWu7hudXfj51TwPz2d25fiqvE0c800cbWkZahr";
         if (Stripe.apiKey == null || Stripe.apiKey.isEmpty()) {
             throw new IllegalStateException("Stripe API key is not set. Please configure it in environment variables.");
         }
 
-        // Validate reservation
-        if (reservation == null || reservation.getTrajet() == null || reservation.getTrajet().getPrix() == null) {
-            throw new IllegalArgumentException("Invalid reservation data.");
-        }
-
-        Long amount = reservation.getTrajet().getPrix().multiply(BigDecimal.valueOf(100)).longValue(); // Convert to centimes
 
         // Create product data
         SessionCreateParams.LineItem.PriceData.ProductData productData =
                 SessionCreateParams.LineItem.PriceData.ProductData.builder()
-                        .setName("Reservation id : " + reservation.getId())
+                        .setName("Reservation")
                         .build();
 
+        amount = amount * 10; // Convert amount to cents
         // Create price data
         SessionCreateParams.LineItem.PriceData priceData =
                 SessionCreateParams.LineItem.PriceData.builder()
@@ -58,7 +53,7 @@ public class StripeService {
                 .addLineItem(lineItem)
                 .setMode(SessionCreateParams.Mode.PAYMENT)
                 .setSuccessUrl("http://localhost:4200/success")
-                .setCancelUrl("http://localhost:4200/cancel")
+                .setCancelUrl("http://localhost:4200/app/passenger/trajet")
                 .build();
 
         // Create session

@@ -46,14 +46,8 @@ public class CarteBancaireRestPassenger {
 
     @Operation(summary = "Payé")
     @PostMapping("/checkout")
-    public ResponseEntity<String> checkoutProducts(@RequestBody Long reservationId) {
-        Reservation reservation = reservationService.findById(reservationId);
-        if (reservation == null) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body("Reservation not found");
-        }
-        String stripeResponse = stripeService.checkOut(reservation);
+    public ResponseEntity<String> checkoutProducts(@RequestBody Long amount) {
+        String stripeResponse = stripeService.checkOut(amount);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(stripeResponse.toString());

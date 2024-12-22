@@ -9,10 +9,10 @@
             <!-- Retour Button on top left -->
             <div class="flex align-items-center mr-3">
                 <p-button
-                    label="Retour"
+                    label="Annuler"
                     icon="pi pi-arrow-left"
                     styleClass="p-button-outlined p-button-secondary"
-                    (onClick)="hideViewDialog()">
+                    (onClick)="back()">
                 </p-button>
             </div>
 
@@ -57,7 +57,7 @@
                         <div class="car-info">
                             <div class="car-detail">
                                 <i class="pi pi-user"></i>
-                                <span class="detail-text">{{ this.trajet.placesDisponibles }}</span>
+                                <span class="detail-text">1</span>
                             </div>
                             <div class="car-detail">
                                 <i class="pi pi-car"></i>
@@ -120,7 +120,7 @@
                         <!-- Second Detail Item -->
                         <div class="detail-item" style="display: flex; flex-direction: column; align-items: flex-start; width: 33%;">
                             <label>Nombre de place</label>
-                            <span class="font-semibold">{{ this.trajet.placesDisponibles }}</span>
+                            <span class="font-semibold">1</span>
                         </div>
 
                         <!-- Third Detail Item -->
@@ -137,7 +137,7 @@
 
         <div class="flex mt-4" style="justify-content: center;">
             <div class="flex justify-content-center reserve-button-container">
-                <button class="reserve-button">
+                <button class="reserve-button" (click)="paye()">
                     <i class="pi pi-check"></i>
                     <span>Confirmer</span>
                 </button>

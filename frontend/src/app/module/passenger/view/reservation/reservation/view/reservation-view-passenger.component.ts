@@ -53,7 +53,7 @@ export class ReservationViewPassengerComponent implements OnInit {
 
 
 
-    constructor(private service: ReservationPassengerService, private driverService: DriverPassengerService, private passengerService: PassengerPassengerService, private carteBancaireService: CarteBancairePassengerService, private conversationService: ConversationPassengerService, private trajetService: TrajetPassengerService, private authService: AuthService){
+    constructor(private service: ReservationPassengerService, private driverService: DriverPassengerService, private passengerService: PassengerPassengerService, private carteBancaireService: CarteBancairePassengerService, private conversationService: ConversationPassengerService, private trajetService: TrajetPassengerService, private authService: AuthService,private carteBancairePassengerService:CarteBancairePassengerService){
 		this.datePipe = ServiceLocator.injector.get(DatePipe);
         this.messageService = ServiceLocator.injector.get(MessageService);
         this.confirmationService = ServiceLocator.injector.get(ConfirmationService);
@@ -74,6 +74,10 @@ export class ReservationViewPassengerComponent implements OnInit {
         );
     }
 
+    back(){
+        this.router.navigate(['/app/passenger/trajet']);
+    }
+
     startConversation(){
         this.conversation = new ConversationDto();
         this.conversation.passenger= this.passenger
@@ -87,6 +91,30 @@ export class ReservationViewPassengerComponent implements OnInit {
         );
         this.router.navigate(['/app/passenger/message/conversation/view/' + Number(this.conversation.id)]);
     }
+
+    paye() {
+        this.item.passenger = this.passenger;
+        this.item.trajet = this.trajet;
+        this.item.dateReservation = new Date();
+        this.item.driver = this.trajet.driver;
+        this.item.montant = this.trajet.prix;
+
+        this.carteBancairePassengerService.checkOut(this.item.montant).subscribe(
+            (data: string) => {
+                if (data) {
+                    console.log('Redirecting to:', data);
+                    window.location.href = data; // Redirect the user to the provided link
+                } else {
+                    console.error('Error: No URL returned');
+                }
+            },
+            (error) => {
+                console.error('Checkout failed', error);
+            }
+        );
+    }
+
+
 
     findPassengerByUsername(){
         console.log(this.authenticatedUser.username)

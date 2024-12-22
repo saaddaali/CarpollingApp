@@ -41,6 +41,23 @@ export class TrajetViewPassengerComponent implements OnInit {
     protected router: Router;
     protected stringUtilService: StringUtilService;
 
+    nbrPlace = 1;
+
+    showDropdown: boolean = false; // Contrôle de l'affichage du menu déroulant
+
+    toggleDropdown() {
+        this.showDropdown = !this.showDropdown;
+    }
+
+    selectPlace(place: number) {
+        this.nbrPlace = place;
+        this.showDropdown = false;
+    }
+
+    generatePlaces(max: number): number[] {
+        return Array.from({ length: max }, (_, i) => i + 1);
+    }
+
     // Adaptation de la méthode goBack pour gérer les deux vues
     goBack() {
         if (this.showDriverProfile) {
@@ -68,6 +85,7 @@ export class TrajetViewPassengerComponent implements OnInit {
     }
 
     reserver(){
+        this.item.placesDisponibles= this.nbrPlace;
         this.router.navigate(['/reservations/view/'+this.item.id]);
     }
 
