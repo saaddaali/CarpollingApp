@@ -93,16 +93,20 @@ export class ReservationViewPassengerComponent implements OnInit {
     }
 
     paye() {
-        this.item.passenger = this.passenger;
         this.item.trajet = this.trajet;
         this.item.dateReservation = new Date();
         this.item.driver = this.trajet.driver;
         this.item.montant = this.trajet.prix;
-
         this.carteBancairePassengerService.checkOut(this.item.montant).subscribe(
             (data: string) => {
                 if (data) {
                     console.log('Redirecting to:', data);
+                    this.service.save().subscribe(
+                        (data: ReservationDto) => {
+                            this.item = data;
+                            console.log('Reservation created:', data);
+                        }
+                    );
                     window.location.href = data; // Redirect the user to the provided link
                 } else {
                     console.error('Error: No URL returned');

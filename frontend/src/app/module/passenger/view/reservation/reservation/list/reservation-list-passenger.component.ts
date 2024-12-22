@@ -103,6 +103,19 @@ export class ReservationListPassengerComponent implements OnInit {
         });
 
     }
+
+    //cree reservation paye
+    cree(){
+        if (this.item){
+            this.service.save().subscribe(data => {
+                this.items.push(data);
+                this.createDialog = false;
+                this.item = new ReservationDto();
+            }
+        );
+        }
+    }
+
     // NOUVELLES MÉTHODES
     getFormattedDate(date: any, format: string): string {
         if (!date) return 'N/A';

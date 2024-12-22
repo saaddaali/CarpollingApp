@@ -2,6 +2,12 @@ package  ma.zyn.app.ws.facade.passenger.reservation;
 
 import io.swagger.v3.oas.annotations.Operation;
 
+import ma.zyn.app.bean.core.passenger.Passenger;
+import ma.zyn.app.service.impl.passenger.passenger.PassengerPassengerServiceImpl;
+import ma.zyn.app.utils.security.bean.User;
+import ma.zyn.app.ws.converter.passenger.PassengerConverter;
+import ma.zyn.app.ws.dto.passenger.PassengerDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import ma.zyn.app.bean.core.reservation.Reservation;
@@ -13,6 +19,7 @@ import ma.zyn.app.utils.util.PaginatedList;
 
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -52,10 +59,30 @@ public class ReservationRestPassenger {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
+    public String getCurrentUser() {
+        if (SecurityContextHolder.getContext().getAuthentication() != null) {
+            Object currentUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (currentUser != null && currentUser instanceof String) {
+                return (String) currentUser;
+            } else if (currentUser != null && currentUser instanceof User) {
+                return ((User) currentUser).getUsername();
+            } else return null;
+        }
+
+        return null;
+    }
 
     @Operation(summary = "Saves the specified  reservation")
     @PostMapping("")
     public ResponseEntity<ReservationDto> save(@RequestBody ReservationDto dto) throws Exception {
+        String currentUser = getCurrentUser();
+        Passenger passenger = passengerService.findByUsername(currentUser);
+        PassengerDto passengerDto = passengerConverter.toDto(passenger);
+        dto.setConversation(null);
+        if (passenger != null) {
+            dto.setPassenger(passengerDto);
+        }
+
         if(dto!=null){
             converter.init(true);
             Reservation myT = converter.toItem(dto);
@@ -204,7 +231,11 @@ public class ReservationRestPassenger {
 
     private final ReservationPassengerService service;
     private final ReservationConverter converter;
+    @Autowired
+    private PassengerConverter passengerConverter;
 
+    @Autowired
+    private  PassengerPassengerServiceImpl passengerService;
 
 
 
