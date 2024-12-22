@@ -226,12 +226,12 @@ class TripDetailsScreen extends StatelessWidget {
                                           ),
                                         ],
                                       ),
-                                      Padding(
+                                      const Padding(
                                         padding:
-                                            const EdgeInsets.only(left: 28),
+                                            EdgeInsets.only(left: 28),
                                         child: Text(
                                           'No details',
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             color: textGrey,
                                             fontSize: 14,
                                           ),

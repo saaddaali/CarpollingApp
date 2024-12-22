@@ -18,12 +18,7 @@ class DriverListScreen extends StatefulWidget {
   static const Color backgroundColor = Color(0xFFF5F5F5);
   static const Color lightBlue = Color(0xFFFFFFFF);
   static const Color textGrey = Color(0xFF757575);
-  static const String baseImageUrl = 'http://localhost:8036';
 
-  static String getImageUrl(String? photoPath) {
-    if (photoPath == null) return '';
-    return '$baseImageUrl/../../frontend/src/${photoPath.replaceFirst('assets/', '')}';
-  }
 
   const DriverListScreen({
     super.key,
@@ -357,7 +352,6 @@ class _DriverListScreenState extends State<DriverListScreen> {
     required int availableSeats,
     required int totalSeats,
     required double price,
-    String? driverPhoto,
   }) {
     bool isSelected = selectedCityName == cityName &&
         selectedStartTime == startTime &&
@@ -521,19 +515,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
                   CircleAvatar(
                     radius: 20,
                     backgroundColor: Colors.grey[300],
-                    child: driverPhoto != null
-                        ? ClipOval(
-                            child: Image.network(
-                              driverPhoto,
-                              width: 40,
-                              height: 40,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return const Icon(Icons.person, color: Colors.white);
-                              },
-                            ),
-                          )
-                        : const Icon(Icons.person, color: Colors.white),
+                    child:const Icon(Icons.person, color: Colors.white),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -641,7 +623,6 @@ class _DriverListScreenState extends State<DriverListScreen> {
           availableSeats: trajet.placesDisponibles,
           totalSeats: trajet.placesMax,
           price: trajet.prix,
-          driverPhoto: trajet.driver.photo,
         );
       },
     );
