@@ -27,6 +27,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/fonts/
+    - assets/demo/images/avatar/
   fonts:
     # Custom font - Poppins
     - family: Poppins

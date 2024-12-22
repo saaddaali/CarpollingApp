@@ -5,6 +5,8 @@ import 'package:mycarpooling2/screens/passenger-screens/date_picker_screen.dart'
 import 'package:mycarpooling2/screens/passenger-screens/departure_city_screen.dart';
 import 'package:mycarpooling2/screens/passenger-screens/seats_screen.dart';
 import 'package:mycarpooling2/screens/passenger-screens/trip_details_screen.dart';
+import 'package:mycarpooling2/services/trajet_service.dart';
+import 'package:mycarpooling2/models/trajet.dart';
 
 class DriverListScreen extends StatefulWidget {
   final String departureCity;
@@ -16,6 +18,12 @@ class DriverListScreen extends StatefulWidget {
   static const Color backgroundColor = Color(0xFFF5F5F5);
   static const Color lightBlue = Color(0xFFFFFFFF);
   static const Color textGrey = Color(0xFF757575);
+  static const String baseImageUrl = 'http://localhost:8036';
+
+  static String getImageUrl(String? photoPath) {
+    if (photoPath == null) return '';
+    return '$baseImageUrl/../../frontend/src/${photoPath.replaceFirst('assets/', '')}';
+  }
 
   const DriverListScreen({
     super.key,
@@ -30,6 +38,11 @@ class DriverListScreen extends StatefulWidget {
 }
 
 class _DriverListScreenState extends State<DriverListScreen> {
+  final TrajetService _trajetService = TrajetService();
+  List<Trajet> _trajets = [];
+  bool _isLoading = true;
+  String? _error;
+
   // Variables pour stocker les détails du trajet sélectionné
   String? selectedCityName;
   String? selectedLocationDetails;
@@ -43,6 +56,38 @@ class _DriverListScreenState extends State<DriverListScreen> {
   int? selectedAvailableSeats;
   int? selectedTotalSeats;
   double? selectedPrice;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadTrajets();
+  }
+
+  Future<void> _loadTrajets() async {
+    try {
+      setState(() {
+        _isLoading = true;
+        _error = null;
+      });
+
+      final trajets = await _trajetService.findByCriteria(
+        villeDepartLibelle: widget.departureCity,
+        villeArriveeLibelle: widget.arrivalCity,
+        //dateDepart: widget.selectedDate,
+        nombrePlaceMin: widget.seats,
+      );
+
+      setState(() {
+        _trajets = trajets;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _error = e.toString();
+        _isLoading = false;
+      });
+    }
+  }
 
   void _showFilterDialog(BuildContext context) {
     showModalBottomSheet(
@@ -236,6 +281,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.pop(context);
+                    _loadTrajets();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: DriverListScreen.primaryBlue,
@@ -311,6 +357,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
     required int availableSeats,
     required int totalSeats,
     required double price,
+    String? driverPhoto,
   }) {
     bool isSelected = selectedCityName == cityName &&
         selectedStartTime == startTime &&
@@ -474,7 +521,19 @@ class _DriverListScreenState extends State<DriverListScreen> {
                   CircleAvatar(
                     radius: 20,
                     backgroundColor: Colors.grey[300],
-                    child: const Icon(Icons.person, color: Colors.white),
+                    child: driverPhoto != null
+                        ? ClipOval(
+                            child: Image.network(
+                              driverPhoto,
+                              width: 40,
+                              height: 40,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return const Icon(Icons.person, color: Colors.white);
+                              },
+                            ),
+                          )
+                        : const Icon(Icons.person, color: Colors.white),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -534,6 +593,57 @@ class _DriverListScreenState extends State<DriverListScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildTrajetsList() {
+    if (_isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (_error != null) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Error: $_error'),
+            ElevatedButton(
+              onPressed: _loadTrajets,
+              child: const Text('Retry'),
+            ),
+          ],
+        ),
+      );
+    }
+
+    if (_trajets.isEmpty) {
+      return const Center(
+        child: Text('No trips found for these criteria'),
+      );
+    }
+
+    return ListView.builder(
+      padding: const EdgeInsets.all(20),
+      itemCount: _trajets.length,
+      itemBuilder: (context, index) {
+        final trajet = _trajets[index];
+        return _buildTripCard(
+          context,
+          cityName: trajet.villeDepart.libelle,
+          locationDetails: 'Pas de détails',
+          endCityName: trajet.villeDestination.libelle,
+          endLocationDetails: 'Pas de détails',
+          startTime: DateFormat('HH:mm').format(trajet.horaireDepart),
+          endTime: DateFormat('HH:mm').format(trajet.horaireArrive),
+          driverName: trajet.driver.username,
+          rating: trajet.driver.evaluation,
+          reviews: 0,
+          availableSeats: trajet.placesDisponibles,
+          totalSeats: trajet.placesMax,
+          price: trajet.prix,
+          driverPhoto: trajet.driver.photo,
+        );
+      },
     );
   }
 
@@ -613,42 +723,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
               ),
             ),
             Expanded(
-              child: ListView(
-                padding: const EdgeInsets.all(20),
-                children: [
-                  _buildTripCard(
-                    context,
-                    cityName: 'Casablanca',
-                    locationDetails: 'Al fida',
-                    endCityName: 'Rabat',
-                    endLocationDetails: 'Autre',
-                    startTime: '12:21',
-                    endTime: '13:27',
-                    driverName: 'Ahmed',
-                    rating: 5.0,
-                    reviews: 26,
-                    availableSeats: 4,
-                    totalSeats: 4,
-                    price: 40.32,
-                  ),
-                  const SizedBox(height: 12),
-                  _buildTripCard(
-                    context,
-                    cityName: 'Casablanca',
-                    locationDetails: 'Autre',
-                    endCityName: 'Rabat',
-                    endLocationDetails: 'Autre',
-                    startTime: '16:00',
-                    endTime: '16:59',
-                    driverName: 'Badreddine',
-                    rating: 4.6,
-                    reviews: 47,
-                    availableSeats: 3,
-                    totalSeats: 3,
-                    price: 40.32,
-                  ),
-                ],
-              ),
+              child: _buildTrajetsList(),
             ),
             Container(
               decoration: BoxDecoration(

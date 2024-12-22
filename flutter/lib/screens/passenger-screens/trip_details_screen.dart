@@ -230,7 +230,7 @@ class TripDetailsScreen extends StatelessWidget {
                                         padding:
                                             const EdgeInsets.only(left: 28),
                                         child: Text(
-                                          locationDetails,
+                                          'No details',
                                           style: const TextStyle(
                                             color: textGrey,
                                             fontSize: 14,
@@ -272,7 +272,7 @@ class TripDetailsScreen extends StatelessWidget {
                                         padding:
                                             const EdgeInsets.only(left: 28),
                                         child: Text(
-                                          endLocationDetails,
+                                          'No details',
                                           style: const TextStyle(
                                             color: textGrey,
                                             fontSize: 14,

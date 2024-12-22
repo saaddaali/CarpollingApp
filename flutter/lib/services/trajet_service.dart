@@ -18,6 +18,7 @@ class TrajetService {
     }
     return headers;
   }
+  
 
   Future<List<Trajet>> findByCriteria({
     String? villeDepartLibelle,
@@ -28,37 +29,68 @@ class TrajetService {
   }) async {
     try {
       final Map<String, dynamic> criteria = {
-        if (villeDepartLibelle != null)
-          'villeDepart': {'libelle': {'equals': villeDepartLibelle}},
-        if (villeArriveeLibelle != null)
-          'villeArrivee': {'libelle': {'equals': villeArriveeLibelle}},
-        if (dateDepart != null)
-          'dateDepart': {'equals': DateFormat('yyyy-MM-dd').format(dateDepart)},
+        'villeDepart': {
+          'libelle': villeDepartLibelle,
+        },
+        'villeDestination': {
+          'libelle': villeArriveeLibelle,
+        },
+        if (dateDepart != null) ...<String, dynamic>{
+          'horaireDepart': dateDepart.toIso8601String(),
+          'horaireDepartFrom': dateDepart.toIso8601String(),
+          'horaireDepartTo': dateDepart
+              .add(const Duration(days: 1))
+              .subtract(const Duration(seconds: 1))
+              .toIso8601String(),
+        },
         if (nombrePlaceMin != null)
-          'nombrePlaceDisponible': {'greaterThanOrEqual': nombrePlaceMin},
-        if (prixMax != null) 'prix': {'lessThanOrEqual': prixMax},
+          'placesDisponiblesMin': nombrePlaceMin.toString(),
+        if (prixMax != null)
+          'prixMax': prixMax.toString(),
       };
 
       final response = await http.post(
         Uri.parse('${baseUrl}find-by-criteria'),
         headers: _headers,
-        body: utf8.encode(json.encode(criteria)),
+        body: json.encode(criteria),
       );
 
+      print('Search trajets - Request body: ${json.encode(criteria)}');
       print('Search trajets - Status: ${response.statusCode}');
       print('Search trajets - Body: ${utf8.decode(response.bodyBytes)}');
 
+      if (response.statusCode == 204) {
+        return [];
+      }
+
       if (response.statusCode == 200) {
-        final List<dynamic> data = json.decode(utf8.decode(response.bodyBytes));
+        final String responseBody = utf8.decode(response.bodyBytes);
+        if (responseBody.isEmpty) {
+          return [];
+        }
+        final List<dynamic> data = json.decode(responseBody);
         return data.map((json) => Trajet.fromJson(json)).toList();
-      } else if (response.statusCode == 401) {
+      }
+
+      if (response.statusCode == 400) {
+        final errorData = json.decode(utf8.decode(response.bodyBytes));
+        throw Exception('Bad Request: ${errorData['message'] ?? errorData['error'] ?? 'Unknown error'}');
+      }
+
+      if (response.statusCode == 401) {
         TokenManager.setToken('');
         throw Exception('Session expirée, veuillez vous reconnecter');
-      } else {
-        throw Exception('Failed to load trajets: ${response.statusCode}');
       }
+
+      throw Exception('Failed to load trajets: ${response.statusCode}');
     } catch (e) {
       print('Error searching trajets: $e');
+      if (e is http.ClientException) {
+        print('Client error details: ${e.message}');
+      }
+      if (e is FormatException) {
+        print('Format error details: ${e.message}');
+      }
       rethrow;
     }
   }
@@ -128,4 +160,6 @@ class TrajetService {
       rethrow;
     }
   }
+
+
 } 

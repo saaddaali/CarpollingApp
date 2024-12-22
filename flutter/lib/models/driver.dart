@@ -1,28 +1,55 @@
 class Driver {
   final int id;
   final String username;
+  final String email;
   final String photo;
-  final String adresse;
-  final DateTime dateInscription;
   final double evaluation;
+  final bool enabled;
+  final bool credentialsNonExpired;
+  final bool accountNonExpired;
+  final bool accountNonLocked;
+  final bool passwordChanged;
 
   Driver({
     required this.id,
     required this.username,
+    required this.email,
     required this.photo,
-    required this.adresse,
-    required this.dateInscription,
     required this.evaluation,
+    required this.enabled,
+    required this.credentialsNonExpired,
+    required this.accountNonExpired,
+    required this.accountNonLocked,
+    required this.passwordChanged,
   });
 
   factory Driver.fromJson(Map<String, dynamic> json) {
     return Driver(
-      id: json['id'],
-      username: json['username'],
+      id: json['id'] ?? 0,
+      username: json['username'] ?? '',
+      email: json['email'] ?? '',
       photo: json['photo'] ?? '',
-      adresse: json['adresse'] ?? '',
-      dateInscription: DateTime.parse(json['dateInscription']),
-      evaluation: double.parse(json['evaluation'].toString()),
+      evaluation: (json['evaluation'] ?? 0.0).toDouble(),
+      enabled: json['enabled'] ?? false,
+      credentialsNonExpired: json['credentialsNonExpired'] ?? false,
+      accountNonExpired: json['accountNonExpired'] ?? false,
+      accountNonLocked: json['accountNonLocked'] ?? false,
+      passwordChanged: json['passwordChanged'] ?? false,
     );
   }
-} 
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'username': username,
+      'email': email,
+      'photo': photo,
+      'evaluation': evaluation,
+      'enabled': enabled,
+      'credentialsNonExpired': credentialsNonExpired,
+      'accountNonExpired': accountNonExpired,
+      'accountNonLocked': accountNonLocked,
+      'passwordChanged': passwordChanged,
+    };
+  }
+}

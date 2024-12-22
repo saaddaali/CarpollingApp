@@ -1,57 +1,62 @@
-import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'city.dart';
+import 'driver.dart';
 
 class Trajet {
   final int id;
+  final DateTime horaireDepart;
+  final DateTime horaireArrive;
+  final int placesDisponibles;
+  final int placesMax;
+  final DateTime dateCreation;
   final City villeDepart;
-  final City villeArrivee;
-  final DateTime dateDepart;
-  final int nombrePlaceDisponible;
+  final City villeDestination;
+  final Driver driver;
   final double prix;
-  final String? description;
 
   Trajet({
     required this.id,
+    required this.horaireDepart,
+    required this.horaireArrive,
+    required this.placesDisponibles,
+    required this.placesMax,
+    required this.dateCreation,
     required this.villeDepart,
-    required this.villeArrivee,
-    required this.dateDepart,
-    required this.nombrePlaceDisponible,
+    required this.villeDestination,
+    required this.driver,
     required this.prix,
-    this.description,
   });
 
   factory Trajet.fromJson(Map<String, dynamic> json) {
-    String decodeString(String? value) {
-      if (value == null) return '';
-      try {
-        return utf8.decode(value.codeUnits);
-      } catch (e) {
-        return value;
-      }
-    }
+    final DateFormat format = DateFormat("MM/dd/yyyy HH:mm");
 
     return Trajet(
       id: json['id'] ?? 0,
-      villeDepart: City.fromJson(json['villeDepart'] ?? {}),
-      villeArrivee: City.fromJson(json['villeArrivee'] ?? {}),
-      dateDepart: DateTime.parse(json['dateDepart'] ?? DateTime.now().toIso8601String()),
-      nombrePlaceDisponible: json['nombrePlaceDisponible'] ?? 0,
-      prix: (json['prix'] ?? 0).toDouble(),
-      description: json['description'] != null ? decodeString(json['description']) : null,
+      horaireDepart: format.parse(json['horaireDepart']),
+      horaireArrive: format.parse(json['horaireArrive']),
+      placesDisponibles: int.parse(json['placesDisponibles'].toString()),
+      placesMax: int.parse(json['placesMax'].toString()),
+      dateCreation: format.parse(json['dateCreation']),
+      villeDepart: City.fromJson(json['villeDepart']),
+      villeDestination: City.fromJson(json['villeDestination']),
+      driver: Driver.fromJson(json['driver']),
+      prix: (json['prix'] ?? 0.0).toDouble(),
     );
   }
 
   Map<String, dynamic> toJson() {
-    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    final DateFormat format = DateFormat("MM/dd/yyyy HH:mm");
     return {
       'id': id,
+      'horaireDepart': format.format(horaireDepart),
+      'horaireArrive': format.format(horaireArrive),
+      'placesDisponibles': placesDisponibles,
+      'placesMax': placesMax,
+      'dateCreation': format.format(dateCreation),
       'villeDepart': villeDepart.toJson(),
-      'villeArrivee': villeArrivee.toJson(),
-      'dateDepart': formatter.format(dateDepart),
-      'nombrePlaceDisponible': nombrePlaceDisponible,
+      'villeDestination': villeDestination.toJson(),
+      'driver': driver.toJson(),
       'prix': prix,
-      if (description != null) 'description': description,
     };
   }
-} 
+}
