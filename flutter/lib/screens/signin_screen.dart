@@ -32,18 +32,21 @@ class _SignInScreenState extends State<SignInScreen> {
       try {
         final response = await http.post(
           Uri.parse('http://localhost:8036/login'),
-          headers: {'Content-Type': 'application/json'},
-          body: json.encode({
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Accept': 'application/json; charset=UTF-8',
+          },
+          body: utf8.encode(json.encode({
             'username': _emailController.text,
             'password': _passwordController.text,
-          }),
+          })),
         );
 
         print('Login response status: ${response.statusCode}');
-        print('Login response body: ${response.body}');
+        print('Login response body: ${utf8.decode(response.bodyBytes)}');
 
         if (response.statusCode == 200) {
-          final responseData = json.decode(response.body);
+          final responseData = json.decode(utf8.decode(response.bodyBytes));
           final token = responseData['accessToken'];
           print('Token received: $token'); // Debug log
           TokenManager.setToken(token);
@@ -53,7 +56,7 @@ class _SignInScreenState extends State<SignInScreen> {
           if (!mounted) return;
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(json.decode(response.body)['message']),
+              content: Text(json.decode(utf8.decode(response.bodyBytes))['message']),
               backgroundColor: Colors.red,
             ),
           );
