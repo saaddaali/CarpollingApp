@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'arrival_city_screen.dart';
+import '../../models/city.dart';
+import '../../services/city_service.dart';
 
 class DepartureCityScreen extends StatefulWidget {
   const DepartureCityScreen({super.key});
@@ -9,52 +11,70 @@ class DepartureCityScreen extends StatefulWidget {
 }
 
 class _DepartureCityScreenState extends State<DepartureCityScreen> {
-  final List<String> allCities = [
-    'Casablanca',
-    'Fes',
-    'Salé',
-    'Marrakech',
-    'Tanger',
-    'Rabat',
-    'Meknes',
-    'Oujda',
-    'Kenitra',
-    'Agadir',
-    'Tetouan',
-    'Temara',
-    'Safi',
-    'Mohammedia',
-    'El Jadida',
-    'Beni Mellal',
-    'Nador',
-    'Khouribga',
-    'Settat',
-    'Berrechid',
-    'Taza',
-    'Khemisset',
-    'Larache',
-    'Ksar El Kebir',
-  ];
-
-  List<String> filteredCities = [];
+  final CityService _cityService = CityService();
+  List<City> filteredCities = [];
+  bool _isLoading = false;
+  String _errorMessage = '';
   final TextEditingController _searchController = TextEditingController();
+
+  Future<void> _loadInitialCities() async {
+    try {
+      setState(() {
+        _isLoading = true;
+        _errorMessage = '';
+      });
+
+      final cities = await _cityService.findAllOptimized();
+      print('Loaded cities: ${cities.length}'); // Debug log
+      cities.forEach((city) => print('City: ${city.name}')); // Debug log
+
+      if (mounted) {
+        setState(() {
+          filteredCities = cities;
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      print('Error loading cities: $e'); // Debug log
+      if (mounted) {
+        setState(() {
+          _errorMessage = 'Erreur lors du chargement des villes';
+          _isLoading = false;
+        });
+      }
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    filteredCities = List.from(allCities);
+    _loadInitialCities();
   }
 
-  void filterCities(String query) {
+  Future<void> filterCities(String query) async {
     if (query.isEmpty) {
       setState(() {
-        filteredCities = List.from(allCities);
+        filteredCities = [];
+        _errorMessage = '';
       });
-    } else {
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+      _errorMessage = '';
+    });
+
+    try {
+      final cities = await _cityService.searchCities(query);
       setState(() {
-        filteredCities = allCities
-            .where((city) => city.toLowerCase().contains(query.toLowerCase()))
-            .toList();
+        filteredCities = cities;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'Erreur lors de la recherche des villes';
+        _isLoading = false;
       });
     }
   }
@@ -154,58 +174,68 @@ class _DepartureCityScreenState extends State<DepartureCityScreen> {
 
             // Cities list
             Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                itemCount: filteredCities.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 12),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF5F5F5),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: ListTile(
-                      leading: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF4052EE).withOpacity(0.1),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.location_on,
-                          color: Color(0xFF4052EE),
-                          size: 20,
-                        ),
-                      ),
-                      title: Text(
-                        filteredCities[index],
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      trailing: const Icon(
-                        Icons.chevron_right,
-                        color: Colors.grey,
-                      ),
-                      onTap: () async {
-                        // Navigation vers l'écran de ville d'arrivée
-                        final result = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ArrivalCityScreen(
-                              departureCity: filteredCities[index],
+              child: _isLoading 
+                ? const Center(child: CircularProgressIndicator())
+                : _errorMessage.isNotEmpty
+                  ? Center(child: Text(_errorMessage))
+                  : ListView.builder(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      itemCount: filteredCities.length,
+                      itemBuilder: (context, index) {
+                        final city = filteredCities[index];
+                        return Container(
+                          margin: const EdgeInsets.only(bottom: 12),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFF5F5F5),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: ListTile(
+                            leading: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF4052EE).withOpacity(0.1),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.location_on,
+                                color: Color(0xFF4052EE),
+                                size: 20,
+                              ),
                             ),
+                            title: Text(
+                              city.libelle ?? 'Unknown city',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            subtitle: Text(
+                              city.region ?? 'Unknown region',
+                              style: const TextStyle(
+                                color: Colors.grey,
+                              ),
+                            ),
+                            trailing: const Icon(
+                              Icons.chevron_right,
+                              color: Colors.grey,
+                            ),
+                            onTap: () async {
+                              final result = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ArrivalCityScreen(
+                                    departureCity: city.name,
+                                  ),
+                                ),
+                              );
+                              if (result != null && context.mounted) {
+                                Navigator.pop(context, result);
+                              }
+                            },
                           ),
                         );
-                        if (result != null && context.mounted) {
-                          Navigator.pop(context, result);
-                        }
                       },
                     ),
-                  );
-                },
-              ),
             ),
           ],
         ),

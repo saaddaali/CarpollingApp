@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'date_picker_screen.dart';
+import '../../models/city.dart';
+import '../../services/city_service.dart';
 
 class ArrivalCityScreen extends StatefulWidget {
   final String departureCity;
@@ -14,58 +16,70 @@ class ArrivalCityScreen extends StatefulWidget {
 }
 
 class _ArrivalCityScreenState extends State<ArrivalCityScreen> {
-  final List<String> allCities = [
-    'Casablanca',
-    'Fes',
-    'Salé',
-    'Marrakech',
-    'Tanger',
-    'Rabat',
-    'Meknes',
-    'Oujda',
-    'Kenitra',
-    'Agadir',
-    'Tetouan',
-    'Temara',
-    'Safi',
-    'Mohammedia',
-    'El Jadida',
-    'Beni Mellal',
-    'Nador',
-    'Khouribga',
-    'Settat',
-    'Berrechid',
-    'Taza',
-    'Khemisset',
-    'Larache',
-    'Ksar El Kebir',
-  ];
-
-  List<String> filteredCities = [];
+  final CityService _cityService = CityService();
+  List<City> filteredCities = [];
+  bool _isLoading = false;
+  String _errorMessage = '';
   final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    // Filtrer la ville de départ de la liste des villes d'arrivée
-    filteredCities =
-        allCities.where((city) => city != widget.departureCity).toList();
+    setState(() {
+      _isLoading = true;
+    });
+    _loadInitialCities();
   }
 
-  void filterCities(String query) {
+  Future<void> _loadInitialCities() async {
+    try {
+      final cities = await _cityService.findAllOptimized();
+      if (mounted) {
+        setState(() {
+          filteredCities = cities.where((city) => 
+            city.name != widget.departureCity
+          ).toList();
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _errorMessage = 'Erreur lors du chargement des villes';
+          _isLoading = false;
+        });
+      }
+    }
+  }
+
+  Future<void> filterCities(String query) async {
     if (query.isEmpty) {
-      setState(() {
-        filteredCities =
-            allCities.where((city) => city != widget.departureCity).toList();
-      });
-    } else {
-      setState(() {
-        filteredCities = allCities
-            .where((city) =>
-                city.toLowerCase().contains(query.toLowerCase()) &&
-                city != widget.departureCity)
-            .toList();
-      });
+      _loadInitialCities();
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+      _errorMessage = '';
+    });
+
+    try {
+      final cities = await _cityService.searchCities(query);
+      if (mounted) {
+        setState(() {
+          filteredCities = cities.where((city) => 
+            city.name != widget.departureCity
+          ).toList();
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _errorMessage = 'Erreur lors de la recherche des villes';
+          _isLoading = false;
+        });
+      }
     }
   }
 
@@ -180,55 +194,69 @@ class _ArrivalCityScreenState extends State<ArrivalCityScreen> {
 
             // Cities list
             Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                itemCount: filteredCities.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 12),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF5F5F5),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: ListTile(
-                      leading: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF4052EE).withOpacity(0.1),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.location_on,
-                          color: Color(0xFF4052EE),
-                          size: 20,
-                        ),
-                      ),
-                      title: Text(
-                        filteredCities[index],
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      trailing: const Icon(
-                        Icons.chevron_right,
-                        color: Colors.grey,
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DatePickerScreen(
-                              departureCity: widget.departureCity,
-                              arrivalCity: filteredCities[index],
+              child: _isLoading 
+                ? const Center(child: CircularProgressIndicator())
+                : _errorMessage.isNotEmpty
+                  ? Center(child: Text(_errorMessage))
+                  : ListView.builder(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      itemCount: filteredCities.length,
+                      itemBuilder: (context, index) {
+                        final city = filteredCities[index];
+                        return Container(
+                          margin: const EdgeInsets.only(bottom: 12),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFF5F5F5),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: ListTile(
+                            leading: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF4052EE).withOpacity(0.1),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.location_on,
+                                color: Color(0xFF4052EE),
+                                size: 20,
+                              ),
                             ),
+                            title: Text(
+                              city.libelle ?? 'Unknown city',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            subtitle: Text(
+                              city.region ?? 'Unknown region',
+                              style: const TextStyle(
+                                color: Colors.grey,
+                              ),
+                            ),
+                            trailing: const Icon(
+                              Icons.chevron_right,
+                              color: Colors.grey,
+                            ),
+                            onTap: () async {
+                              final result = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DatePickerScreen(
+                                    departureCity: widget.departureCity,
+                                    arrivalCity: city.name,
+                                  ),
+                                ),
+                              );
+                              if (result != null && context.mounted) {
+                                Navigator.pop(context, result);
+                              }
+                            },
                           ),
                         );
                       },
                     ),
-                  );
-                },
-              ),
             ),
           ],
         ),

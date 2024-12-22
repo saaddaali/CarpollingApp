@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:mycarpooling2/services/token_manager.dart';
+
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
 
@@ -37,10 +39,14 @@ class _SignInScreenState extends State<SignInScreen> {
           }),
         );
 
+        print('Login response status: ${response.statusCode}');
+        print('Login response body: ${response.body}');
+
         if (response.statusCode == 200) {
           final responseData = json.decode(response.body);
           final token = responseData['accessToken'];
-          // TODO: Save token to secure storage
+          print('Token received: $token'); // Debug log
+          TokenManager.setToken(token);
           
           Navigator.pushReplacementNamed(context, '/home');
         } else if (response.statusCode == 423) {
