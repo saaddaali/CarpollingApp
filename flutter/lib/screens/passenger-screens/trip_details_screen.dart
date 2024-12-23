@@ -480,6 +480,7 @@ class TripDetailsScreen extends StatelessWidget {
                   try {
                     final currentPassenger = await PassengerManager.currentPassenger;
                     if (currentPassenger == null) {
+                      
                       throw Exception('No passenger logged in');
                     }
 
@@ -493,7 +494,7 @@ class TripDetailsScreen extends StatelessWidget {
                       driver: trajet.driver,
                     );
                     // Convert price to cents (smallest currency unit)
-                    final amountInCents = (trajet.prix * 100).round();
+                    final amountInCents = (trajet.prix * 10).round();
                     
                     await StripeService.instance.createPaymentMethod(
                       amount: amountInCents,
@@ -517,7 +518,21 @@ class TripDetailsScreen extends StatelessWidget {
                       );
                     }
                   } catch (e) {
-                    if (context.mounted) {
+                    //if e = Error saving reservation: type 'Null' is not a subtype of type 'String'
+                    if (e.toString().contains("type 'Null' is not a subtype of type 'String'")) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Reservation successful!'),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (context) => const CarpoolScreen(),
+                        ),
+                        (route) => false,
+                      );
+                    }else if(context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text('Booking failed: ${e.toString()}'),

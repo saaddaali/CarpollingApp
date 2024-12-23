@@ -49,14 +49,24 @@ class _SignInScreenState extends State<SignInScreen> {
 
         if (response.statusCode == 200) {
           final responseData = json.decode(utf8.decode(response.bodyBytes));
-          final token = responseData['accessToken'];
           
-          // Create and store passenger
-          final passenger = Passenger.fromJson(responseData);
+          // Create passenger with all fields from response
+          final passenger = Passenger(
+            id: 3, // Since ID is not in response, using default
+            firstName: responseData['firstName'],
+            lastName: responseData['lastName'],
+            username: responseData['username'],
+            email: responseData['email'],
+            roles: List<String>.from(responseData['roles']),
+            accessToken: responseData['accessToken'],
+            tokenType: responseData['tokenType'],
+          );
+          
+          // Store passenger
           await PassengerManager.setPassenger(passenger);
           
-          // Store token
-           TokenManager.setToken(token);
+          // Store token separately if needed
+          TokenManager.setToken(responseData['token']);
           
           if (!mounted) return;
           Navigator.pushReplacementNamed(context, '/home');

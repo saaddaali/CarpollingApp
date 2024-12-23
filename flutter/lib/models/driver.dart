@@ -41,6 +41,15 @@ class Driver {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
+      'username': username,
+      'email': email,
+      'photo': photo,
+      'evaluation': evaluation,
+      'enabled': enabled,
+      'credentialsNonExpired': credentialsNonExpired,
+      'accountNonExpired': accountNonExpired,
+      'accountNonLocked': accountNonLocked,
+      'passwordChanged': passwordChanged,
     };
   }
 }

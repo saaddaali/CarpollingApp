@@ -51,6 +51,8 @@ class StripeService {
         print('Reservation created successfully: ${savedReservation.id}');
         return savedReservation;
       } catch (e) {
+        print(reservation.toJson());
+        print(e);
         throw Exception('Payment successful but failed to create reservation: $e');
       }
     } catch (e) {

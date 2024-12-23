@@ -19,12 +19,13 @@ class ReservationService {
 
       if (response.statusCode == 200) {
         final List<dynamic> jsonList = json.decode(response.body);
-        print('Reservations: $jsonList');
+        print('Raw reservations response: ${response.body}');
         return jsonList.map((json) => Reservation.fromJson(json)).toList();
       } else {
         throw Exception('Failed to load reservations: ${response.statusCode}');
       }
     } catch (e) {
+      print('Error in getReservations: $e');
       throw Exception('Error fetching reservations: $e');
     }
   }

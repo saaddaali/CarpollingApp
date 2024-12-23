@@ -11,15 +11,7 @@ class PassengerManager {
   static Future<void> setPassenger(Passenger passenger) async {
     _currentPassenger = passenger;
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_key, json.encode({
-      'firstName': passenger.firstName,
-      'lastName': passenger.lastName,
-      'username': passenger.username,
-      'email': passenger.email,
-      'roles': passenger.roles,
-      'accessToken': passenger.accessToken,
-      'tokenType': passenger.tokenType,
-    }));
+    await prefs.setString(_key, json.encode(passenger.toJson()));
   }
 
   static Future<Passenger?> getPassenger() async {
