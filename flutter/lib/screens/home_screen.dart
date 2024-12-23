@@ -5,6 +5,8 @@ import 'profile_screen.dart';
 import 'driver-screens/driver_home_screen.dart';
 import 'carpool_screen.dart';
 import 'wallet_screen.dart';
+import '../models/passenger.dart';
+import '../services/passenger_manager.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,6 +18,22 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
   String? selectedDepartureCity;
+  String username = 'User';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUsername();
+  }
+
+  Future<void> _loadUsername() async {
+    final passenger = await PassengerManager.getPassenger();
+    if (passenger != null) {
+      setState(() {
+        username = passenger.username;
+      });
+    }
+  }
 
   // Définition des couleurs
   static const Color primaryBlue = Color(0xFF4052EE);
@@ -126,10 +144,10 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 32),
 
             // Welcome text
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                'Soukaina, où souhaites-tu\nvoyager?',
+                '$username, où souhaites-tu voyager?',
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,

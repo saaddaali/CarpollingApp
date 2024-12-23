@@ -3,6 +3,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:mycarpooling2/services/token_manager.dart';
+import '../models/passenger.dart';
+import '../services/passenger_manager.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -48,9 +50,15 @@ class _SignInScreenState extends State<SignInScreen> {
         if (response.statusCode == 200) {
           final responseData = json.decode(utf8.decode(response.bodyBytes));
           final token = responseData['accessToken'];
-          print('Token received: $token'); // Debug log
-          TokenManager.setToken(token);
           
+          // Create and store passenger
+          final passenger = Passenger.fromJson(responseData);
+          await PassengerManager.setPassenger(passenger);
+          
+          // Store token
+           TokenManager.setToken(token);
+          
+          if (!mounted) return;
           Navigator.pushReplacementNamed(context, '/home');
         } else if (response.statusCode == 423) {
           if (!mounted) return;

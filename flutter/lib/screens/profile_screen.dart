@@ -1,7 +1,31 @@
 import 'package:flutter/material.dart';
+import '../services/passenger_manager.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  String username = 'User';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUsername();
+  }
+
+  Future<void> _loadUsername() async {
+    final passenger = await PassengerManager.getPassenger();
+    if (passenger != null) {
+      setState(() {
+        username = passenger.username;
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +70,9 @@ class ProfileScreen extends StatelessWidget {
             const SizedBox(height: 20),
 
             // User Name
-            const Text(
-              'Soukaina',
-              style: TextStyle(
+            Text(
+              username,
+              style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
