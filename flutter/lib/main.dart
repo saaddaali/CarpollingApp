@@ -5,8 +5,11 @@ import 'screens/signin_screen.dart';
 import 'screens/signup_screen.dart';
 import 'screens/welcome_screen.dart';
 import 'screens/home_screen.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey = "pk_test_51Onk9WAf41bGTPf1nchFYNuT3vMDK8Mkh2e6VPBruNMTbU9w8JGX0zfJ43PgkPBLXipHqxX307ZBMJT4HhclPnED00m8QoSzBa";
   // Initialiser les données de localisation française pour les dates
   initializeDateFormatting('fr_FR').then((_) => runApp(const MyApp()));
 }

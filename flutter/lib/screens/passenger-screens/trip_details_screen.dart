@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mycarpooling2/screens/carpool_screen.dart';
 import 'package:mycarpooling2/screens/passenger-screens/driver_details_screen.dart';
+import 'package:mycarpooling2/services/stripe_service.dart';
 
 class TripDetailsScreen extends StatelessWidget {
   final String cityName;
@@ -489,7 +491,40 @@ class TripDetailsScreen extends StatelessWidget {
                 ),
               ),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  try {
+                    // Convert price to cents (smallest currency unit)
+                    final amountInCents = (price * 10).round();
+                    await StripeService.instance.createPaymentMethod(
+                      amount: amountInCents,
+                    );
+                    // Show success message and navigate
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Payment successful!'),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                      // Navigate to CarpoolScreen and remove all previous routes
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (context) => const CarpoolScreen(),
+                        ),
+                        (route) => false, // This removes all previous routes
+                      );
+                    }
+                  } catch (e) {
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Payment failed: ${e.toString()}'),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
+                  }
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: primaryBlue,
                   shape: RoundedRectangleBorder(
