@@ -5,6 +5,8 @@ import 'profile_screen.dart';
 import 'home_screen.dart';
 import 'driver-screens/driver_home_screen.dart';
 import 'wallet_screen.dart';
+import '../models/reservation.dart';
+import '../services/reservation_service.dart';
 
 class CarpoolScreen extends StatefulWidget {
   const CarpoolScreen({super.key});
@@ -17,6 +19,42 @@ class _CarpoolScreenState extends State<CarpoolScreen> {
   static const Color primaryBlue =
       Color(0xFF4052EE); // Même couleur que HomeScreen
   final int _selectedIndex = 2;
+  final ReservationService _reservationService = ReservationService();
+  List<Reservation> _upcomingReservations = [];
+  List<Reservation> _pastReservations = [];
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadReservations();
+  }
+
+  Future<void> _loadReservations() async {
+    try {
+      final reservations = await _reservationService.getReservations();
+      final now = DateTime.now();
+      
+      print('Loaded ${reservations.length} reservations');
+      
+      setState(() {
+        _upcomingReservations = reservations
+            .where((reservation) => reservation.dateReservation.isAfter(now))
+            .toList();
+        _pastReservations = reservations
+            .where((reservation) => reservation.dateReservation.isBefore(now))
+            .toList();
+        _isLoading = false;
+      });
+      
+      print('Upcoming reservations: ${_upcomingReservations.length}');
+      print('Past reservations: ${_pastReservations.length}');
+    } catch (e) {
+      print('Error loading reservations: $e');
+      setState(() => _isLoading = false);
+      // You might want to show an error message here
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -212,10 +250,23 @@ class _CarpoolScreenState extends State<CarpoolScreen> {
   }
 
   Widget _buildTripsList({required bool upcoming}) {
+    final reservations = upcoming ? _upcomingReservations : _pastReservations;
+
+    if (_isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (reservations.isEmpty) {
+      return const Center(
+        child: Text('Aucun covoiturage trouvé'),
+      );
+    }
+
     return ListView.builder(
       padding: const EdgeInsets.all(20),
-      itemCount: 3,
+      itemCount: reservations.length,
       itemBuilder: (context, index) {
+        final reservation = reservations[index];
         return Container(
           margin: const EdgeInsets.only(bottom: 16),
           padding: const EdgeInsets.all(16),
@@ -237,15 +288,15 @@ class _CarpoolScreenState extends State<CarpoolScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    upcoming ? '12 Dec 2024' : '10 Nov 2024',
+                    _formatDate(reservation.dateReservation),
                     style: const TextStyle(
                       color: Colors.grey,
                       fontSize: 14,
                     ),
                   ),
-                  const Text(
-                    '150 DH',
-                    style: TextStyle(
+                  Text(
+                    '${reservation.montant ?? 0} DH',
+                    style: const TextStyle(
                       color: primaryBlue,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -254,13 +305,13 @@ class _CarpoolScreenState extends State<CarpoolScreen> {
                 ],
               ),
               const SizedBox(height: 12),
-              const Row(
+              Row(
                 children: [
-                  Icon(Icons.location_on, color: primaryBlue, size: 20),
-                  SizedBox(width: 8),
+                  const Icon(Icons.location_on, color: primaryBlue, size: 20),
+                  const SizedBox(width: 8),
                   Text(
-                    'Casablanca → Marrakech',
-                    style: TextStyle(
+                    '${reservation.trajet.villeDepart.libelle} → ${reservation.trajet.villeDestination.libelle}',
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
@@ -272,6 +323,10 @@ class _CarpoolScreenState extends State<CarpoolScreen> {
         );
       },
     );
+  }
+
+  String _formatDate(DateTime date) {
+    return '${date.day}/${date.month}/${date.year}';
   }
 
   Widget _buildNavItem(int index, IconData icon, String label) {
