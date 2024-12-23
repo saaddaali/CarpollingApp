@@ -4,6 +4,7 @@ import 'package:mycarpooling2/screens/passenger-screens/driver_details_screen.da
 import 'package:mycarpooling2/services/stripe_service.dart';
 
 class TripDetailsScreen extends StatelessWidget {
+  final int trajetId;
   final String cityName;
   final String locationDetails;
   final String endCityName;
@@ -22,6 +23,7 @@ class TripDetailsScreen extends StatelessWidget {
 
   const TripDetailsScreen({
     super.key,
+    required this.trajetId,
     required this.cityName,
     required this.locationDetails,
     required this.endCityName,

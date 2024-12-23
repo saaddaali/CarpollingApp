@@ -51,6 +51,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
   int? selectedAvailableSeats;
   int? selectedTotalSeats;
   double? selectedPrice;
+  int? selectedTrajetId;
 
   @override
   void initState() {
@@ -352,6 +353,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
     required int availableSeats,
     required int totalSeats,
     required double price,
+    required int trajetId,
   }) {
     bool isSelected = selectedCityName == cityName &&
         selectedStartTime == startTime &&
@@ -360,6 +362,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
     return GestureDetector(
       onTap: () {
         setState(() {
+          selectedTrajetId = trajetId;
           selectedCityName = cityName;
           selectedLocationDetails = locationDetails;
           selectedEndCityName = endCityName;
@@ -623,6 +626,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
           availableSeats: trajet.placesDisponibles,
           totalSeats: trajet.placesMax,
           price: trajet.prix,
+          trajetId: trajet.id,
         );
       },
     );
@@ -727,6 +731,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => TripDetailsScreen(
+                                trajetId: selectedTrajetId!,
                                 cityName: selectedCityName!,
                                 locationDetails: selectedLocationDetails!,
                                 endCityName: selectedEndCityName!,
