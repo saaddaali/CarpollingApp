@@ -30,10 +30,10 @@ class Driver {
       email: json['email'] ?? '',
       photo: json['photo'] ?? '',
       evaluation: (json['evaluation'] ?? 0.0).toDouble(),
-      enabled: json['enabled'] ?? false,
-      credentialsNonExpired: json['credentialsNonExpired'] ?? false,
-      accountNonExpired: json['accountNonExpired'] ?? false,
-      accountNonLocked: json['accountNonLocked'] ?? false,
+      enabled: json['enabled'] ?? true,
+      credentialsNonExpired: json['credentialsNonExpired'] ?? true,
+      accountNonExpired: json['accountNonExpired'] ?? true,
+      accountNonLocked: json['accountNonLocked'] ?? true,
       passwordChanged: json['passwordChanged'] ?? false,
     );
   }
@@ -41,15 +41,6 @@ class Driver {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'username': username,
-      'email': email,
-      'photo': photo,
-      'evaluation': evaluation,
-      'enabled': enabled,
-      'credentialsNonExpired': credentialsNonExpired,
-      'accountNonExpired': accountNonExpired,
-      'accountNonLocked': accountNonLocked,
-      'passwordChanged': passwordChanged,
     };
   }
 }

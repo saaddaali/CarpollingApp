@@ -2,40 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:mycarpooling2/screens/carpool_screen.dart';
 import 'package:mycarpooling2/screens/passenger-screens/driver_details_screen.dart';
 import 'package:mycarpooling2/services/stripe_service.dart';
+import 'package:mycarpooling2/models/reservation.dart';
+import 'package:mycarpooling2/services/passenger_manager.dart';
+import 'package:mycarpooling2/models/trajet.dart';
+import 'package:mycarpooling2/models/driver.dart';
+import 'package:intl/intl.dart';
 
 class TripDetailsScreen extends StatelessWidget {
-  final int trajetId;
-  final String cityName;
-  final String locationDetails;
-  final String endCityName;
-  final String endLocationDetails;
-  final String startTime;
-  final String endTime;
-  final String driverName;
-  final double rating;
-  final int reviews;
-  final int availableSeats;
-  final int totalSeats;
-  final double price;
+  final Trajet trajet;
 
   static const Color primaryBlue = Color(0xFF4052EE);
   static const Color textGrey = Color(0xFF9E9E9E);
 
   const TripDetailsScreen({
     super.key,
-    required this.trajetId,
-    required this.cityName,
-    required this.locationDetails,
-    required this.endCityName,
-    required this.endLocationDetails,
-    required this.startTime,
-    required this.endTime,
-    required this.driverName,
-    required this.rating,
-    required this.reviews,
-    required this.availableSeats,
-    required this.totalSeats,
-    required this.price,
+    required this.trajet,
   });
 
   Widget buildInfoTile({
@@ -128,15 +109,17 @@ class TripDetailsScreen extends StatelessWidget {
         child: Column(
           children: [
             // Header
-            const Padding(
-              padding: EdgeInsets.all(16),
+            Padding(
+              padding: const EdgeInsets.all(16),
               child: Row(
                 children: [
-                  BackButton(),
-                  SizedBox(width: 8),
+                  const BackButton(),
+                  const SizedBox(width: 8),
                   Text(
-                    'lundi 18 novembre',
-                    style: TextStyle(
+                    DateFormat('EEEE d MMMM', 'fr_FR')
+                        .format(trajet.dateCreation)
+                        .toLowerCase(),
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -222,7 +205,7 @@ class TripDetailsScreen extends StatelessWidget {
                                           ),
                                           const SizedBox(width: 8),
                                           Text(
-                                            cityName,
+                                            trajet.villeDepart.libelle,
                                             style: const TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold,
@@ -246,7 +229,7 @@ class TripDetailsScreen extends StatelessWidget {
                                           left: 28,
                                           top: 8,
                                         ),
-                                        child: buildTimeContainer(startTime),
+                                        child: buildTimeContainer(trajet.horaireDepart.toString()),
                                       ),
                                     ],
                                   ),
@@ -264,7 +247,7 @@ class TripDetailsScreen extends StatelessWidget {
                                           ),
                                           const SizedBox(width: 8),
                                           Text(
-                                            endCityName,
+                                            trajet.villeDestination.libelle,
                                             style: const TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold,
@@ -288,7 +271,7 @@ class TripDetailsScreen extends StatelessWidget {
                                           left: 28,
                                           top: 8,
                                         ),
-                                        child: buildTimeContainer(endTime),
+                                        child: buildTimeContainer(trajet.horaireArrive.toString()),
                                       ),
                                     ],
                                   ),
@@ -324,8 +307,8 @@ class TripDetailsScreen extends StatelessWidget {
                             Expanded(
                               child: buildInfoTile(
                                 icon: Icons.event_seat,
-                                title: '$availableSeats restant(s)',
-                                subtitle: '$totalSeats Total',
+                                title: '${trajet.placesDisponibles} restant(s)',
+                                subtitle: '${trajet.placesMax} Total',
                               ),
                             ),
                             const SizedBox(width: 16),
@@ -390,7 +373,7 @@ class TripDetailsScreen extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              '${price.toStringAsFixed(2)} DHS',
+                              '${trajet.prix.toStringAsFixed(2)} DHS',
                               style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
@@ -415,9 +398,9 @@ class TripDetailsScreen extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => DriverDetailsScreen(
-                            driverName: driverName,
-                            rating: rating,
-                            reviews: reviews,
+                            driverName: trajet.driver.username,
+                            rating: trajet.driver.evaluation,
+                            reviews: trajet.driver.evaluation.toInt(),
                           ),
                         ),
                       );
@@ -450,7 +433,7 @@ class TripDetailsScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  driverName,
+                                  trajet.driver.username,
                                   style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
@@ -465,7 +448,7 @@ class TripDetailsScreen extends StatelessWidget {
                                       size: 16,
                                     ),
                                     Text(
-                                      ' $rating/5 - $reviews avis',
+                                      ' ${trajet.driver.evaluation}/5 avis',
                                       style: const TextStyle(color: textGrey),
                                     ),
                                   ],
@@ -495,16 +478,33 @@ class TripDetailsScreen extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () async {
                   try {
+                    final currentPassenger = await PassengerManager.currentPassenger;
+                    if (currentPassenger == null) {
+                      throw Exception('No passenger logged in');
+                    }
+
+                    // Create new reservation using the trajet object
+                    final reservation = Reservation(
+                      dateReservation: DateTime.now(),
+                      montant: trajet.prix,
+                      datePaiement: DateTime.now(),
+                      trajet: trajet,
+                      passenger: currentPassenger,
+                      driver: trajet.driver,
+                    );
                     // Convert price to cents (smallest currency unit)
-                    final amountInCents = (price * 10).round();
+                    final amountInCents = (trajet.prix * 100).round();
+                    
                     await StripeService.instance.createPaymentMethod(
                       amount: amountInCents,
+                      reservation: reservation,
                     );
+
                     // Show success message and navigate
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('Payment successful!'),
+                          content: Text('Reservation successful!'),
                           backgroundColor: Colors.green,
                         ),
                       );
@@ -513,14 +513,14 @@ class TripDetailsScreen extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) => const CarpoolScreen(),
                         ),
-                        (route) => false, // This removes all previous routes
+                        (route) => false,
                       );
                     }
                   } catch (e) {
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text('Payment failed: ${e.toString()}'),
+                          content: Text('Booking failed: ${e.toString()}'),
                           backgroundColor: Colors.red,
                         ),
                       );

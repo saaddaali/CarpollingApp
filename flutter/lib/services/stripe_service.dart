@@ -1,11 +1,14 @@
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
 import 'package:mycarpooling2/models/consts.dart';
+import 'package:mycarpooling2/models/reservation.dart';
+import 'package:mycarpooling2/services/reservation_service.dart';
 import 'dart:convert';
 
 class StripeService {
   StripeService._();
   static final StripeService instance = StripeService._();
+  final ReservationService _reservationService = ReservationService();
 
   bool _isInitialized = false;
 
@@ -21,7 +24,10 @@ class StripeService {
     }
   }
 
-  Future<void> createPaymentMethod({required int amount}) async {
+  Future<Reservation> createPaymentMethod({
+    required int amount,
+    required Reservation reservation,
+  }) async {
     try {
       await ensureInitialized();
       
@@ -38,8 +44,17 @@ class StripeService {
       );
 
       await confirmPayment();
+      
+      // After successful payment, save the reservation
+      try {
+        final savedReservation = await _reservationService.saveReservation(reservation);
+        print('Reservation created successfully: ${savedReservation.id}');
+        return savedReservation;
+      } catch (e) {
+        throw Exception('Payment successful but failed to create reservation: $e');
+      }
     } catch (e) {
-      throw Exception('Failed to create payment method: $e');
+      throw Exception('Failed to process payment: $e');
     }
   }
 

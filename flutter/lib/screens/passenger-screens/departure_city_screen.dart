@@ -26,7 +26,7 @@ class _DepartureCityScreenState extends State<DepartureCityScreen> {
 
       final cities = await _cityService.findAllOptimized();
       print('Loaded cities: ${cities.length}'); // Debug log
-      cities.forEach((city) => print('City: ${city.name}')); // Debug log
+      cities.forEach((city) => print('City: ${city.libelle}')); // Debug log
 
       if (mounted) {
         setState(() {
@@ -203,16 +203,10 @@ class _DepartureCityScreenState extends State<DepartureCityScreen> {
                               ),
                             ),
                             title: Text(
-                              city.libelle ?? 'Unknown city',
+                              city.libelle,
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            subtitle: Text(
-                              city.region ?? 'Unknown region',
-                              style: const TextStyle(
-                                color: Colors.grey,
                               ),
                             ),
                             trailing: const Icon(
@@ -224,7 +218,7 @@ class _DepartureCityScreenState extends State<DepartureCityScreen> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => ArrivalCityScreen(
-                                    departureCity: city.name,
+                                    departureCity: city.libelle,
                                   ),
                                 ),
                               );

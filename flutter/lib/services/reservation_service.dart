@@ -28,4 +28,26 @@ class ReservationService {
       throw Exception('Error fetching reservations: $e');
     }
   }
+
+  Future<Reservation> saveReservation(Reservation reservation) async {
+    try {
+      final response = await http.post(
+        Uri.parse(baseUrl),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: json.encode(reservation.toJson()),
+      );
+
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        final dynamic jsonResponse = json.decode(response.body);
+        return Reservation.fromJson(jsonResponse);
+      } else {
+        throw Exception('Failed to save reservation: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Error saving reservation: $e');
+    }
+  }
 } 

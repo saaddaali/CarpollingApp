@@ -37,7 +37,7 @@ class _ArrivalCityScreenState extends State<ArrivalCityScreen> {
       if (mounted) {
         setState(() {
           filteredCities = cities.where((city) => 
-            city.name != widget.departureCity
+            city.libelle != widget.departureCity
           ).toList();
           _isLoading = false;
         });
@@ -68,7 +68,7 @@ class _ArrivalCityScreenState extends State<ArrivalCityScreen> {
       if (mounted) {
         setState(() {
           filteredCities = cities.where((city) => 
-            city.name != widget.departureCity
+            city.libelle != widget.departureCity
           ).toList();
           _isLoading = false;
         });
@@ -229,12 +229,7 @@ class _ArrivalCityScreenState extends State<ArrivalCityScreen> {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            subtitle: Text(
-                              city.region ?? 'Unknown region',
-                              style: const TextStyle(
-                                color: Colors.grey,
-                              ),
-                            ),
+                          
                             trailing: const Icon(
                               Icons.chevron_right,
                               color: Colors.grey,
@@ -245,7 +240,7 @@ class _ArrivalCityScreenState extends State<ArrivalCityScreen> {
                                 MaterialPageRoute(
                                   builder: (context) => DatePickerScreen(
                                     departureCity: widget.departureCity,
-                                    arrivalCity: city.name,
+                                    arrivalCity: city.libelle,
                                   ),
                                 ),
                               );

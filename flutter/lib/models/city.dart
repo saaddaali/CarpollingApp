@@ -1,22 +1,22 @@
 class City {
-  final int id;
+  final int? id;
   final String code;
   final String libelle;
-  final String? description;
+  final String description;
 
   City({
-    required this.id,
+    this.id,
     required this.code,
     required this.libelle,
-    this.description,
+    required this.description,
   });
 
   factory City.fromJson(Map<String, dynamic> json) {
     return City(
-      id: json['id'] ?? 0,
+      id: json['id'],
       code: json['code'] ?? '',
       libelle: json['libelle'] ?? '',
-      description: json['description'],
+      description: json['description'] ?? '',
     );
   }
 
@@ -25,11 +25,11 @@ class City {
       'id': id,
       'code': code,
       'libelle': libelle,
-      if (description != null) 'description': description,
+      'description': description,
     };
   }
 
-  // Getter pour la compatibilité avec le code existant
+  // Getters for backward compatibility
   String get name => libelle;
-  String? get region => description;
+  String get region => description;
 }

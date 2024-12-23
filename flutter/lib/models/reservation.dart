@@ -6,7 +6,7 @@ import 'conversation.dart';
 import 'trajet.dart';
 
 class Reservation {
-  final int id;
+  final int? id;
   final DateTime dateReservation;
   final double? montant;
   final DateTime? datePaiement;
@@ -18,7 +18,7 @@ class Reservation {
   final Conversation? conversation;
 
   Reservation({
-    required this.id,
+    this.id,
     required this.dateReservation,
     this.montant,
     this.datePaiement,
@@ -30,42 +30,52 @@ class Reservation {
     this.conversation,
   });
 
-  factory Reservation.fromJson(Map<String, dynamic> json) {
-    final DateFormat format = DateFormat("MM/dd/yyyy HH:mm");
-    
-    return Reservation(
-      id: json['id'] ?? 0,
-      dateReservation: format.parse(json['dateReservation']),
-      montant: json['montant']?.toDouble(),
-      datePaiement: json['datePaiement'] != null 
-          ? format.parse(json['datePaiement'])
-          : null,
-      evaluation: json['evaluation']?.toDouble(),
-      trajet: Trajet.fromJson(json['trajet']),
-      passenger: Passenger.fromJson(json['passenger']),
-      driver: Driver.fromJson(json['driver']),
-      carteBancaire: json['carteBancaire'] != null 
-          ? CarteBancaire.fromJson(json['carteBancaire']) 
-          : null,
-      conversation: json['conversation'] != null 
-          ? Conversation.fromJson(json['conversation'])
-          : null,
-    );
-  }
-
   Map<String, dynamic> toJson() {
-    final DateFormat format = DateFormat("MM/dd/yyyy HH:mm");
+    final DateFormat formatter = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     return {
       'id': id,
-      'dateReservation': format.format(dateReservation),
+      'dateReservation': formatter.format(dateReservation),
       'montant': montant,
-      'datePaiement': datePaiement != null ? format.format(datePaiement!) : null,
+      'datePaiement': datePaiement != null ? formatter.format(datePaiement!) : null,
       'evaluation': evaluation,
-      'trajet': trajet.toJson(),
-      'passenger': passenger.toJson(),
-      'driver': driver.toJson(),
-      'carteBancaire': carteBancaire?.toJson(),
-      'conversation': conversation?.toJson(),
+      'trajet': {
+        'id': trajet.id,
+      },
+      'passenger': {
+        'id': passenger.id,
+        'username': passenger.username,
+      },
+      'driver': {
+        'id': driver.id,
+        'enabled': driver.enabled,
+        'credentialsNonExpired': driver.credentialsNonExpired,
+        'accountNonExpired': driver.accountNonExpired,
+        'accountNonLocked': driver.accountNonLocked,
+        'passwordChanged': driver.passwordChanged,
+      },
     };
+  }
+
+  factory Reservation.fromJson(Map<String, dynamic> json) {
+  final DateFormat customFormatter = DateFormat('MM/dd/yyyy HH:mm');
+  
+  return Reservation(
+    id: json['id'],
+    dateReservation: customFormatter.parse(json['dateReservation']),
+    montant: json['montant']?.toDouble(),
+    datePaiement: json['datePaiement'] != null 
+        ? customFormatter.parse(json['datePaiement']) 
+        : null,
+    evaluation: json['evaluation']?.toDouble(),
+    trajet: Trajet.fromJson(json['trajet']),
+    passenger: Passenger.fromJson(json['passenger']),
+    driver: Driver.fromJson(json['driver']),
+    carteBancaire: json['carteBancaire'] != null 
+        ? CarteBancaire.fromJson(json['carteBancaire']) 
+        : null,
+    conversation: json['conversation'] != null 
+        ? Conversation.fromJson(json['conversation']) 
+        : null,
+  );
   }
 } 

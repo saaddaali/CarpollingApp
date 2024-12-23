@@ -3,7 +3,7 @@ import 'city.dart';
 import 'driver.dart';
 
 class Trajet {
-  final int id;
+  final int? id;
   final DateTime horaireDepart;
   final DateTime horaireArrive;
   final int placesDisponibles;
@@ -15,7 +15,7 @@ class Trajet {
   final double prix;
 
   Trajet({
-    required this.id,
+    this.id,
     required this.horaireDepart,
     required this.horaireArrive,
     required this.placesDisponibles,
@@ -29,18 +29,18 @@ class Trajet {
 
   factory Trajet.fromJson(Map<String, dynamic> json) {
     final DateFormat format = DateFormat("MM/dd/yyyy HH:mm");
-
+    
     return Trajet(
-      id: json['id'] ?? 0,
+      id: json['id'],
       horaireDepart: format.parse(json['horaireDepart']),
       horaireArrive: format.parse(json['horaireArrive']),
-      placesDisponibles: int.parse(json['placesDisponibles'].toString()),
-      placesMax: int.parse(json['placesMax'].toString()),
+      placesDisponibles: json['placesDisponibles'],
+      placesMax: json['placesMax'],
       dateCreation: format.parse(json['dateCreation']),
       villeDepart: City.fromJson(json['villeDepart']),
       villeDestination: City.fromJson(json['villeDestination']),
       driver: Driver.fromJson(json['driver']),
-      prix: (json['prix'] ?? 0.0).toDouble(),
+      prix: json['prix'].toDouble(),
     );
   }
 

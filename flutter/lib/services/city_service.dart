@@ -19,61 +19,58 @@ class CityService {
     return headers;
   }
 
+  Future<List<City>> findAllOptimized() async {
+    try {
+      print('Fetching cities from: ${baseUrl}optimized');
+      final response = await http.get(
+        Uri.parse('${baseUrl}optimized'),
+        headers: _headers,
+      );
+
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+
+      if (response.statusCode == 200) {
+        final List<dynamic> jsonList = json.decode(response.body);
+        
+        final cities = jsonList.map((json) => City.fromJson(json)).toList();
+        print('Parsed cities: ${cities.length}');
+        return cities;
+      } else if (response.statusCode == 401) {
+        TokenManager.setToken('');
+        throw Exception('Session expirée, veuillez vous reconnecter');
+      } else {
+        throw Exception('Failed to load cities: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error in findAllOptimized: $e');
+      throw Exception('Error fetching cities: $e');
+    }
+  }
+
   Future<List<City>> searchCities(String query) async {
     try {
       final encodedQuery = Uri.encodeComponent(query);
       final response = await http.post(
         Uri.parse('${baseUrl}find-by-criteria'),
         headers: _headers,
-        body: utf8.encode(json.encode({
+        body: json.encode({
           'libelle': {'like': encodedQuery},
-        })),
+        }),
       );
 
-      print('Search cities - Status: ${response.statusCode}');
-      print('Search cities - Body: ${utf8.decode(response.bodyBytes)}');
-
       if (response.statusCode == 200) {
-        final List<dynamic> data = json.decode(utf8.decode(response.bodyBytes));
-        final cities = data.map((json) => City.fromJson(json)).toList();
-        print('Parsed cities: ${cities.length}');
-        return cities;
+        final List<dynamic> jsonList = json.decode(response.body);
+        return jsonList.map((json) => City.fromJson(json)).toList();
       } else if (response.statusCode == 401) {
         TokenManager.setToken('');
         throw Exception('Session expirée, veuillez vous reconnecter');
       } else {
-        throw Exception('Failed to load cities: ${response.statusCode} - ${utf8.decode(response.bodyBytes)}');
+        throw Exception('Failed to search cities: ${response.statusCode}');
       }
     } catch (e) {
       print('Error searching cities: $e');
-      rethrow;
-    }
-  }
-
-  Future<List<City>> findAllOptimized() async {
-    try {
-      final response = await http.get(
-        Uri.parse('${baseUrl}optimized'),
-        headers: _headers,
-      );
-
-      print('Find all optimized - Status: ${response.statusCode}');
-      print('Find all optimized - Body: ${utf8.decode(response.bodyBytes)}');
-
-      if (response.statusCode == 200) {
-        final List<dynamic> data = json.decode(utf8.decode(response.bodyBytes));
-        final cities = data.map((json) => City.fromJson(json)).toList();
-        print('Parsed cities: ${cities.length}');
-        return cities;
-      } else if (response.statusCode == 401) {
-        TokenManager.setToken('');
-        throw Exception('Session expirée, veuillez vous reconnecter');
-      } else {
-        throw Exception('Failed to load optimized cities: ${response.statusCode} - ${utf8.decode(response.bodyBytes)}');
-      }
-    } catch (e) {
-      print('Error loading optimized cities: $e');
-      rethrow;
+      throw Exception('Error searching cities: $e');
     }
   }
 }

@@ -52,6 +52,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
   int? selectedTotalSeats;
   double? selectedPrice;
   int? selectedTrajetId;
+  Trajet? selectedTrajet;
 
   @override
   void initState() {
@@ -341,40 +342,29 @@ class _DriverListScreenState extends State<DriverListScreen> {
 
   Widget _buildTripCard(
     BuildContext context, {
-    required String cityName,
-    required String locationDetails,
-    required String endCityName,
-    required String endLocationDetails,
-    required String startTime,
-    required String endTime,
-    required String driverName,
-    required double rating,
-    required int reviews,
-    required int availableSeats,
-    required int totalSeats,
-    required double price,
-    required int trajetId,
+    required Trajet trajet,
   }) {
-    bool isSelected = selectedCityName == cityName &&
-        selectedStartTime == startTime &&
-        selectedEndTime == endTime;
+    bool isSelected = selectedCityName == trajet.villeDepart.libelle &&
+        selectedStartTime == DateFormat('HH:mm').format(trajet.horaireDepart) &&
+        selectedEndTime == DateFormat('HH:mm').format(trajet.horaireArrive);
 
     return GestureDetector(
       onTap: () {
         setState(() {
-          selectedTrajetId = trajetId;
-          selectedCityName = cityName;
-          selectedLocationDetails = locationDetails;
-          selectedEndCityName = endCityName;
-          selectedEndLocationDetails = endLocationDetails;
-          selectedStartTime = startTime;
-          selectedEndTime = endTime;
-          selectedDriverName = driverName;
-          selectedRating = rating;
-          selectedReviews = reviews;
-          selectedAvailableSeats = availableSeats;
-          selectedTotalSeats = totalSeats;
-          selectedPrice = price;
+          selectedTrajet = trajet;
+          selectedCityName = trajet.villeDepart.libelle;
+          selectedLocationDetails = 'Pas de détails';
+          selectedEndCityName = trajet.villeDestination.libelle;
+          selectedEndLocationDetails = 'Pas de détails';
+          selectedStartTime = DateFormat('HH:mm').format(trajet.horaireDepart);
+          selectedEndTime = DateFormat('HH:mm').format(trajet.horaireArrive);
+          selectedDriverName = trajet.driver.username;
+          selectedRating = trajet.driver.evaluation;
+          selectedReviews = 0;
+          selectedAvailableSeats = trajet.placesDisponibles;
+          selectedTotalSeats = trajet.placesMax;
+          selectedPrice = trajet.prix;
+          selectedTrajetId = trajet.id;
         });
       },
       child: Container(
@@ -405,14 +395,14 @@ class _DriverListScreenState extends State<DriverListScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          cityName,
+                          trajet.villeDepart.libelle,
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                         Text(
-                          locationDetails,
+                          'Pas de détails',
                           style: const TextStyle(
                             fontSize: 14,
                             color: DriverListScreen.textGrey,
@@ -420,14 +410,14 @@ class _DriverListScreenState extends State<DriverListScreen> {
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          endCityName,
+                          trajet.villeDestination.libelle,
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                         Text(
-                          endLocationDetails,
+                          'Pas de détails',
                           style: const TextStyle(
                             fontSize: 14,
                             color: DriverListScreen.textGrey,
@@ -457,7 +447,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
                               ),
                             ),
                             Text(
-                              startTime,
+                              DateFormat('HH:mm').format(trajet.horaireDepart),
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
@@ -496,7 +486,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
                               ),
                             ),
                             Text(
-                              endTime,
+                              DateFormat('HH:mm').format(trajet.horaireArrive),
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
@@ -526,7 +516,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          driverName,
+                          trajet.driver.username,
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
@@ -537,7 +527,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
                             const Icon(Icons.star,
                                 color: Colors.amber, size: 16),
                             Text(
-                              ' $rating/5 - $reviews avis',
+                              ' ${trajet.driver.evaluation}/5 - ${0} avis',
                               style: const TextStyle(
                                 color: DriverListScreen.textGrey,
                                 fontSize: 14,
@@ -556,7 +546,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
                         size: 20,
                       ),
                       Text(
-                        ' $availableSeats/$totalSeats',
+                        ' ${trajet.placesDisponibles}/${trajet.placesMax}',
                         style: const TextStyle(
                           color: DriverListScreen.textGrey,
                           fontSize: 14,
@@ -564,7 +554,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        '${price.toStringAsFixed(2)} DHS',
+                        '${trajet.prix.toStringAsFixed(2)} DHS',
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -614,19 +604,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
         final trajet = _trajets[index];
         return _buildTripCard(
           context,
-          cityName: trajet.villeDepart.libelle,
-          locationDetails: 'Pas de détails',
-          endCityName: trajet.villeDestination.libelle,
-          endLocationDetails: 'Pas de détails',
-          startTime: DateFormat('HH:mm').format(trajet.horaireDepart),
-          endTime: DateFormat('HH:mm').format(trajet.horaireArrive),
-          driverName: trajet.driver.username,
-          rating: trajet.driver.evaluation,
-          reviews: 0,
-          availableSeats: trajet.placesDisponibles,
-          totalSeats: trajet.placesMax,
-          price: trajet.prix,
-          trajetId: trajet.id,
+          trajet: trajet,
         );
       },
     );
@@ -725,25 +703,13 @@ class _DriverListScreenState extends State<DriverListScreen> {
                 width: double.infinity,
                 height: 56,
                 child: ElevatedButton(
-                  onPressed: selectedCityName != null
+                  onPressed: selectedTrajet != null
                       ? () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => TripDetailsScreen(
-                                trajetId: selectedTrajetId!,
-                                cityName: selectedCityName!,
-                                locationDetails: selectedLocationDetails!,
-                                endCityName: selectedEndCityName!,
-                                endLocationDetails: selectedEndLocationDetails!,
-                                startTime: selectedStartTime!,
-                                endTime: selectedEndTime!,
-                                driverName: selectedDriverName!,
-                                rating: selectedRating!,
-                                reviews: selectedReviews!,
-                                availableSeats: selectedAvailableSeats!,
-                                totalSeats: selectedTotalSeats!,
-                                price: selectedPrice!,
+                                trajet: selectedTrajet!,
                               ),
                             ),
                           );
