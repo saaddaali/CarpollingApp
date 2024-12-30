@@ -26,6 +26,18 @@ class Trajet {
     required this.driver,
     required this.prix,
   });
+//constructeur vide
+  Trajet.empty()
+      : id = null,
+        horaireDepart = DateTime.now(),
+        horaireArrive = DateTime.now(),
+        placesDisponibles = 0,
+        placesMax = 0,
+        dateCreation = DateTime.now(),
+        villeDepart = City.empty(),
+        villeDestination = City.empty(),
+        driver = Driver.empty(),
+        prix = 0.0;
 
   factory Trajet.fromJson(Map<String, dynamic> json) {
     final DateFormat format = DateFormat("MM/dd/yyyy HH:mm");

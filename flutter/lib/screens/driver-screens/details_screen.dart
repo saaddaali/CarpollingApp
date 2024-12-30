@@ -1,11 +1,19 @@
 
 import 'package:flutter/material.dart';
+import 'package:mycarpooling2/models/city.dart';
+import 'package:mycarpooling2/models/trajet.dart';
 import 'package:mycarpooling2/screens/driver-screens/driver_home_screen.dart';
+import 'package:mycarpooling2/services/city_service.dart';
+import 'package:mycarpooling2/services/trajet_service.dart';
 
 class TripDetailsScreenn extends StatefulWidget {
   final Map<String, dynamic> tripData;
+  Trajet trajet;
+  
+  final TrajetService _trajetService = TrajetService();
 
-  const TripDetailsScreenn({super.key, required this.tripData});
+
+  TripDetailsScreenn({super.key, required this.tripData, required this.trajet});
 
   @override
   State<TripDetailsScreenn> createState() => _TripDetailsScreennState();
@@ -13,32 +21,34 @@ class TripDetailsScreenn extends StatefulWidget {
 
 class _TripDetailsScreennState extends State<TripDetailsScreenn> {
   late Map<String, dynamic> currentTripData;
+  City villeDepart = City.empty();
+  City villeDestination = City.empty();
   static const Color primaryBlue = Color(0xFF4052EE);
   static const Color lightBlue = Color(0xFFE6E8FF);
   static const Color editGreen = Color.fromRGBO(162, 18, 18, 1);
   static const Color backgroundGrey = Color(0xFFF8F9FE);
   static const Color textGrey = Color(0xFF6B7280);
-
-  final List<String> cities = [
-    'Casablanca',
-    'Rabat',
-    'Marrakech',
-    'Fès',
-    'Tanger',
-    'Meknès',
-    'Oujda',
-    'Agadir',
-    'Tétouan',
-    'Salé',
-    'Nador',
-    'Kénitra',
-  ];
+  final CityService _cityService = CityService();
+  List<City> cities = [];
 
   @override
-  void initState() {
-    super.initState();
-    currentTripData = Map.from(widget.tripData);
+void initState() {
+  super.initState();
+  currentTripData = Map.from(widget.tripData);
+  _loadCities();
+  print(widget.trajet.toJson());
+}
+
+Future<void> _loadCities() async {
+  try {
+    final fetchedCities = await _cityService.findAllOptimized();
+    setState(() {
+      cities = fetchedCities;
+    });
+  } catch (e) {
+    print('Erreur lors du chargement des villes: $e');
   }
+}
 
   void _showPublishConfirmation() {
     showDialog(
@@ -97,54 +107,53 @@ class _TripDetailsScreennState extends State<TripDetailsScreenn> {
   }
 
   Future<void> _editCity(bool isDeparture) async {
-    await showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.white,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (BuildContext context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 40,
-              height: 4,
-              margin: const EdgeInsets.symmetric(vertical: 8),
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(2),
-              ),
+  await showModalBottomSheet(
+    context: context,
+    backgroundColor: Colors.white,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    ),
+    builder: (BuildContext context) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 40,
+            height: 4,
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(2),
             ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: cities.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(
-                      cities[index],
-                      style: const TextStyle(fontSize: 18),
-                    ),
-                    onTap: () {
-                      setState(() {
-                        if (isDeparture) {
-                          currentTripData['departCity'] = cities[index];
-                        } else {
-                          currentTripData['arrivalCity'] = cities[index];
-                        }
-                      });
-                      Navigator.pop(context);
-                    },
-                  );
-                },
-              ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: cities.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(
+                    cities[index].libelle,
+                    style: const TextStyle(fontSize: 18),
+                  ),
+                  onTap: () {
+                    setState(() {
+                      if (isDeparture) {
+                        villeDepart = cities[index];
+                      } else {
+                        villeDestination = cities[index];
+                      }
+                    });
+                    Navigator.pop(context);
+                  },
+                );
+              },
             ),
-          ],
-        );
-      },
-    );
-  }
-
+          ),
+        ],
+      );
+    },
+  );
+}
   Future<void> _editDate() async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -830,14 +839,70 @@ class _TripDetailsScreennState extends State<TripDetailsScreenn> {
               height: 54,
               child: ElevatedButton(
                 onPressed: () async {
-                  print('Nouvelles données du trajet: $currentTripData');
-                  _showPublishConfirmation();
-                  await Future.delayed(const Duration(seconds: 2));
-                  if (mounted) {
-                    Navigator.of(context)
-                        .pushReplacementNamed('/driver_screen');
-                  }
-                },
+                    print('Nouvelles données du trajet: $currentTripData');
+                    _showPublishConfirmation();
+                    await Future.delayed(const Duration(seconds: 2));
+                    if (mounted) {
+                      // Convertir la date et les heures en DateTime
+                      final date = DateTime.parse(currentTripData['date']);
+                      
+                      // Convertir departureTime (format "HH:mm AM/PM") en DateTime
+                      final departureTimeParts = currentTripData['departureTime'].split(' ');
+                      final departureHourMin = departureTimeParts[0].split(':');
+                      var departureHour = int.parse(departureHourMin[0]);
+                      final departureMinute = int.parse(departureHourMin[1]);
+                      if (departureTimeParts[1] == 'PM' && departureHour != 12) {
+                        departureHour += 12;
+                      }
+                      if (departureTimeParts[1] == 'AM' && departureHour == 12) {
+                        departureHour = 0;
+                      }
+                      
+                      // Même chose pour arrivalTime
+                      final arrivalTimeParts = currentTripData['arrivalTime'].split(' ');
+                      final arrivalHourMin = arrivalTimeParts[0].split(':');
+                      var arrivalHour = int.parse(arrivalHourMin[0]);
+                      final arrivalMinute = int.parse(arrivalHourMin[1]);
+                      if (arrivalTimeParts[1] == 'PM' && arrivalHour != 12) {
+                        arrivalHour += 12;
+                      }
+                      if (arrivalTimeParts[1] == 'AM' && arrivalHour == 12) {
+                        arrivalHour = 0;
+                      }
+
+                      // Créer les DateTime complets pour horaireDepart et horaireArrive
+                      final horaireDepart = DateTime(
+                        date.year, date.month, date.day, 
+                        departureHour, departureMinute
+                      );
+                      final horaireArrive = DateTime(
+                        date.year, date.month, date.day,
+                        arrivalHour, arrivalMinute
+                      );
+
+                      // Mettre à jour l'objet Trajet
+                      widget.trajet = Trajet(
+                        id: widget.trajet!.id ?? 0,
+                        horaireDepart: horaireDepart,
+                        horaireArrive: horaireArrive,
+                        placesDisponibles: currentTripData['seats'],
+                        placesMax: currentTripData['seats'],
+                        dateCreation: widget.trajet!.dateCreation ?? DateTime.now(),
+                        villeDepart: widget.trajet!.villeDepart, // à mettre à jour avec la nouvelle ville
+                        villeDestination: widget.trajet!.villeDestination, // à mettre à jour avec la nouvelle ville
+                        driver: widget.trajet!.driver,
+                        prix: currentTripData['price'].toDouble(),
+                      );
+
+                      if (true) {
+                        print(widget.trajet.toJson());
+                        await widget._trajetService.save(widget.trajet!);
+                      }
+                      if (mounted) {
+                        Navigator.of(context).pushReplacementNamed('/driver_screen');
+                      }
+                    }
+                  },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: primaryBlue,
                   shape: RoundedRectangleBorder(

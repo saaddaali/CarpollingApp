@@ -23,6 +23,18 @@ class Driver {
     required this.passwordChanged,
   });
 
+  Driver.empty()
+      : id = 3,
+        username = 'passenger',
+        email = 'passenger',
+        photo = '',
+        evaluation = 0.0,
+        enabled = true,
+        credentialsNonExpired = true,
+        accountNonExpired = true,
+        accountNonLocked = true,
+        passwordChanged = false;
+
   factory Driver.fromJson(Map<String, dynamic> json) {
     return Driver(
       id: json['id'] ?? 0,

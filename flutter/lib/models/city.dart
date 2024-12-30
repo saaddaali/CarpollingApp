@@ -11,6 +11,12 @@ class City {
     required this.description,
   });
 
+  City.empty()
+      : id = null,
+        code = '',
+        libelle = '',
+        description = '';
+
   factory City.fromJson(Map<String, dynamic> json) {
     return City(
       id: json['id'],

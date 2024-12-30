@@ -161,5 +161,27 @@ class TrajetService {
     }
   }
 
+Future<Trajet> save(Trajet trajet) async {
+  try {
+    final response = await http.post(
+      Uri.parse(baseUrl),
+      headers: _headers,
+      body: json.encode(trajet.toJson()),
+    );
+
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      final data = json.decode(utf8.decode(response.bodyBytes));
+      return Trajet.fromJson(data);
+    } else if (response.statusCode == 401) {
+      TokenManager.setToken('');
+      throw Exception('Session expirée, veuillez vous reconnecter');
+    } else {
+      throw Exception('Échec de la sauvegarde du trajet: ${response.statusCode}');
+    }
+  } catch (e) {
+    print('Erreur lors de la sauvegarde du trajet: $e');
+    rethrow;
+  }
+}
 
 } 

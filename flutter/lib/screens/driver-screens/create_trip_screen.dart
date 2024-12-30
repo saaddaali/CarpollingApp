@@ -1,6 +1,8 @@
 // create_trip_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:mycarpooling2/models/driver.dart';
+import 'package:mycarpooling2/models/trajet.dart';
 import 'package:mycarpooling2/screens/driver-screens/details_screen.dart';
 import 'package:mycarpooling2/services/city_service.dart';
 import 'package:mycarpooling2/models/city.dart';
@@ -15,7 +17,8 @@ class CreateTripScreen extends StatefulWidget {
 class _CreateTripScreenState extends State<CreateTripScreen> {
   static const Color primaryBlue = Color(0xFF4052EE);
   final CityService _cityService = CityService();
-  
+
+  Trajet trajet= Trajet.empty();
   List<City> cities = [];
   City? selectedDepartCity;
   City? selectedArrivalCity;
@@ -519,9 +522,7 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
       ),
     );
   }
-
-  void _handleSubmit(BuildContext context) {
-    // Vérification des champs
+void _handleSubmit(BuildContext context) {
     if (selectedDepartCity == null ||
         selectedArrivalCity == null ||
         selectedDate == null ||
@@ -537,7 +538,36 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
       return;
     }
 
-    // Création des données du trajet
+    // Création du Trajet
+    final horaireDepart = DateTime(
+      selectedDate!.year,
+      selectedDate!.month,
+      selectedDate!.day,
+      departureTime!.hour,
+      departureTime!.minute,
+    );
+
+    final horaireArrive = DateTime(
+      selectedDate!.year,
+      selectedDate!.month,
+      selectedDate!.day,
+      arrivalTime!.hour,
+      arrivalTime!.minute,
+    );
+
+    trajet = Trajet(
+      horaireDepart: horaireDepart,
+      horaireArrive: horaireArrive,
+      placesDisponibles: selectedSeats,
+      placesMax: selectedSeats,
+      dateCreation: DateTime.now(),
+      villeDepart: selectedDepartCity!,
+      villeDestination: selectedArrivalCity!,
+      driver: Driver.empty(), // À remplacer par le driver connecté
+      prix: double.parse(priceController.text),
+    );
+
+    // Création des données du trajet pour l'affichage
     final Map<String, dynamic> tripData = {
       'departCity': selectedDepartCity?.libelle,
       'arrivalCity': selectedArrivalCity?.libelle,
@@ -548,15 +578,16 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
       'price': int.parse(priceController.text),
     };
 
-    print('Données du trajet à sauvegarder: $tripData');
-
-    // Navigation vers l'écran des détails du trajet après la soumission
     Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => TripDetailsScreenn(tripData: tripData)),
+        builder: (context) => TripDetailsScreenn(
+          tripData: tripData,
+          trajet: trajet,
+        ),
+      ),
     );
-  }
+}
 
   @override
   Widget build(BuildContext context) {
