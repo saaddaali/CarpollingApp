@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:mycarpooling2/screens/driver-screens/details_screen.dart';
+import 'package:mycarpooling2/services/city_service.dart';
+import 'package:mycarpooling2/models/city.dart';
 
 class CreateTripScreen extends StatefulWidget {
   const CreateTripScreen({super.key});
@@ -12,29 +14,35 @@ class CreateTripScreen extends StatefulWidget {
 
 class _CreateTripScreenState extends State<CreateTripScreen> {
   static const Color primaryBlue = Color(0xFF4052EE);
-
-  final List<String> cities = [
-    'Casablanca',
-    'Rabat',
-    'Marrakech',
-    'Fès',
-    'Tanger',
-    'Meknès',
-    'Oujda',
-    'Agadir',
-    'Tétouan',
-    'Salé',
-    'Nador',
-    'Kénitra',
-  ];
-
-  String? selectedDepartCity;
-  String? selectedArrivalCity;
+  final CityService _cityService = CityService();
+  
+  List<City> cities = [];
+  City? selectedDepartCity;
+  City? selectedArrivalCity;
   int selectedSeats = 1;
   DateTime? selectedDate;
   TimeOfDay? departureTime;
   TimeOfDay? arrivalTime;
   final TextEditingController priceController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCities();
+  }
+
+  Future<void> _loadCities() async {
+    try {
+      final fetchedCities = await _cityService.findAllOptimized();
+      setState(() {
+        cities = fetchedCities;
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erreur lors du chargement des villes: $e')),
+      );
+    }
+  }
 
   @override
   void dispose() {
@@ -304,7 +312,7 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
   }
 
   Widget _buildCityField(
-      String hint, String? value, Function(String?) onChanged, IconData icon) {
+      String hint, City? value, Function(City?) onChanged, IconData icon) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       child: InkWell(
@@ -334,7 +342,7 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
                       itemBuilder: (context, index) {
                         return ListTile(
                           title: Text(
-                            cities[index],
+                            cities[index].libelle,
                             style: const TextStyle(fontSize: 18),
                           ),
                           onTap: () {
@@ -361,7 +369,7 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
               Icon(icon, color: primaryBlue, size: 22),
               const SizedBox(width: 12),
               Text(
-                value ?? hint,
+                value?.libelle ?? hint,
                 style: TextStyle(
                   fontSize: 20,
                   color: value == null ? Colors.grey[600] : Colors.black,
@@ -531,8 +539,8 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
 
     // Création des données du trajet
     final Map<String, dynamic> tripData = {
-      'departCity': selectedDepartCity,
-      'arrivalCity': selectedArrivalCity,
+      'departCity': selectedDepartCity?.libelle,
+      'arrivalCity': selectedArrivalCity?.libelle,
       'seats': selectedSeats,
       'date': selectedDate!.toIso8601String(),
       'departureTime': _formatTime(departureTime!),

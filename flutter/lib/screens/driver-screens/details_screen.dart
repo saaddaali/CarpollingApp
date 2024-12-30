@@ -1,4 +1,3 @@
-// details_screen.dart
 
 import 'package:flutter/material.dart';
 import 'package:mycarpooling2/screens/driver-screens/driver_home_screen.dart';
