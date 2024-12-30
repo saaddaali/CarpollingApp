@@ -1,5 +1,8 @@
 // driver_screen.dart
 import 'package:flutter/material.dart';
+import 'package:mycarpooling2/models/trajet.dart';
+import 'package:mycarpooling2/services/passenger_manager.dart';
+import 'package:mycarpooling2/services/trajet_service.dart';
 import '../chat_screen.dart';
 import '../profile_screen.dart';
 import '../home_screen.dart';
@@ -17,6 +20,51 @@ class DriverScreen extends StatefulWidget {
 class _DriverScreenState extends State<DriverScreen> {
   static const Color primaryBlue = Color(0xFF4052EE);
   final int _selectedIndex = 1;
+  final TrajetService _trajetService = TrajetService();
+  List<Trajet> _upcomingTrips = [];
+  List<Trajet> _pastTrips = [];
+  bool _isLoading = true;
+  String username = 'User';
+
+
+
+  
+
+  @override
+  void initState() {
+    super.initState();
+    _loadTrips();
+    _loadUsername();
+  }
+
+  Future<void> _loadTrips() async {
+    try {
+      final trips = await _trajetService.findByCurrentUser();
+      final now = DateTime.now();
+      
+      setState(() {
+        _upcomingTrips = trips
+            .where((trip) => trip.horaireDepart.isAfter(now))
+            .toList();
+        _pastTrips = trips
+            .where((trip) => trip.horaireDepart.isBefore(now))
+            .toList();
+        _isLoading = false;
+      });
+    } catch (e) {
+      print('Error loading trips: $e');
+      setState(() => _isLoading = false);
+    }
+  }
+
+  Future<void> _loadUsername() async {
+    final passenger = await PassengerManager.getPassenger();
+    if (passenger != null) {
+      setState(() {
+        username = passenger.username;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,11 +164,11 @@ class _DriverScreenState extends State<DriverScreen> {
             const SizedBox(height: 32),
 
             // Titre
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                'Soukaina, tu voyages quelque part?',
-                style: TextStyle(
+                '$username, tu voyages quelque part?',
+                style: const TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                   height: 1.2,
@@ -130,20 +178,17 @@ class _DriverScreenState extends State<DriverScreen> {
 
             const SizedBox(height: 24),
 
-            // Contenu principal
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Bouton pour créer un trajet
-                    Container(
+           // Contenu principal
+              Expanded(
+                child: DefaultTabController(
+                  length: 2,
+                  child: Column(
+                    children: [
+                      Container(
                       width: double.infinity,
-                      margin: const EdgeInsets.only(bottom: 20),
+                      margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
                       child: ElevatedButton(
                         onPressed: () {
-                          // Ajouter la logique pour créer un trajet
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -168,22 +213,29 @@ class _DriverScreenState extends State<DriverScreen> {
                         ),
                       ),
                     ),
-
-                    // Liste des trajets publiés
-                    /*const Text(
-                      'Mes trajets publiés',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                      const TabBar(
+                        tabs: [
+                          Tab(text: 'À venir'),
+                          Tab(text: 'Historique'),
+                        ],
+                        labelColor: primaryBlue,
+                        unselectedLabelColor: Colors.grey,
+                        indicatorColor: primaryBlue,
                       ),
-                    ),*/
-                    const SizedBox(height: 16),
-                    // Ici vous pouvez ajouter une liste de trajets
-                  ],
+                      Expanded(
+                        child: TabBarView(
+                          children: [
+                            _buildTripsList(upcoming: true),
+                            _buildTripsList(upcoming: false),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-
+              ), 
+        
+        
             // Barre de navigation
             Column(
               children: [
@@ -234,6 +286,113 @@ class _DriverScreenState extends State<DriverScreen> {
       ),
     );
   }
+
+  Widget _buildTripsList({required bool upcoming}) {
+  final trips = upcoming ? _upcomingTrips : _pastTrips;
+
+  if (_isLoading) {
+    return const Center(child: CircularProgressIndicator());
+  }
+
+  if (trips.isEmpty) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            upcoming ? 'Aucun trajet à venir' : 'Aucun trajet passé',
+            style: const TextStyle(fontSize: 16, color: Colors.grey),
+          ),
+          const SizedBox(height: 16),
+          if (upcoming)
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CreateTripScreen(),
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: primaryBlue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24),
+                ),
+              ),
+              child: const Text('Créer un trajet'),
+            ),
+        ],
+      ),
+    );
+  }
+
+  return ListView.builder(
+    padding: const EdgeInsets.all(20),
+    itemCount: trips.length,
+    itemBuilder: (context, index) {
+      final trip = trips[index];
+      return Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  _formatDate(trip.horaireDepart),
+                  style: const TextStyle(
+                    color: Colors.grey,
+                    fontSize: 14,
+                  ),
+                ),
+                Text(
+                  '${trip.prix} DH',
+                  style: const TextStyle(
+                    color: primaryBlue,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                const Icon(Icons.location_on, color: primaryBlue, size: 20),
+                const SizedBox(width: 8),
+                Text(
+                  '${trip.villeDepart.libelle} → ${trip.villeDestination.libelle}',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+String _formatDate(DateTime date) {
+  return '${date.day}/${date.month}/${date.year}';
+}
 
   Widget _buildNavItem(int index, IconData icon, String label) {
     bool isSelected = _selectedIndex == index;
