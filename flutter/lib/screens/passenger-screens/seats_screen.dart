@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mycarpooling2/models/city.dart';
 import 'driver_list_screen.dart';
 
 class SeatsSelectionScreen extends StatefulWidget {
-  final String departureCity;
-  final String arrivalCity;
+  final City? departureCity;
+  final City? arrivalCity;
   final DateTime selectedDate;
 
   const SeatsSelectionScreen({

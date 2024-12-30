@@ -4,7 +4,7 @@ import '../../models/city.dart';
 import '../../services/city_service.dart';
 
 class ArrivalCityScreen extends StatefulWidget {
-  final String departureCity;
+  final City? departureCity;
 
   const ArrivalCityScreen({
     super.key,
@@ -105,7 +105,7 @@ class _ArrivalCityScreenState extends State<ArrivalCityScreen> {
                   ),
                   const SizedBox(width: 10),
                   Text(
-                    widget.departureCity,
+                    widget.departureCity?.libelle ?? 'Unknown city',
                     style: const TextStyle(
                       fontSize: 16,
                       color: Colors.grey,
@@ -240,7 +240,7 @@ class _ArrivalCityScreenState extends State<ArrivalCityScreen> {
                                 MaterialPageRoute(
                                   builder: (context) => DatePickerScreen(
                                     departureCity: widget.departureCity,
-                                    arrivalCity: city.libelle,
+                                    arrivalCity: city,
                                   ),
                                 ),
                               );

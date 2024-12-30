@@ -218,7 +218,7 @@ class _DepartureCityScreenState extends State<DepartureCityScreen> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => ArrivalCityScreen(
-                                    departureCity: city.libelle,
+                                    departureCity: city,
                                   ),
                                 ),
                               );

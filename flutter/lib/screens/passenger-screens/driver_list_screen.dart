@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mycarpooling2/models/city.dart';
 import 'package:mycarpooling2/screens/passenger-screens/arrival_city_screen.dart';
 import 'package:mycarpooling2/screens/passenger-screens/date_picker_screen.dart';
 import 'package:mycarpooling2/screens/passenger-screens/departure_city_screen.dart';
@@ -9,8 +10,8 @@ import 'package:mycarpooling2/services/trajet_service.dart';
 import 'package:mycarpooling2/models/trajet.dart';
 
 class DriverListScreen extends StatefulWidget {
-  final String departureCity;
-  final String arrivalCity;
+  final City? departureCity;
+  final City? arrivalCity;
   final DateTime selectedDate;
   final int seats;
 
@@ -68,9 +69,9 @@ class _DriverListScreenState extends State<DriverListScreen> {
       });
 
       final trajets = await _trajetService.findByCriteria(
-        villeDepartLibelle: widget.departureCity,
-        villeArriveeLibelle: widget.arrivalCity,
-        //dateDepart: widget.selectedDate,
+        villeDepart: widget.departureCity,
+        villeArrivee: widget.arrivalCity,
+        dateDepart: widget.selectedDate,
         nombrePlaceMin: widget.seats,
       );
 
@@ -160,7 +161,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              widget.departureCity,
+                              widget.departureCity?.libelle ?? 'Départ',
                               style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -196,7 +197,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              widget.arrivalCity,
+                              widget.arrivalCity?.libelle ?? 'Arrivée',
                               style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -644,14 +645,14 @@ class _DriverListScreenState extends State<DriverListScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '${widget.departureCity} > ${widget.arrivalCity}',
+                              '${widget.departureCity?.libelle} > ${widget.arrivalCity?.libelle}',
                               style: const TextStyle(
                                 fontSize: 16,
                                 color: DriverListScreen.textGrey,
                               ),
                             ),
                             Text(
-                              '${DateFormat('E', 'fr_FR').format(widget.selectedDate).toLowerCase()}., ${DateFormat('d MMM', 'fr_FR').format(widget.selectedDate).toLowerCase()} - ${widget.seats} ${widget.seats > 1 ? 'places' : 'place'}',
+                                '${DateFormat('d MMM', 'fr_FR').format(widget.selectedDate).toLowerCase()} - ${widget.seats} ${widget.seats > 1 ? 'places' : 'place'}',
                               style: const TextStyle(
                                 fontSize: 14,
                                 color: DriverListScreen.textGrey,

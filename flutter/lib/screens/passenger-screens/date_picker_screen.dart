@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:mycarpooling2/models/city.dart';
 import 'package:mycarpooling2/screens/passenger-screens/seats_screen.dart';
 
 class DatePickerScreen extends StatefulWidget {
-  final String departureCity;
-  final String arrivalCity;
+  final City? departureCity;
+  final City? arrivalCity;
 
   const DatePickerScreen({
     super.key,
@@ -187,7 +188,7 @@ class _DatePickerScreenState extends State<DatePickerScreen> {
                         const SizedBox(width: 15),
                         Expanded(
                           child: Text(
-                            '${widget.departureCity} > ${widget.arrivalCity}',
+                            '${widget.departureCity?.libelle} > ${widget.arrivalCity?.libelle}',
                             style: const TextStyle(
                               fontSize: 16,
                               color: Colors.grey,

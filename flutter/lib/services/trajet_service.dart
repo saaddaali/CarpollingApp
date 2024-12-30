@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:mycarpooling2/models/city.dart';
 import 'package:mycarpooling2/services/token_manager.dart';
 import '../models/trajet.dart';
 
@@ -21,8 +22,8 @@ class TrajetService {
   
 
   Future<List<Trajet>> findByCriteria({
-    String? villeDepartLibelle,
-    String? villeArriveeLibelle,
+    City? villeDepart,
+    City? villeArrivee,
     DateTime? dateDepart,
     int? nombrePlaceMin,
     double? prixMax,
@@ -30,13 +31,18 @@ class TrajetService {
     try {
       final Map<String, dynamic> criteria = {
         'villeDepart': {
-          'libelle': villeDepartLibelle,
+          'id': villeDepart?.id,
+          'libelle': villeDepart?.libelle,
+          'code': villeDepart?.code,
+          'description': villeDepart?.description,
         },
         'villeDestination': {
-          'libelle': villeArriveeLibelle,
+          'id': villeArrivee?.id,
+          'libelle': villeArrivee?.libelle,
+          'code': villeArrivee?.code,
+          'description': villeArrivee?.description,
         },
         if (dateDepart != null) ...<String, dynamic>{
-          'horaireDepart': dateDepart.toIso8601String(),
           'horaireDepartFrom': dateDepart.toIso8601String(),
           'horaireDepartTo': dateDepart
               .add(const Duration(days: 1))
