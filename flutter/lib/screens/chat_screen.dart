@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycarpooling2/screens/conversation_screen.dart';
 import '../models/conversation.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -17,7 +18,7 @@ class _ChatScreenState extends State<ChatScreen> {
       id: 1,
       name: 'Ahmed Alami',
       lastMessage: 'Je serai là dans 5 minutes',
-      avatar: 'https://i.pravatar.cc/150?img=1',
+      avatar: 'https://i.pravatar.cc/150?img=3',
       lastMessageTime: DateTime.now().subtract(const Duration(minutes: 5)),
       isUnread: true,
     ),
@@ -45,8 +46,14 @@ class _ChatScreenState extends State<ChatScreen> {
         final conversation = conversations[index];
         return _ConversationItem(
           conversation: conversation,
+          
           onTap: () {
-            // TODO: Navigation vers le chat individuel
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+            builder: (context) => ChatScreenConversation(),
+            ),
+          );
           },
         );
       },

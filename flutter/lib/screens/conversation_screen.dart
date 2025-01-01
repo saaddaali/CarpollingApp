@@ -32,6 +32,13 @@ class _ChatScreenState extends State<ChatScreenConversation> {
       timestamp: DateTime.now().subtract(const Duration(minutes: 3)),
       isMe: false,
     ),
+    Message(
+      id: '3',
+      content: "D\'accord, à demain !",
+      senderId: "user1",
+      timestamp: DateTime.now().subtract(const Duration(minutes: 1)),
+      isMe: true,
+    ),
   ];
 
   void _sendMessage() {
@@ -59,25 +66,34 @@ class _ChatScreenState extends State<ChatScreenConversation> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-      
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black, // Bouton retour en bleu
+          backgroundColor: Colors.white,
+          elevation: 0,
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.black, // Back button in black
+            ),
+            onPressed: () => Navigator.pop(context),
           ),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          'Conversation',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
+          title: Row(
+            children: [
+              CircleAvatar(
+                radius: 24,
+                backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=2'), // Replace with actual avatar URL
+              ),
+              const SizedBox(width: 10), // Add space between the avatar and the title
+              const Text(
+                'Sofia Bennani',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
         ),
-      ),
+
       body: Column(
         children: [
           Expanded(
