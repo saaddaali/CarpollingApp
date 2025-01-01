@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycarpooling2/screens/faq.dart';
 import 'passenger-screens/departure_city_screen.dart';
 import 'chat_screen.dart';
 import 'profile_screen.dart';
@@ -78,36 +79,46 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
 
                   // Help and Chat buttons
-                  Row(
+                    Row(
                     children: [
                       // Help Button
-                      Container(
+                      GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const FAQScreen(),
+                        ),
+                        );
+                      },
+                      child: Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
+                        horizontal: 16,
+                        vertical: 8,
                         ),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFFED049),
-                          borderRadius: BorderRadius.circular(20),
+                        color: const Color(0xFFFED049),
+                        borderRadius: BorderRadius.circular(20),
                         ),
                         child: const Row(
-                          children: [
-                            Icon(
-                              Icons.warning,
-                              size: 20,
-                              color: Colors.black,
-                            ),
-                            SizedBox(width: 6),
-                            Text(
-                              'Aide',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
+                        children: [
+                          Icon(
+                          Icons.warning,
+                          size: 20,
+                          color: Colors.black,
+                          ),
+                          SizedBox(width: 6),
+                          Text(
+                          'Aide',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black,
+                          ),
+                          ),
+                        ],
                         ),
+                      ),
                       ),
 
                       const SizedBox(width: 12),
