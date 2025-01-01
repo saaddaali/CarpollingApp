@@ -72,7 +72,7 @@ class _SeatsSelectionScreenState extends State<SeatsSelectionScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '${widget.departureCity} > ${widget.arrivalCity}',
+                        '${widget.departureCity?.libelle} > ${widget.arrivalCity?.libelle}',
                         style: const TextStyle(
                           fontSize: 16,
                           color: Colors.grey,

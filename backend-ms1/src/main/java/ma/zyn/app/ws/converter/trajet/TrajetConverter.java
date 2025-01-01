@@ -104,8 +104,8 @@ public class TrajetConverter {
             }
             if (this.driver && item.getDriver() != null) {
                 dto.setDriver(driverConverter.toDto(item.getDriver()));
-
             }
+
             if (this.localisationSource && item.getLocalisationSource() != null) {
                 dto.setLocalisationSource(villeConverter.toDto(item.getLocalisationSource()));
 

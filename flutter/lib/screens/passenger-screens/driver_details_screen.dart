@@ -15,7 +15,7 @@ class DriverDetailsScreen extends StatelessWidget {
     required this.driverName,
     required this.rating,
     required this.reviews,
-    this.memberSince = "Août 2020",
+    this.memberSince = "Août 2024",
   });
 
   Widget buildReviewCard() {
@@ -47,7 +47,7 @@ class DriverDetailsScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Amine',
+                      'passenger',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,

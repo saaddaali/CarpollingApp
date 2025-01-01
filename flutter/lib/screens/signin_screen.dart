@@ -82,7 +82,7 @@ class _SignInScreenState extends State<SignInScreen> {
           if (!mounted) return;
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Invalid credentials'),
+              content: Text('Username or password is incorrect'),
               backgroundColor: Colors.red,
             ),
           );
