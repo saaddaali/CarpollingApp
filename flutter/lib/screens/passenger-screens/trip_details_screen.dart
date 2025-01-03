@@ -224,12 +224,12 @@ class TripDetailsScreen extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      Padding(
+                                        Padding(
                                         padding: const EdgeInsets.only(
                                           left: 28,
                                           top: 8,
                                         ),
-                                        child: buildTimeContainer(trajet.horaireDepart.toString()),
+                                        child: buildTimeContainer(DateFormat('HH:mm').format(trajet.horaireDepart)),
                                       ),
                                     ],
                                   ),
@@ -271,7 +271,7 @@ class TripDetailsScreen extends StatelessWidget {
                                           left: 28,
                                           top: 8,
                                         ),
-                                        child: buildTimeContainer(trajet.horaireArrive.toString()),
+                                        child: buildTimeContainer(DateFormat('HH:mm').format(trajet.horaireArrive)),
                                       ),
                                     ],
                                   ),

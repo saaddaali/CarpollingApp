@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:mycarpooling2/screens/chat_screen.dart';
-import 'package:mycarpooling2/screens/conversation_screen.dart';
 import 'screens/signin_screen.dart';
 import 'screens/signup_screen.dart';
 import 'screens/welcome_screen.dart';
