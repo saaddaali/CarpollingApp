@@ -2,56 +2,63 @@
     <passenger-topbar></passenger-topbar>
     <div class="create-trajet">
         <div class="create-trajet__container">
+
             <h2 class="form-title">Liste des Trajets</h2>
 
-            <div *ngIf="!items || items.length === 0" class="empty-state">
-                <i class="pi pi-car" style="font-size: 3rem; color: #4052EE; margin-bottom: 1rem;"></i>
-                <p>Aucun trajet disponible pour le moment</p>
+
+            <div class="tabs-navigation">
+                <button class="tab-button" [class.active]="activeTab === 'upcoming'" (click)="activeTab = 'upcoming'">
+                    À venir
+                </button>
+                <button class="tab-button" [class.active]="activeTab === 'history'" (click)="activeTab = 'history'">
+                    Historique
+                </button>
             </div>
 
-            <div class="trajets-grid" *ngIf="items && items.length > 0">
-                <div class="form-section" *ngFor="let trajet of items">
-                    <div class="trajet-header">
-                        <h3 class="section-title">
-                            <i class="pi pi-map-marker"></i>
-                            <span>{{trajet.villeDepart?.libelle || 'N/A'}} → {{trajet.villeDestination?.libelle || 'N/A'}}</span>
-                        </h3>
-                        <div class="places-info-header">
-                            <i class="pi pi-users"></i>
-                            <span>{{trajet.placesDisponibles || 0}} places</span>
-                        </div>
-                    </div>
+            <!-- Section À venir -->
+            <div class="trajets-list" *ngIf="activeTab === 'upcoming'">
+                <!-- Empty state modifié -->
+                <div class="empty-state" *ngIf="upcomingTrips.length === 0">
+                    <i class="pi pi-car"></i>
+                    <p>Aucun trajet à venir</p>
+                </div>
 
-                    <div class="trajet-details">
-                        <div class="form-row">
-                            <div class="detail-group">
-                                <label><i class="pi pi-clock"></i> Départ</label>
-                                <div class="detail-value">
-                                    <span>{{trajet.horaireDepart | date:'dd/MM/yy'}}</span>
-                                    <span class="time-value">{{trajet.horaireDepart | date:'HH:mm'}}</span>
+                <!-- Liste des trajets à venir -->
+                <div class="trajets-container" *ngIf="upcomingTrips.length > 0">
+                    <div class="trajet-card" *ngFor="let trajet of upcomingTrips">
+                        <!-- En-tête du trajet -->
+                        <div class="trajet-header">
+                            <div class="trajet-primary-info">
+                                <div class="trajet-date">{{trajet.horaireDepart | date:'d/M/yyyy'}}</div>
+                                <div class="trajet-route">
+                                    <i class="pi pi-map-marker location-icon"></i>
+                                    <span class="route-cities">
+                                        {{trajet.villeDepart?.libelle}} → {{trajet.villeDestination?.libelle}}
+                                    </span>
                                 </div>
                             </div>
+                            <div class="trajet-price">{{trajet.prix}} DH</div>
+                        </div>
 
-                            <div class="detail-group">
-                                <label><i class="pi pi-clock"></i> Arrivée</label>
-                                <div class="detail-value">
-                                    <span>{{trajet.horaireArrive | date:'dd/MM/yy'}}</span>
-                                    <span class="time-value">{{trajet.horaireArrive | date:'HH:mm'}}</span>
-                                </div>
+                        <!-- Détails du trajet -->
+                        <div class="trajet-details">
+                            <div class="detail-item">
+                                <i class="pi pi-clock"></i>
+                                <span>Départ: {{trajet.horaireDepart | date:'HH:mm'}}</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="pi pi-users"></i>
+                                <span>{{trajet.placesDisponibles}} places disponibles</span>
                             </div>
                         </div>
 
-                        <div class="detail-group">
-                            <label><i class="pi pi-money-bill"></i> Prix</label>
-                            <div class="detail-value">{{trajet.prix || 0}} MAD</div>
-                        </div>
 
-                        <div class="trajet-footer">
-                            <button class="btn btn-edit" (click)="editTrajet(trajet)">
+                        <div class="trajet-actions">
+                            <button class="action-btn edit-btn" (click)="editTrajet(trajet)">
                                 <i class="pi pi-pencil"></i>
                                 Modifier
                             </button>
-                            <button class="btn btn-delete" (click)="deleteTrajet(trajet)">
+                            <button class="action-btn delete-btn" (click)="deleteTrajet(trajet)">
                                 <i class="pi pi-trash"></i>
                                 Supprimer
                             </button>
@@ -59,12 +66,55 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Section Historique -->
+            <div class="trajets-list" *ngIf="activeTab === 'history'">
+
+                <div class="empty-state" *ngIf="pastTrips.length === 0">
+                    <i class="pi pi-history"></i>
+                    <p>Aucun trajet dans l'historique</p>
+                </div>
+
+
+                <div class="trajets-container" *ngIf="pastTrips.length > 0">
+                    <div class="trajet-card past-trajet" *ngFor="let trajet of pastTrips">
+
+                        <div class="trajet-header">
+                            <div class="trajet-primary-info">
+                                <div class="trajet-date">{{trajet.horaireDepart | date:'d/M/yyyy'}}</div>
+                                <div class="trajet-route">
+                                    <i class="pi pi-map-marker location-icon"></i>
+                                    <span class="route-cities">
+                                        {{trajet.villeDepart?.libelle}} → {{trajet.villeDestination?.libelle}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="trajet-price">{{trajet.prix}} DH</div>
+                        </div>
+
+
+                        <div class="trajet-details">
+                            <div class="detail-item">
+                                <i class="pi pi-clock"></i>
+                                <span>Départ: {{trajet.horaireDepart | date:'HH:mm'}}</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="pi pi-users"></i>
+                                <span>{{trajet.placesDisponibles}} places</span>
+                            </div>
+                            <div class="status-completed">
+                                <i class="pi pi-check-circle"></i>
+                                Trajet terminé
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+    
+    <app-trajet-edit-passenger></app-trajet-edit-passenger>
+    <p-confirmDialog></p-confirmDialog>
+    <p-toast position="top-right"></p-toast>
 </div>
-
-<app-trajet-edit-passenger></app-trajet-edit-passenger>
-
-<p-confirmDialog></p-confirmDialog>
-
-<p-toast position="top-right"></p-toast>

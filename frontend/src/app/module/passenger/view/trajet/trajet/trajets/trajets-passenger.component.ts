@@ -50,11 +50,16 @@ export class TrajetsPassengerComponent implements OnInit {
         this.stringUtilService = ServiceLocator.injector.get(StringUtilService);
     }
 
+    activeTab: 'upcoming' | 'history' = 'upcoming';
+    upcomingTrips: TrajetDto[] = [];
+    pastTrips: TrajetDto[] = [];
+
     ngOnInit(): void {
         // Charger les données
         this.service.findAllOptimizedDriver().subscribe(
             (data) => {
                 this.items = data;
+                this.categorizeTrips(); // Appel de la nouvelle méthode
             },
             (error) => {
                 console.error('Erreur lors du chargement des trajets:', error);
@@ -75,6 +80,20 @@ export class TrajetsPassengerComponent implements OnInit {
         this.villeService.findAll().subscribe((data) => this.localisationDestinations = data);
     }
 
+    private categorizeTrips(): void {
+        const now = new Date();
+
+        // Trier les trajets à venir (par date croissante)
+        this.upcomingTrips = this.items
+            .filter(trajet => new Date(trajet.horaireDepart) > now)
+            .sort((a, b) => new Date(a.horaireDepart).getTime() - new Date(b.horaireDepart).getTime());
+
+        // Trier les trajets passés (par date décroissante)
+        this.pastTrips = this.items
+            .filter(trajet => new Date(trajet.horaireDepart) <= now)
+            .sort((a, b) => new Date(b.horaireDepart).getTime() - new Date(a.horaireDepart).getTime());
+    }
+
     editTrajet(trajet: TrajetDto) {
         this.service.item = {...trajet};
         this.service.editDialog = true;
@@ -87,6 +106,7 @@ export class TrajetsPassengerComponent implements OnInit {
                 this.service.delete(trajet).subscribe(
                     () => {
                         this.items = this.items.filter(item => item.id !== trajet.id);
+                        this.categorizeTrips(); // Recatégoriser après suppression
                         this.messageService.add({
                             severity: 'success',
                             summary: 'Succès',
@@ -389,12 +409,12 @@ export class TrajetsPassengerComponent implements OnInit {
     }
 
 
-    get activeTab(): number {
+    /*get activeTab(): number {
         return this._activeTab;
     }
 
     set activeTab(value: number) {
         this._activeTab = value;
-    }
+    }*/
 
 }
