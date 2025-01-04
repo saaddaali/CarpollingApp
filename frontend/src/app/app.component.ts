@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
+import {Component, OnInit} from '@angular/core';
+import {PrimeNGConfig} from 'primeng/api';
 import {RoleService} from "./zynerator/security/shared/service/Role.service";
 import {TranslateService} from "@ngx-translate/core";
 import {Observable} from "rxjs";

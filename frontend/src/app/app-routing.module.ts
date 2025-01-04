@@ -9,12 +9,15 @@ import {RegisterAdminComponent} from 'src/app/module/admin/register-admin/regist
 import {ChangePasswordAdminComponent} from 'src/app/module/admin/change-password-admin/change-password-admin.component';
 import {LoginDriverComponent} from 'src/app/module/driver/login-driver/login-driver.component';
 import {RegisterDriverComponent} from 'src/app/module/driver/register-driver/register-driver.component';
-import {ChangePasswordDriverComponent} from 'src/app/module/driver/change-password-driver/change-password-driver.component';
+import {
+    ChangePasswordDriverComponent
+} from 'src/app/module/driver/change-password-driver/change-password-driver.component';
 import {LoginPassengerComponent} from 'src/app/module/passenger/login-passenger/login-passenger.component';
 import {RegisterPassengerComponent} from 'src/app/module/passenger/register-passenger/register-passenger.component';
-import {ChangePasswordPassengerComponent} from 'src/app/module/passenger/change-password-passenger/change-password-passenger.component';
+import {
+    ChangePasswordPassengerComponent
+} from 'src/app/module/passenger/change-password-passenger/change-password-passenger.component';
 import {AdminLayoutComponent} from "./layout/admin/admin.layout.component";
-import {PassengerLayoutModule} from "./layout/passenger/passenger.layout.module";
 
 @NgModule({
     imports: [

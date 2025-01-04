@@ -7,22 +7,22 @@ $logout-color: #FF4C4C; /* Red color for logout button */
     justify-content: space-between;
     align-items: center;
     color: #000000;
-    padding: 8px 20px;  // Adjusted vertical padding only
+    padding: 20px 20px;  // Adjusted vertical padding only
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     font-family: 'Roboto', sans-serif;
-    height: 50px;  // Fixed height adjusted
+    height: 70px;  // Fixed height adjusted
     box-sizing: border-box;
     background-color:white;  // Ensure background is white
 }
 
 .logo_top {
-    width: 120px;  /* Adjust logo size */
+    width: 150px;  /* Adjust logo size */
     height: auto;
 }
 
 .profile-image {
-    width: 40px;      /* Adjust image size */
-    height: 40px;     /* Make sure it's square */
+    width: 60px;      /* Adjust image size */
+    height: 60px;     /* Make sure it's square */
     border-radius: 50%; /* Circular avatar */
     margin-right: 8px; /* Space between image and text */
     border: 2px solid #fff; /* Optional: border around image */
@@ -31,7 +31,7 @@ $logout-color: #FF4C4C; /* Red color for logout button */
 .online-status {
     position: absolute;
     bottom: 6px;
-    right: 130px;
+    right: 160px;
     width: 10px;      /* Dot size */
     height: 10px;     /* Dot size */
     background-color: green; /* Green color for online status */
@@ -64,7 +64,7 @@ $logout-color: #FF4C4C; /* Red color for logout button */
     background: none;
     border: none;
     color: #000000;
-    font-size: 1rem;
+    font-size: 1.4rem;
     display: flex;
     align-items: center;
     gap: 5px;

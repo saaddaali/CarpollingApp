@@ -58,37 +58,32 @@
                         Détails supplémentaires
                     </h3>
                     <div class="form-row">
-                        <div class="form-group">
-                            <label for="5">{{'trajet.placesDisponibles' | translate}}</label>
-                            <p-inputNumber id="5" name="placesDisponibles" [(ngModel)]="item.placesMax"
-                                           [showButtons]="true" [min]="1" [max]="4" buttonLayout="horizontal"
-                                           incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
-                            </p-inputNumber>
-                        </div>
+                    <div class="form-group">
+                        <label for="5">{{'trajet.placesDisponibles' | translate}}</label>
+                        <p-inputNumber id="5" name="placesDisponibles" [(ngModel)]="item.placesMax"
+                                       [showButtons]="true" [min]="1" [max]="4" buttonLayout="horizontal"
+                                       incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
+                        </p-inputNumber>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="6">{{'trajet.driver' | translate}}</label>
-                            <p-dropdown [options]="drivers" [(ngModel)]="item.driver"
-                                        id="6" name="driver" [filter]="true" filterMatchMode="contains" [showClear]="true"
-                                        optionLabel="email" placeholder="{{'trajet.driver' | translate}}">
-                            </p-dropdown>
+                        <div class="form-group prix-field">
+                            <label for="7">Prix</label>
+                            <div class="input-with-suffix">
+                                <p-inputNumber id="7"
+                                               name="prix"
+                                               [(ngModel)]="item.prix"
+                                               inputId="currency-us"
+                                               mode="currency"
+                                               currency="MAD"
+                                               placeholder="Prix du trajet"
+                                               locale="fr-FR">
+                                </p-inputNumber>
+                                <span class="suffix">DH</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group prix-field">
-                        <label for="7">Prix</label>
-                        <div class="input-with-suffix">
-                            <p-inputNumber id="7"
-                                           name="prix"
-                                           [(ngModel)]="item.prix"
-                                           inputId="currency-us"
-                                           mode="currency"
-                                           currency="MAD"
-                                           placeholder="Prix du trajet"
-                                           locale="fr-FR">
-                            </p-inputNumber>
-                            <span class="suffix">DH</span>
-                        </div>
-                    </div>
+                </div>
+
+
 
 
                 </div>
@@ -107,5 +102,6 @@
 </div>
 
 
-<p-toast position="top-right"></p-toast>
 
+
+<p-toast class="custom-toast"></p-toast>

@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { SelectItem } from 'primeng/api';
 
 import {AppComponent} from 'src/app/app.component';
@@ -21,6 +21,7 @@ export class PassengerTopbarComponent implements OnInit{
     editDialog = false ;
     languageOptions: SelectItem[];
     selectedLanguage: string;
+    isDriver= false;
 
 
 
@@ -43,6 +44,21 @@ export class PassengerTopbarComponent implements OnInit{
         this.router.navigate(['/app/passenger/message/conversation/view/O']);
     }
 
+    public toggleRole() {
+        this.isDriver = !this.isDriver;
+
+        const route = this.isDriver
+            ? 'app/passenger/trajet/trajets'
+            : 'app/passenger';
+
+        this.router.navigate([route]).then(() => {
+            // Force Angular to detect changes
+            this.cd.detectChanges();
+        });
+    }
+
+
+
 
     public editUser(){
         this.userService.edit().subscribe(data => this.authenticatedUser = data);
@@ -56,17 +72,10 @@ export class PassengerTopbarComponent implements OnInit{
 
 
 
-    constructor(public  layoutService:LayoutService , public app: AppComponent, private authService: AuthService, private translateService: TranslateService, private userService: UserService,private router: Router) {
-        this.languageOptions = [
-            { label: 'English', value: 'en' },
-            { label: 'Français', value: 'fr' },
-            { label: 'العربية', value: 'ar' }
-        ];
+    constructor(public  layoutService:LayoutService , public app: AppComponent, private authService: AuthService, private translateService: TranslateService, private userService: UserService,private router: Router, private cd: ChangeDetectorRef) {
     }
 
-    useLanguage(language: string): void {
-        this.translateService.use(language);
-    }
+
     ngOnInit(): void {
         this.authService.loadInfos();
         if ( this.authService.authenticatedUser.roleUsers[0].role.authority === 'ROLE_PASSENGER'){

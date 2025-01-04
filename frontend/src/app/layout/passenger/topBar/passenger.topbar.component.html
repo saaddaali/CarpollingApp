@@ -12,6 +12,13 @@
          [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
 
 
+        <!-- Toggle Role Button -->
+        <button class="p-link elegant-topbar-button" (click)="toggleRole()">
+            <i [ngClass]="isDriver ? 'pi pi-user' : 'pi pi-car'"></i>
+            <span>{{ isDriver ? 'Switch to Passenger' : 'Switch to Driver' }}</span>
+        </button>
+
+
         <!-- Conversation button -->
         <button class="p-link elegant-topbar-button" (click)="openConversation()">
             <i class="pi pi-comment"></i>

@@ -12,7 +12,33 @@ $success-color: #10B981;
     background: $background-light;
     padding: 2rem;
 }
+.custom-toast .p-toast {
+    width: 200px; /* Adjust the width as needed */
+    height: 200px; /* Adjust the height as needed */
+    border-radius: 16px; /* Rounded corners */
+    position: fixed; /* Ensure the toast is positioned relative to the viewport */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 1000; /* Ensure the toast is above other elements */
+}
 
+.custom-toast .p-toast-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-toast .p-toast-icon {
+    font-size: 2rem;
+    color: $success-color;
+    margin-bottom: 1rem;
+}
 .create-trajet {
     display: flex;
     justify-content: center;

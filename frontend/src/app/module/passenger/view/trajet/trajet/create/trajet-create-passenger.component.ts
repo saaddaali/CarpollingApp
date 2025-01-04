@@ -100,7 +100,11 @@ export class TrajetCreatePassengerComponent implements OnInit {
                 this.createDialog = false;
                 this.submitted = false;
                 this.item = new TrajetDto();
-                this.messageService.add({severity: 'success', summary: 'Succès', detail: 'Element enregistré'});
+                this.messageService.add({severity: 'success', summary: 'Succès', detail: 'Trajet publier success',icon: 'pi pi-check'});
+                //make popup sucess and wait 3000 to navigate
+                setTimeout(() => {
+                    this.router.navigate(['/app/passenger/trajet/trajets']);
+                }, 3000);
             } else {
                 this.messageService.add({severity: 'error', summary: 'Erreurs', detail: 'Element existant'});
             }

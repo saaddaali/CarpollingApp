@@ -3,7 +3,10 @@ package  ma.zyn.app.ws.facade.passenger.trajet;
 import io.swagger.v3.oas.annotations.Operation;
 
 import ma.zyn.app.bean.core.driver.Driver;
+import ma.zyn.app.bean.core.passenger.Passenger;
 import ma.zyn.app.service.facade.passenger.driver.DriverPassengerService;
+import ma.zyn.app.utils.security.bean.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import ma.zyn.app.bean.core.trajet.Trajet;
@@ -63,6 +66,9 @@ public class TrajetRestPassenger {
         if(dto!=null){
             converter.init(true);
             Trajet myT = converter.toItem(dto);
+            String username = getCurrentUser().getUsername();
+            Driver driver = driverService.findByUsername(username);
+            myT.setDriver(driver);
             Trajet t = service.create(myT);
             if (t == null) {
                 return new ResponseEntity<>(null, HttpStatus.IM_USED);
@@ -245,6 +251,7 @@ public class TrajetRestPassenger {
 
     private final TrajetPassengerService service;
 
+    @Autowired
     private  DriverPassengerService driverService;
     private final TrajetConverter converter;
 
