@@ -7,6 +7,7 @@ import { LoginAdminComponent } from './login-admin/login-admin.component';
 import { RegisterAdminComponent } from './register-admin/register-admin.component';
 import { ForgetPasswordAdminComponent } from './forget-password-admin/forget-password-admin.component';
 import { ChangePasswordAdminComponent } from './change-password-admin/change-password-admin.component';
+import {DashboardComponent} from "./view/dashboard/dashboard.component";
 
 @NgModule({
     imports: [
@@ -62,6 +63,11 @@ import { ChangePasswordAdminComponent } from './change-password-admin/change-pas
                                     canActivate: [AuthGuard]
                                 }
                               ]
+                        },
+                        {
+                            path: '',
+                            component: DashboardComponent,
+                            canActivate: [AuthGuard],
                         },
                         {
                             path: 'trajet',

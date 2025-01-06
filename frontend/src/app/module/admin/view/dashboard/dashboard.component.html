@@ -1,0 +1,99 @@
+<div class="grid">
+    <div class="col-12 lg:col-6 xl:col-3">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3">Total Rides</span>
+                    <div class="text-900 font-medium text-xl">842</div>
+                </div>
+                <div class="flex align-items-center justify-content-center bg-blue-100 border-round" style="width: 2.5rem; height: 2.5rem">
+                    <i class="pi pi-car text-blue-500 text-xl"></i>
+                </div>
+            </div>
+            <span class="text-green-500 font-medium">124 </span>
+            <span class="text-500">today</span>
+        </div>
+    </div>
+
+    <div class="col-12 lg:col-6 xl:col-3">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3">Reservations</span>
+                    <div class="text-900 font-medium text-xl">256</div>
+                </div>
+                <div class="flex align-items-center justify-content-center bg-orange-100 border-round" style="width: 2.5rem; height: 2.5rem">
+                    <i class="pi pi-users text-orange-500 text-xl"></i>
+                </div>
+            </div>
+            <span class="text-green-500 font-medium">45 </span>
+            <span class="text-500">pending</span>
+        </div>
+    </div>
+
+    <div class="col-12 lg:col-6 xl:col-3">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3">Today's Revenue</span>
+                    <div class="text-900 font-medium text-xl">$3,842</div>
+                </div>
+                <div class="flex align-items-center justify-content-center bg-green-100 border-round" style="width: 2.5rem; height: 2.5rem">
+                    <i class="pi pi-dollar text-green-500 text-xl"></i>
+                </div>
+            </div>
+            <span class="text-green-500 font-medium">↑ 12% </span>
+            <span class="text-500">vs yesterday</span>
+        </div>
+    </div>
+
+    <div class="col-12 lg:col-6 xl:col-3">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3">Issues</span>
+                    <div class="text-900 font-medium text-xl">15</div>
+                </div>
+                <div class="flex align-items-center justify-content-center bg-red-100 border-round" style="width: 2.5rem; height: 2.5rem">
+                    <i class="pi pi-exclamation-triangle text-red-500 text-xl"></i>
+                </div>
+            </div>
+            <span class="text-red-500 font-medium">8 </span>
+            <span class="text-500">critical</span>
+        </div>
+    </div>
+
+    <div class="col-12 xl:col-6">
+        <div class="card">
+            <h5>Monthly Revenue</h5>
+            <p-chart type="line" [data]="basicData" [options]="basicOptions" [style]="{'height': '300px'}"></p-chart>
+        </div>
+    </div>
+
+    <div class="col-12 xl:col-6">
+        <div class="card">
+            <h5>Recent Activity</h5>
+            <span class="block text-600 font-medium mb-3">TODAY</span>
+            <ul class="p-0 mx-0 mt-0 mb-4 list-none">
+                <li class="flex align-items-center py-2 border-bottom-1 surface-border">
+                    <div class="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
+                        <i class="pi pi-car text-blue-500 text-xl"></i>
+                    </div>
+                    <span class="text-900 line-height-3">New ride posted by
+                        <span class="text-700">Passenger</span>
+                        <div class="text-500 text-sm">Marrakech → Casablanca</div>
+                    </span>
+                </li>
+                <li class="flex align-items-center py-2">
+                    <div class="w-3rem h-3rem flex align-items-center justify-content-center bg-orange-100 border-circle mr-3 flex-shrink-0">
+                        <i class="pi pi-exclamation-triangle text-orange-500 text-xl"></i>
+                    </div>
+                    <span class="text-900 line-height-3">Cancellation reported for
+                        <span class="text-blue-500">Ride #4582</span>
+                        <div class="text-500 text-sm">Refund pending</div>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
