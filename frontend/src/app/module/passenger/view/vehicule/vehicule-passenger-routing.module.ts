@@ -18,6 +18,7 @@ import {AuthGuard} from 'src/app/zynerator/security/guards/auth.guard';
 
 
 import { VehiculeListPassengerComponent } from './vehicule/list/vehicule-list-passenger.component';
+import {VehiculeCreatePassengerComponent} from "./vehicule/create/vehicule-create-passenger.component";
 @NgModule({
     imports: [
         RouterModule.forChild(
@@ -91,6 +92,11 @@ import { VehiculeListPassengerComponent } from './vehicule/list/vehicule-list-pa
                                 {
                                     path: 'list',
                                     component: VehiculeListPassengerComponent ,
+                                    canActivate: [AuthGuard]
+                                },
+                                {
+                                    path: 'create',
+                                    component: VehiculeCreatePassengerComponent ,
                                     canActivate: [AuthGuard]
                                 }
                             ]
