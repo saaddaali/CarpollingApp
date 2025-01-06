@@ -1,21 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {ReservationPassengerService} from 'src/app/shared/service/passenger/reservation/ReservationPassenger.service';
 import {ReservationDto} from 'src/app/shared/model/reservation/Reservation.model';
 import {ReservationCriteria} from 'src/app/shared/criteria/reservation/ReservationCriteria.model';
 
 
-import {ConfirmationService, MessageService,MenuItem} from 'primeng/api';
-import {FileTempDto} from 'src/app/zynerator/dto/FileTempDto.model';
+import {ConfirmationService, MenuItem, MessageService} from 'primeng/api';
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
-import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
 
 import {environment} from 'src/environments/environment';
 
 import {RoleService} from 'src/app/zynerator/security/shared/service/Role.service';
-import {AbstractService} from 'src/app/zynerator/service/AbstractService';
-import {BaseDto} from 'src/app/zynerator/dto/BaseDto.model';
-import {BaseCriteria} from 'src/app/zynerator/criteria/BaseCriteria.model';
 import {StringUtilService} from 'src/app/zynerator/util/StringUtil.service';
 import {ServiceLocator} from 'src/app/zynerator/service/ServiceLocator';
 
@@ -63,8 +58,8 @@ export class ReservationListPassengerComponent implements OnInit {
             if (!reservation.trajet?.horaireDepart) return false;
             const departDate = new Date(reservation.trajet.horaireDepart);
             return this.activeTab === 'upcoming' ?
-                departDate <= now :
-                departDate > now;
+                departDate >= now :
+                departDate < now;
         });
     }
 
