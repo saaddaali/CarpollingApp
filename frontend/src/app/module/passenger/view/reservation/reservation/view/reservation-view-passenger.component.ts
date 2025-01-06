@@ -97,7 +97,7 @@ export class ReservationViewPassengerComponent implements OnInit {
         this.item.dateReservation = new Date();
         this.item.driver = this.trajet.driver;
         this.item.montant = this.trajet.prix;
-        this.carteBancairePassengerService.checkOut(this.item.montant).subscribe(
+        this.carteBancairePassengerService.checkOut(this.item).subscribe(
             (data: string) => {
                 if (data) {
                     console.log('Redirecting to:', data);

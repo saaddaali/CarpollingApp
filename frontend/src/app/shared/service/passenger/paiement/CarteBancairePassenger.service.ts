@@ -8,6 +8,7 @@ import * as moment from 'moment/moment';
 
 import {CarteBancaireDto} from 'src/app/shared/model/paiement/CarteBancaire.model';
 import {CarteBancaireCriteria} from 'src/app/shared/criteria/paiement/CarteBancaireCriteria.model';
+import {ReservationDto} from "../../../model/reservation/Reservation.model";
 
 
 @Injectable({
@@ -53,8 +54,8 @@ export class CarteBancairePassengerService {
         return this.http.get<Array<CarteBancaireDto>>(this.API);
     }
 
-    public checkOut(amount: number) {
-        return this.http.post<string>(this.API + 'checkout', amount, { responseType: 'text' as 'json' });
+    public checkOut(reservation:ReservationDto) {
+        return this.http.post<string>(this.API + 'checkout',reservation, { responseType: 'text' as 'json' });
     }
 
 

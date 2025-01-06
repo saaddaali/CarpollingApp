@@ -68,11 +68,7 @@ export class CarteBancaireListPassengerComponent implements OnInit {
 
 
     paye(){
-        this.service.checkOut(1).subscribe(
-            res => {
-                console.log(res);
-            }
-        );
+        
     }
 
 

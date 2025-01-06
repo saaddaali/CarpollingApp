@@ -46,8 +46,9 @@ public class CarteBancaireRestPassenger {
 
     @Operation(summary = "Payé")
     @PostMapping("/checkout")
-    public ResponseEntity<String> checkoutProducts(@RequestBody Long amount) {
-        String stripeResponse = stripeService.checkOut(amount);
+    public ResponseEntity<String> checkoutProducts(@RequestBody ReservationDto reservationDto) {
+        Long amount = reservationDto.getMontant().longValue();
+        String stripeResponse = stripeService.checkOut(amount,reservationDto);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(stripeResponse.toString());
