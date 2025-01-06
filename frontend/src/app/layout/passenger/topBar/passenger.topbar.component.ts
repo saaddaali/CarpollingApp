@@ -20,8 +20,7 @@ export class PassengerTopbarComponent implements OnInit{
    rolePassenger = false;
     editDialog = false ;
     languageOptions: SelectItem[];
-    selectedLanguage: string;
-    isDriver= false;
+
 
 
 
@@ -40,22 +39,18 @@ export class PassengerTopbarComponent implements OnInit{
 
     }
 
+    mesReservations(){
+        this.router.navigate(['/reservations/list']);
+    }
+
+    createTrajet(){
+        this.router.navigate(['/app/passenger/trajet/trajets']);
+    }
     public openConversation(){
         this.router.navigate(['/app/passenger/message/conversation/view/O']);
     }
 
-    public toggleRole() {
-        this.isDriver = !this.isDriver;
 
-        const route = this.isDriver
-            ? 'app/passenger/trajet/trajets'
-            : 'app/passenger';
-
-        this.router.navigate([route]).then(() => {
-            // Force Angular to detect changes
-            this.cd.detectChanges();
-        });
-    }
 
 
 
@@ -72,7 +67,7 @@ export class PassengerTopbarComponent implements OnInit{
 
 
 
-    constructor(public  layoutService:LayoutService , public app: AppComponent, private authService: AuthService, private translateService: TranslateService, private userService: UserService,private router: Router, private cd: ChangeDetectorRef) {
+    constructor(public  layoutService:LayoutService , public app: AppComponent, private authService: AuthService, private translateService: TranslateService, private userService: UserService,private router: Router) {
     }
 
 

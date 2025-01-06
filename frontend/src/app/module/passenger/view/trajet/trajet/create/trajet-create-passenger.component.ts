@@ -96,6 +96,7 @@ export class TrajetCreatePassengerComponent implements OnInit {
     public saveWithShowOption(showList: boolean) {
         this.service.save().subscribe(item => {
             if (item != null) {
+                this.item.dateCreation = new Date();
                 this.items.push({...item});
                 this.createDialog = false;
                 this.submitted = false;

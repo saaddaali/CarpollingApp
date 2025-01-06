@@ -1,6 +1,13 @@
 <div class="page-wrapper">
     <passenger-topbar></passenger-topbar>
 
+
+    <!-- Toggle Role Button -->
+    <button class="p-link elegant-topbar-button" (click)="toggleRole()">
+        <i [ngClass]="isDriver ? 'pi pi-user' : 'pi pi-car'"></i>
+        <span>{{ isDriver ? 'Switch to Passenger' : 'Switch to Driver' }}</span>
+    </button>
+
     <div class="profile-container">
         <div class="profile-card">
             <div class="photo-section">

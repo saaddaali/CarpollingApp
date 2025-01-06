@@ -9,6 +9,14 @@
 
             <h2 class="form-title">Liste des Trajets</h2>
 
+            <div >
+                <button pButton
+                        label="Créer un trajet"
+                        icon="pi pi-plus"
+                        class="p-button"
+                        (click)="createTrajet()">
+                </button>
+            </div>
 
             <div class="tabs-navigation">
                 <button class="tab-button" [class.active]="activeTab === 'upcoming'" (click)="activeTab = 'upcoming'">
@@ -33,26 +41,26 @@
                         <!-- En-tête du trajet -->
                         <div class="trajet-header">
                             <div class="trajet-primary-info">
-                                <div class="trajet-date">{{trajet.horaireDepart | date:'d/M/yyyy'}}</div>
+                                <div class="trajet-date">{{ trajet.horaireDepart | date:'d/M/yyyy' }}</div>
                                 <div class="trajet-route">
                                     <i class="pi pi-map-marker location-icon"></i>
                                     <span class="route-cities">
-                                        {{trajet.villeDepart?.libelle}} → {{trajet.villeDestination?.libelle}}
+                                        {{ trajet.villeDepart?.libelle }} → {{ trajet.villeDestination?.libelle }}
                                     </span>
                                 </div>
                             </div>
-                            <div class="trajet-price">{{trajet.prix}} DH</div>
+                            <div class="trajet-price">{{ trajet.prix }} DH</div>
                         </div>
 
                         <!-- Détails du trajet -->
                         <div class="trajet-details">
                             <div class="detail-item">
                                 <i class="pi pi-clock"></i>
-                                <span>Départ: {{trajet.horaireDepart | date:'HH:mm'}}</span>
+                                <span>Départ: {{ trajet.horaireDepart | date:'HH:mm' }}</span>
                             </div>
                             <div class="detail-item">
                                 <i class="pi pi-users"></i>
-                                <span>{{trajet.placesDisponibles}} places disponibles</span>
+                                <span>{{ trajet.placesDisponibles }} places disponibles</span>
                             </div>
                         </div>
 
@@ -85,26 +93,26 @@
 
                         <div class="trajet-header">
                             <div class="trajet-primary-info">
-                                <div class="trajet-date">{{trajet.horaireDepart | date:'d/M/yyyy'}}</div>
+                                <div class="trajet-date">{{ trajet.horaireDepart | date:'d/M/yyyy' }}</div>
                                 <div class="trajet-route">
                                     <i class="pi pi-map-marker location-icon"></i>
                                     <span class="route-cities">
-                                        {{trajet.villeDepart?.libelle}} → {{trajet.villeDestination?.libelle}}
+                                        {{ trajet.villeDepart?.libelle }} → {{ trajet.villeDestination?.libelle }}
                                     </span>
                                 </div>
                             </div>
-                            <div class="trajet-price">{{trajet.prix}} DH</div>
+                            <div class="trajet-price">{{ trajet.prix }} DH</div>
                         </div>
 
 
                         <div class="trajet-details">
                             <div class="detail-item">
                                 <i class="pi pi-clock"></i>
-                                <span>Départ: {{trajet.horaireDepart | date:'HH:mm'}}</span>
+                                <span>Départ: {{ trajet.horaireDepart | date:'HH:mm' }}</span>
                             </div>
                             <div class="detail-item">
                                 <i class="pi pi-users"></i>
-                                <span>{{trajet.placesDisponibles}} places</span>
+                                <span>{{ trajet.placesDisponibles }} places</span>
                             </div>
                             <div class="status-completed">
                                 <i class="pi pi-check-circle"></i>

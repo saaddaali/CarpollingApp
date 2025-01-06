@@ -17,6 +17,24 @@ $error: #FF4C4C;
     box-sizing: border-box;
 }
 
+.p-button{
+    background-color: $primary;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    //centre
+    display: block;
+    margin: 0 auto;
+
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: darken($primary, 5%);
+    }
+
+}
 // Ajout du titre
 .form-title {
     text-align: center;

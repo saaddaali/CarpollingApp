@@ -80,6 +80,10 @@ export class TrajetsPassengerComponent implements OnInit {
         this.villeService.findAll().subscribe((data) => this.localisationDestinations = data);
     }
 
+
+    createTrajet() {
+        this.router.navigate(['/app/passenger/trajet/create']);
+    }
     private categorizeTrips(): void {
         const now = new Date();
 

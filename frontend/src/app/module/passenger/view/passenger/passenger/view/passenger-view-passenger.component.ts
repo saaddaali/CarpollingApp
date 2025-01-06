@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 
 
 import {DatePipe} from '@angular/common';
@@ -46,9 +46,25 @@ export class PassengerViewPassengerComponent implements OnInit {
     protected router: Router;
     protected stringUtilService: StringUtilService;
 
+    selectedLanguage: string;
+    isDriver= false;
+
+    public toggleRole() {
+        this.isDriver = !this.isDriver;
+
+        const route = this.isDriver
+            ? 'app/passenger/trajet/trajets'
+            : 'app/passenger';
+
+        this.router.navigate([route]).then(() => {
+            // Force Angular to detect changes
+            this.cd.detectChanges();
+        });
+    }
 
 
-    constructor(private service: PassengerPassengerService, private carteBancaireService: CarteBancairePassengerService, protected authService: AuthService){
+
+    constructor(private service: PassengerPassengerService, private carteBancaireService: CarteBancairePassengerService, protected authService: AuthService, private cd: ChangeDetectorRef){
 		this.datePipe = ServiceLocator.injector.get(DatePipe);
         this.messageService = ServiceLocator.injector.get(MessageService);
         this.confirmationService = ServiceLocator.injector.get(ConfirmationService);
