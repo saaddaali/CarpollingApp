@@ -44,6 +44,29 @@ import {TrajetPassengerService} from 'src/app/shared/service/passenger/trajet/Tr
 export class ReservationListPassengerComponent implements OnInit {
 
     protected fileName = 'Reservation';
+    activeTab: string = 'upcoming';
+    filteredItems: ReservationDto[] = [];
+
+    setActiveTab(tab: string) {
+        this.activeTab = tab;
+        this.filterReservations();
+    }
+
+    filterReservations() {
+        if (!this.items) {
+            this.filteredItems = [];
+            return;
+        }
+
+        const now = new Date();
+        this.filteredItems = this.items.filter(reservation => {
+            if (!reservation.trajet?.horaireDepart) return false;
+            const departDate = new Date(reservation.trajet.horaireDepart);
+            return this.activeTab === 'upcoming' ?
+                departDate <= now :
+                departDate > now;
+        });
+    }
 
     protected findByCriteriaShow = false;
     protected cols: any[] = [];
@@ -95,6 +118,7 @@ export class ReservationListPassengerComponent implements OnInit {
         this.loadConversation();
         this.findPaginatedByCriteria();
         this.initCol();
+        this.filterReservations();
 
         //log pour déboguer
         this.service.findPaginatedByCriteria(this.criteria).subscribe(paginatedItems => {
@@ -146,21 +170,22 @@ export class ReservationListPassengerComponent implements OnInit {
 
     getUpcomingTripsCount(): number {
         if (!this.items) return 0;
-        const today = new Date();
+        const now = new Date();
         return this.items.filter(reservation => {
             if (!reservation.trajet?.horaireDepart) return false;
             const departDate = new Date(reservation.trajet.horaireDepart);
-            return departDate > today;
+            return departDate <= now;
         }).length;
     }
 
     getTotalDistance(): number {
         if (!this.items) return 0;
+        const now = new Date();
         const AVERAGE_DISTANCE = 100;
         const completedTrips = this.items.filter(reservation => {
             if (!reservation.trajet?.horaireDepart) return false;
             const departDate = new Date(reservation.trajet.horaireDepart);
-            return departDate < new Date();
+            return departDate <= now;
         });
         return completedTrips.length * AVERAGE_DISTANCE;
     }
@@ -207,6 +232,7 @@ export class ReservationListPassengerComponent implements OnInit {
             this.items = paginatedItems.list;
             this.totalRecords = paginatedItems.dataSize;
             this.selections = new Array<ReservationDto>();
+            this.filterReservations();
         }, error => console.log(error));
     }
 

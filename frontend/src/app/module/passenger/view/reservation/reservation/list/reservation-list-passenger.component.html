@@ -1,142 +1,166 @@
 <div class="layout-wrapper">
-<div class="header" style="margin-bottom: 40px;">
-    <passenger-topbar></passenger-topbar>
-</div>
-<div class="main-content">
-    <div class="stats-cards">
-        <div class="stat-card">
-            <div class="stat-icon">
-                <i class="pi pi-calendar"></i>
-            </div>
-            <div class="stat-info">
-                <div class="stat-value">{{items?.length || 0}}</div>
-                <div class="stat-label">Trajets effectués</div>
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-icon">
-                <i class="pi pi-clock"></i>
-            </div>
-            <div class="stat-info">
-                <div class="stat-value">{{getUpcomingTripsCount()}}</div>
-                <div class="stat-label">Trajets à venir</div>
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-icon">
-                <i class="pi pi-map"></i>
-            </div>
-            <div class="stat-info">
-                <div class="stat-value">{{getTotalDistance()}} km</div>
-                <div class="stat-label">Distance parcourue</div>
-            </div>
-        </div>
+    <div class="header">
+        <passenger-topbar></passenger-topbar>
     </div>
 
-    <!-- Section Title -->
-    <div class="section-title">
-        <h2>Liste des Réservations</h2>
-        <span class="subtitle">{{items?.length || 0}} réservations trouvées</span>
-    </div>
-
-    <!-- No Data Message -->
-    <div *ngIf="!items?.length" class="no-data">
-        <p>Aucune réservation trouvée</p>
-    </div>
-
-    <div *ngFor="let reservation of items" class="trip-card">
-        <!-- Card Header -->
-        <div class="trip-header">
-            <div class="trip-status">
-                <span class="status-dot"></span>
-                {{reservation.datePaiement ? 'Payé' : 'En attente'}}
-            </div>
-            <div class="trip-timing">
-                <i class="pi pi-calendar"></i>
-                {{reservation.dateReservation | date:'dd/MM/yyyy'}}
-            </div>
-        </div>
-
-        <div class="trip-content">
-            <!-- Date Box -->
-            <div class="trip-date">
-                <div class="date-number">{{reservation.dateReservation | date:'dd'}}</div>
-                <div class="date-month">{{reservation.dateReservation | date:'MMM'}}</div>
-                <div class="date-year">{{reservation.dateReservation | date:'yyyy'}}</div>
-            </div>
-
-            <!-- Route Information -->
-            <div class="trip-route">
-                <div class="route-point">
-                    <div class="dot"></div>
-                    <div class="point-info">
-                        <div class="city">{{reservation.trajet?.villeDepart?.libelle || '--'}}</div>
-                        <div class="time">{{reservation.trajet?.horaireDepart | date:'HH:mm' || '--:--'}}</div>
-                    </div>
+    <div class="main-content">
+        <!-- Stats Cards -->
+        <div class="stats-cards">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="pi pi-calendar"></i>
                 </div>
-                <div class="route-line"></div>
-                <div class="route-point end">
-                    <div class="dot"></div>
-                    <div class="point-info">
-                        <div class="city">{{reservation.trajet?.villeDestination?.libelle || '--'}}</div>
-                        <div class="time">{{reservation.trajet?.horaireArrive | date:'HH:mm' || '--:--'}}</div>
-                    </div>
+                <div class="stat-info">
+                    <div class="stat-value">{{items?.length || 0}}</div>
+                    <div class="stat-label">Trajets effectués</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="pi pi-clock"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value">{{getUpcomingTripsCount()}}</div>
+                    <div class="stat-label">Trajets à venir</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="pi pi-map"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value">{{getTotalDistance()}} km</div>
+                    <div class="stat-label">Distance parcourue</div>
                 </div>
             </div>
         </div>
 
-        <div class="driver-info" *ngIf="reservation.driver">
-            <div class="driver-avatar">
-                <i class="pi pi-user"></i>
-            </div>
-            <div class="driver-details">
-                <div class="driver-header">
-                    <span class="driver-name">{{reservation.driver.username}}</span>
-                    <div class="driver-rating" *ngIf="reservation.evaluation">
-                        <i class="pi pi-star-fill"></i>
-                        <span>{{reservation.evaluation}}/5</span>
-                    </div>
-                </div>
-                <div class="driver-trips">
-                    <i class="pi pi-users"></i>
-                    <span>{{reservation.trajet?.placesDisponibles}}/{{reservation.trajet?.placesMax}} places</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="trip-footer">
-            <div class="price-info">
-                <span class="price-label">Prix total</span>
-                <span class="price">{{reservation.montant}} MAD</span>
-            </div>
-            <div class="trip-actions">
-                <button pButton
-                        type="button"
-
-                        class="p-button-rounded p-button-text"
-                        (click)="view(reservation)"
-                        pTooltip="Détails">
+        <!-- Navigation Tabs -->
+        <div class="tabs-container">
+            <div class="tabs-navigation">
+                <button
+                    [class.active]="activeTab === 'upcoming'"
+                    (click)="setActiveTab('upcoming')"
+                    class="tab-button">
+                    <span>À venir</span>
                 </button>
-                <button pButton
-                        *ngIf="!reservation.datePaiement"
-                        type="button"
-                        icon="pi pi-pencil"
-                        class="p-button-rounded p-button-text p-button-warning"
-                        (click)="edit(reservation)"
-                        pTooltip="Modifier">
-                </button>
-                <button pButton
-                        *ngIf="!reservation.datePaiement"
-                        type="button"
-                        icon="pi pi-times"
-                        class="p-button-rounded p-button-text p-button-danger"
-                        (click)="delete(reservation)"
-                        pTooltip="Supprimer">
+                <button
+                    [class.active]="activeTab === 'history'"
+                    (click)="setActiveTab('history')"
+                    class="tab-button">
+                    <span>Historique</span>
                 </button>
             </div>
+            <div class="tabs-indicator" [style.transform]="'translateX(' + (activeTab === 'upcoming' ? '0' : '100') + '%)'"></div>
+        </div>
+
+        <!-- Section Title -->
+        <div class="section-title">
+            <h2>Liste des Réservations</h2>
+            <span class="subtitle">{{filteredItems?.length || 0}} réservations trouvées</span>
+        </div>
+
+        <!-- No Data Message -->
+        <div *ngIf="!filteredItems?.length" class="no-data">
+            <p>Aucune réservation trouvée</p>
+        </div>
+
+        <!-- Reservations List -->
+        <div *ngFor="let reservation of filteredItems" class="trip-card">
+            <!-- Card Header -->
+            <div class="trip-header">
+                <div class="trip-status" [class.paid]="reservation.datePaiement">
+                    <span class="status-dot"></span>
+                    {{reservation.datePaiement ? 'Payé' : 'En attente'}}
+                </div>
+                <div class="trip-timing">
+                    <i class="pi pi-calendar"></i>
+                    {{reservation.dateReservation | date:'dd/MM/yyyy'}}
+                </div>
+            </div>
+
+            <div class="trip-content">
+                <!-- Date Box -->
+                <div class="trip-date">
+                    <div class="date-number">{{reservation.dateReservation | date:'dd'}}</div>
+                    <div class="date-month">{{reservation.dateReservation | date:'MMM'}}</div>
+                    <div class="date-year">{{reservation.dateReservation | date:'yyyy'}}</div>
+                </div>
+
+                <!-- Route Information -->
+                <div class="trip-route">
+                    <div class="route-point">
+                        <div class="dot"></div>
+                        <div class="point-info">
+                            <div class="city">{{reservation.trajet?.villeDepart?.libelle || '--'}}</div>
+                            <div class="time">{{reservation.trajet?.horaireDepart | date:'HH:mm' || '--:--'}}</div>
+                        </div>
+                    </div>
+                    <div class="route-line"></div>
+                    <div class="route-point end">
+                        <div class="dot"></div>
+                        <div class="point-info">
+                            <div class="city">{{reservation.trajet?.villeDestination?.libelle || '--'}}</div>
+                            <div class="time">{{reservation.trajet?.horaireArrive | date:'HH:mm' || '--:--'}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Driver Info -->
+            <div class="driver-info" *ngIf="reservation.driver">
+                <div class="driver-avatar">
+                    <i class="pi pi-user"></i>
+                </div>
+                <div class="driver-details">
+                    <div class="driver-header">
+                        <span class="driver-name">{{reservation.driver.username}}</span>
+                        <div class="driver-rating" *ngIf="reservation.evaluation">
+                            <i class="pi pi-star-fill"></i>
+                            <span>{{reservation.evaluation}}/5</span>
+                        </div>
+                    </div>
+                    <div class="driver-trips">
+                        <i class="pi pi-users"></i>
+                        <span>{{reservation.trajet?.placesDisponibles}}/{{reservation.trajet?.placesMax}} places</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="trip-footer">
+                <div class="price-info">
+                    <span class="price-label">Prix total</span>
+                    <span class="price">{{reservation.montant}} MAD</span>
+                </div>
+                <div class="trip-actions">
+                    <button pButton
+                            type="button"
+                            icon="pi pi-eye"
+                            class="p-button-rounded p-button-text"
+                            (click)="view(reservation)"
+                            pTooltip="Détails">
+                    </button>
+                    <button pButton
+                            *ngIf="!reservation.datePaiement"
+                            type="button"
+                            icon="pi pi-pencil"
+                            class="p-button-rounded p-button-text p-button-warning"
+                            (click)="edit(reservation)"
+                            pTooltip="Modifier">
+                    </button>
+                    <button pButton
+                            *ngIf="!reservation.datePaiement"
+                            type="button"
+                            icon="pi pi-times"
+                            class="p-button-rounded p-button-text p-button-danger"
+                            (click)="delete(reservation)"
+                            pTooltip="Supprimer">
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 </div>
