@@ -1,0 +1,221 @@
+:root {
+    font-size: 20px;
+}
+
+.vehicule-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 70px);
+    background-color: #f3f4f6;
+    padding: 0; /* Enlevé le padding */
+    margin-top: 70px; /* Ajouté pour compenser la hauteur du topbar */
+}
+
+.vehicule-form-wrapper {
+    background-color: #ffffff;
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 1200px;
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto; /* Ajouté pour centrer horizontalement */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.card-shadow {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.form-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 0.6rem;
+    background: linear-gradient(90deg, #4F46E5, #818CF8);
+}
+
+.form-title {
+    font-size: 2.5rem; /* Retour à la taille originale */
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #4F46E5;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    position: relative;
+    padding-bottom: 0.8rem;
+}
+
+.form-title:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 3px;
+    background: linear-gradient(90deg, #4F46E5, #818CF8);
+    border-radius: 2px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 1rem;
+}
+
+.field {
+    margin-bottom: 0.8rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+    color: #4B5563;
+    transition: color 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+:host ::ng-deep {
+    .p-dropdown, .p-inputtext, .p-inputnumber-input, .p-fileupload-choose {
+        width: 100%;
+        min-width: 380px;
+        border-radius: 0.75rem;
+        transition: all 0.3s ease;
+        font-size: 1.2rem;
+        height: 3.2rem !important;
+    }
+
+    .p-dropdown:not(.p-disabled).p-focus,
+    .p-inputtext:enabled:focus,
+    .p-inputnumber-input:enabled:focus {
+        border-color: #4F46E5;
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25);
+    }
+
+    .p-inputtext, .p-dropdown-label, .p-inputnumber-input {
+        padding: 0.8rem 1rem 0.8rem 2.8rem;
+        line-height: 1.5;
+    }
+
+    .p-input-icon-left {
+        width: 100%;
+        position: relative;
+
+        i {
+            left: 1rem;
+            color: #6B7280;
+            transition: color 0.3s ease;
+            font-size: 1.2rem; /* Même taille que le label */
+            top: 50%;
+            transform: translateY(-50%);
+            position: absolute;
+        }
+
+        &:hover i {
+            color: #4F46E5;
+        }
+    }
+
+    .p-button {
+        border-radius: 0.75rem;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        font-size: 1.2rem;
+        padding: 0 1.5rem;
+        height: 3.2rem;
+
+        &.submit-button {
+            background-color: #4F46E5;
+            border-color: #4F46E5;
+
+            &:hover {
+                background-color: darken(#4F46E5, 10%);
+                border-color: darken(#4F46E5, 10%);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 6px rgba(79, 70, 229, 0.25);
+            }
+        }
+
+        &.cancel-button {
+            background-color: #da1616;
+            border-color: #da1616;
+            color: #ffffff;
+
+            &:hover {
+                background-color: #a10909;
+                border-color: #a10909;
+                color: #ffffff;
+            }
+        }
+    }
+
+    .p-fileupload-choose {
+        background-color: #4F46E5;
+        border-color: #4F46E5;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background-color: darken(#4F46E5, 10%);
+            border-color: darken(#4F46E5, 10%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(79, 70, 229, 0.25);
+        }
+    }
+
+    .p-dropdown {
+        display: flex;
+        align-items: center;
+
+        .p-dropdown-label {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .p-dropdown-trigger {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 3rem;
+        }
+    }
+}
+
+.p-inputtext:enabled:hover,
+.p-dropdown:not(.p-disabled):hover {
+    border-color: #4F46E5;
+}
+
+@keyframes focusAnimation {
+    0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(79, 70, 229, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+}
+
+.p-inputtext:focus,
+.p-dropdown:focus {
+    animation: focusAnimation 0.5s ease-out;
+}
+
+@media screen and (max-width: 768px) {
+    .vehicule-form-wrapper {
+        padding: 1rem;
+    }
+
+    .grid {
+        gap: 0.8rem;
+    }
+}

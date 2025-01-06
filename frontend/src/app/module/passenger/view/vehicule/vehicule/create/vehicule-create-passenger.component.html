@@ -1,88 +1,92 @@
-        <p-dialog [(visible)]="createDialog" [style]="{width: '70vw'}" header="{{'vehicule.tabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
-            <ng-template pTemplate="content" >
-                        <p-tabView>
-                            <p-tabPanel header="{{'vehicule.tabPan' | translate}}">
-                                <div class="grid">
+<passenger-topbar></passenger-topbar>
 
-                                            <div class="field col-11 md:col-6">
-                                                <label for="1">{{'vehicule.driver' | translate}}</label>
-                                                <p-dropdown  appendTo="body"  [options]="drivers" [(ngModel)]="item.driver" id="1" [filter]="true" filterMatchMode="contains"
-                                                        [showClear]="true" optionLabel="email" placeholder="{{'vehicule.driver' | translate}}"  >
-                                                </p-dropdown>
-                                                
-                                            </div>
-
-                                                <div class="field col-12 md:col-6">
-                                                    <label for="2">{{'vehicule.marque' | translate}}</label>
-                                                    <input class="mb-2 mr-2" type="text" pInputText  placeholder="{{'vehicule.marque' | translate}}" id="2" [(ngModel)]="item.marque"
-                                                             />
-                                                    
-                                                </div>
-
-
-                                                <div class="field col-12 md:col-6">
-                                                    <label for="3">{{'vehicule.modele' | translate}}</label>
-                                                    <input class="mb-2 mr-2" type="text" pInputText  placeholder="{{'vehicule.modele' | translate}}" id="3" [(ngModel)]="item.modele"
-                                                             />
-                                                    
-                                                </div>
-
-
-                                                <div class="field col-12 md:col-6">
-                                                    <label for="4">{{'vehicule.annee' | translate}}</label>
-                                                    <p-inputNumber class="mb-2 mr-2" id="4" placeholder="{{'vehicule.annee' | translate}}" [(ngModel)]="item.annee"  >
-                                                    </p-inputNumber>
-                                                    
-                                                </div>
-
-                                                <div class="field col-12 md:col-6">
-                                                    <label for="5">{{'vehicule.couleur' | translate}}</label>
-                                                    <input class="mb-2 mr-2" type="text" pInputText  placeholder="{{'vehicule.couleur' | translate}}" id="5" [(ngModel)]="item.couleur"
-                                                             />
-                                                    
-                                                </div>
-
-
-                                                <div class="field col-12 md:col-6">
-                                                    <label for="6">{{'vehicule.plaqueImmatriculation' | translate}}</label>
-                                                    <input class="mb-2 mr-2" type="text" pInputText  placeholder="{{'vehicule.plaqueImmatriculation' | translate}}" id="6" [(ngModel)]="item.plaqueImmatriculation"
-                                                             />
-                                                    
-                                                </div>
-
-
-                                                <div class="field col-12 md:col-6">
-                                                    <label for="7">{{'vehicule.capacite' | translate}}</label>
-                                                    <p-inputNumber class="mb-2 mr-2" id="7" placeholder="{{'vehicule.capacite' | translate}}" [(ngModel)]="item.capacite"  >
-                                                    </p-inputNumber>
-                                                    
-                                                </div>
-
-                                                <div class="field col-12 md:col-6">
-                                                    <label for="8">{{'vehicule.image' | translate}}</label>
-                                                    <input class="mb-2 mr-2" type="text" pInputText  placeholder="{{'vehicule.image' | translate}}" id="8" [(ngModel)]="item.image"
-                                                             />
-                                                    
-                                                </div>
-
-
-                                </div>
-                            </p-tabPanel>
-
-                        </p-tabView>
-
-            </ng-template>
-
-            <ng-template pTemplate="footer" >
-                <div class="p-flexbox">
-
-                            <button pButton pRipple  label="{{'validate' | translate}}"  icon="pi pi-check"  (click)="save()"></button>
-
-
-                            <button pButton pRipple  label="{{'cancel' | translate}}" icon="pi pi-times" class="p-button-outlined" (click)="hideCreateDialog()"></button>
-
-
+<div class="vehicule-form-container">
+    <div class="vehicule-form-wrapper card-shadow">
+        <div class="form-decoration"></div>
+        <h2 class="form-title">Create vehicule</h2>
+        <form (ngSubmit)="save()" #vehiculeForm="ngForm">
+            <div class="grid">
+                <div class="field col-12 md:col-6">
+                    <label for="driver">{{ 'vehicule.driver' | translate }}</label>
+                    <span class="p-input-icon-left">
+            <i class="pi pi-user"></i>
+            <p-dropdown [options]="drivers" [(ngModel)]="item.driver" name="driver" id="driver"
+                        [filter]="true" filterMatchMode="contains" [showClear]="true"
+                        optionLabel="email" [placeholder]="'vehicule.driver' | translate">
+            </p-dropdown>
+          </span>
                 </div>
-            </ng-template>
 
-    </p-dialog>
+                <div class="field col-12 md:col-6">
+                    <label for="marque">{{ 'vehicule.marque' | translate }}</label>
+                    <span class="p-input-icon-left">
+            <i class="pi pi-car"></i>
+            <input pInputText id="marque" [(ngModel)]="item.marque" name="marque"
+                   [placeholder]="'vehicule.marque' | translate" />
+          </span>
+                </div>
+
+                <div class="field col-12 md:col-6">
+                    <label for="modele">{{ 'vehicule.modele' | translate }}</label>
+                    <span class="p-input-icon-left">
+            <i class="pi pi-cog"></i>
+            <input pInputText id="modele" [(ngModel)]="item.modele" name="modele"
+                   [placeholder]="'vehicule.modele' | translate" />
+          </span>
+                </div>
+
+                <div class="field col-12 md:col-6">
+                    <label for="annee">{{ 'vehicule.annee' | translate }}</label>
+                    <span class="p-input-icon-left">
+            <i class="pi pi-calendar"></i>
+            <p-inputNumber id="annee" [(ngModel)]="item.annee" name="annee"
+                           [placeholder]="'vehicule.annee' | translate">
+            </p-inputNumber>
+          </span>
+                </div>
+
+                <div class="field col-12 md:col-6">
+                    <label for="couleur">{{ 'vehicule.couleur' | translate }}</label>
+                    <span class="p-input-icon-left">
+            <i class="pi pi-palette"></i>
+            <input pInputText id="couleur" [(ngModel)]="item.couleur" name="couleur"
+                   [placeholder]="'vehicule.couleur' | translate" />
+          </span>
+                </div>
+
+                <div class="field col-12 md:col-6">
+                    <label for="plaqueImmatriculation">{{ 'vehicule.plaqueImmatriculation' | translate }}</label>
+                    <span class="p-input-icon-left">
+            <i class="pi pi-id-card"></i>
+            <input pInputText id="plaqueImmatriculation" [(ngModel)]="item.plaqueImmatriculation"
+                   name="plaqueImmatriculation" [placeholder]="'vehicule.plaqueImmatriculation' | translate" />
+          </span>
+                </div>
+
+                <div class="field col-12 md:col-6">
+                    <label for="capacite">{{ 'vehicule.capacite' | translate }}</label>
+                    <span class="p-input-icon-left">
+            <i class="pi pi-users"></i>
+            <p-inputNumber id="capacite" [(ngModel)]="item.capacite" name="capacite"
+                           [placeholder]="'vehicule.capacite' | translate">
+            </p-inputNumber>
+          </span>
+                </div>
+
+                <div class="field col-12">
+                    <label for="image">{{ 'vehicule.image' | translate }}</label>
+                    <p-fileUpload #fileUpload mode="basic" name="image" accept="image/*" [maxFileSize]="1000000"
+                                  (onSelect)="onImageSelect($event)" [auto]="true" chooseLabel="{{ 'upload' | translate }}">
+                    </p-fileUpload>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button pButton pRipple type="submit" [label]="'validate' | translate" icon="pi pi-check" class="p-button-primary submit-button"></button>
+                <button pButton pRipple type="button" [label]="'cancel' | translate" icon="pi pi-times"
+                        class="p-button-secondary cancel-button" (click)="hideCreateDialog()"></button>
+            </div>
+        </form>
+    </div>
+</div>
+

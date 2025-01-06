@@ -11,6 +11,8 @@ import {environment} from 'src/environments/environment';
 import {RoleService} from 'src/app/zynerator/security/shared/service/Role.service';
 import {StringUtilService} from 'src/app/zynerator/util/StringUtil.service';
 import {ServiceLocator} from 'src/app/zynerator/service/ServiceLocator';
+import { ViewChild } from '@angular/core';
+import { FileUpload } from 'primeng/fileupload';
 
 
 
@@ -22,12 +24,14 @@ import {DriverDto} from 'src/app/shared/model/driver/Driver.model';
 import {DriverPassengerService} from 'src/app/shared/service/passenger/driver/DriverPassenger.service';
 @Component({
   selector: 'app-vehicule-create-passenger',
-  templateUrl: './vehicule-create-passenger.component.html'
+  templateUrl: './vehicule-create-passenger.component.html',
+    styleUrls: ['./vehicule-create-passenger.component.scss'],
 })
 export class VehiculeCreatePassengerComponent  implements OnInit {
 
 	protected _submitted = false;
     protected _errorMessages = new Array<string>();
+    @ViewChild('fileUpload') fileUpload!: FileUpload;
 
     protected datePipe: DatePipe;
     protected messageService: MessageService;
@@ -51,6 +55,17 @@ export class VehiculeCreatePassengerComponent  implements OnInit {
 
     ngOnInit(): void {
         this.driverService.findAll().subscribe((data) => this.drivers = data);
+    }
+
+    onImageSelect(event: any): void {
+        if (event.files && event.files.length > 0) {
+            const file = event.files[0];
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                this.item.image = reader.result as string;
+            };
+        }
     }
 
 
@@ -85,9 +100,15 @@ export class VehiculeCreatePassengerComponent  implements OnInit {
     public hideCreateDialog() {
         this.createDialog = false;
         this.setValidation(true);
+        this.resetUpload();
     }
 
-
+    private resetUpload(): void {
+        if (this.fileUpload) {
+            this.fileUpload.clear();
+        }
+        this.item.image = '';
+    }
 
 
 
