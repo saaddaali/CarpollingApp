@@ -68,7 +68,7 @@ export class CarteBancaireListPassengerComponent implements OnInit {
 
 
     paye(){
-        
+
     }
 
 
