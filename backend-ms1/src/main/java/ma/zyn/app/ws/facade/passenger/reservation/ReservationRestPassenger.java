@@ -1,4 +1,4 @@
-package  ma.zyn.app.ws.facade.passenger.reservation;
+package ma.zyn.app.ws.facade.passenger.reservation;
 
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -7,6 +7,7 @@ import ma.zyn.app.service.impl.passenger.passenger.PassengerPassengerServiceImpl
 import ma.zyn.app.utils.security.bean.User;
 import ma.zyn.app.ws.converter.passenger.PassengerConverter;
 import ma.zyn.app.ws.dto.passenger.PassengerDto;
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
@@ -23,13 +24,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/passenger/reservation/")
 public class ReservationRestPassenger {
-
-
 
 
     @Operation(summary = "Finds a list of all reservations")
@@ -38,8 +39,8 @@ public class ReservationRestPassenger {
         ResponseEntity<List<ReservationDto>> res = null;
         List<Reservation> list = service.findAll();
         HttpStatus status = HttpStatus.NO_CONTENT;
-            converter.initObject(true);
-        List<ReservationDto> dtos  = converter.toDto(list);
+        converter.initObject(true);
+        List<ReservationDto> dtos = converter.toDto(list);
         if (dtos != null && !dtos.isEmpty())
             status = HttpStatus.OK;
         res = new ResponseEntity<>(dtos, status);
@@ -78,22 +79,24 @@ public class ReservationRestPassenger {
         String currentUser = getCurrentUser();
         Passenger passenger = passengerService.findByUsername(currentUser);
         PassengerDto passengerDto = passengerConverter.toDto(passenger);
+        // Set the parsed date in the DTO
+        dto.setDatePaiement(dto.getDateReservation());
         dto.setConversation(null);
         if (passenger != null) {
             dto.setPassenger(passengerDto);
         }
 
-        if(dto!=null){
+        if (dto != null) {
             converter.init(true);
             Reservation myT = converter.toItem(dto);
             Reservation t = service.create(myT);
             if (t == null) {
                 return new ResponseEntity<>(null, HttpStatus.IM_USED);
-            }else{
+            } else {
                 ReservationDto myDto = converter.toDto(t);
                 return new ResponseEntity<>(myDto, HttpStatus.CREATED);
             }
-        }else {
+        } else {
             return new ResponseEntity<>(dto, HttpStatus.NO_CONTENT);
         }
     }
@@ -101,12 +104,12 @@ public class ReservationRestPassenger {
     @Operation(summary = "Updates the specified  reservation")
     @PutMapping("")
     public ResponseEntity<ReservationDto> update(@RequestBody ReservationDto dto) throws Exception {
-        ResponseEntity<ReservationDto> res ;
+        ResponseEntity<ReservationDto> res;
         if (dto.getId() == null || service.findById(dto.getId()) == null)
             res = new ResponseEntity<>(HttpStatus.CONFLICT);
         else {
             Reservation t = service.findById(dto.getId());
-            converter.copy(dto,t);
+            converter.copy(dto, t);
             Reservation updated = service.update(t);
             ReservationDto myDto = converter.toDto(updated);
             res = new ResponseEntity<>(myDto, HttpStatus.OK);
@@ -117,7 +120,7 @@ public class ReservationRestPassenger {
     @Operation(summary = "Delete list of reservation")
     @PostMapping("multiple")
     public ResponseEntity<List<ReservationDto>> delete(@RequestBody List<ReservationDto> dtos) throws Exception {
-        ResponseEntity<List<ReservationDto>> res ;
+        ResponseEntity<List<ReservationDto>> res;
         HttpStatus status = HttpStatus.CONFLICT;
         if (dtos != null && !dtos.isEmpty()) {
             converter.init(false);
@@ -146,29 +149,32 @@ public class ReservationRestPassenger {
 
     @Operation(summary = "find by passenger id")
     @GetMapping("passenger/id/{id}")
-    public List<ReservationDto> findByPassengerId(@PathVariable Long id){
+    public List<ReservationDto> findByPassengerId(@PathVariable Long id) {
         return findDtos(service.findByPassengerId(id));
     }
+
     @Operation(summary = "delete by passenger id")
     @DeleteMapping("passenger/id/{id}")
-    public int deleteByPassengerId(@PathVariable Long id){
+    public int deleteByPassengerId(@PathVariable Long id) {
         return service.deleteByPassengerId(id);
     }
+
     @Operation(summary = "find by conversation id")
     @GetMapping("conversation/id/{id}")
-    public List<ReservationDto> findByConversationId(@PathVariable Long id){
+    public List<ReservationDto> findByConversationId(@PathVariable Long id) {
         return findDtos(service.findByConversationId(id));
     }
+
     @Operation(summary = "delete by conversation id")
     @DeleteMapping("conversation/id/{id}")
-    public int deleteByConversationId(@PathVariable Long id){
+    public int deleteByConversationId(@PathVariable Long id) {
         return service.deleteByConversationId(id);
     }
 
     @Operation(summary = "Finds a reservation and associated list by id")
     @GetMapping("detail/id/{id}")
     public ResponseEntity<ReservationDto> findWithAssociatedLists(@PathVariable Long id) {
-        Reservation loaded =  service.findWithAssociatedLists(id);
+        Reservation loaded = service.findWithAssociatedLists(id);
         converter.init(true);
         ReservationDto dto = converter.toDto(loaded);
         return new ResponseEntity<>(dto, HttpStatus.OK);
@@ -181,7 +187,7 @@ public class ReservationRestPassenger {
         List<Reservation> list = service.findByCriteria(criteria);
         HttpStatus status = HttpStatus.NO_CONTENT;
         converter.initObject(true);
-        List<ReservationDto> dtos  = converter.toDto(list);
+        List<ReservationDto> dtos = converter.toDto(list);
         if (dtos != null && !dtos.isEmpty())
             status = HttpStatus.OK;
 
@@ -204,14 +210,15 @@ public class ReservationRestPassenger {
         return new ResponseEntity<>(paginatedList, HttpStatus.OK);
     }
 
+
     @Operation(summary = "Gets reservation data size by criteria")
     @PostMapping("data-size-by-criteria")
     public ResponseEntity<Integer> getDataSize(@RequestBody ReservationCriteria criteria) throws Exception {
         int count = service.getDataSize(criteria);
         return new ResponseEntity<Integer>(count, HttpStatus.OK);
     }
-	
-	public List<ReservationDto> findDtos(List<Reservation> list){
+
+    public List<ReservationDto> findDtos(List<Reservation> list) {
         converter.initObject(true);
         List<ReservationDto> dtos = converter.toDto(list);
         return dtos;
@@ -222,9 +229,7 @@ public class ReservationRestPassenger {
     }
 
 
-
-
-   public ReservationRestPassenger(ReservationPassengerService service, ReservationConverter converter){
+    public ReservationRestPassenger(ReservationPassengerService service, ReservationConverter converter) {
         this.service = service;
         this.converter = converter;
     }
@@ -235,8 +240,7 @@ public class ReservationRestPassenger {
     private PassengerConverter passengerConverter;
 
     @Autowired
-    private  PassengerPassengerServiceImpl passengerService;
-
+    private PassengerPassengerServiceImpl passengerService;
 
 
 

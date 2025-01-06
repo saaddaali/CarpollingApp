@@ -304,24 +304,6 @@ class _DriverScreenState extends State<DriverScreen> {
             style: const TextStyle(fontSize: 16, color: Colors.grey),
           ),
           const SizedBox(height: 16),
-          if (upcoming)
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const CreateTripScreen(),
-                  ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: primaryBlue,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24),
-                ),
-              ),
-              child: const Text('Créer un trajet'),
-            ),
         ],
       ),
     );
