@@ -1,120 +1,188 @@
+/* Variables */
 $primary-color: #4052EE;
-$logout-color: #FF4C4C; /* Red color for logout button */
+$gradient-start: #4052EE;
+$gradient-end: #6B7AFF;
+$text-dark: #2D3748;
+$red-gradient: linear-gradient(45deg, #FF4C4C, #FF6B6B);
 
-/* General topbar styles */
+/* Topbar */
 .elegant-topbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #000000;
-    padding: 20px 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    font-family: 'Roboto', sans-serif;
-    height: 70px;  // Fixed height adjusted
-    box-sizing: border-box;
-    background-color:white;  // Ensure background is white
+    padding: 0 24px;
+    background: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    height: 64px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
 }
 
+/* Logo */
 .logo_top {
-    width: 150px;  /* Adjust logo size */
+    width: 160px;
     height: auto;
+    transition: all 0.3s ease;
 }
 
-.profile-image {
-    width: 60px;      /* Adjust image size */
-    height: 60px;     /* Make sure it's square */
-    border-radius: 50%; /* Circular avatar */
-    margin-right: 8px; /* Space between image and text */
-    border: 2px solid #fff; /* Optional: border around image */
+.logo_top:hover {
+    transform: translateY(-1px);
 }
 
-.online-status {
-    position: absolute;
-    bottom: 6px;
-    right: 160px;
-    width: 10px;      /* Dot size */
-    height: 10px;     /* Dot size */
-    background-color: green; /* Green color for online status */
-    border-radius: 50%; /* Circular dot */
-    border: 2px solid white; /* Optional white border */
-}
-
-/* Left section styles */
-.topbar-left {
+/* Menu container */
+.elegant-topbar-menu {
     display: flex;
     align-items: center;
+    gap: 20px;
 }
 
-/* Center section styles (optional) */
-.topbar-center {
-    text-align: center;
-    flex-grow: 1;
-}
-
-/* Right section styles */
-.topbar-right {
+/* Button base style */
+.elegant-topbar-button {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
+    padding: 8px 16px;
+    font-size: 18px;
+    font-weight: 500;
+    color: $text-dark;
+    background: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
 }
 
-/* Buttons in the topbar */
-.elegant-topbar-button {
-    background: none;
-    border: none;
-    color: #000000;
-    font-size: 1.4rem;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: background 0.3s;
+/* Hover effect for normal buttons */
+.elegant-topbar-button:not(.logout-btn):hover {
+    background: linear-gradient(45deg, rgba(64, 82, 238, 0.08), rgba(107, 122, 255, 0.08));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(64, 82, 238, 0.15);
 }
 
-.elegant-topbar-button:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
+/* Icons with gradient on hover */
+.elegant-topbar-button i {
+    font-size: 22px;
+    background: white;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: $text-dark;
+    transition: all 0.3s ease;
 }
 
-/* Red color for the logout button */
-.elegant-topbar-button.logout-btn {
-    color:white;
-    background-color:  $logout-color;
-    border: 1px solid $logout-color;
-    //shadow
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.elegant-topbar-button:hover i {
+    background: $gradient-start;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transform: scale(1.1);
 }
 
-.elegant-topbar-button.logout-btn:hover {
-    background-color: rgba(255, 76, 76, 0.1); /* Light red hover effect */
-    border-radius: 4px;
+/* Profile section */
+.elegant-topbar-button .profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Dropdown styles */
-.language-dropdown {
-    border-radius: 4px;
-    color: #000;
+.elegant-topbar-button:hover .profile-image {
+    border-color: $primary-color;
+    box-shadow: 0 4px 12px rgba(64, 82, 238, 0.2);
 }
 
-/* Responsive adjustments */
+/* Online status with modern pulse */
+.online-status {
+    position: absolute;
+    right: 12px;
+    bottom: 8px;
+    width: 10px;
+    height: 10px;
+    background-color: #2ECC71;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 2px 8px rgba(46, 204, 113, 0.3);
+    animation: modernPulse 2s infinite;
+}
+
+@keyframes modernPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(46, 204, 113, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(46, 204, 113, 0);
+    }
+}
+
+/* Simple red Sign out button - No blue effects */
+.logout-btn {
+    background-color: #FF4C4C !important;
+    color: white !important;
+    font-size: 18px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+.logout-btn:hover {
+    background-color: #ff3333 !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.logout-btn i {
+    color: white !important;
+    font-size: 22px;
+    background: none !important;
+    -webkit-text-fill-color: white !important;
+}
+
+.logout-btn:hover i {
+    background: none !important;
+    -webkit-text-fill-color: white !important;
+    transform: none !important;
+}
+
+/* Content spacing */
+.main-content {
+    margin-top: 64px;
+}
+
+/* Modern mobile menu */
 @media (max-width: 768px) {
-    .topbar-center {
-        display: none;
+    .elegant-topbar {
+        padding: 0 16px;
     }
 
     .elegant-topbar-menu {
+        position: fixed;
+        top: 64px;
+        right: 0;
         flex-direction: column;
-        gap: 10px;
+        background: white;
+        width: 240px;
+        padding: 20px;
+        box-shadow: -4px 4px 20px rgba(0, 0, 0, 0.1);
+        transform: translateX(100%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        gap: 16px;
+        border-radius: 0 0 0 16px;
     }
 
-    .topbar-right {
-        flex-direction: column;
+    .layout-topbar-menu-mobile-active {
+        transform: translateX(0);
     }
 
     .elegant-topbar-button {
-        font-size: 0.9rem;
-        padding: 10px 20px;
+        width: 100%;
+        justify-content: flex-start;
+        padding: 12px 16px;
     }
 }
