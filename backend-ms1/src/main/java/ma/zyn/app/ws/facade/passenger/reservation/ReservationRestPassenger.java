@@ -153,6 +153,14 @@ public class ReservationRestPassenger {
         return findDtos(service.findByPassengerId(id));
     }
 
+    @Operation(summary = "find by current passenger")
+    @GetMapping("current-passenger")
+    public List<ReservationDto> findByCurrentPassenger() {
+        String currentUser = getCurrentUser();
+        Passenger passenger = passengerService.findByUsername(currentUser);
+        return findDtos(service.findByPassengerId(passenger.getId()));
+    }
+
     @Operation(summary = "delete by passenger id")
     @DeleteMapping("passenger/id/{id}")
     public int deleteByPassengerId(@PathVariable Long id) {

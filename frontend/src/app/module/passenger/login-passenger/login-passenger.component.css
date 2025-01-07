@@ -148,8 +148,10 @@ input::placeholder {
 }
 
 .logo {
-    height: 32px;
-    margin-bottom: 64px;
+    height: 200px;
+    margin-bottom: -10px;
+    margin-top: -70px;
+
 }
 
 .hero-content {

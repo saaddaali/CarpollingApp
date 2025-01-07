@@ -61,6 +61,10 @@ export class ReservationPassengerService {
         return this.http.post<PaginatedList<ReservationDto>>(this.API + 'find-paginated-by-criteria', criteria);
     }
 
+    public findByCurrentPassenger(): Observable<Array<ReservationDto>> {
+        return this.http.get<Array<ReservationDto>>(this.API + 'current-passenger');
+    }
+
     public save(): Observable<ReservationDto> {
         return this.http.post<ReservationDto>(this.API, this.item);
     }

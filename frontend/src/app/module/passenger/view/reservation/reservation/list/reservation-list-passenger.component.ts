@@ -103,7 +103,7 @@ export class ReservationListPassengerComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.findPaginatedByCriteria();
+        this.findByCurrentPassenger();
         this.initExport();
         this.initCol();
         this.loadTrajet();
@@ -111,15 +111,9 @@ export class ReservationListPassengerComponent implements OnInit {
         this.loadDriver();
         this.loadCarteBancaire();
         this.loadConversation();
-        this.findPaginatedByCriteria();
         this.initCol();
         this.filterReservations();
-
-        //log pour déboguer
-        this.service.findPaginatedByCriteria(this.criteria).subscribe(paginatedItems => {
-            console.log('Données des réservations:', paginatedItems);
-            this.items = paginatedItems.list;
-        });
+        
 
     }
 
@@ -227,6 +221,13 @@ export class ReservationListPassengerComponent implements OnInit {
             this.items = paginatedItems.list;
             this.totalRecords = paginatedItems.dataSize;
             this.selections = new Array<ReservationDto>();
+            this.filterReservations();
+        }, error => console.log(error));
+    }
+
+    public findByCurrentPassenger() {
+        this.service.findByCurrentPassenger().subscribe(items => {
+            this.items = items;
             this.filterReservations();
         }, error => console.log(error));
     }
