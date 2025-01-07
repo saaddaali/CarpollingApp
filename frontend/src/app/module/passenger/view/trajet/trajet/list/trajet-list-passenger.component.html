@@ -18,7 +18,7 @@
             <div class="filter-group">
                 <!-- Departure City Filter -->
                 <div class="filter-item">
-                    <label for="villeDepart">villeDepart</label>
+                    <label for="villeDepart">Ville de depart</label>
                     <p-dropdown
                         [options]="villeDeparts"
                         [(ngModel)]="criteria.villeDepart"
@@ -33,7 +33,7 @@
 
                 <!-- Arrival City Filter -->
                 <div class="filter-item">
-                    <label for="villeDestination">villeDestination</label>
+                    <label for="villeDestination">Ville de destination</label>
                     <p-dropdown
                         [options]="villeDestinations"
                         [(ngModel)]="criteria.villeDestination"
@@ -60,7 +60,7 @@
 
                 <!-- Number of Seats Filter -->
                 <div class="filter-item">
-                    <label>nbrPlaces</label>
+                    <label>Nombre de places</label>
                     <p-inputNumber [(ngModel)]="criteria.placesDisponiblesMin" [showButtons]="true"
                                    placeholder="1"
                                    inputId="minmax-buttons" [min]="1" [max]="4"></p-inputNumber>

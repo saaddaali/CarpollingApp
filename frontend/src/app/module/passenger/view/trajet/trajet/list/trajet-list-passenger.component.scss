@@ -49,76 +49,181 @@ body {
         justify-content: center;
 
         .filter-container {
-            //flex: 1;
+            flex: 0 0 400px;
             max-width: 400px;
-            background: $card-bg;
+            background: #FFFFFF;
             padding: 2rem;
-            border-radius: $border-radius;
-            box-shadow: $shadow-lg;
-            border: 1px solid rgba($primary-color, 0.1);
-            transition: $transition-base;
-            flex: 0 0 400px; // Change flex: 1 à une largeur fixe
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            transition: all 0.3s ease;
             margin: 0 auto;
+            position: sticky;
+            top: 2rem;
 
             &:hover {
                 transform: translateY(-3px);
-                box-shadow: 0 15px 35px rgba($primary-color, 0.15);
+                box-shadow: 0 15px 35px rgba(99, 102, 241, 0.12);
             }
 
             h3 {
-                margin-bottom: 1.5rem;
+                margin-bottom: 2rem;
                 font-weight: 600;
-                color: $text-primary;
-                font-size: 1.5rem;
+                color: #1E293B;
+                font-size: 2rem;  // Encore plus grand
                 position: relative;
+                padding-bottom: 1rem;
 
                 &::after {
                     content: '';
                     position: absolute;
-                    bottom: -10px;
+                    bottom: 0;
                     left: 0;
-                    width: 50px;
-                    height: 4px;
-                    background: linear-gradient(90deg, $primary-color, $primary-light);
+                    width: 60px;  // Un peu plus large pour le plus grand titre
+                    height: 3px;
+                    background: linear-gradient(90deg, #6366F1, #818CF8);
                     border-radius: 4px;
                 }
             }
 
             .filter-group {
-                background: rgba($card-bg, 0.8);
+                background: #F8FAFC;
                 padding: 1.5rem;
-                border-radius: $border-radius;
+                border-radius: 10px;
                 margin-bottom: 1.5rem;
-                border: 1px solid $border-color;
-                box-shadow: $shadow-sm;
-                backdrop-filter: blur(10px);
+                border: 1px solid #E2E8F0;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 
                 .filter-item {
-                    margin-bottom: 1.5rem;
+                    margin-bottom: 1.8rem;  // Plus d'espace entre les items
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
 
                     label {
                         display: block;
                         margin-bottom: 0.75rem;
                         font-weight: 500;
-                        color: $text-primary;
-                        font-size: 1.1rem;
+                        color: #334155;
+                        font-size: 1.4rem;
                         text-transform: capitalize;
+                    }
+
+                    // Style spécial pour le champ nombre de places
+                    &:last-child {
+                        max-width: 500px;  // Réduire la largeur
+                        margin-left: auto;
+                        margin-right: auto;
                     }
 
                     // Style pour les inputs PrimeNG
                     ::ng-deep {
                         .p-dropdown, .p-calendar, .p-inputnumber {
+                            width: 100%;
+                            background: #FFFFFF;
+                            font-size: 1.3rem;  // Plus grand
+
                             .p-component {
-                                border-color: $border-color;
-                                transition: $transition-base;
+                                border: 1px solid #E2E8F0;
+                                transition: all 0.2s ease;
+                                width: 100%;
+                                border-radius: 6px;
 
                                 &:hover {
-                                    border-color: $primary-light;
+                                    border-color: #818CF8;
                                 }
 
                                 &:focus {
-                                    border-color: $primary-color;
-                                    box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+                                    border-color: #6366F1;
+                                    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+                                }
+                            }
+
+                            input {
+                                padding: 0.85rem 1rem;  // Plus de padding
+                                color: #1E293B;
+                                font-size: 1.3rem;  // Plus grand
+                            }
+
+                            .p-dropdown-label {
+                                font-size: 1.3rem;  // Plus grand
+                                padding: 0.85rem 1rem;  // Plus de padding
+                            }
+
+                            .p-dropdown-trigger {
+                                color: #64748B;
+                                width: 3.5rem;  // Un peu plus large
+
+                                &:hover {
+                                    color: #6366F1;
+                                }
+                            }
+                        }
+
+                        .p-calendar {
+                            .p-button {
+                                background: transparent;
+                                border: none;
+                                color: #64748B;
+                                font-size: 1.3rem;
+
+                                &:hover {
+                                    color: #6366F1;
+                                }
+                            }
+                        }
+
+                        // Style spécifique pour l'input number (places)
+                        .p-inputnumber {
+                            display: flex;
+                            align-items: center;
+                            width: 100%;
+                            background: #FFFFFF;
+
+                            .p-inputtext {
+                                width: 100%;
+                                text-align: left;
+                                padding: 0.85rem 1rem;
+                                font-size: 1.3rem;
+                                border: 1px solid #E2E8F0;
+                                border-radius: 6px;
+                                color: #1E293B;
+                                &:hover {
+                                    border-color: #818CF8;
+                                }
+
+                                &:focus {
+                                    border-color: #6366F1;
+                                    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+                                }
+                            }
+
+                            .p-inputnumber-button-group {
+                                display: flex;
+                                flex-direction: row;
+                                margin-left: 0.5rem;
+
+                                .p-button {
+                                    background: #F8FAFC;
+                                    border: 1px solid #E2E8F0;
+                                    color: #64748B;
+                                    width: 2.5rem;
+                                    height: 2.5rem;
+                                    padding: 0;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+
+                                    &:hover {
+                                        background: #F1F5F9;
+                                        color: #6366F1;
+                                        border-color: #818CF8;
+                                    }
+
+                                    &:active {
+                                        background: #E2E8F0;
+                                    }
                                 }
                             }
                         }
@@ -127,21 +232,37 @@ body {
             }
 
             .filter-actions {
+                margin-top: 2rem;
+                padding: 0 0.5rem;
+
                 button {
-                    background: linear-gradient(135deg, $primary-color, $primary-light);
+                    width: 100%;
+                    padding: 1.2rem;  // Plus grand
+                    background: $primary-color;
                     border: none;
-                    color: $card-bg;
-                    transition: $transition-base;
-                    box-shadow: $shadow-sm;
+                    border-radius: 8px;
+                    color: #FFFFFF;
+                    font-weight: 500;
+                    font-size: 1.3rem;  // Plus grand
+                    transition: all 0.3s ease;
+                    box-shadow: 0 2px 4px rgba(99, 102, 241, 0.15);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 0.5rem;
 
                     &:hover {
                         transform: translateY(-2px);
-                        box-shadow: $shadow-md;
-                        background: linear-gradient(135deg, $primary-light, $primary-color);
+                        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+                        background: $primary-color;
                     }
 
                     &:active {
                         transform: translateY(0);
+                    }
+
+                    i {
+                        font-size: 1.4rem;  // Plus grand
                     }
                 }
             }
