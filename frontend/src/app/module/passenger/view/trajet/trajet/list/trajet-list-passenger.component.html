@@ -64,7 +64,6 @@
                     <p-inputNumber [(ngModel)]="criteria.placesDisponiblesMin" [showButtons]="true"
                                    placeholder="1"
                                    inputId="minmax-buttons" [min]="1" [max]="4"></p-inputNumber>
-
                 </div>
             </div>
 
@@ -84,12 +83,38 @@
         </div>
 
         <!-- Right Trajet List -->
-        <div class="trajet-list">
+        <div class="trajet-list" [ngClass]="{'has-empty-state': !items || items.length === 0}">
+            <!-- Empty State -->
+            <div *ngIf="!items || items.length === 0" class="empty-state">
+                <div class="empty-state-content">
+                    <div class="empty-state-icon">
+                        <i class="pi pi-car"></i>
+                    </div>
+                    <h3>Aucun trajet trouvé</h3>
+                    <div class="search-details">
+                        <div class="search-route">
+                            <span>{{ criteria.villeDepart?.libelle || 'Départ' }}</span>
+                            <i class="pi pi-arrow-right"></i>
+                            <span>{{ criteria.villeDestination?.libelle || 'Destination' }}</span>
+                        </div>
+                        <div class="search-date" *ngIf="criteria.horaireDepartTo">
+                            <i class="pi pi-calendar"></i>
+                            <span>{{ criteria.horaireDepartTo | date:'dd MMM yyyy' }}</span>
+                        </div>
+                    </div>
+                    <div class="suggestions-list">
+                        <li><i class="pi pi-calendar"></i> Changer la date de départ</li>
+                        <li><i class="pi pi-users"></i> Réduire le nombre de places</li>
+                        <li><i class="pi pi-map-marker"></i> Élargir votre zone de recherche</li>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trajet Cards -->
             <div *ngFor="let trajet of items" class="trajet-card" (click)="reserve(trajet)">
                 <!-- Trajet Details -->
                 <div class="trajet-details">
                     <div class="location-container">
-
                         <!-- Departure Information -->
                         <div class="location-info">
                             <h3 class="city">{{ trajet.villeDepart?.libelle }}</h3>
@@ -142,5 +167,4 @@
             </div>
         </div>
     </div>
-
 </div>
