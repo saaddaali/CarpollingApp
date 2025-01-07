@@ -1,148 +1,168 @@
-.body{
-    background-color: rgb(7, 15, 30);
-    height: 100vh;
+.contact-container {
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    padding: 2rem;
 }
 
-.Title{
-    font-size: 36px;
-    font-weight: bold;
-    font-family: "Fira Code", monospace;
-    text-align: center;
+.background-image {
+    background-image: url('/assets/layout/images/cover2.png');
+    background-size: cover;
+    background-position: center;
     color: white;
-}
-
-.infos{
-    margin-top: 1rem;
-}
-
-.data{
-    padding-top: 1rem;
-    color: white;
-    font-family: "Fira Code", monospace;
-    font-size: 1.5rem;
-}
-
-.info{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 4rem;
-}
-
-.info-icon img{
-    width: 60px;
-    height: 60px;
-}
-
-.forms{
-    margin-top: 2rem;
-    margin-left: 100px;
-}
-
-.form{
     position: relative;
-    height: 50px;
-    line-height: 50px;
-    margin-top: 30px;
+
+    flex-direction: column;
+
 }
 
-.form input{
-    position: absolute;
-    width: 70%;
-    height: 4rem;
-    outline: none;
-    font-size: 1em;
-    padding-top: 30px;
-    border-radius: 10px;
-    border: 1px solid #f0ffff ;
-    background: transparent;
-    transition: 0.1s ease;
-    z-index: 1111;
-}
-
-.form textarea{
-    position: absolute;
-    width: 70%;
-    outline: none;
-    font-size: 1em;
-    padding-top: 30px;
-    border-radius: 10px;
-    border: 1px solid #f0ffff ;
-    background: transparent;
-    transition: 0.1s ease;
-    z-index: 1111;
-}
-
-.form label{
-    position: absolute;
-    font-size: 1.1rem;
-    color : #FFFFFF;
-    padding: 0 25px;
-    margin: 0 20px;
-    background-color: rgb(7, 15, 30);
-    transition: 0.2s ease;
-}
-
-.form input:focus,
-.form input:valid {
+.title {
+    text-align: center;
+    font-size: 2.5rem;
     color: white;
-    border: 1px solid white;
-    font-size: 20px;
-    padding: 0 25px;
-    height: 4rem;
-}
-.form input:focus + .lab,
-.form input:valid + .lab{
-    color: white ;
-    height: 1px;
-    line-height: 1px;
-    transform: translate (-15px, -20px) scale(1);
-    z-index: 1111;
+    margin: 2rem 0;
+    font-weight: 600;
 }
 
-.form textarea:focus,
-.form textarea:valid {
-    color: white;
-    border: 1px solid white;
-    font-size: 20px;
-}
-.form textarea:focus + .lab,
-.form textarea:valid + .lab{
-    color: white ;
-    height: 1px;
-    line-height: 1px;
-    transform: translate (-15px, -20px) scale(1);
-    z-index: 1111;
-}
-
-.msg{
-    height: 130px;
-}
-
-button{
+.content-wrapper {
     display: flex;
-    flex-direction: row;
+    height: 100vh; /* Full viewport height for vertical centering */
+
+}
+
+.info-section {
+    display: flex;
+    flex-direction: column; /* Stacks the info items vertically */
+    align-items: center; /* Centers the items horizontally */
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0; /* Adds space between items */
+}
+
+.info-icon {
+    font-size: 2rem; /* Adjust size of the icon */
+    margin-right: 0.5rem; /* Space between icon and text */
+}
+
+.info-text {
+    font-size: 1.2rem; /* Adjust text size */
+}
+
+
+// Form Section Styles
+.form-section {
+    flex: 1;
+    padding: 3rem 2rem;
+
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+
+    input,
+    textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        background: #f8f9fa;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+
+        &:focus {
+            outline: none;
+            border-color: #4052ee;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(64, 82, 238, 0.1);
+        }
+    }
+
+    textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    label {
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+        color: #666;
+        transition: all 0.3s ease;
+        pointer-events: none;
+        background: transparent;
+        padding: 0 0.5rem;
+
+        &.active,
+        input:focus + &,
+        textarea:focus + & {
+            transform: translateY(-1.4rem) scale(0.85);
+            background: white;
+            color: #4052ee;
+        }
+    }
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 1rem;
+    background: white;
+    color: #4052ee;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 90px;
-    width: 20%;
-    height: 50px;
-    border: none;
-    border-radius: 10px;
-    font-family: "Fira Code", monospace;
-    font-size: 1.2rem;
-    font-weight: bold;
-    background-color: white;
-    cursor: pointer;
-    margin-left: 50%;
+    gap: 0.5rem;
+
+    &:hover:not(:disabled) {
+        background: #86878e;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(64, 82, 238, 0.2);
+    }
+
+    &:disabled {
+        opacity: 0.8;
+        cursor: not-allowed;
+    }
+
+    img {
+        width: 20px;
+        height: 20px;
+    }
 }
 
-button img{
-    width: 20px;
-    height: 20px;
-    margin-left: 10px;
-}
+// Responsive Styles
+@media (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
 
-.cont{
-    margin-left: 15rem;
+    .info-section {
+        display: flex;
+        place-items: center;
+        width: 100%;
+        padding: 2rem;
+    }
+
+
+    .form-section {
+        padding: 2rem;
+    }
 }

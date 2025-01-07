@@ -16,7 +16,6 @@ export class TopComponent implements OnInit{
     roleAdmin = false;
     editDialog = false ;
     languageOptions: SelectItem[];
-    selectedLanguage: string;
 
 
 

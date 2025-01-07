@@ -1,52 +1,75 @@
-<div class="body">
+<div class="contact-container background-image">
     <div class="header">
         <app-top></app-top>
     </div>
 
-    <h1 class="Title">Get in touch with us</h1>
+    <div class="contact-content">
+        <h1 class="title">Get in touch with us</h1>
 
-    <div class="flex flex-row cont">
+        <div class="content-wrapper">
+            <!-- Form Section -->
+            <div class="form-section">
+                <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <input
+                            id="name"
+                            type="text"
+                            formControlName="name"
+                            required>
+                        <label for="name" [class.active]="contactForm.get('name')?.value">Name</label>
+                        <div class="error-message"
+                             *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.invalid">
+                            Name is required
+                        </div>
+                    </div>
 
-        <div class="col col-2 flex flex-column align-items-center">
-            <div class="info">
-                <div class="info-icon">
-                    <img src="assets/layout/images/mail.png">
-                </div>
-                <p class="data">zynerator@gmail.com</p>
-            </div>
-            <div class="info">
-                <div class="info-icon">
-                    <img src="assets/layout/images/phone.png">
-                </div>
-                <p class="data">+212 612345678</p>
-            </div>
-            <div class="info">
-                <div class="info-icon">
-                    <img src="assets/layout/images/gps.png">
-                </div>
-                <p class="data">Marrakech</p>
-            </div>
-        </div>
+                    <div class="form-group">
+                        <input
+                            id="email"
+                            type="email"
+                            formControlName="email"
+                            required>
+                        <label for="email" [class.active]="contactForm.get('email')?.value">Email</label>
+                        <div class="error-message"
+                             *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
+                            Please enter a valid email
+                        </div>
+                    </div>
 
-        <div class="forms col col-9 flex flex-column">
-            <div class="form">
-                <input id="name" type="text" required>
-                <label class="lab" for="name">Name</label>
+                    <div class="form-group">
+                        <input
+                            id="subject"
+                            type="text"
+                            formControlName="subject"
+                            required>
+                        <label for="subject" [class.active]="contactForm.get('subject')?.value">Subject</label>
+                        <div class="error-message"
+                             *ngIf="contactForm.get('subject')?.touched && contactForm.get('subject')?.invalid">
+                            Subject is required
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+          <textarea
+              id="message"
+              formControlName="message"
+              required></textarea>
+                        <label for="message" [class.active]="contactForm.get('message')?.value">Message</label>
+                        <div class="error-message"
+                             *ngIf="contactForm.get('message')?.touched && contactForm.get('message')?.invalid">
+                            Message is required
+                        </div>
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="submit-button"
+                        [disabled]="!contactForm.valid">
+                        Send
+                        <i class="fa fa-paper-plane"></i>
+                    </button>
+                </form>
             </div>
-            <div class="form">
-                <input id="email" type="email" required>
-                <label class="lab" for="email">Email</label>
-            </div>
-            <div class="form">
-                <input id="subject" type="text" required>
-                <label class="lab" for="subject">Subject</label>
-            </div>
-            <div class="form">
-                <textarea class="msg" id="message" type="text" required></textarea>
-                <label class="lab" for="message">Message</label>
-            </div>
-            <button id="send" >Send<img id="send-logo" src="assets/layout/images/send-message.png"></button>
         </div>
     </div>
-
 </div>

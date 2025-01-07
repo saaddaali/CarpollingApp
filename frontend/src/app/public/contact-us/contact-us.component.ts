@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import gsap from 'gsap';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
     selector: 'app-contact-us',
@@ -7,11 +8,23 @@ import gsap from 'gsap';
     styleUrls: ['./contact-us.component.scss']
 })
 export class ContactUsComponent implements OnInit {
+    contactForm: FormGroup;
 
-    ngOnInit() {
-        const send = document.getElementById('send');
-        send.addEventListener("click", () => {
-            gsap.to("#send-logo", {duration: 1.2, translateX: 65, width: 0})
-        })
+    constructor(private fb: FormBuilder) {
+        this.contactForm = this.fb.group({
+            name: ['', Validators.required],
+            email: ['', [Validators.required, Validators.email]],
+            subject: ['', Validators.required],
+            message: ['', Validators.required]
+        });
+    }
+
+    ngOnInit(): void {}
+
+    onSubmit(): void {
+        if (this.contactForm.valid) {
+            console.log(this.contactForm.value);
+            // Handle form submission
+        }
     }
 }
