@@ -155,7 +155,6 @@ public class ConversationPassengerServiceImpl implements ConversationPassengerSe
         message.setDriver(t.getDriver());
         message.setContenu("Bonjour, je peux vous aider ?");
         t.setLibelle("Bonjour, je peux vous aider ?");
-        //date now
         LocalDateTime date = LocalDateTime.now();
         message.setDateEnvoi(date);
         if (loaded == null) {
