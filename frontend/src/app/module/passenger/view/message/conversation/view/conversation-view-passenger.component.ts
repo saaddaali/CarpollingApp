@@ -50,6 +50,8 @@ export class ConversationViewPassengerComponent implements OnInit {
     currentDate = new Date().toDateString();
     groupedMessages: any[] = [];
 
+    selectedConversation: any = null;
+
 
     protected _totalRecords = 0;
 
@@ -68,13 +70,7 @@ export class ConversationViewPassengerComponent implements OnInit {
 
     ngOnInit(): void {
         this.findPaginatedByCriteria();
-        const id = this.router.url.split('/')[3];
-        this.service.findById(Number(id)).subscribe(
-            (data: ConversationDto) => {
-                this.item = data;
-                this.selectConversation(data);
-            }
-        );
+
     }
 
     view(item: ConversationDto) {
@@ -83,11 +79,13 @@ export class ConversationViewPassengerComponent implements OnInit {
         console.log(this.messagePassengerService)
     }
     selectConversation(conversation: ConversationDto) {
+        this.selectedConversation = conversation;
         this.item = conversation;
         if (conversation) {
             this.messagePassengerService.findByConversationId(conversation).subscribe(
                 messages => {
                     this.messages = messages;
+                    this.messages[0].driver= conversation.driver;
                     this.groupedMessages = this.groupMessagesByDate();
                 },
                 error => {
@@ -130,10 +128,15 @@ export class ConversationViewPassengerComponent implements OnInit {
 
     save() {
         this.message = new MessageDto();
-        this.message = this.messages[0];
         this.message.contenu = this.messageInput;
         this.message.isPassenger = true;
+        this.message.conversation = this.messages[0].conversation;
+        this.message.dateEnvoi = new Date();
+        this.message.driver = this.messages[0].driver;
+        this.message.passenger = this.messages[0].passenger;
+        this.message.trajet = this.messages[0].trajet;
         this.message.id = null
+        this.messages.push(this.message);
         this.messagePassengerService.create(this.message).subscribe(message => {
             if (message != null) {
                 this.messages.push(message);

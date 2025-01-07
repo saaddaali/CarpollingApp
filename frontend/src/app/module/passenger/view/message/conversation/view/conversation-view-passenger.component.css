@@ -7,15 +7,17 @@
 }
 
 .conversations-sidebar {
-    width: 360px;
+    width: 350px;
     background: white;
     border-radius: 30px;
     margin-right: 20px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 10px 50px;
     margin-top: 60px;
+    margin-bottom: 15px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
+
 }
 
 .back-button {
@@ -358,4 +360,29 @@
     }
 
 }
+
+.empty-state {
+    text-align: center;
+    color: #888;
+    margin-top: 20px;
+}
+
+.empty-state i {
+    font-size: 48px;
+    margin-bottom: 10px;
+    color: #ccc;
+}
+
+.empty-state p {
+    font-size: 16px;
+}
+
+.chat-header-empty {
+    margin: 150px;
+    text-align: center;
+    padding: 20px;
+    font-size: 18px;
+    color: #888;
+}
+
 

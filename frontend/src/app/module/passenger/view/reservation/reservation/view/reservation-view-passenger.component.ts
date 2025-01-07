@@ -86,10 +86,10 @@ export class ReservationViewPassengerComponent implements OnInit {
         this.conversationService.create(this.conversation).subscribe(
             (data: ConversationDto) => {
                 this.conversation = data;
-                console.log(data.id)
+                this.router.navigate(['/app/passenger/message/conversation/view/' + Number(data.id)]);
             }
         );
-        this.router.navigate(['/app/passenger/message/conversation/view/' + Number(this.conversation.id)]);
+
     }
 
     paye() {

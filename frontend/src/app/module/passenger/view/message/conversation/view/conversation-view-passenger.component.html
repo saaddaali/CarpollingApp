@@ -1,3 +1,8 @@
+
+<div class="header">
+    <passenger-topbar></passenger-topbar>
+</div>
+
 <div class="app-container">
     <!-- Left sidebar with conversations list -->
     <div class="conversations-sidebar">
@@ -36,10 +41,10 @@
     <div class="chat-container">
         <passenger-topbar></passenger-topbar>
 
-        <div class="chat-header">
+        <div class="chat-header" *ngIf="messages && messages.length > 0; else emptyChatHeader">
             <div class="header-profile">
                 <img class="header-profile-image"
-                     src="assets/demo/images/avatar/ivanmagalhaes.png"
+                     [src]="messages[0].driver.photo"
                      alt="Profile">
                 <div class="header-profile-info">
                     <span class="header-profile-name">Driver</span>
@@ -60,29 +65,44 @@
             </div>
         </div>
 
+
+
         <!-- Date separator -->
-        <div *ngIf="true" class="date-separator">
+        <div *ngIf="messages && messages.length > 0" class="date-separator">
             {{ currentDate | date: 'MMMM d, yyyy' }}
         </div>
 
-        <div class="chat-messages ">
+        <ng-template #emptyChatHeader>
+            <div class="chat-header-empty">
+            </div>
+        </ng-template>
+
+        <div class="chat-messages">
+            <!-- Messages list -->
             <div class="message" *ngFor="let message of messages"
-                 [ngClass]="{'from-user': message.isPassenger,'from-bot': !message.isPassenger }">
+                 [ngClass]="{'from-user': message.isPassenger, 'from-bot': !message.isPassenger }">
                 <div class="message-text">{{ message.contenu }}</div>
                 <div class="message-time">{{ message.dateEnvoi | date:'HH:mm' }}</div>
             </div>
+
+            <!-- Empty state when no messages -->
+            <div class="empty-state" *ngIf="!messages || messages.length === 0">
+                <i class="pi pi-comments"></i>
+                <p>No messages yet. Start the conversation!</p>
+            </div>
         </div>
 
-        <div class="chat-input">
+        <div class="chat-input"  *ngIf="selectedConversation" >
             <input type="text"
                    placeholder="Type your message..."
-                     [(ngModel)]="messageInput"
-            />
+                   [(ngModel)]="messageInput" />
             <button class="send-btn" (click)="save()">
                 <i class="pi pi-send"></i>
             </button>
         </div>
+
+
     </div>
 </div>
 
-<app-message-view-passenger></app-message-view-passenger>
+<app-message-view-passenger *ngIf="selectedConversation" ></app-message-view-passenger>

@@ -1,5 +1,4 @@
-import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
 import {AppComponent} from 'src/app/app.component';
 import {TranslateService} from '@ngx-translate/core';
@@ -7,7 +6,6 @@ import {UserService} from 'src/app/zynerator/security/shared/service/User.servic
 import {UserDto} from 'src/app/zynerator/security/shared/model/User.model';
 import {AuthService} from 'src/app/zynerator/security/shared/service/Auth.service';
 import {LayoutService} from "../../service/app.layout.service";
-import {PassengerLayoutComponent} from "../passenger.layout.component";
 import {Router} from "@angular/router";
 
 
@@ -19,7 +17,6 @@ import {Router} from "@angular/router";
 export class PassengerTopbarComponent implements OnInit{
    rolePassenger = false;
     editDialog = false ;
-    languageOptions: SelectItem[];
 
 
 
