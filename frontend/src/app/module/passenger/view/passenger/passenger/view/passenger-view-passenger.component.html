@@ -12,7 +12,7 @@
         <div class="profile-card">
             <div class="photo-section">
                 <div class="photo-holder">
-                    <img [src]="item?.photo || 'assets/images/default-avatar.png'" alt="Photo de profil">
+                    <img [src]="item?.photo || 'assets/demo/images/avatar/noavatar.png'" alt="Photo de profil">
                     <input type="file" #photoInput (change)="onFileSelected($event)" accept="image/*" style="display: none">
                     <div class="photo-actions">
                         <button class="edit-photo" (click)="photoInput.click()">

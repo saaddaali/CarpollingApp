@@ -57,6 +57,10 @@ export class PassengerPassengerService {
         return this.http.get<PassengerDto>(this.API + 'username/' + username);
     }
 
+    public findCurrentUser(){
+        return this.http.get<PassengerDto>(this.API + 'current');
+    }
+
     public findAllOptimized() {
         return this.http.get<Array<PassengerDto>>(this.API + 'optimized');
     }

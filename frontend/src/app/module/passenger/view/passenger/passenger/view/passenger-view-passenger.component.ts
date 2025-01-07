@@ -3,19 +3,14 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
-import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
 
 
 import {environment} from 'src/environments/environment';
 
 import {RoleService} from 'src/app/zynerator/security/shared/service/Role.service';
-import {AbstractService} from 'src/app/zynerator/service/AbstractService';
-import {BaseDto} from 'src/app/zynerator/dto/BaseDto.model';
-import {BaseCriteria} from 'src/app/zynerator/criteria/BaseCriteria.model';
 import {StringUtilService} from 'src/app/zynerator/util/StringUtil.service';
 import {ServiceLocator} from 'src/app/zynerator/service/ServiceLocator';
-import {ConfirmationService, MessageService,MenuItem} from 'primeng/api';
-import {FileTempDto} from 'src/app/zynerator/dto/FileTempDto.model';
+import {ConfirmationService, MessageService} from 'primeng/api';
 
 
 import {PassengerPassengerService} from 'src/app/shared/service/passenger/passenger/PassengerPassenger.service';
@@ -25,6 +20,7 @@ import {PassengerCriteria} from 'src/app/shared/criteria/passenger/PassengerCrit
 import {CarteBancaireDto} from 'src/app/shared/model/paiement/CarteBancaire.model';
 import {CarteBancairePassengerService} from 'src/app/shared/service/passenger/paiement/CarteBancairePassenger.service';
 import {AuthService} from "../../../../../../zynerator/security/shared/service/Auth.service";
+
 @Component({
   selector: 'app-passenger-view-passenger',
   templateUrl: './passenger-view-passenger.component.html',
@@ -96,25 +92,20 @@ export class PassengerViewPassengerComponent implements OnInit {
             this.router.navigate(['/login']);
         }
     }
-
-    loadCurrentUser() {
-        // Créer un critère ou utiliser l'ID de l'utilisateur connecté
-        const criteria = new PassengerCriteria();
-        this.service.findByCriteria(criteria).subscribe({
-            next: (data) => {
-                if (data && data.length > 0) {
-                    this.item = data[0];
-                    this.originalItem = {...data[0]};
-                }
+    public loadCurrentUser(): void {
+        this.service.findCurrentUser().subscribe(
+            data => {
+                this.item = data;
+                this.originalItem = JSON.parse(JSON.stringify(data));
             },
-            error: (e) => {
+            error => {
                 this.messageService.add({
                     severity: 'error',
                     summary: 'Erreur',
-                    detail: 'Erreur lors du chargement'
+                    detail: 'Impossible de charger les informations de l\'utilisateur'
                 });
             }
-        });
+        );
     }
 
     edit() {

@@ -57,6 +57,10 @@ export class ConversationPassengerService {
         return this.http.get<ConversationDto>(this.API + 'id/' + id);
     }
 
+    public findByCurrentUser() {
+        return this.http.get<Array<ConversationDto>>(this.API + 'current-user');
+    }
+
     public findAllOptimized() {
         return this.http.get<Array<ConversationDto>>(this.API + 'optimized');
     }

@@ -14,6 +14,7 @@ import ma.zyn.app.utils.util.PaginatedList;
 
 import ma.zyn.app.utils.security.bean.User;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -50,6 +51,34 @@ public class PassengerRestPassenger {
             return getDtoResponseEntity(dto);
         }
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+
+    @Operation(summary = "Find current passenger")
+    @GetMapping("current")
+    public ResponseEntity<PassengerDto> findCurrent() {
+        String username = getCurrentUser();
+        if (username != null) {
+            Passenger t = service.findByUsername(username);
+            if (t != null) {
+                converter.init(true);
+                PassengerDto dto = converter.toDto(t);
+                return getDtoResponseEntity(dto);
+            }
+        }
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+
+    public String getCurrentUser() {
+        if (SecurityContextHolder.getContext().getAuthentication() != null) {
+            Object currentUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (currentUser != null && currentUser instanceof String) {
+                return (String) currentUser;
+            } else if (currentUser != null && currentUser instanceof User) {
+                return ((User) currentUser).getUsername();
+            } else return null;
+        }
+
+        return null;
     }
 
     @Operation(summary = "Finds an optimized list of all passengers")

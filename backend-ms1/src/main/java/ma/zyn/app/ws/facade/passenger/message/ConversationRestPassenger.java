@@ -2,6 +2,10 @@ package  ma.zyn.app.ws.facade.passenger.message;
 
 import io.swagger.v3.oas.annotations.Operation;
 
+import ma.zyn.app.bean.core.passenger.Passenger;
+import ma.zyn.app.service.impl.passenger.passenger.PassengerPassengerServiceImpl;
+import ma.zyn.app.utils.security.bean.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import ma.zyn.app.bean.core.message.Conversation;
@@ -13,6 +17,7 @@ import ma.zyn.app.utils.util.PaginatedList;
 
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -166,6 +171,38 @@ public class ConversationRestPassenger {
         return res;
     }
 
+    @Operation(summary = "Finds conversations by User")
+    @GetMapping("current-user")
+    public ResponseEntity<List<ConversationDto>> findByUser() throws Exception {
+        ResponseEntity<List<ConversationDto>> res = null;
+        String currentUser = getCurrentUser();
+        Passenger passenger = passengerService.findByUsername(currentUser);
+        if (passenger != null) {
+            List<Conversation> list = service.findByPassengerId(passenger.getId());
+            HttpStatus status = HttpStatus.NO_CONTENT;
+            converter.initObject(true);
+            List<ConversationDto> dtos = converter.toDto(list);
+            if (dtos != null && !dtos.isEmpty())
+                status = HttpStatus.OK;
+            res = new ResponseEntity<>(dtos, status);
+        }
+        return res;
+    }
+
+
+    public String getCurrentUser() {
+        if (SecurityContextHolder.getContext().getAuthentication() != null) {
+            Object currentUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (currentUser != null && currentUser instanceof String) {
+                return (String) currentUser;
+            } else if (currentUser != null && currentUser instanceof User) {
+                return ((User) currentUser).getUsername();
+            } else return null;
+        }
+
+        return null;
+    }
+
     @Operation(summary = "Finds paginated conversations by criteria")
     @PostMapping("find-paginated-by-criteria")
     public ResponseEntity<PaginatedList> findPaginatedByCriteria(@RequestBody ConversationCriteria criteria) throws Exception {
@@ -208,6 +245,9 @@ public class ConversationRestPassenger {
 
     private final ConversationPassengerService service;
     private final ConversationConverter converter;
+
+    @Autowired
+    private PassengerPassengerServiceImpl passengerService;
 
 
 

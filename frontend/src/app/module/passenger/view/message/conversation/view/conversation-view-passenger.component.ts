@@ -69,8 +69,18 @@ export class ConversationViewPassengerComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.findPaginatedByCriteria();
+        this.findByCurrentUser();
 
+    }
+
+    findByCurrentUser(){
+        this.service.findByCurrentUser().subscribe(
+            conversations => {
+                this.items = conversations;
+            },
+            error => {
+            }
+        );
     }
 
     view(item: ConversationDto) {
