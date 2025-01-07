@@ -29,6 +29,8 @@ import {TrajetDto} from 'src/app/shared/model/trajet/Trajet.model';
 import {TrajetPassengerService} from 'src/app/shared/service/passenger/trajet/TrajetPassenger.service';
 import {UserDto} from "../../../../../../zynerator/security/shared/model/User.model";
 import {AuthService} from "../../../../../../zynerator/security/shared/service/Auth.service";
+import {MessagePassengerService} from "../../../../../../shared/service/passenger/message/MessagePassenger.service";
+import {MessageDto} from "../../../../../../shared/model/message/Message.model";
 
 @Component({
   selector: 'app-reservation-view-passenger',
@@ -49,11 +51,12 @@ export class ReservationViewPassengerComponent implements OnInit {
     protected router: Router;
     protected stringUtilService: StringUtilService;
 
+    message:MessageDto;
     date: Date;
 
 
 
-    constructor(private service: ReservationPassengerService, private driverService: DriverPassengerService, private passengerService: PassengerPassengerService, private carteBancaireService: CarteBancairePassengerService, private conversationService: ConversationPassengerService, private trajetService: TrajetPassengerService, private authService: AuthService,private carteBancairePassengerService:CarteBancairePassengerService){
+    constructor(private service: ReservationPassengerService, private driverService: DriverPassengerService, private passengerService: PassengerPassengerService, private carteBancaireService: CarteBancairePassengerService, private conversationService: ConversationPassengerService,private messagePassengerService:MessagePassengerService,private trajetService: TrajetPassengerService, private authService: AuthService,private carteBancairePassengerService:CarteBancairePassengerService){
 		this.datePipe = ServiceLocator.injector.get(DatePipe);
         this.messageService = ServiceLocator.injector.get(MessageService);
         this.confirmationService = ServiceLocator.injector.get(ConfirmationService);
@@ -86,9 +89,13 @@ export class ReservationViewPassengerComponent implements OnInit {
         this.conversationService.create(this.conversation).subscribe(
             (data: ConversationDto) => {
                 this.conversation = data;
-                this.router.navigate(['/app/passenger/message/conversation/view/' + Number(data.id)]);
+                // Wait for 4 seconds before navigating
+                setTimeout(() => {
+                    this.router.navigate(['/app/passenger/message/conversation/view/' + Number(data.id)]);
+                }, 4000); // 4 seconds delay
             }
         );
+        this.router.navigate(['/app/passenger/message/conversation/view/O']);
 
     }
 

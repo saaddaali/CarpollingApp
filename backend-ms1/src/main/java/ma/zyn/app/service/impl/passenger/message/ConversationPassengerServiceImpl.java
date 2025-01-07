@@ -1,6 +1,8 @@
 package ma.zyn.app.service.impl.passenger.message;
 
 
+import ma.zyn.app.bean.core.message.Message;
+import ma.zyn.app.service.facade.passenger.message.MessagePassengerService;
 import ma.zyn.app.utils.exception.EntityNotFoundException;
 import ma.zyn.app.bean.core.message.Conversation;
 import ma.zyn.app.dao.criteria.core.message.ConversationCriteria;
@@ -11,6 +13,9 @@ import ma.zyn.app.service.facade.passenger.message.ConversationPassengerService;
 import static ma.zyn.app.utils.util.ListUtil.*;
 
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 import org.springframework.data.domain.PageRequest;
@@ -144,8 +149,18 @@ public class ConversationPassengerServiceImpl implements ConversationPassengerSe
     public Conversation create(Conversation t) {
         Conversation loaded = findByReferenceEntity(t);
         Conversation saved;
+        Message message = new Message();
+        message.setConversation(t);
+        message.setPassenger(t.getPassenger());
+        message.setDriver(t.getDriver());
+        message.setContenu("Bonjour, je peux vous aider ?");
+        t.setLibelle("Bonjour, je peux vous aider ?");
+        //date now
+        LocalDateTime date = LocalDateTime.now();
+        message.setDateEnvoi(date);
         if (loaded == null) {
             saved = dao.save(t);
+            messageService.create(message);
         }else {
             saved = null;
         }
@@ -260,6 +275,8 @@ public class ConversationPassengerServiceImpl implements ConversationPassengerSe
     private DriverPassengerService driverService ;
     @Autowired
     private PassengerPassengerService passengerService ;
+    @Autowired
+    private MessagePassengerService messageService ;
 
     public ConversationPassengerServiceImpl(ConversationDao dao) {
         this.dao = dao;
