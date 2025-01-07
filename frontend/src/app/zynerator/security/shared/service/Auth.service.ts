@@ -165,6 +165,7 @@ export class AuthService {
         const firstName = tokenDecoded.firstName;
         const lastName = tokenDecoded.lastName;
         const phone = tokenDecoded.phone;
+        const photo= tokenDecoded.photo;
         const passwordChanged = tokenDecoded.passwordChanged;
         this._authenticatedUser.passwordChanged = passwordChanged;
         this._authenticatedUser.username = username;
@@ -252,8 +253,8 @@ export class AuthService {
         );
     }
 
-    public activateAccount(activationCode: string, username: string): Observable<any> {
-        return this.http.post<any>(this.API + 'activateAccount', { activationCode, username }, { observe: 'response' })
+    public activateAccount(activationCode: string): Observable<any> {
+        return this.http.post<any>(this.API + 'activateAccount', { activationCode}, { observe: 'response' })
             .pipe(
                 map(resp => {
                     if (this.user.roleUsers[0].role.authority === 'ADMIN') {

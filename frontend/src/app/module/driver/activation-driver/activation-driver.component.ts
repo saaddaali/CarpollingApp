@@ -36,8 +36,8 @@ export class ActivationDriverComponent implements OnInit {
         this.clicked = true;
         this.activationDto = this.activationDto;
 
-        if (this.activationDto.username && this.activationDto.activationCode) {
-            this.authService.activateAccount(this.activationDto.activationCode, this.activationDto.username).subscribe({
+        if ( this.activationDto.activationCode) {
+            this.authService.activateAccount(this.activationDto.activationCode).subscribe({
                 next: () => {
                     this.messageService.add({
                         severity: 'success',

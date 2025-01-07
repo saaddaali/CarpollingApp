@@ -109,8 +109,6 @@ public class AuthController {
         roleUser.setUser(user);
         user.setRoleUsers(new ArrayList<>());
         user.getRoleUsers().add(roleUser);
-
-
         userService.create(user);
         emailService.sendSimpleMessage(emailRequest);
 
@@ -123,14 +121,14 @@ public class AuthController {
     @PostMapping("activateAccount")
     public ResponseEntity<?> verifyUser(@RequestBody ActivationRequest activationRequest) {
         User user = userService.findByLinkValidationCode(activationRequest.getActivationCode());
-        String username = activationRequest.getUsername();
+        String username = user.getUsername();
         User userVerifier = userService.findByUsername(username);
         System.out.println(username);
         if (user == null) {
             return new ResponseEntity<>("Bad Crentials", HttpStatus.BAD_REQUEST);
         } else if (userVerifier == null) {
             System.out.println(username);
-            System.out.println("userVerifier is null");
+            System.out.println("user Verifier is null");
             return new ResponseEntity<>("Bad Crentials", HttpStatus.BAD_REQUEST);
         } else if (!user.getUsername().equals(userVerifier.getUsername())) {
             return new ResponseEntity<>("Bad Crentials", HttpStatus.BAD_REQUEST);

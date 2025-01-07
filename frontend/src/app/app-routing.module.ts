@@ -18,6 +18,7 @@ import {
     ChangePasswordPassengerComponent
 } from 'src/app/module/passenger/change-password-passenger/change-password-passenger.component';
 import {AdminLayoutComponent} from "./layout/admin/admin.layout.component";
+import {ActivationPassengerComponent} from "./module/passenger/activation-passenger/activation-passenger.component";
 
 @NgModule({
     imports: [
@@ -33,6 +34,7 @@ import {AdminLayoutComponent} from "./layout/admin/admin.layout.component";
                 {path: 'passenger/login', component: LoginPassengerComponent },
                 {path: 'passenger/register', component: RegisterPassengerComponent },
                 {path: 'passenger/changePassword', component: ChangePasswordPassengerComponent },
+                {path: 'passenger/activation', component:ActivationPassengerComponent},
                 {
                     path: 'app',
                     children: [

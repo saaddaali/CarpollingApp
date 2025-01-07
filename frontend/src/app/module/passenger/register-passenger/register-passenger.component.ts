@@ -56,6 +56,7 @@ export class RegisterPassengerComponent implements OnInit {
             this.user.roleUsers.push(roleUser);
             this.authService.registerPassenger();
             this.authService.sharedUserName = this.registerDto.username;
+            this.router.navigate(['/passenger/activation']);
         } else {
             this.messageService.add({
                 severity: 'error',

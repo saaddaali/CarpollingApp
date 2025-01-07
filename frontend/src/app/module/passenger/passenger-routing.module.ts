@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
 import {AuthGuard} from 'src/app/zynerator/security/guards/auth.guard';
 
-import { ActivationPassengerComponent } from './activation-passenger/activation-passenger.component';
-import { LoginPassengerComponent } from './login-passenger/login-passenger.component';
-import { RegisterPassengerComponent } from './register-passenger/register-passenger.component';
-import { ForgetPasswordPassengerComponent } from './forget-password-passenger/forget-password-passenger.component';
-import { ChangePasswordPassengerComponent } from './change-password-passenger/change-password-passenger.component';
+import {ActivationPassengerComponent} from './activation-passenger/activation-passenger.component';
+import {LoginPassengerComponent} from './login-passenger/login-passenger.component';
+import {RegisterPassengerComponent} from './register-passenger/register-passenger.component';
+import {ForgetPasswordPassengerComponent} from './forget-password-passenger/forget-password-passenger.component';
+import {ChangePasswordPassengerComponent} from './change-password-passenger/change-password-passenger.component';
 import {TrajetListPassengerComponent} from "./view/trajet/trajet/list/trajet-list-passenger.component";
 import {HomePassengerComponent} from "./view/home/home-passenger.component";
 
@@ -22,48 +22,48 @@ import {HomePassengerComponent} from "./view/home/home-passenger.component";
                             children: [
                                 {
                                     path: '',
-                                    component: LoginPassengerComponent ,
+                                    component: LoginPassengerComponent,
                                     canActivate: [AuthGuard]
                                 }
-                              ]
+                            ]
                         },
                         {
                             path: 'register',
                             children: [
                                 {
                                     path: '',
-                                    component: RegisterPassengerComponent ,
+                                    component: RegisterPassengerComponent,
                                     canActivate: [AuthGuard]
                                 }
-                              ]
-                        },{
+                            ]
+                        }, {
                             path: 'forget-password',
                             children: [
                                 {
                                     path: '',
-                                    component: ForgetPasswordPassengerComponent ,
+                                    component: ForgetPasswordPassengerComponent,
                                     canActivate: [AuthGuard]
                                 }
-                              ]
-                        },{
+                            ]
+                        }, {
                             path: 'change-password',
                             children: [
                                 {
                                     path: '',
-                                    component: ChangePasswordPassengerComponent ,
+                                    component: ChangePasswordPassengerComponent,
                                     canActivate: [AuthGuard]
                                 }
-                              ]
+                            ]
                         },
                         {
                             path: 'activation',
                             children: [
                                 {
                                     path: '',
-                                    component: ActivationPassengerComponent ,
+                                    component: ActivationPassengerComponent,
                                     canActivate: [AuthGuard]
                                 }
-                              ]
+                            ]
                         },
                         {
                             path: 'trajet',
@@ -131,4 +131,5 @@ import {HomePassengerComponent} from "./view/home/home-passenger.component";
     ],
     exports: [RouterModule],
 })
-export class PassengerRoutingModule { }
+export class PassengerRoutingModule {
+}

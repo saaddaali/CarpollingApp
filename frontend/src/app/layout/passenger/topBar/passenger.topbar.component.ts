@@ -7,6 +7,7 @@ import {UserDto} from 'src/app/zynerator/security/shared/model/User.model';
 import {AuthService} from 'src/app/zynerator/security/shared/service/Auth.service';
 import {LayoutService} from "../../service/app.layout.service";
 import {Router} from "@angular/router";
+import {PassengerPassengerService} from "../../../shared/service/passenger/passenger/PassengerPassenger.service";
 
 
 @Component({
@@ -64,7 +65,7 @@ export class PassengerTopbarComponent implements OnInit{
 
 
 
-    constructor(public  layoutService:LayoutService , public app: AppComponent, private authService: AuthService, private translateService: TranslateService, private userService: UserService,private router: Router) {
+    constructor(public  layoutService:LayoutService , public app: AppComponent, private authService: AuthService, private translateService: TranslateService,private userService: UserService,private router: Router) {
     }
 
 
@@ -73,6 +74,7 @@ export class PassengerTopbarComponent implements OnInit{
         if ( this.authService.authenticatedUser.roleUsers[0].role.authority === 'ROLE_PASSENGER'){
             this.rolePassenger = true;
         }
+
     }
 
     logout(){

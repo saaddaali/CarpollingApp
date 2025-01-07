@@ -1,21 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Message, MessageService } from 'primeng/api';
-import { AuthService } from 'src/app/zynerator/security/shared/service/Auth.service';
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
-import { UserDto } from 'src/app/zynerator/security/shared/model/User.model';
-import { environment } from 'src/environments/environment';
-import { HttpErrorResponse } from '@angular/common/http';
-import { ActivationDto } from 'src/app/zynerator/security/shared/model/Activation.model';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {Message, MessageService} from 'primeng/api';
+import {AuthService} from 'src/app/zynerator/security/shared/service/Auth.service';
+import {LayoutService} from 'src/app/layout/service/app.layout.service';
+import {UserDto} from 'src/app/zynerator/security/shared/model/User.model';
+import {environment} from 'src/environments/environment';
+import {HttpErrorResponse} from '@angular/common/http';
+import {ActivationDto} from 'src/app/zynerator/security/shared/model/Activation.model';
 
 
 @Component({
-  selector: 'app-activation-passenger',
-  templateUrl: './activation-passenger.component.html',
-  styleUrls: ['./activation-passenger.component.css']
+    selector: 'app-activation-passenger',
+    templateUrl: './activation-passenger.component.html',
+    styleUrls: ['./activation-passenger.component.css']
 })
 export class ActivationPassengerComponent implements OnInit {
-      public error: string = null;
+    public error: string = null;
     readonly API = environment.loginUrl;
     activationDto = new ActivationDto();
     clicked = false;
@@ -36,8 +36,8 @@ export class ActivationPassengerComponent implements OnInit {
         this.clicked = true;
         this.activationDto = this.activationDto;
 
-        if (this.activationDto.username && this.activationDto.activationCode) {
-            this.authService.activateAccount(this.activationDto.activationCode, this.activationDto.username).subscribe({
+        if (this.activationDto.activationCode) {
+            this.authService.activateAccount(this.activationDto.activationCode).subscribe({
                 next: () => {
                     this.messageService.add({
                         severity: 'success',
@@ -49,7 +49,7 @@ export class ActivationPassengerComponent implements OnInit {
                     this.messageService.add({
                         severity: 'error',
                         summary: 'Error',
-                        detail: err.error.message || 'Activation failed'
+                        detail: err.error.message+ 'Activation failed'
                     });
                 }
             });
@@ -71,6 +71,7 @@ export class ActivationPassengerComponent implements OnInit {
                     summary: 'Success',
                     detail: 'Activation code resent successfully'
                 });
+                this.router.navigate(['/passenger/login']);
             },
             error: (error: HttpErrorResponse) => {
                 let errorMessage = 'Error resending activation code';
@@ -87,11 +88,6 @@ export class ActivationPassengerComponent implements OnInit {
                 } else if (error.error && error.error.message) {
                     errorMessage = error.error.message;
                 }
-                this.messageService.add({
-                    severity: 'error',
-                    summary: 'Error',
-                    detail: errorMessage
-                });
             }
         });
     }

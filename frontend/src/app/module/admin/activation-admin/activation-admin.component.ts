@@ -36,8 +36,8 @@ export class ActivationAdminComponent implements OnInit {
         this.clicked = true;
         this.activationDto = this.activationDto;
 
-        if (this.activationDto.username && this.activationDto.activationCode) {
-            this.authService.activateAccount(this.activationDto.activationCode, this.activationDto.username).subscribe({
+        if (this.activationDto.activationCode) {
+            this.authService.activateAccount(this.activationDto.activationCode).subscribe({
                 next: () => {
                     this.messageService.add({
                         severity: 'success',
@@ -49,15 +49,9 @@ export class ActivationAdminComponent implements OnInit {
                     this.messageService.add({
                         severity: 'error',
                         summary: 'Error',
-                        detail: err.error.message || 'Activation failed'
+                        detail: err.error.message + 'Activation failed'
                     });
                 }
-            });
-        } else {
-            this.messageService.add({
-                severity: 'error',
-                summary: 'Error',
-                detail: 'Fill in all fields'
             });
         }
     }
@@ -87,11 +81,6 @@ export class ActivationAdminComponent implements OnInit {
                 } else if (error.error && error.error.message) {
                     errorMessage = error.error.message;
                 }
-                this.messageService.add({
-                    severity: 'error',
-                    summary: 'Error',
-                    detail: errorMessage
-                });
             }
         });
     }

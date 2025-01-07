@@ -242,12 +242,12 @@ public class PassengerAdminServiceImpl implements PassengerAdminService {
     public Passenger create(Passenger t) {
         if (findByUsername(t.getUsername()) != null || t.getPassword() == null) return null;
         t.setPassword(userService.cryptPassword(t.getPassword()));
-        t.setEnabled(true);
+        t.setEnabled(false);
         t.setAccountNonExpired(true);
         t.setAccountNonLocked(true);
         t.setCredentialsNonExpired(true);
         t.setPasswordChanged(false);
-
+        t.setPhoto("assets/demo/images/avatar/noavatar.png");
         Role role = new Role();
         role.setAuthority(AuthoritiesConstants.PASSENGER);
         role.setCreatedAt(LocalDateTime.now());
