@@ -1,109 +1,180 @@
-<div>
-    <div class="body background-image ">
-        <br>
-        <div class="header">
-            <app-top></app-top>
+<div class="body background-image">
+    <!-- Header Section -->
+    <div class="header">
+        <app-top></app-top>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="transport-container">
+        <div class="header-title hero-section">
+            <h1>Trouvez le moyen de transport idéal pour vos trajets</h1>
+            <p class="hero-subtitle">Économisez, et voyagez facilement !</p>
         </div>
 
-        <div class="transport-container ">
 
-            <div class="header-title hero-section">
-                <h1>Trouvez le moyen de transport idéal  pour vos trajets </h1>
-                <p>Économisez, et voyagez facilement !</p>
-            </div>
-
-
-
-            <div>
-                <div class="search-bar">
-                    <div class=" flex justify-content-center search-card">
-                        <!-- Unified Input Bar -->
-                        <div class="unified-input">
-                            <!-- Departure Autocomplete -->
-                            <p-autoComplete
-                                [(ngModel)]="this.item.villeDepart.libelle"
-                                [dropdown]="true"
-                                [suggestions]="filteredDepartures"
-                                (completeMethod)="filterCountry($event, 'departure')"
-                                field="libelle"
-                                [placeholder]="'Départ'"
-                                class="auto-complete"
-                            ></p-autoComplete>
-
-
-                            <!-- Destination Autocomplete -->
-                            <p-autoComplete
-                                [(ngModel)]="this.item.villeDestination.libelle"
-                                [dropdown]="true"
-                                [suggestions]="filteredDestinations"
-                                (completeMethod)="filterCountry($event, 'destination')"
-                                field="libelle"
-                                [placeholder]="'Destination'"
-                                class="auto-complete"
-                            ></p-autoComplete>
-
-                            <!-- Date Picker -->
-                            <div class="input-group date-picker">
-                                <p-calendar
-                                    [showIcon]="true"
-                                    [(ngModel)]="this.item.horaireDepart"
-                                    inputId="icondisplay"
-                                    [minDate]="today"
-                                    [placeholder]="'Select Date'"
-                                ></p-calendar>
-                            </div>
-
-
-                            <!-- Passenger Count -->
-                            <div class="input-group passenger-count">
-                                <p-inputNumber
-                                    [(ngModel)]="item.placesDisponibles"
-                                    [showButtons]="true"
-                                    buttonLayout="horizontal"
-                                    inputId="horizontal"
-                                    spinnerMode="horizontal"
-                                    [step]="1"
-                                    incrementButtonIcon="pi pi-plus"
-                                    decrementButtonIcon="pi pi-minus"
-                                    [min]="1" [max]="4"
-                                    />
-                            </div>
-
-                            <!-- Search Button -->
-                            <button class="search-button" (click)="toSearch()">Recherche</button>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-
-
-            <br><br><br><br>
-
-            <div class="features">
-                <h2>Nos fonctionnalités</h2>
-
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <i class="icon">✈️</i>
-                        <h3>Réservez en un clic !</h3>
-                        <p>Réserver un trajet n’a jamais été aussi facile ! Avec notre application intuitive et puissante, trouvez un trajet à proximité en quelques minutes.</p>
-                    </div>
-                    <div class="feature-item">
-                        <i class="icon">🛡️</i>
-                        <h3>Voyagez l'esprit tranquille</h3>
-                        <p>Nous prenons le temps de connaître chacun de nos membres et partenaires de transport. Consultez les avis, vérifiez les profils et réservez votre trajet en toute sécurité sur notre plateforme fiable.</p>
-                    </div>
-                    <div class="feature-item">
-                        <i class="icon">💸</i>
-                        <h3>Votre choix de trajets à bas prix</h3>
-                        <p>Peu importe où vous allez, que ce soit en bus ou en covoiturage, trouvez le trajet parfait parmi une large gamme de destinations à des prix abordables.</p>
-                    </div>
-                </div>
-            </div>
+        <div class="search-bar">
+            <search-bar></search-bar>
         </div>
 
     </div>
+
+    <!-- Features Section -->
+    <div class="features">
+        <h2>Nos fonctionnalités <i class="pi pi-star"></i></h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="icon-wrapper">
+                    <i class="pi pi-users"></i>
+                </div>
+                <h3>Expérience Utilisateur Optimisée</h3>
+                <p>Interface intuitive et moderne pour une réservation rapide et sans effort. Trouvez et réservez votre
+                    trajet idéal en quelques clics.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon-wrapper">
+                    <i class="pi pi-shield"></i>
+                </div>
+                <h3>Sécurité Renforcée</h3>
+                <p>Système de vérification avancé des profils et des avis. Voyagez en toute confiance avec notre
+                    communauté certifiée.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon-wrapper">
+                    <i class="pi pi-dollar"></i>
+                </div>
+                <h3>Tarifs Compétitifs</h3>
+                <p>Accédez aux meilleures offres et promotions. Comparez facilement les prix et économisez sur tous vos
+                    trajets.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon-wrapper">
+                    <i class="pi pi-chart-line"></i>
+                </div>
+                <h3>Trajets en Temps Réel</h3>
+                <p>Suivez vos trajets en direct et recevez des notifications instantanées sur l'état de votre
+                    voyage.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon-wrapper">
+                    <i class="pi pi-desktop"></i>
+                </div>
+                <h3>Multi-Plateformes</h3>
+                <p>Accédez à nos services depuis n'importe quel appareil. Application disponible sur iOS et Android pour
+                    une mobilité totale.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon-wrapper">
+                    <i class="pi pi-comments"></i>
+                </div>
+                <h3>Support Premium</h3>
+                <p>Une équipe dédiée disponible 24/7 pour vous accompagner. Assistance personnalisée pour une expérience
+                    sans souci.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Testimonials Section -->
+    <div class="testimonials">
+        <h2> Ce que nos utilisateurs disent <i class="pi pi-comments"></i></h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-avatar">
+                    <img src="/assets/demo/images/avatar/amyelsner.png" alt="Photo de profil"/>
+                </div>
+                <div class="testimonial-content">
+                    <h4>Marie Dubois</h4>
+                    <p class="testimonial-location">Casablanca</p>
+                    <div class="testimonial-stars">
+                        ★★★★★
+                    </div>
+                    <p class="testimonial-text">"Service exceptionnel ! J'utilise RideLink régulièrement pour mes
+                        déplacements professionnels. Les chauffeurs sont ponctuels et professionnels."</p>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-avatar">
+                    <img src="/assets/demo/images/avatar/me.png" alt="Photo de profil"/>
+                </div>
+                <div class="testimonial-content">
+                    <h4>Mohamed Saad Daali</h4>
+                    <p class="testimonial-location">Marrakech</p>
+                    <div class="testimonial-stars">
+                        ★★★★★
+                    </div>
+                    <p class="testimonial-text">"Application intuitive et prix très compétitifs. Je recommande vivement
+                        pour les voyages en groupe !"</p>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-avatar">
+                    <img src="/assets/demo/images/avatar/annafali.png" alt="Photo de profil"/>
+                </div>
+                <div class="testimonial-content">
+                    <h4>Sophie Laurent</h4>
+                    <p class="testimonial-location">Marseille</p>
+                    <div class="testimonial-stars">
+                        ★★★★★
+                    </div>
+                    <p class="testimonial-text">"Le support client est remarquable. Un problème de réservation a été
+                        résolu en quelques minutes. Vraiment impressionnant !"</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>À propos</h4>
+                <ul>
+                    <li><a href="#">Qui sommes-nous</a></li>
+                    <li><a href="#">Carrières</a></li>
+                    <li><a href="#">Presse</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Partenaires</h4>
+                <ul>
+                    <li><a href="#">Devenir partenaire</a></li>
+                    <li><a href="#">Transporteurs</a></li>
+                    <li><a href="#">Entreprises</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Centre d'aide</a></li>
+                    <li><a href="#">Contactez-nous</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Légal</h4>
+                <ul>
+                    <li><a href="#">Conditions d'utilisation</a></li>
+                    <li><a href="#">Politique de confidentialité</a></li>
+                    <li><a href="#">Mentions légales</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 RideLink. Tous droits réservés.</p>
+        </div>
+    </footer>
 </div>
+
 

@@ -130,6 +130,7 @@ import {TrajetsPassengerComponent} from "./view/trajet/trajet/trajets/trajets-pa
         ReservationPassengerModule,
         HomePassengerComponent,
         SecurityModule,
+        SearchBarPassengerComponent,
     ],
 })
 export class PassengerModule {}

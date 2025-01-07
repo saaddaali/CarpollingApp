@@ -1,0 +1,62 @@
+<div class=" flex justify-content-center search-card">
+    <!-- Unified Input Bar -->
+    <div class="unified-input">
+        <!-- Departure Autocomplete -->
+        <p-autoComplete
+            [(ngModel)]="this.item.villeDepart"
+            [dropdown]="true"
+            [suggestions]="filteredDepartures"
+            (completeMethod)="filterCountry($event, 'departure')"
+            field="libelle"
+            [placeholder]="'Départ'"
+            class="auto-complete"
+        ></p-autoComplete>
+
+
+        <!-- Destination Autocomplete -->
+        <p-autoComplete
+            [(ngModel)]="item.villeDestination"
+            [dropdown]="true"
+            [suggestions]="filteredDestinations"
+            (completeMethod)="filterCountry($event, 'destination')"
+            field="libelle"
+            [placeholder]="'Destination'"
+        class="auto-complete"
+        ></p-autoComplete>
+
+
+        <!-- Date Picker -->
+        <div class="input-group date-picker">
+            <p-calendar
+                [showIcon]="true"
+                [(ngModel)]="this.item.horaireDepart"
+                inputId="icondisplay"
+                [minDate]="today"
+                [placeholder]="'Ajourd\'hui'"
+            ></p-calendar>
+        </div>
+
+
+        <!-- Passenger Count -->
+        <div class="input-group passenger-count">
+            <p-inputNumber
+                [(ngModel)]="item.placesDisponibles"
+                [showButtons]="true"
+                buttonLayout="horizontal"
+                inputId="horizontal"
+                spinnerMode="horizontal"
+                [step]="1"
+                placeholder="1"
+                incrementButtonIcon="pi pi-plus"
+                decrementButtonIcon="pi pi-minus"
+                [min]="1" [max]="4"
+            />
+        </div>
+
+        <!-- Search Button -->
+        <button class="search-button"  (click)="toSearch()">Recherche</button>
+    </div>
+
+
+</div>
+

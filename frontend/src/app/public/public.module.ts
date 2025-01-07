@@ -37,6 +37,8 @@ import {TopComponent} from './top/top.component';
 import {TrajetsPublicComponent} from "./trajets/trajets-public.component";
 import {AutoCompleteModule} from "primeng/autocomplete";
 import {PassengerLayoutModule} from "../layout/passenger/passenger.layout.module";
+import {PassengerModule} from "../module/passenger/passenger.module";
+import {SearchBarComponent} from "./SearchBar/searchBar.component";
 
 
 @NgModule({
@@ -49,7 +51,8 @@ import {PassengerLayoutModule} from "../layout/passenger/passenger.layout.module
         HomePublicComponent,
         ContactUsComponent,
         TrajetsPublicComponent,
-        TopComponent
+        TopComponent,
+        SearchBarComponent
     ],
     imports: [
         CommonModule,
@@ -79,6 +82,7 @@ import {PassengerLayoutModule} from "../layout/passenger/passenger.layout.module
         MultiSelectModule,
         AutoCompleteModule,
         PassengerLayoutModule,
+        PassengerModule,
     ],
     exports: [
         PreloadpageComponent,
