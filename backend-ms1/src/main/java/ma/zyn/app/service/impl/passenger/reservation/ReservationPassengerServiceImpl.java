@@ -1,6 +1,7 @@
 package ma.zyn.app.service.impl.passenger.reservation;
 
 
+import ma.zyn.app.bean.core.trajet.Trajet;
 import ma.zyn.app.utils.exception.EntityNotFoundException;
 import ma.zyn.app.bean.core.reservation.Reservation;
 import ma.zyn.app.dao.criteria.core.reservation.ReservationCriteria;
@@ -176,6 +177,8 @@ public class ReservationPassengerServiceImpl implements ReservationPassengerServ
     public Reservation create(Reservation t) {
         Reservation loaded = findByReferenceEntity(t);
         Reservation saved;
+        Trajet trajet = t.getTrajet();
+        trajet.setPlacesDisponibles(trajet.getPlacesDisponibles() - 1);
         if (loaded == null) {
             saved = dao.save(t);
         }else {

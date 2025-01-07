@@ -80,6 +80,7 @@ export class TrajetCreatePassengerComponent implements OnInit {
     public save(): void {
         this.item.localisationDestination = null
         this.item.localisationSource = null
+        this.item.placesDisponibles= this.item.placesMax;
         this.submitted = true;
         this.validateForm();
         if (this.errorMessages.length === 0) {

@@ -126,7 +126,6 @@ export class ConversationViewPassengerComponent implements OnInit {
                 currentGroup.push(message);
             }
         }
-
         // Ajouter le dernier groupe de messages
         if (currentGroup.length > 0) {
             groupedMessages.push({ date: currentDate, messages: currentGroup });
@@ -149,7 +148,6 @@ export class ConversationViewPassengerComponent implements OnInit {
         this.messages.push(this.message);
         this.messagePassengerService.create(this.message).subscribe(message => {
             if (message != null) {
-                this.messages.push(message);
                 this.messageInput = '';
             } else {
                 this.messageService.add({severity: 'error', summary: 'Erreur', detail: 'Élément existant'});
