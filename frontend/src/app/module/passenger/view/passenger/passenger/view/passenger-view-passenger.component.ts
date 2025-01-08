@@ -20,6 +20,8 @@ import {PassengerCriteria} from 'src/app/shared/criteria/passenger/PassengerCrit
 import {CarteBancaireDto} from 'src/app/shared/model/paiement/CarteBancaire.model';
 import {CarteBancairePassengerService} from 'src/app/shared/service/passenger/paiement/CarteBancairePassenger.service';
 import {AuthService} from "../../../../../../zynerator/security/shared/service/Auth.service";
+import {VehiculePassengerService} from "../../../../../../shared/service/passenger/vehicule/VehiculePassenger.service";
+import {VehiculeDto} from "../../../../../../shared/model/vehicule/Vehicule.model";
 
 @Component({
   selector: 'app-passenger-view-passenger',
@@ -44,6 +46,7 @@ export class PassengerViewPassengerComponent implements OnInit {
 
     selectedLanguage: string;
     isDriver= false;
+    vehicules:Array<VehiculeDto> = [];
 
     public toggleRole() {
         this.isDriver = !this.isDriver;
@@ -60,7 +63,7 @@ export class PassengerViewPassengerComponent implements OnInit {
 
 
 
-    constructor(private service: PassengerPassengerService, private carteBancaireService: CarteBancairePassengerService, protected authService: AuthService, private cd: ChangeDetectorRef){
+    constructor(private serviceVehicule: VehiculePassengerService,private service: PassengerPassengerService, private carteBancaireService: CarteBancairePassengerService, protected authService: AuthService, private cd: ChangeDetectorRef){
 		this.datePipe = ServiceLocator.injector.get(DatePipe);
         this.messageService = ServiceLocator.injector.get(MessageService);
         this.confirmationService = ServiceLocator.injector.get(ConfirmationService);
@@ -72,6 +75,28 @@ export class PassengerViewPassengerComponent implements OnInit {
     ngOnInit(): void {
         // Charger les données de l'utilisateur connecté
         this.loadCurrentUser();
+        this.findVehiculeByCurrentUser();
+
+    }
+
+    addCar(){
+        this.router.navigate(['/vehicule/create'])
+    }
+
+
+    findVehiculeByCurrentUser(){
+        this.serviceVehicule.findVehiculeByCurrentUser().subscribe(
+            data => {
+                this.vehicules = data;
+            },
+            error => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Erreur',
+                    detail: 'Impossible de charger les informations de l\'utilisateur'
+                });
+            }
+        );
     }
 
     public logout(): void {

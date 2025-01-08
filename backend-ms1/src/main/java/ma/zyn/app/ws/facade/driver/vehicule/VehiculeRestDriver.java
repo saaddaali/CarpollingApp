@@ -2,6 +2,12 @@ package  ma.zyn.app.ws.facade.driver.vehicule;
 
 import io.swagger.v3.oas.annotations.Operation;
 
+import ma.zyn.app.AppApplication;
+import ma.zyn.app.bean.core.driver.Driver;
+import ma.zyn.app.service.facade.passenger.driver.DriverPassengerService;
+import ma.zyn.app.utils.security.bean.User;
+import ma.zyn.app.utils.security.service.facade.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import ma.zyn.app.bean.core.vehicule.Vehicule;
@@ -13,6 +19,8 @@ import ma.zyn.app.utils.util.PaginatedList;
 
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -52,6 +60,8 @@ public class VehiculeRestDriver {
         res = new ResponseEntity<>(dtos, status);
         return res;
     }
+
+
 
     @Operation(summary = "Finds a vehicule by id")
     @GetMapping("id/{id}")
@@ -217,7 +227,10 @@ public class VehiculeRestDriver {
     }
 
     private final VehiculeDriverService service;
+
     private final VehiculeConverter converter;
+
+
 
 
 

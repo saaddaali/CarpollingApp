@@ -16,6 +16,15 @@
     --topbar-height: 40px;
 }
 
+.addcar button {
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
 .page-wrapper {
     display: flex;
     flex-direction: column;

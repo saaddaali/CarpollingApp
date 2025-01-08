@@ -7,17 +7,6 @@
         <form (ngSubmit)="save()" #vehiculeForm="ngForm">
             <div class="grid">
                 <div class="field col-12 md:col-6">
-                    <label for="driver">{{ 'vehicule.driver' | translate }}</label>
-                    <span class="p-input-icon-left">
-            <i class="pi pi-user"></i>
-            <p-dropdown [options]="drivers" [(ngModel)]="item.driver" name="driver" id="driver"
-                        [filter]="true" filterMatchMode="contains" [showClear]="true"
-                        optionLabel="email" [placeholder]="'vehicule.driver' | translate">
-            </p-dropdown>
-          </span>
-                </div>
-
-                <div class="field col-12 md:col-6">
                     <label for="marque">{{ 'vehicule.marque' | translate }}</label>
                     <span class="p-input-icon-left">
             <i class="pi pi-car"></i>
@@ -73,12 +62,6 @@
           </span>
                 </div>
 
-                <div class="field col-12">
-                    <label for="image">{{ 'vehicule.image' | translate }}</label>
-                    <p-fileUpload #fileUpload mode="basic" name="image" accept="image/*" [maxFileSize]="1000000"
-                                  (onSelect)="onImageSelect($event)" [auto]="true" chooseLabel="{{ 'upload' | translate }}">
-                    </p-fileUpload>
-                </div>
             </div>
 
             <div class="form-actions">

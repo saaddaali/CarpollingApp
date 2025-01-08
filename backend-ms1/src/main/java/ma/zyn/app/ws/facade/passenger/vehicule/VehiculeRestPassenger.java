@@ -2,6 +2,14 @@ package  ma.zyn.app.ws.facade.passenger.vehicule;
 
 import io.swagger.v3.oas.annotations.Operation;
 
+import ma.zyn.app.AppApplication;
+import ma.zyn.app.bean.core.driver.Driver;
+import ma.zyn.app.service.facade.passenger.driver.DriverPassengerService;
+import ma.zyn.app.utils.security.bean.User;
+import ma.zyn.app.utils.security.service.facade.UserService;
+import ma.zyn.app.ws.converter.driver.DriverConverter;
+import ma.zyn.app.ws.dto.driver.DriverDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import ma.zyn.app.bean.core.vehicule.Vehicule;
@@ -13,6 +21,8 @@ import ma.zyn.app.utils.util.PaginatedList;
 
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -53,6 +63,34 @@ public class VehiculeRestPassenger {
         return res;
     }
 
+    @Operation(summary = "Finds a list of user vehicules")
+    @GetMapping("current-user")
+    public ResponseEntity<List<VehiculeDto>> findCurrentUserVehicules() throws Exception {
+        User user = getCurrentUser();
+        Driver driver = driverService.findByUsername(user.getUsername());
+        if (user != null) {
+            List<Vehicule> list = service.findByDriverId(driver.getId());
+            converter.initObject(true);
+            List<VehiculeDto> dtos = converter.toDto(list);
+            return new ResponseEntity<>(dtos, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+
+    public static User getCurrentUser() {
+        UserService userService= AppApplication.getCtx().getBean(UserService.class);
+
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        Object user = securityContext.getAuthentication().getPrincipal();
+        System.out.println(user);
+        if (user instanceof String) {
+            return userService.findByUsername((String) user);
+        } else if (user instanceof User) {
+            return (User) user;
+        } else {
+            return null;
+        }
+    }
     @Operation(summary = "Finds a vehicule by id")
     @GetMapping("id/{id}")
     public ResponseEntity<VehiculeDto> findById(@PathVariable Long id) {
@@ -82,7 +120,12 @@ public class VehiculeRestPassenger {
     public ResponseEntity<VehiculeDto> save(@RequestBody VehiculeDto dto) throws Exception {
         if(dto!=null){
             converter.init(true);
+            User user = getCurrentUser();
+            Driver driver = driverService.findByUsername(user.getUsername());
+            DriverDto driverDto = driverConverter.toDto(driver);
+            dto.setDriver(driverDto);
             Vehicule myT = converter.toItem(dto);
+            myT.setDriver(driver);
             Vehicule t = service.create(myT);
             if (t == null) {
                 return new ResponseEntity<>(null, HttpStatus.IM_USED);
@@ -218,6 +261,12 @@ public class VehiculeRestPassenger {
 
     private final VehiculePassengerService service;
     private final VehiculeConverter converter;
+
+    @Autowired
+    private  DriverConverter driverConverter;
+
+    @Autowired
+    private DriverPassengerService driverService;
 
 
 

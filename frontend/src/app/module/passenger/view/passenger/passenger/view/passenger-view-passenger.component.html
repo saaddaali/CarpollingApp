@@ -50,13 +50,23 @@
                     <input [(ngModel)]="item.adresse" [readOnly]="!editMode">
                 </div>
 
-                <!-- Champ Évaluation commenté -->
-                <!--
+
+                <!-- After -->
                 <div class="field-group">
-                    <label>Évaluation</label>
-                    <input [(ngModel)]="item.evaluation" [readOnly]="!editMode">
+                    <label>Car <i class="pi pi-car"></i></label>
+                    <input [(ngModel)]="vehicules[0].marque" name="carMarque" *ngIf="vehicules[0]?.marque; else addCarTemplate" >
                 </div>
-                -->
+
+                <ng-template #addCarTemplate>
+                    <button pButton
+                            pRipple
+                            type="button"
+                            label="Ajouter une voiture"
+                            icon="pi pi-plus"
+                            class=" addcar"
+                            (click)="addCar()">
+                    </button>
+                </ng-template>
 
                 <!-- Commented out fields -->
                 <!--

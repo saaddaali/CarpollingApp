@@ -57,6 +57,10 @@ export class VehiculePassengerService {
         return this.http.get<Array<VehiculeDto>>(this.API + 'optimized');
     }
 
+    public findVehiculeByCurrentUser() {
+        return this.http.get<Array<VehiculeDto>>(this.API + 'current-user');
+    }
+
     public findPaginatedByCriteria(criteria: VehiculeCriteria): Observable<PaginatedList<VehiculeDto>> {
         return this.http.post<PaginatedList<VehiculeDto>>(this.API + 'find-paginated-by-criteria', criteria);
     }
