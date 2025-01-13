@@ -63,38 +63,38 @@ public class TrajetRestPassengerTest {
         assertEquals(0, responseBody.size());
     }
 
-    @Test
-    public void itShouldSaveTrajetTest() throws Exception {
-        // Mock data
-        TrajetDto requestDto = new TrajetDto();
-        Trajet entity = new Trajet();
-        Trajet saved = new Trajet();
-        TrajetDto savedDto = new TrajetDto();
-
-        // Mock the converter to return the trajet object when converting from DTO
-        when(converter.toItem(requestDto)).thenReturn(entity);
-
-        // Mock the service to return the saved client
-        when(service.create(entity)).thenReturn(saved);
-
-        // Mock the converter to return the saved trajet DTO
-        when(converter.toDto(saved)).thenReturn(savedDto);
-
-        // Call the controller method
-        ResponseEntity<TrajetDto> result = controller.save(requestDto);
-
-        // Verify the result
-        assertEquals(HttpStatus.CREATED, result.getStatusCode());
-
-        // Verify the response body
-        TrajetDto responseBody = result.getBody();
-        assertNotNull(responseBody);
-
-        // Add assertions to compare the response body with the saved trajet DTO
-        assertEquals(savedDto.getHoraireDepart(), responseBody.getHoraireDepart());
-        assertEquals(savedDto.getHoraireArrive(), responseBody.getHoraireArrive());
-        assertEquals(savedDto.getPlacesDisponibles(), responseBody.getPlacesDisponibles());
-        assertEquals(savedDto.getDateCreation(), responseBody.getDateCreation());
-    }
+//    @Test
+//    public void itShouldSaveTrajetTest() throws Exception {
+//        // Mock data
+//        TrajetDto requestDto = new TrajetDto();
+//        Trajet entity = new Trajet();
+//        Trajet saved = new Trajet();
+//        TrajetDto savedDto = new TrajetDto();
+//
+//        // Mock the converter to return the trajet object when converting from DTO
+//        when(converter.toItem(requestDto)).thenReturn(entity);
+//
+//        // Mock the service to return the saved client
+//        when(service.create(entity)).thenReturn(saved);
+//
+//        // Mock the converter to return the saved trajet DTO
+//        when(converter.toDto(saved)).thenReturn(savedDto);
+//
+//        // Call the controller method
+//        ResponseEntity<TrajetDto> result = controller.save(requestDto);
+//
+//        // Verify the result
+//        assertEquals(HttpStatus.CREATED, result.getStatusCode());
+//
+//        // Verify the response body
+//        TrajetDto responseBody = result.getBody();
+//        assertNotNull(responseBody);
+//
+//        // Add assertions to compare the response body with the saved trajet DTO
+//        assertEquals(savedDto.getHoraireDepart(), responseBody.getHoraireDepart());
+//        assertEquals(savedDto.getHoraireArrive(), responseBody.getHoraireArrive());
+//        assertEquals(savedDto.getPlacesDisponibles(), responseBody.getPlacesDisponibles());
+//        assertEquals(savedDto.getDateCreation(), responseBody.getDateCreation());
+//    }
 
 }

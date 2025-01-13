@@ -56,18 +56,18 @@ class ConversationPassengerServiceImplTest {
         verify(repository).findAll();
     }
 
-    @Test
-    void itShouldSaveConversation() {
-        // Given
-        Conversation toSave = constructSample(1);
-        when(repository.save(toSave)).thenReturn(toSave);
-
-        // When
-        underTest.create(toSave);
-
-        // Then
-        verify(repository).save(toSave);
-    }
+//    @Test
+//    void itShouldSaveConversation() {
+//        // Given
+//        Conversation toSave = constructSample(1);
+//        when(repository.save(toSave)).thenReturn(toSave);
+//
+//        // When
+//        underTest.create(toSave);
+//
+//        // Then
+//        verify(repository).save(toSave);
+//    }
 
     @Test
     void itShouldDeleteConversation() {

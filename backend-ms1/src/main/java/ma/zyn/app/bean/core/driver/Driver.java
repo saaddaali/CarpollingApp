@@ -25,6 +25,10 @@ public class Driver  extends User    {
     @Column(length = 500)
     private String photo;
 
+    private String CIN;
+
+    private Boolean verified = false;
+
     private String adresse;
 
     private LocalDateTime dateInscription ;
@@ -92,6 +96,22 @@ public class Driver  extends User    {
     }
     public void setEvaluation(BigDecimal evaluation){
         this.evaluation = evaluation;
+    }
+
+    public String getCIN() {
+        return CIN;
+    }
+
+    public void setCIN(String CIN) {
+        this.CIN = CIN;
+    }
+
+    public Boolean getVerified() {
+        return verified;
+    }
+
+    public void setVerified(Boolean verified) {
+        this.verified = verified;
     }
 
     @Override

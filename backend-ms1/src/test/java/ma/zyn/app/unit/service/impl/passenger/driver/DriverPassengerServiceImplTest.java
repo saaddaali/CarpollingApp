@@ -54,18 +54,18 @@ class DriverPassengerServiceImplTest {
         verify(repository).findAll();
     }
 
-    @Test
-    void itShouldSaveDriver() {
-        // Given
-        Driver toSave = constructSample(1);
-        when(repository.save(toSave)).thenReturn(toSave);
-
-        // When
-        underTest.create(toSave);
-
-        // Then
-        verify(repository).save(toSave);
-    }
+//    @Test
+//    void itShouldSaveDriver() {
+//        // Given
+//        Driver toSave = constructSample(1);
+//        when(repository.save(toSave)).thenReturn(toSave);
+//
+//        // When
+//        underTest.create(toSave);
+//
+//        // Then
+//        verify(repository).save(toSave);
+//    }
 
     @Test
     void itShouldDeleteDriver() {

@@ -11,6 +11,8 @@ public class DriverSpecification extends  AbstractSpecification<DriverCriteria, 
     public void constructPredicates() {
         addPredicateId("id", criteria);
         addPredicate("photo", criteria.getPhoto(),criteria.getPhotoLike());
+        addPredicate("CIN", criteria.getCIN(),criteria.getCINLike());
+        addPredicateBool("verified", criteria.getVerified());
         addPredicate("dateInscription", criteria.getDateInscription(), criteria.getDateInscriptionFrom(), criteria.getDateInscriptionTo());
         addPredicateBigDecimal("evaluation", criteria.getEvaluation(), criteria.getEvaluationMin(), criteria.getEvaluationMax());
         addPredicate("password", criteria.getPassword(),criteria.getPasswordLike());

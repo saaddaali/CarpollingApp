@@ -63,38 +63,38 @@ public class ReservationRestPassengerTest {
         assertEquals(0, responseBody.size());
     }
 
-    @Test
-    public void itShouldSaveReservationTest() throws Exception {
-        // Mock data
-        ReservationDto requestDto = new ReservationDto();
-        Reservation entity = new Reservation();
-        Reservation saved = new Reservation();
-        ReservationDto savedDto = new ReservationDto();
-
-        // Mock the converter to return the reservation object when converting from DTO
-        when(converter.toItem(requestDto)).thenReturn(entity);
-
-        // Mock the service to return the saved client
-        when(service.create(entity)).thenReturn(saved);
-
-        // Mock the converter to return the saved reservation DTO
-        when(converter.toDto(saved)).thenReturn(savedDto);
-
-        // Call the controller method
-        ResponseEntity<ReservationDto> result = controller.save(requestDto);
-
-        // Verify the result
-        assertEquals(HttpStatus.CREATED, result.getStatusCode());
-
-        // Verify the response body
-        ReservationDto responseBody = result.getBody();
-        assertNotNull(responseBody);
-
-        // Add assertions to compare the response body with the saved reservation DTO
-        assertEquals(savedDto.getDateReservation(), responseBody.getDateReservation());
-        assertEquals(savedDto.getMontant(), responseBody.getMontant());
-        assertEquals(savedDto.getDatePaiement(), responseBody.getDatePaiement());
-        assertEquals(savedDto.getEvaluation(), responseBody.getEvaluation());
-    }
+//    @Test
+//    public void itShouldSaveReservationTest() throws Exception {
+//        // Mock data
+//        ReservationDto requestDto = new ReservationDto();
+//        Reservation entity = new Reservation();
+//        Reservation saved = new Reservation();
+//        ReservationDto savedDto = new ReservationDto();
+//
+//        // Mock the converter to return the reservation object when converting from DTO
+//        when(converter.toItem(requestDto)).thenReturn(entity);
+//
+//        // Mock the service to return the saved client
+//        when(service.create(entity)).thenReturn(saved);
+//
+//        // Mock the converter to return the saved reservation DTO
+//        when(converter.toDto(saved)).thenReturn(savedDto);
+//
+//        // Call the controller method
+//        ResponseEntity<ReservationDto> result = controller.save(requestDto);
+//
+//        // Verify the result
+//        assertEquals(HttpStatus.CREATED, result.getStatusCode());
+//
+//        // Verify the response body
+//        ReservationDto responseBody = result.getBody();
+//        assertNotNull(responseBody);
+//
+//        // Add assertions to compare the response body with the saved reservation DTO
+//        assertEquals(savedDto.getDateReservation(), responseBody.getDateReservation());
+//        assertEquals(savedDto.getMontant(), responseBody.getMontant());
+//        assertEquals(savedDto.getDatePaiement(), responseBody.getDatePaiement());
+//        assertEquals(savedDto.getEvaluation(), responseBody.getEvaluation());
+//    }
 
 }

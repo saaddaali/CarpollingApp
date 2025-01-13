@@ -1,15 +1,17 @@
-package  ma.zyn.app.dao.criteria.core.driver;
-
+package ma.zyn.app.dao.criteria.core.driver;
 
 
 import ma.zyn.app.utils.security.dao.criteria.core.UserCriteria;
 
 import java.time.LocalDateTime;
 
-public class DriverCriteria extends UserCriteria  {
+public class DriverCriteria extends UserCriteria {
 
     private String photo;
     private String photoLike;
+    private String CIN;
+    private String CINLike;
+    private Boolean verified;
     private String adresse;
     private String adresseLike;
     private LocalDateTime dateInscription;
@@ -31,138 +33,195 @@ public class DriverCriteria extends UserCriteria  {
     private String emailLike;
 
 
-
-    public String getPhoto(){
+    public String getPhoto() {
         return this.photo;
     }
-    public void setPhoto(String photo){
+
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
-    public String getPhotoLike(){
+
+    public String getPhotoLike() {
         return this.photoLike;
     }
-    public void setPhotoLike(String photoLike){
+
+    public void setPhotoLike(String photoLike) {
         this.photoLike = photoLike;
     }
 
-    public String getAdresse(){
+    public String getAdresse() {
         return this.adresse;
     }
-    public void setAdresse(String adresse){
+
+    public void setAdresse(String adresse) {
         this.adresse = adresse;
     }
-    public String getAdresseLike(){
+
+    public String getAdresseLike() {
         return this.adresseLike;
     }
-    public void setAdresseLike(String adresseLike){
+
+    public void setAdresseLike(String adresseLike) {
         this.adresseLike = adresseLike;
     }
 
-    public LocalDateTime getDateInscription(){
+    public LocalDateTime getDateInscription() {
         return this.dateInscription;
     }
-    public void setDateInscription(LocalDateTime dateInscription){
+
+    public void setDateInscription(LocalDateTime dateInscription) {
         this.dateInscription = dateInscription;
     }
-    public LocalDateTime getDateInscriptionFrom(){
+
+    public LocalDateTime getDateInscriptionFrom() {
         return this.dateInscriptionFrom;
     }
-    public void setDateInscriptionFrom(LocalDateTime dateInscriptionFrom){
+
+    public void setDateInscriptionFrom(LocalDateTime dateInscriptionFrom) {
         this.dateInscriptionFrom = dateInscriptionFrom;
     }
-    public LocalDateTime getDateInscriptionTo(){
+
+    public LocalDateTime getDateInscriptionTo() {
         return this.dateInscriptionTo;
     }
-    public void setDateInscriptionTo(LocalDateTime dateInscriptionTo){
+
+    public void setDateInscriptionTo(LocalDateTime dateInscriptionTo) {
         this.dateInscriptionTo = dateInscriptionTo;
     }
-    public String getEvaluation(){
+
+    public String getEvaluation() {
         return this.evaluation;
     }
-    public void setEvaluation(String evaluation){
+
+    public void setEvaluation(String evaluation) {
         this.evaluation = evaluation;
-    }   
-    public String getEvaluationMin(){
+    }
+
+    public String getEvaluationMin() {
         return this.evaluationMin;
     }
-    public void setEvaluationMin(String evaluationMin){
+
+    public void setEvaluationMin(String evaluationMin) {
         this.evaluationMin = evaluationMin;
     }
-    public String getEvaluationMax(){
+
+    public String getEvaluationMax() {
         return this.evaluationMax;
     }
-    public void setEvaluationMax(String evaluationMax){
+
+    public void setEvaluationMax(String evaluationMax) {
         this.evaluationMax = evaluationMax;
     }
-      
-    public String getPassword(){
+
+    public String getPassword() {
         return this.password;
     }
-    public void setPassword(String password){
+
+    public void setPassword(String password) {
         this.password = password;
     }
-    public String getPasswordLike(){
+
+    public String getPasswordLike() {
         return this.passwordLike;
     }
-    public void setPasswordLike(String passwordLike){
+
+    public void setPasswordLike(String passwordLike) {
         this.passwordLike = passwordLike;
     }
 
-    public Boolean getAccountNonLocked(){
+    public Boolean getAccountNonLocked() {
         return this.accountNonLocked;
     }
-    public void setAccountNonLocked(Boolean accountNonLocked){
+
+    public void setAccountNonLocked(Boolean accountNonLocked) {
         this.accountNonLocked = accountNonLocked;
     }
-    public Boolean getPasswordChanged(){
+
+    public Boolean getPasswordChanged() {
         return this.passwordChanged;
     }
-    public void setPasswordChanged(Boolean passwordChanged){
+
+    public void setPasswordChanged(Boolean passwordChanged) {
         this.passwordChanged = passwordChanged;
     }
-    public String getUsername(){
+
+    public String getUsername() {
         return this.username;
     }
-    public void setUsername(String username){
+
+    public void setUsername(String username) {
         this.username = username;
     }
-    public String getUsernameLike(){
+
+    public String getUsernameLike() {
         return this.usernameLike;
     }
-    public void setUsernameLike(String usernameLike){
+
+    public void setUsernameLike(String usernameLike) {
         this.usernameLike = usernameLike;
     }
 
-    public Boolean getAccountNonExpired(){
+    public Boolean getAccountNonExpired() {
         return this.accountNonExpired;
     }
-    public void setAccountNonExpired(Boolean accountNonExpired){
+
+    public void setAccountNonExpired(Boolean accountNonExpired) {
         this.accountNonExpired = accountNonExpired;
     }
-    public Boolean getCredentialsNonExpired(){
+
+    public Boolean getCredentialsNonExpired() {
         return this.credentialsNonExpired;
     }
-    public void setCredentialsNonExpired(Boolean credentialsNonExpired){
+
+    public void setCredentialsNonExpired(Boolean credentialsNonExpired) {
         this.credentialsNonExpired = credentialsNonExpired;
     }
-    public Boolean getEnabled(){
+
+    public Boolean getEnabled() {
         return this.enabled;
     }
-    public void setEnabled(Boolean enabled){
+
+    public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
-    public String getEmail(){
+
+    public String getEmail() {
         return this.email;
     }
-    public void setEmail(String email){
+
+    public void setEmail(String email) {
         this.email = email;
     }
-    public String getEmailLike(){
+
+    public String getEmailLike() {
         return this.emailLike;
     }
-    public void setEmailLike(String emailLike){
+
+    public void setEmailLike(String emailLike) {
         this.emailLike = emailLike;
     }
 
+    public String getCIN() {
+        return CIN;
+    }
 
+    public void setCIN(String CIN) {
+        this.CIN = CIN;
+    }
+
+    public String getCINLike() {
+        return CINLike;
+    }
+
+    public void setCINLike(String CINLike) {
+        this.CINLike = CINLike;
+    }
+
+    public Boolean getVerified() {
+        return verified;
+    }
+
+    public void setVerified(Boolean verified) {
+        this.verified = verified;
+    }
 }

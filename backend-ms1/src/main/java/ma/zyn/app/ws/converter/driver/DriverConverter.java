@@ -29,6 +29,8 @@ public class DriverConverter {
                 item.setId(dto.getId());
             if(StringUtil.isNotEmpty(dto.getPhoto()))
                 item.setPhoto(dto.getPhoto());
+            if (StringUtil.isNotEmpty(dto.getCIN()))
+                item.setCIN(dto.getCIN());
             if(StringUtil.isNotEmpty(dto.getAdresse()))
                 item.setAdresse(dto.getAdresse());
             if(StringUtil.isNotEmpty(dto.getDateInscription()))
@@ -64,6 +66,10 @@ public class DriverConverter {
                 dto.setId(item.getId());
             if(StringUtil.isNotEmpty(item.getPhoto()))
                 dto.setPhoto(item.getPhoto());
+            if (StringUtil.isNotEmpty(item.getCIN()))
+                dto.setCIN(item.getCIN());
+            if (item.getVerified()!=null)
+                dto.setVerified(item.getVerified());
             if(StringUtil.isNotEmpty(item.getAdresse()))
                 dto.setAdresse(item.getAdresse());
             if(item.getDateInscription()!=null)
