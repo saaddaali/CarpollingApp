@@ -254,6 +254,13 @@
             <version>24.3.0-beta.1</version>
         </dependency>
 
+        <!-- Anthropic -->
+        <dependency>
+            <groupId>com.anthropic</groupId>
+            <artifactId>anthropic-java</artifactId>
+            <version>0.1.0-alpha.6</version>
+        </dependency>
+
     </dependencies>
 
 

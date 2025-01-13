@@ -1,4 +1,4 @@
-package  ma.zyn.app.ws.facade.passenger.driver;
+package ma.zyn.app.ws.facade.passenger.driver;
 
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -24,20 +24,29 @@ import java.util.List;
 public class DriverRestPassenger {
 
 
-
-
     @Operation(summary = "Finds a list of all drivers")
     @GetMapping("")
     public ResponseEntity<List<DriverDto>> findAll() throws Exception {
         ResponseEntity<List<DriverDto>> res = null;
         List<Driver> list = service.findAll();
         HttpStatus status = HttpStatus.NO_CONTENT;
-        List<DriverDto> dtos  = converter.toDto(list);
+        List<DriverDto> dtos = converter.toDto(list);
         if (dtos != null && !dtos.isEmpty())
             status = HttpStatus.OK;
         res = new ResponseEntity<>(dtos, status);
         return res;
     }
+
+    @Operation(summary = "Verify the Driver driver")
+    @PostMapping("verify")
+    public ResponseEntity<DriverDto> verify(String cin, String fullName) {
+       boolean t =service.verifyDriver(cin, fullName);
+        if (t) {
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+
 
     @Operation(summary = "Finds an optimized list of all drivers")
     @GetMapping("optimized")
@@ -45,7 +54,7 @@ public class DriverRestPassenger {
         ResponseEntity<List<DriverDto>> res = null;
         List<Driver> list = service.findAllOptimized();
         HttpStatus status = HttpStatus.NO_CONTENT;
-        List<DriverDto> dtos  = converter.toDto(list);
+        List<DriverDto> dtos = converter.toDto(list);
         if (dtos != null && !dtos.isEmpty())
             status = HttpStatus.OK;
         res = new ResponseEntity<>(dtos, status);
@@ -66,7 +75,7 @@ public class DriverRestPassenger {
     @Operation(summary = "Finds a driver by email")
     @GetMapping("email/{email}")
     public ResponseEntity<DriverDto> findByEmail(@PathVariable String email) {
-	    Driver t = service.findByReferenceEntity(new Driver(email));
+        Driver t = service.findByReferenceEntity(new Driver(email));
         if (t != null) {
             DriverDto dto = converter.toDto(t);
             return getDtoResponseEntity(dto);
@@ -77,16 +86,16 @@ public class DriverRestPassenger {
     @Operation(summary = "Saves the specified  driver")
     @PostMapping("")
     public ResponseEntity<DriverDto> save(@RequestBody DriverDto dto) throws Exception {
-        if(dto!=null){
+        if (dto != null) {
             Driver myT = converter.toItem(dto);
             Driver t = service.create(myT);
             if (t == null) {
                 return new ResponseEntity<>(null, HttpStatus.IM_USED);
-            }else{
+            } else {
                 DriverDto myDto = converter.toDto(t);
                 return new ResponseEntity<>(myDto, HttpStatus.CREATED);
             }
-        }else {
+        } else {
             return new ResponseEntity<>(dto, HttpStatus.NO_CONTENT);
         }
     }
@@ -94,12 +103,12 @@ public class DriverRestPassenger {
     @Operation(summary = "Updates the specified  driver")
     @PutMapping("")
     public ResponseEntity<DriverDto> update(@RequestBody DriverDto dto) throws Exception {
-        ResponseEntity<DriverDto> res ;
+        ResponseEntity<DriverDto> res;
         if (dto.getId() == null || service.findById(dto.getId()) == null)
             res = new ResponseEntity<>(HttpStatus.CONFLICT);
         else {
             Driver t = service.findById(dto.getId());
-            converter.copy(dto,t);
+            converter.copy(dto, t);
             Driver updated = service.update(t);
             DriverDto myDto = converter.toDto(updated);
             res = new ResponseEntity<>(myDto, HttpStatus.OK);
@@ -110,7 +119,7 @@ public class DriverRestPassenger {
     @Operation(summary = "Delete list of driver")
     @PostMapping("multiple")
     public ResponseEntity<List<DriverDto>> delete(@RequestBody List<DriverDto> dtos) throws Exception {
-        ResponseEntity<List<DriverDto>> res ;
+        ResponseEntity<List<DriverDto>> res;
         HttpStatus status = HttpStatus.CONFLICT;
         if (dtos != null && !dtos.isEmpty()) {
             List<Driver> ts = converter.toItem(dtos);
@@ -140,7 +149,7 @@ public class DriverRestPassenger {
     @Operation(summary = "Finds a driver and associated list by id")
     @GetMapping("detail/id/{id}")
     public ResponseEntity<DriverDto> findWithAssociatedLists(@PathVariable Long id) {
-        Driver loaded =  service.findWithAssociatedLists(id);
+        Driver loaded = service.findWithAssociatedLists(id);
         DriverDto dto = converter.toDto(loaded);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
@@ -151,7 +160,7 @@ public class DriverRestPassenger {
         ResponseEntity<List<DriverDto>> res = null;
         List<Driver> list = service.findByCriteria(criteria);
         HttpStatus status = HttpStatus.NO_CONTENT;
-        List<DriverDto> dtos  = converter.toDto(list);
+        List<DriverDto> dtos = converter.toDto(list);
         if (dtos != null && !dtos.isEmpty())
             status = HttpStatus.OK;
 
@@ -179,8 +188,8 @@ public class DriverRestPassenger {
         int count = service.getDataSize(criteria);
         return new ResponseEntity<Integer>(count, HttpStatus.OK);
     }
-	
-	public List<DriverDto> findDtos(List<Driver> list){
+
+    public List<DriverDto> findDtos(List<Driver> list) {
         List<DriverDto> dtos = converter.toDto(list);
         return dtos;
     }
@@ -190,23 +199,19 @@ public class DriverRestPassenger {
     }
 
 
-
     @Operation(summary = "Change password to the specified  utilisateur")
     @PutMapping("changePassword")
     public boolean changePassword(@RequestBody User dto) throws Exception {
-        return service.changePassword(dto.getUsername(),dto.getPassword());
+        return service.changePassword(dto.getUsername(), dto.getPassword());
     }
 
-   public DriverRestPassenger(DriverPassengerService service, DriverConverter converter){
+    public DriverRestPassenger(DriverPassengerService service, DriverConverter converter) {
         this.service = service;
         this.converter = converter;
     }
 
     private final DriverPassengerService service;
     private final DriverConverter converter;
-
-
-
 
 
 }

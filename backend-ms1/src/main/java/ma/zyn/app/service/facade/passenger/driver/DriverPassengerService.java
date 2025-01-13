@@ -11,6 +11,7 @@ public interface DriverPassengerService {
     Driver findByUsername(String username);
     boolean changePassword(String username, String newPassword);
 
+    boolean verifyDriver(String cin, String fullName);
 
 
 

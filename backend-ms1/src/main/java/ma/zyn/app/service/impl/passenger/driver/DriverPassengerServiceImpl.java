@@ -1,6 +1,14 @@
 package ma.zyn.app.service.impl.passenger.driver;
 
 
+import com.anthropic.client.AnthropicClient;
+import com.anthropic.client.okhttp.AnthropicOkHttpClient;
+import com.anthropic.models.MessageCreateParams;
+import com.anthropic.models.MessageParam;
+import com.anthropic.models.Model;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import ma.zyn.app.utils.exception.EntityNotFoundException;
 import ma.zyn.app.bean.core.driver.Driver;
 import ma.zyn.app.dao.criteria.core.driver.DriverCriteria;
@@ -10,7 +18,13 @@ import ma.zyn.app.service.facade.passenger.driver.DriverPassengerService;
 
 import static ma.zyn.app.utils.util.ListUtil.*;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.ArrayList;
 import org.springframework.data.domain.PageRequest;
@@ -33,6 +47,8 @@ import ma.zyn.app.utils.security.bean.Role;
 import ma.zyn.app.utils.security.bean.RoleUser;
 import ma.zyn.app.utils.security.common.AuthoritiesConstants;
 import ma.zyn.app.utils.security.service.facade.ModelPermissionUserService;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class DriverPassengerServiceImpl implements DriverPassengerService {
@@ -111,7 +127,127 @@ public class DriverPassengerServiceImpl implements DriverPassengerService {
     }
 
 
+    private static String geminiKey="AIzaSyC00otxmi8U-TrUtEU9ni_XP_6g64hFKYI";
+    private final String API_URL_TEMPLATE = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-8b-latest:generateContent?key=%s";
+    private final RestTemplate restTemplate = new RestTemplate();  // Use Spring's RestTemplate
 
+
+    // Method to verify a driver's name by extracting it from an image and comparing it to the provided full name
+    public boolean verifyDriver(String cinPhoto, String fullName) {
+        // Send the request to Gemini to extract the name from the driver's photo
+        String extractedName = extractTextFromPhoto(cinPhoto);
+
+        // If extraction failed or returned "Unknown", return false
+        if (extractedName.equals("Unknown")) {
+            System.out.println("Failed to extract name from the image.");
+            return false;
+        }
+
+        // Compare the extracted name with the provided full name
+        return compareNames(extractedName, fullName);
+    }
+
+    // Method to send the prompt and extract the text from the photo using Gemini API
+    private String extractTextFromPhoto(String cinPhoto) {
+        try {
+            String prompt = "Extract the name from this image: " + cinPhoto;
+
+            // Create the API request
+            String apiUrl = String.format(API_URL_TEMPLATE, geminiKey);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Content-Type", "application/json");
+
+            // Create JSON body
+            ObjectMapper objectMapper = new ObjectMapper();
+            ObjectNode contentNode = objectMapper.createObjectNode();
+            ObjectNode partsNode = objectMapper.createObjectNode();
+            partsNode.put("text", prompt);  // Include the prompt in the request
+            contentNode.set("parts", objectMapper.createArrayNode().add(partsNode));
+            ObjectNode requestBodyNode = objectMapper.createObjectNode();
+            requestBodyNode.set("contents", objectMapper.createArrayNode().add(contentNode));
+
+            // Convert the request body to JSON string
+            String requestBody = objectMapper.writeValueAsString(requestBodyNode);
+            System.out.println("Request Body: " + requestBody);
+
+            // Create HTTP entity with the request body and headers
+            HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
+
+            // Send the request and get the response
+            ResponseEntity<String> response = restTemplate.exchange(apiUrl, HttpMethod.POST, request, String.class);
+            System.out.println("Response: " + response.getBody());
+
+            // Parse the response to extract the name
+            return parseGeminiResponse(response.getBody());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Unknown";
+        }
+    }
+
+    // Parse the JSON response to extract the name (assumes the API returns a "completion" field with the name)
+    // Parse the JSON response to extract the name
+    private String parseGeminiResponse(String jsonResponse) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode rootNode = objectMapper.readTree(jsonResponse);
+
+            // Navigate to the candidates array
+            JsonNode candidatesNode = rootNode.path("candidates");
+
+            if (candidatesNode.isArray() && candidatesNode.size() > 0) {
+                // Extract the text from the first candidate's "content" -> "parts" -> "text"
+                JsonNode textNode = candidatesNode.get(0).path("content").path("parts").get(0).path("text");
+
+                if (!textNode.isMissingNode()) {
+                    String extractedText = textNode.asText().trim();
+                    return extractedText.split("\n")[0].trim(); // Get the first line (name)
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "Unknown";
+    }
+
+
+    // Compare the extracted name with the full name (using Levenshtein distance or simple comparison)
+    private boolean compareNames(String extractedName, String fullName) {
+        extractedName = extractedName.replaceAll("[^a-zA-Z]", "").toLowerCase();
+        fullName = fullName.replaceAll("[^a-zA-Z]", "").toLowerCase();
+
+        // Levenshtein distance logic
+        int n = extractedName.length();
+        int m = fullName.length();
+        int[][] dp = new int[n + 1][m + 1];
+
+        for (int i = 0; i <= n; i++) {
+            dp[i][0] = i;
+        }
+        for (int j = 0; j <= m; j++) {
+            dp[0][j] = j;
+        }
+
+        for (int i = 1; i <= n; i++) {
+            char c1 = extractedName.charAt(i - 1);
+            for (int j = 1; j <= m; j++) {
+                char c2 = fullName.charAt(j - 1);
+                if (c1 == c2) {
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else {
+                    int replace = dp[i - 1][j - 1] + 1;
+                    int insert = dp[i][j - 1] + 1;
+                    int delete = dp[i - 1][j] + 1;
+                    dp[i][j] = Math.min(replace, Math.min(insert, delete));
+                }
+            }
+        }
+
+        // Return true if the Levenshtein distance is less than a threshold (e.g., 3)
+        return dp[n][m] < 3;
+    }
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, readOnly = false)
     public List<Driver> delete(List<Driver> list) {
