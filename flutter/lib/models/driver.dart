@@ -9,6 +9,7 @@ class Driver {
   final bool accountNonExpired;
   final bool accountNonLocked;
   final bool passwordChanged;
+  final bool verified;
 
   Driver({
     required this.id,
@@ -21,6 +22,7 @@ class Driver {
     required this.accountNonExpired,
     required this.accountNonLocked,
     required this.passwordChanged,
+    required this.verified,
   });
 
   Driver.empty()
@@ -33,7 +35,9 @@ class Driver {
         credentialsNonExpired = true,
         accountNonExpired = true,
         accountNonLocked = true,
-        passwordChanged = false;
+        passwordChanged = false,
+        verified = false;
+      
 
   factory Driver.fromJson(Map<String, dynamic> json) {
     return Driver(
@@ -47,6 +51,7 @@ class Driver {
       accountNonExpired: json['accountNonExpired'] ?? true,
       accountNonLocked: json['accountNonLocked'] ?? true,
       passwordChanged: json['passwordChanged'] ?? false,
+      verified: json['verified'] ?? false,
     );
   }
 
@@ -62,6 +67,7 @@ class Driver {
       'accountNonExpired': accountNonExpired,
       'accountNonLocked': accountNonLocked,
       'passwordChanged': passwordChanged,
+      'verified': verified,
     };
   }
 }

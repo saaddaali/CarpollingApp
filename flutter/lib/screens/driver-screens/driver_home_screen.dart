@@ -1,6 +1,8 @@
 // driver_screen.dart
 import 'package:flutter/material.dart';
+import 'package:mycarpooling2/models/driver.dart';
 import 'package:mycarpooling2/models/trajet.dart';
+import 'package:mycarpooling2/screens/driver-screens/driver_verification_screen.dart';
 import 'package:mycarpooling2/services/passenger_manager.dart';
 import 'package:mycarpooling2/services/trajet_service.dart';
 import '../chat_screen.dart';
@@ -25,6 +27,7 @@ class _DriverScreenState extends State<DriverScreen> {
   List<Trajet> _pastTrips = [];
   bool _isLoading = true;
   String username = 'User';
+  Driver? driver;
 
 
 
@@ -59,6 +62,8 @@ class _DriverScreenState extends State<DriverScreen> {
 
   Future<void> _loadUsername() async {
     final passenger = await PassengerManager.getPassenger();
+    driver = await PassengerManager.getDriver();
+
     if (passenger != null) {
       setState(() {
         username = passenger.username;
@@ -189,12 +194,20 @@ class _DriverScreenState extends State<DriverScreen> {
                       margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
                       child: ElevatedButton(
                         onPressed: () {
+                          if (driver?.verified == true) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => const CreateTripScreen(),
                             ),
                           );
+                          }else
+                           Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const DriverVerificationScreen(),
+                              ),
+                            );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: primaryBlue,
