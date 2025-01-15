@@ -62,6 +62,10 @@ public class DriverRestPassenger {
             @RequestParam("fullName") String fullName) {
         boolean isVerified = service.verifyDriver(cinImage, fullName);
         if (isVerified) {
+            String usenrname = getCurrentUser().getUsername();
+            Driver t = service.findByUsername(usenrname);
+            t.setVerified(true);
+            service.update(t);
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();

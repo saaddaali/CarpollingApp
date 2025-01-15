@@ -44,6 +44,8 @@ export class DriverEditPassengerComponent implements OnInit {
     selectedFile: File | null = null;
     uploadedFiles: any[] = [];
 
+    fullName: string;
+
 
     constructor(private service: DriverPassengerService, private fb: FormBuilder,@Inject(PLATFORM_ID) private platformId? ) {
         this.datePipe = ServiceLocator.injector.get(DatePipe);
@@ -81,7 +83,7 @@ export class DriverEditPassengerComponent implements OnInit {
         if (this.selectedFile) {
             const formData = new FormData();
             formData.append('cinImage', this.selectedFile);
-            formData.append('fullName', 'Saad Daali');
+            formData.append('fullName', 'Zainab ALALAMI');
 
             this.service.verifyDriver(formData).subscribe({
                 next: (response: any) => {
@@ -107,6 +109,7 @@ export class DriverEditPassengerComponent implements OnInit {
                     // Optional: Clean up or reset form
                     this.selectedFile = null;
                     this.verificationForm.reset();
+                    this.router.navigate(['/app/passenger/trajet/trajets']);
                 }
             });
         } else {
