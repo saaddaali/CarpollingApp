@@ -18,6 +18,7 @@ import {AuthGuard} from 'src/app/zynerator/security/guards/auth.guard';
 
 
 import { DriverListPassengerComponent } from './driver/list/driver-list-passenger.component';
+import {DriverEditPassengerComponent} from "./driver/edit/driver-edit-passenger.component";
 @NgModule({
     imports: [
         RouterModule.forChild(
@@ -91,6 +92,11 @@ import { DriverListPassengerComponent } from './driver/list/driver-list-passenge
                                 {
                                     path: 'list',
                                     component: DriverListPassengerComponent ,
+                                    canActivate: [AuthGuard]
+                                },
+                                {
+                                    path: 'verify',
+                                    component: DriverEditPassengerComponent ,
                                     canActivate: [AuthGuard]
                                 }
                             ]

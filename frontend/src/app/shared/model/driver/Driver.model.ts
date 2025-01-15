@@ -28,6 +28,10 @@ export class DriverDto extends BaseDto{
 
     public email: string;
 
+    public cin: string;
+
+    public verified: boolean;
+
 
 
     constructor() {
@@ -45,6 +49,8 @@ export class DriverDto extends BaseDto{
         this.credentialsNonExpired = null;
         this.enabled = null;
         this.email = '';
+        this.cin = '';
+        this.verified = false;
 
         }
 

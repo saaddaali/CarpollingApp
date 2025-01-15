@@ -61,6 +61,14 @@ export class DriverPassengerService {
         return this.http.post<PaginatedList<DriverDto>>(this.API + 'find-paginated-by-criteria', criteria);
     }
 
+    public findCurrentDriver(): Observable<DriverDto> {
+        return this.http.get<DriverDto>(this.API + 'current');
+    }
+
+    public verifyDriver(formData: FormData): Observable<any> {
+        return this.http.post<any>(this.API + 'verify', formData);
+    }
+
     public save(): Observable<DriverDto> {
         return this.http.post<DriverDto>(this.API, this.item);
     }

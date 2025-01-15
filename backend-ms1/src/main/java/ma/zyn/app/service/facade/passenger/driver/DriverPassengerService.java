@@ -3,6 +3,7 @@ package ma.zyn.app.service.facade.passenger.driver;
 import java.util.List;
 import ma.zyn.app.bean.core.driver.Driver;
 import ma.zyn.app.dao.criteria.core.driver.DriverCriteria;
+import org.springframework.web.multipart.MultipartFile;
 
 
 public interface DriverPassengerService {
@@ -11,7 +12,7 @@ public interface DriverPassengerService {
     Driver findByUsername(String username);
     boolean changePassword(String username, String newPassword);
 
-    boolean verifyDriver(String cin, String fullName);
+    boolean verifyDriver(MultipartFile cin, String fullName);
 
 
 

@@ -39,6 +39,8 @@ export class TrajetsPassengerComponent implements OnInit {
     protected stringUtilService: StringUtilService;
     private _activeTab = 0;
 
+    private driverCurrent: DriverDto;
+
 
 
     constructor(private service: TrajetPassengerService, private driverService: DriverPassengerService, private villeService: VillePassengerService, @Inject(PLATFORM_ID) private platformId?) {
@@ -82,7 +84,35 @@ export class TrajetsPassengerComponent implements OnInit {
 
 
     createTrajet() {
-        this.router.navigate(['/app/passenger/trajet/create']);
+            this.driverService.findCurrentDriver().subscribe(
+                (driver) => {
+                    if (driver != null) {
+                        this.driverCurrent = driver;
+                        console.log('Conducteur actuel:', driver);
+                        if(this.driverCurrent.verified){
+                            this.router.navigate(['/app/passenger/trajet/create']);
+                        } else if(!this.driverCurrent.verified) {
+                            console.log(this.driverCurrent.verified);
+                            this.router.navigate(['/driver/verify']);
+                        }
+                    } else {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Erreur',
+                            detail: 'Impossible de créer un trajet sans conducteur'
+                        });
+                    }
+                },
+                (error) => {
+                    console.error('Erreur lors de la récupération du conducteur actuel:', error);
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Erreur',
+                        detail: 'Impossible de récupérer le conducteur actuel'
+                    });
+                }
+            );
+
     }
     private categorizeTrips(): void {
         const now = new Date();

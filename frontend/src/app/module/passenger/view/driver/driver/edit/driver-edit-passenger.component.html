@@ -1,149 +1,57 @@
-    <p-dialog [(visible)]="editDialog" [style]="{width: '70vw'}" header="{{'driver.tabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
-        <ng-template pTemplate="content" >
-                <p-tabView>
-                    <p-tabPanel header="{{'driver.tabPan' | translate}}">
-                        <div class="grid">
+<div class="verification-container">
 
-                                        <div class="field col-12 md:col-6">
-                                            <label for="1">{{'driver.photo' | translate}}</label>
-                                            <input class="mb-2 mr-2" type="text" pInputText  placeholder="{{'driver.photo' | translate}}" id="1" [(ngModel)]="item.photo"
-                                                    />
-                                            
-                                        </div>
+    <div class="header" style="margin-bottom: 80px;">
+        <passenger-topbar></passenger-topbar>
+    </div>
+    <div class="header">
 
+        <button class="back-button" href="javascript:history.back()">
+                <i class="pi pi-arrow-left"></i>
+                <span>Retour</span>
+            </button>
+    </div>
 
+    <div class="content">
 
-                                        <div class="field col-12 md:col-6">
-                                            <label for="2">{{'driver.adresse' | translate}}</label>
-                                            <textarea id="2" pInputTextarea rows="5" cols="30" placeholder="{{'driver.adresse' | translate}}"  [(ngModel)]="item.adresse"
-                                                       ></textarea>
-                                            
-                                        </div>
+        <h2>Il semble que votre profil n'est pas encore vérifié</h2>
+        <p>Pour des raisons de sécurité, tout conducteur doit avoir un profil vérifié avant de publier une offre. Merci de nous soumettre une photo d'une des pièces d'identité suivantes pour une vérification rapide.</p>
 
-                                        <div class="field col-12 md:col-6">
-                                            <label for="3">{{'driver.dateInscription' | translate}}</label>
-                                            <p-calendar appendTo="body" id="3"  [showTime]="true" [showSeconds]="false" placeholder="{{'driver.dateInscription' | translate}}"  [(ngModel)]="item.dateInscription"
-                                                        dateFormat="{{dateFormat}}"  >
-                                            </p-calendar>
-                                            
-                                        </div>
+        <form (ngSubmit)="verifyDocument()">
+            <!-- File Upload -->
+            <p-fileUpload
+                #fileUpload
+                name="cinImage"
+                (onSelect)="onSelect($event)"
+                [multiple]="false"
+                accept="image/*"
+                maxFileSize="10000000"
+                [auto]="false"
+                [showUploadButton]="false"
+                [showCancelButton]="false"
+                [style]="{'width':'100%'}"
+                styleClass="mb-4">
+                <ng-template pTemplate="content">
+                    <ul *ngIf="uploadedFiles.length">
+                        <li *ngFor="let file of uploadedFiles">
+                            {{ file.name }} - {{ file.size }} bytes
+                        </li>
+                    </ul>
+                </ng-template>
+            </p-fileUpload>
 
-                                        <div class="field col-12 md:col-6">
-                                            <label for="4">{{'driver.evaluation' | translate}}</label>
-                                            <p-inputNumber class="mb-2 mr-2" id="4" placeholder="{{'driver.evaluation' | translate}}" [(ngModel)]="item.evaluation"  >
-                                            </p-inputNumber>
-                                            
-                                        </div>
+            <!-- Submit Button -->
+            <button
+                pButton
+                type="submit"
+                label="Verify Document"
+                [disabled]="!selectedFile"
+                class="w-full"
+                >
+            </button>
+        </form>
 
-                                        <div class="field col-12 md:col-6">
-                                            <label for="5">{{'driver.password' | translate}}</label>
-                                            <input class="mb-2 mr-2" type="text" pInputText  placeholder="{{'driver.password' | translate}}" id="5" [(ngModel)]="item.password"
-                                                    />
-                                            
-                                        </div>
-
-
-
-                                        <div class="field align-inputswitch col-12  md:col-6">
-                                            <div  class="label-inputswitch">
-                                                <label for="6">{{'driver.accountNonLocked' | translate}}</label>
-                                            </div>
-                                            <div class="input-switch">
-                                                <p-inputSwitch id="6"  [(ngModel)]="item.accountNonLocked"
-                                                                >
-                                                </p-inputSwitch>
-                                                
-                                            </div>
-                                        </div>
+    </div>
+</div>
 
 
-                                        <div class="field align-inputswitch col-12  md:col-6">
-                                            <div  class="label-inputswitch">
-                                                <label for="7">{{'driver.passwordChanged' | translate}}</label>
-                                            </div>
-                                            <div class="input-switch">
-                                                <p-inputSwitch id="7"  [(ngModel)]="item.passwordChanged"
-                                                                >
-                                                </p-inputSwitch>
-                                                
-                                            </div>
-                                        </div>
-
-
-                                        <div class="field col-12 md:col-6">
-                                            <label for="8">{{'driver.username' | translate}}</label>
-                                            <input class="mb-2 mr-2" type="text" pInputText  placeholder="{{'driver.username' | translate}}" id="8" [(ngModel)]="item.username"
-                                                    />
-                                            
-                                        </div>
-
-
-
-                                        <div class="field align-inputswitch col-12  md:col-6">
-                                            <div  class="label-inputswitch">
-                                                <label for="9">{{'driver.accountNonExpired' | translate}}</label>
-                                            </div>
-                                            <div class="input-switch">
-                                                <p-inputSwitch id="9"  [(ngModel)]="item.accountNonExpired"
-                                                                >
-                                                </p-inputSwitch>
-                                                
-                                            </div>
-                                        </div>
-
-
-                                        <div class="field align-inputswitch col-12  md:col-6">
-                                            <div  class="label-inputswitch">
-                                                <label for="10">{{'driver.credentialsNonExpired' | translate}}</label>
-                                            </div>
-                                            <div class="input-switch">
-                                                <p-inputSwitch id="10"  [(ngModel)]="item.credentialsNonExpired"
-                                                                >
-                                                </p-inputSwitch>
-                                                
-                                            </div>
-                                        </div>
-
-
-                                        <div class="field align-inputswitch col-12  md:col-6">
-                                            <div  class="label-inputswitch">
-                                                <label for="11">{{'driver.enabled' | translate}}</label>
-                                            </div>
-                                            <div class="input-switch">
-                                                <p-inputSwitch id="11"  [(ngModel)]="item.enabled"
-                                                                >
-                                                </p-inputSwitch>
-                                                
-                                            </div>
-                                        </div>
-
-
-                                        <div class="field col-12 md:col-6">
-                                            <label for="12">{{'driver.email' | translate}}</label>
-                                            <input class="mb-2 mr-2" type="text" pInputText  placeholder="{{'driver.email' | translate}}" id="12" [(ngModel)]="item.email"
-                                                    />
-                                            
-                                        </div>
-
-
-
-                        </div>
-                    </p-tabPanel>
-
-                </p-tabView>
-
-        </ng-template>
-
-        <ng-template pTemplate="footer" >
-            <div class="p-flexbox">
-
-                    <button pButton pRipple  label="{{'validate' | translate}}"  icon="pi pi-check"  (click)="edit()"></button>
-
-
-                        <button pButton pRipple  label="{{'cancel' | translate}}" icon="pi pi-times" class="p-button-outlined" (click)="hideEditDialog()"></button>
-
-
-            </div>
-        </ng-template>
-
-    </p-dialog>
+<p-toast position="top-right"></p-toast>

@@ -13,11 +13,16 @@ import ma.zyn.app.utils.util.PaginatedList;
 
 
 import ma.zyn.app.utils.security.bean.User;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
+import java.io.IOException;
 import java.util.List;
+
+import static ma.zyn.app.utils.security.common.SecurityUtil.getCurrentUser;
 
 @RestController
 @RequestMapping("/api/passenger/driver/")
@@ -37,14 +42,29 @@ public class DriverRestPassenger {
         return res;
     }
 
-    @Operation(summary = "Verify the Driver driver")
-    @PostMapping("verify")
-    public ResponseEntity<DriverDto> verify(String cin, String fullName) {
-       boolean t =service.verifyDriver(cin, fullName);
-        if (t) {
-            return new ResponseEntity<>(null, HttpStatus.OK);
+    @Operation(summary = "Finds current driver")
+    @GetMapping("current")
+    public ResponseEntity<DriverDto> findCurrent() {
+        Driver t = service.findByReferenceEntity(new Driver(getCurrentUser().getUsername()));
+        if (t != null) {
+            DriverDto dto = converter.toDto(t);
+            return getDtoResponseEntity(dto);
         }
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+
+
+
+    @Operation(summary = "Verify the Driver")
+    @PostMapping(value = "/verify", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<DriverDto> verify(
+            @RequestParam("cinImage") MultipartFile cinImage,
+            @RequestParam("fullName") String fullName) {
+        boolean isVerified = service.verifyDriver(cinImage, fullName);
+        if (isVerified) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
 
